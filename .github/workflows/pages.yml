@@ -1,0 +1,56 @@
+name: 發佈前端到 GitHub Pages
+
+# 以「附加」方式更新 gh-pages（只覆蓋 index.html），保留 transcripts/ 等其他檔案。
+# 第一次執行時若沒有 gh-pages 分支，會自動建立（也會自動啟用 GitHub Pages）。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - index.html
+      - manifest.webmanifest
+      - sw.js
+      - 'assets/**'
+      - .github/workflows/pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh-pages-write
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          path: src
+      - name: 更新前端到 gh-pages（沒有就建立）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          git clone --branch gh-pages "$URL" site 2>/dev/null || {
+            mkdir site && cd site && git init -q -b gh-pages &&
+            git remote add origin "$URL" && cd ..; }
+          # 前端不只 index.html：PWA 還需要 manifest、service worker 與圖示，
+          # 少搬任何一個，加到主畫面就會裝不起來或抓不到圖示。
+          mkdir -p site/assets
+          cp src/index.html src/manifest.webmanifest src/sw.js site/
+          cp src/assets/*.png site/assets/
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Update frontend" || { echo "no change"; exit 0; }
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:gh-pages && exit 0
+            echo "push race, retry $k"; sleep 3
+            git fetch origin gh-pages && git merge -X ours origin/gh-pages -m "merge gh-pages" || true
+          done
+          exit 1

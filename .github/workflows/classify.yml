@@ -1,0 +1,60 @@
+name: 補分類（既有逐字稿）
+
+# 新的逐字稿在轉錄時就分好類了；這個是用來替先前產出的那些補上分類與短標題。
+# 內容已經在 gh-pages 上，不用重新轉錄，只要讀文字送去分類。手動觸發即可。
+
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: '這次最多處理幾篇（0 = 全部）'
+        required: false
+        default: '0'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh-pages-write
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 取回已發佈的逐字稿
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone --depth 1 --branch gh-pages \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site
+      - name: 分類
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_LLM_MODEL: ${{ vars.GROQ_LLM_MODEL || 'llama-3.1-8b-instant' }}
+          DECK_CATEGORIES: ${{ vars.DECK_CATEGORIES }}
+          BACKFILL_LIMIT: ${{ inputs.limit }}
+        run: python scripts/backfill_classify.py
+      - name: 重建索引並發佈
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          python scripts/build_index.py site/transcripts
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Backfill categories [skip ci]" || { echo "no change"; exit 0; }
+          for k in 1 2 3; do
+            git push origin HEAD:gh-pages && exit 0
+            git fetch origin gh-pages && git merge -X ours origin/gh-pages -m merge || true
+          done
+          exit 1
