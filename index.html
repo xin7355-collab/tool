@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="zh-Hant-TW">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<!-- 手機瀏覽器（尤其 iOS Safari）很愛留著舊頁面，改版後指令就對不上了 -->
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<title>逐字稿抽取台</title>
+
+<!-- PWA：加到主畫面後像 App 一樣全螢幕開啟 -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#10171A">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="逐字稿">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<style>
+  :root{
+    --bg:#10171A; --card:#1A2428; --line:#2E4046;
+    --ink:#EDF3F2; --dim:#93A9AE; --amber:#F5B833; --teal:#35B39F; --bad:#E8836A;
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+  }
+  *{box-sizing:border-box}
+  /* 取消左右滑動的橡皮筋回彈；順便鎖住橫向捲動，免得長指令把版面撐寬 */
+  html,body{margin:0;padding:0;overscroll-behavior-x:none;overflow-x:hidden;max-width:100%}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:-apple-system,"PingFang TC","Noto Sans TC",system-ui,sans-serif;
+    font-size:17px;line-height:1.7;-webkit-text-size-adjust:100%;
+  }
+  input,button,textarea,select{font:inherit;color:inherit}
+  a{color:var(--amber)}
+
+  /* 全螢幕開啟時沒有網址列，標題會頂到瀏海／狀態列，用安全區墊開 */
+  header{padding:calc(18px + env(safe-area-inset-top)) 18px 0;border-bottom:1px solid var(--line)}
+  .wrap{padding-bottom:calc(90px + env(safe-area-inset-bottom))}
+  header .top{display:flex;align-items:baseline;gap:10px}
+  header h1{margin:0;font-size:26px;font-weight:700;letter-spacing:.02em;flex:1;min-width:0}
+  header #ver{margin:0;font-size:12.5px;color:var(--dim);flex:0 0 auto}
+
+  /* 分頁：一次只顯示一區，版面不會拉得又臭又長 */
+  .tabs{display:flex;gap:0;margin-top:14px}
+  .tabs button{
+    flex:1;background:none;border:0;border-bottom:3px solid transparent;
+    padding:12px 4px 11px;font-size:15.5px;color:var(--dim);cursor:pointer
+  }
+  .tabs button.on{color:var(--amber);border-bottom-color:var(--amber);font-weight:700}
+  .tabs button .dot{
+    display:inline-block;width:8px;height:8px;border-radius:50%;
+    background:var(--amber);margin-left:5px;vertical-align:middle
+  }
+  section[data-pane]{display:none}
+  section[data-pane].on{display:block}
+
+  .wrap{max-width:720px;margin:0 auto;padding:18px 16px 90px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:18px;margin-bottom:18px}
+  .step{display:flex;align-items:center;margin:0 0 12px}
+  .step span{font-size:19px;font-weight:600}
+  .hint{font-size:14.5px;color:var(--dim);margin:10px 0 0}
+  .hint b{color:var(--ink)}
+
+  .in{
+    width:100%;background:#0E1518;border:1px solid var(--line);border-radius:9px;
+    padding:14px;font-size:17px;color:inherit
+  }
+  .btn{
+    width:100%;background:#26363B;border:1px solid var(--line);border-radius:9px;
+    padding:15px;font-size:17px;cursor:pointer;margin-top:10px;font-weight:500
+  }
+  .btn:active{opacity:.7}
+  .btn:disabled{opacity:.4}
+  .btn--go{background:var(--amber);color:#10171A;border-color:var(--amber);font-weight:700;font-size:19px;padding:18px}
+  .btn--sm{padding:11px;font-size:15px;width:auto;flex:1}
+  .row{display:flex;gap:10px}
+
+  .cmd{
+    font-family:var(--mono);font-size:13px;line-height:1.6;background:#0B1114;
+    border:1px solid var(--line);border-radius:9px;padding:14px;margin-top:12px;
+    word-break:break-all;color:var(--dim)
+  }
+  .target{font-size:15.5px;padding:12px 14px;background:#0E1518;border:1px solid var(--line);border-radius:9px;margin-top:12px}
+  .target b{color:var(--amber)}
+
+  .vid{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:9px;margin-top:10px;background:#0E1518}
+  /* 先把 16:9 的位子佔好，縮圖在 4G 上慢慢載入時版面才不會一直往下推 */
+  .vid img{width:110px;aspect-ratio:16/9;object-fit:cover;background:#182226;
+    border-radius:6px;flex:0 0 auto}
+  .vid p{margin:0;font-size:15px;line-height:1.5}
+  .vid button{background:var(--amber);color:#10171A;border:0;border-radius:8px;width:42px;height:42px;font-size:22px;font-weight:700;flex:0 0 auto;cursor:pointer}
+  .vid input[type=checkbox]{width:26px;height:26px;flex:0 0 auto;accent-color:var(--amber)}
+  .vid.on{border-color:var(--amber)}
+
+  /* 已抓過的標記：一眼看出哪些不用再抓 */
+  .tag{display:inline-block;font-size:12.5px;line-height:1.5;padding:1px 8px;border-radius:20px;
+    margin-top:5px;border:1px solid currentColor}
+  .tag--done{color:var(--teal)}
+  .tag--sent{color:var(--amber)}
+
+  /* 搜尋紀錄 */
+  .hist{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .hist button{background:#0E1518;border:1px solid var(--line);color:var(--dim);
+    border-radius:20px;padding:7px 13px;font-size:14.5px;cursor:pointer;max-width:100%;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .hist button:active{border-color:var(--amber);color:var(--ink)}
+  .hist .x{color:var(--dim);border-style:dashed}
+
+  /* 已選清單 */
+  .picks{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .picks span{display:inline-flex;align-items:center;gap:8px;background:#0E1518;
+    border:1px solid var(--amber);border-radius:20px;padding:6px 8px 6px 13px;font-size:14.5px;
+    max-width:100%}
+  .picks span i{font-style:normal;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:190px}
+  .picks span b{background:#26363B;border-radius:50%;width:24px;height:24px;flex:0 0 auto;
+    display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;color:var(--dim)}
+
+  .tx{list-style:none;margin:14px 0 0;padding:0}
+  .tx li{border:1px solid var(--line);border-radius:10px;padding:14px;margin-bottom:10px;background:#0E1518}
+  .tx h3{margin:0 0 8px;font-size:17px;font-weight:600;line-height:1.5;cursor:pointer;
+    word-break:break-word;overflow-wrap:anywhere;min-width:0}
+  .tx li{overflow:hidden}
+  .vid p{word-break:break-word;overflow-wrap:anywhere;min-width:0}
+  .tx .dl{display:flex;gap:8px;flex-wrap:wrap}
+  .tx .dl a{text-decoration:none;font-size:14px;color:var(--dim);background:#182226;
+    border:1px solid var(--line);border-radius:7px;padding:6px 12px;line-height:1.4}
+  .tx .dl a:active{border-color:var(--amber);color:var(--amber)}
+
+  /* 分段選擇器：手機上比原生下拉好按，也不會出現系統醜箭頭 */
+  .seg{display:flex;margin-top:8px;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+  .seg button{flex:1;background:#0E1518;border:0;border-left:1px solid var(--line);
+    padding:13px 4px;font-size:15.5px;color:var(--dim);cursor:pointer}
+  .seg button:first-child{border-left:0}
+  .seg button.on{background:var(--amber);color:#10171A;font-weight:700}
+  .lbl{font-size:14.5px;color:var(--dim);margin:16px 0 0}
+  .sep{border:0;border-top:1px solid var(--line);margin:18px 0 0}
+
+  /* 轉錄進度：每個檔案一條讀取條 */
+  .prog{border:1px solid var(--line);border-radius:10px;padding:14px;background:#0E1518;margin-top:14px}
+  .prog>h4{margin:0 0 4px;font-size:16px;font-weight:600}
+  .prog .pf{margin-top:13px}
+  .prog .pt{display:flex;gap:10px;align-items:baseline}
+  .prog .pt i{font-style:normal;flex:1;font-size:14.5px;min-width:0;
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .prog .pt s{text-decoration:none;flex:0 0 auto;font-size:13px;color:var(--dim)}
+  .bar{height:9px;border-radius:6px;background:#050A0C;border:1px solid var(--line);
+    overflow:hidden;margin-top:6px}
+  .bar>span{display:block;height:100%;width:0;background:var(--amber);
+    transition:width .5s ease;border-radius:6px}
+  .bar.done>span{background:var(--teal)}
+  .bar.fail>span{background:var(--bad)}
+  .bar.wait>span{background:var(--line)}
+  /* 轉錄中的條紋會動，一眼看得出程式還在跑而不是卡住 */
+  .bar.run>span{background-image:linear-gradient(115deg,rgba(255,255,255,.28) 25%,
+    transparent 25%,transparent 50%,rgba(255,255,255,.28) 50%,rgba(255,255,255,.28) 75%,
+    transparent 75%);background-size:22px 22px;animation:flow 1s linear infinite}
+  @keyframes flow{from{background-position:0 0}to{background-position:22px 0}}
+  @media (prefers-reduced-motion:reduce){.bar.run>span{animation:none}}
+  .snip{font-size:14px;color:var(--dim);margin-top:6px}
+  mark{background:rgba(245,184,51,.35);color:inherit}
+
+  .paper{
+    background:#F4F1E8;color:#221E17;border-radius:10px;margin-top:14px;padding:18px;
+    font-size:16px;line-height:1.9;max-height:65vh;overflow:auto;white-space:pre-wrap
+  }
+  .paper .ph{
+    font-family:var(--mono);font-size:13px;color:#6E6151;border-bottom:1px solid #D8D0BE;
+    padding-bottom:10px;margin-bottom:12px;white-space:normal
+  }
+  .paper .ph a{color:#A85C24}
+
+  details{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:0 18px}
+  details summary{cursor:pointer;padding:16px 0;font-size:16px;color:var(--dim)}
+  details[open] summary{border-bottom:1px solid var(--line);margin-bottom:14px}
+  details .pad{padding-bottom:18px}
+  label{display:block;font-size:15px;margin:14px 0 6px;color:var(--dim)}
+
+  /* 錄音中的狀態列 */
+  .rec{display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;
+    background:#0E1518;border:1px solid var(--line);border-radius:9px}
+  .rec b{font-family:var(--mono);font-size:20px;font-weight:700}
+  .dotr{width:12px;height:12px;border-radius:50%;background:var(--bad);flex:0 0 auto;
+    animation:blink 1.1s ease-in-out infinite}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  @media (prefers-reduced-motion:reduce){.dotr{animation:none}}
+
+  .msg{font-size:15px;margin-top:10px}
+  .msg.ok{color:var(--teal)} .msg.bad{color:var(--bad)}
+  .toast{
+    position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:90;
+    background:#26363B;border:1px solid var(--amber);border-radius:10px;
+    padding:13px 20px;font-size:15.5px;max-width:90vw;text-align:center;
+    opacity:0;pointer-events:none;transition:opacity .2s
+  }
+  .toast[data-on="1"]{opacity:1}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="top">
+    <h1>逐字稿抽取台</h1>
+    <p id="ver"></p>
+  </div>
+  <nav class="tabs">
+    <button type="button" data-pane="get" class="on">🎬 抓影片</button>
+    <button type="button" data-pane="up">🎙 上傳音檔</button>
+    <button type="button" data-pane="web">📰 文章</button>
+    <button type="button" data-pane="tx">📄 下載</button>
+    <button type="button" data-pane="cfg">⚙ 設定</button>
+  </nav>
+</header>
+
+<div class="wrap">
+
+<section data-pane="get" class="on">
+  <!-- ① 選影片 -->
+  <div class="card">
+    <div class="step"><span>要哪支影片？</span></div>
+    <input class="in" id="box" placeholder="貼 YouTube 網址，或打關鍵字搜尋">
+    <button class="btn" id="goBtn">搜尋</button>
+    <div class="hist" id="hist"></div>
+    <div class="row" style="margin-top:10px;align-items:center">
+      <select class="in" id="perPage" style="flex:0 0 auto;width:auto;padding:11px">
+        <option value="10">每頁 10 則</option>
+        <option value="20">每頁 20 則</option>
+        <option value="30">每頁 30 則</option>
+      </select>
+      <label style="margin:0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink);flex:1">
+        <input type="checkbox" id="showThumb" checked style="width:22px;height:22px">顯示縮圖
+      </label>
+    </div>
+    <div class="row" id="bulk" hidden style="margin-top:10px;align-items:center">
+      <label style="margin:0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink);flex:1">
+        <input type="checkbox" id="selPage" style="width:22px;height:22px">勾選本頁全部
+      </label>
+      <button class="btn btn--sm" id="clrPick" style="margin-top:0;flex:0 0 auto">清除已選</button>
+    </div>
+    <!-- 上面也放一組翻頁，翻頁時不必每次滑到最底 -->
+    <div class="row pgr" hidden style="margin-top:10px;align-items:center">
+      <button class="btn btn--sm pgPrev" style="margin-top:0">← 上一頁</button>
+      <span class="pgNum" style="flex:0 0 auto;font-size:15px;color:var(--dim);text-align:center;min-width:70px"></span>
+      <button class="btn btn--sm pgNext" style="margin-top:0">下一頁 →</button>
+    </div>
+    <div id="results"></div>
+    <div class="row pgr" hidden style="margin-top:10px;align-items:center">
+      <button class="btn btn--sm pgPrev" style="margin-top:0">← 上一頁</button>
+      <span class="pgNum" style="flex:0 0 auto;font-size:15px;color:var(--dim);text-align:center;min-width:70px"></span>
+      <button class="btn btn--sm pgNext" style="margin-top:0">下一頁 →</button>
+    </div>
+    <div class="target" id="target"></div>
+    <div class="picks" id="picks"></div>
+  </div>
+
+  <!-- ② 一鍵指令 -->
+  <div class="card">
+    <div class="step"><span>複製指令去下載</span></div>
+    <div class="cmd" id="cmd"></div>
+    <button class="btn btn--go" id="runBtn">🚀 一鍵下載（開 a-Shell 直接執行）</button>
+    <button class="btn" id="copyBtn">📋 只複製指令</button>
+    <p class="hint" id="batchHint" hidden></p>
+    <p class="hint"><b>一鍵下載</b>：會直接跳到 a-Shell 並自動執行，不用貼上。勾幾支就一次抓幾支。<br>
+      若沒反應（App 未安裝或系統擋跳轉），改按「只複製指令」→ 開 a-Shell → 長按貼上 → Enter。</p>
+    <p class="hint">指令前面那一長串是<b>自動抓最新版程式</b>用的 —— 有這段，手機上就永遠不用手動更新。</p>
+  </div>
+</section>
+
+<section data-pane="up">
+  <div class="card">
+    <div class="step"><span>錄音</span></div>
+    <button class="btn btn--go" id="recBtn">🔴 開始錄音</button>
+    <button class="btn" id="pauseBtn" hidden>⏸ 暫停</button>
+    <div class="rec" id="recBox" hidden>
+      <span class="dotr" id="recDot"></span>
+      <b id="recTime">00:00</b>
+      <span id="recSize" style="color:var(--dim);font-size:14px"></span>
+    </div>
+    <p class="msg" id="recMsg"></p>
+    <label style="margin:14px 0 0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink)">
+      <input type="checkbox" id="liveCap" style="width:22px;height:22px">錄音時顯示即時字幕
+    </label>
+    <p class="hint" id="liveNote">每 <b>15 秒</b>出現一段，用的是跟正式逐字稿同一個引擎（Whisper）。<br>
+      需要先到「⚙ 設定」填 <b>Groq API Key</b>；錄音本身不需要，沒填也照錄。</p>
+    <div class="paper" id="liveTx" hidden style="max-height:32vh"></div>
+    <p class="hint">錄音期間請讓畫面留在這一頁 —— iPhone 一切到其他 App 就會停止錄音。</p>
+  </div>
+
+  <div class="card">
+    <div class="step"><span>上傳音檔</span></div>
+    <input type="file" class="in" id="file" accept="audio/*,.m4a,.mp3,.wav,.flac,.ogg,.opus">
+    <input class="in" id="fileTitle" placeholder="標題（留空用檔名）" style="margin-top:10px">
+    <button class="btn btn--go" id="upBtn">⬆️ 上傳並轉錄</button>
+    <p class="msg" id="upMsg"></p>
+    <p class="hint">單檔 45MB 以內（約 1~2 小時）。</p>
+  </div>
+</section>
+
+<section data-pane="web">
+  <div class="card">
+    <div class="step"><span>貼文章網址</span></div>
+    <textarea class="in" id="webUrls" rows="5" style="resize:vertical"
+      placeholder="一行一個網址，可以一次貼很多行&#10;https://example.com/article-1&#10;https://example.com/article-2"></textarea>
+    <button class="btn btn--go" id="webBtn">📥 抓取並整理</button>
+    <p class="msg" id="webMsg"></p>
+    <p class="hint">抓回來的文章會跟逐字稿放在同一個「📄 下載」分頁，
+      一樣有<b>摘要、分類、關鍵字</b>，也能一起打包下載。</p>
+    <p class="hint">一般新聞、部落格直接就抓得到。若某個網站內容是靠 JavaScript 生出來的
+      而抓不到，跟我說一聲，可以開啟瀏覽器模式再試。</p>
+  </div>
+</section>
+
+<section data-pane="tx">
+  <!-- 逐字稿 -->
+  <div class="card">
+    <div class="step"><span>逐字稿</span></div>
+    <div class="prog" id="prog" hidden></div>
+    <input class="in" id="q" placeholder="搜尋內容關鍵字…">
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn--sm" id="qBtn" style="margin-top:0">搜尋</button>
+      <button class="btn btn--sm" id="reloadBtn" style="margin-top:0">重新整理</button>
+    </div>
+    <div class="row" style="margin-top:10px;align-items:center">
+      <select class="in" id="sortBy" style="padding:11px">
+        <option value="new">最新在前</option>
+        <option value="old">最舊在前</option>
+        <option value="title">依標題</option>
+        <option value="cat">依分類</option>
+      </select>
+      <label style="margin:0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink);flex:0 0 auto">
+        <input type="checkbox" id="cleanName" checked style="width:22px;height:22px">簡化名稱
+      </label>
+    </div>
+    <div class="hist" id="cats"></div>
+    <hr class="sep">
+    <p class="lbl">下載格式</p>
+    <div class="seg" id="zipFmt">
+      <button type="button" data-v="txt" class="on">.txt</button>
+      <button type="button" data-v="md">.md</button>
+      <button type="button" data-v="srt">.srt</button>
+      <button type="button" data-v="all">全部</button>
+    </div>
+    <p class="hint" id="fmtHint">純文字，最好讀。</p>
+    <button class="btn" id="zipBtn">⬇️ 打包下載</button>
+
+    <hr class="sep">
+    <div class="row" style="margin-top:14px;align-items:center">
+      <label style="margin:0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink);flex:1">
+        <input type="checkbox" id="selAll" style="width:22px;height:22px">全選
+      </label>
+      <button class="btn btn--sm" id="delBtn" style="margin-top:0;flex:0 0 auto;border-color:var(--bad);color:var(--bad)">🗑 刪除選取</button>
+    </div>
+    <p class="hint" id="note">載入中…</p>
+    <ul class="tx" id="list"></ul>
+    <!-- 閱讀區的「家」：沒展開時停在這裡，點某一篇時整塊搬到那一篇底下 -->
+    <div id="paperHome"><div class="paper" id="paper" hidden></div></div>
+  </div>
+</section>
+
+<section data-pane="cfg">
+  <!-- 首次設定 -->
+  <details id="setup">
+    <summary>🛠 第一次使用？先做這個（只需一次）</summary>
+    <div class="pad">
+      <p class="hint" style="margin-top:0"><b>0.</b> <b>把這個網站加到主畫面</b>（建議）：
+        Safari 下方 <b>分享鍵</b> → <b>加入主畫面</b>。之後從主畫面圖示開啟就是全螢幕，
+        沒有網址列，用起來跟 App 一樣。</p>
+      <p class="hint"><b>1.</b> App Store 安裝免費的
+        <a href="https://apps.apple.com/app/a-shell/id1473805438" target="_blank" rel="noopener">a-Shell</a>。</p>
+      <p class="hint"><b>2.</b> 打開 a-Shell，貼上這行裝工具：</p>
+      <div class="cmd">pip install -U yt-dlp</div>
+      <button class="btn btn--sm" data-copy="pip install -U yt-dlp" style="width:100%">📋 複製</button>
+      <p class="hint"><b>3.</b> 貼這行裝下載程式：</p>
+      <div class="cmd" id="c3"></div>
+      <button class="btn btn--sm" id="c3b" style="width:100%">📋 複製</button>
+      <p class="hint"><b>4.</b> 最後貼這行設定 Token（會提示你貼上，Token 在下面「設定」複製）：</p>
+      <div class="cmd" id="c2"></div>
+      <button class="btn btn--sm" id="c2b" style="width:100%">📋 複製</button>
+      <p class="hint">做完這四步就好了，以後只要重複「複製指令 → 貼上 → Enter」。<br>
+        第 3 步<b>只需要做這一次</b> —— 之後程式每次執行都會自己更新到最新版。</p>
+    </div>
+  </details>
+
+  <!-- 設定 -->
+  <details id="cfg">
+    <summary>⚙ 設定（Token / 搜尋金鑰）</summary>
+    <div class="pad">
+      <label>GitHub Token <b id="ts"></b></label>
+      <input type="password" class="in" id="tok" placeholder="github_pat_…">
+      <div class="row" style="margin-top:10px">
+        <button class="btn btn--sm" id="tokShow" style="margin-top:0">👁 顯示</button>
+        <button class="btn btn--sm" id="tokCopy" style="margin-top:0">📋 複製</button>
+      </div>
+      <div class="cmd" id="tokView" hidden></div>
+      <p class="hint">在 <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">這裡建立</a>：
+        Repository access 選 <b>Only：tool</b>；Permissions 加
+        <b>Contents</b> 和 <b>Issues</b>，都設 <b>Read and write</b>。</p>
+
+      <label>YouTube API Key（選填，讓搜尋更準）<b id="ys"></b></label>
+      <input type="password" class="in" id="ytk" placeholder="AIza…">
+
+      <label>Groq API Key（選填，錄音即時字幕要用）<b id="gs"></b></label>
+      <input type="password" class="in" id="gqk" placeholder="gsk_…">
+      <p class="hint">在 <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>
+        免費申請。<b>跟 GitHub 那把是不同的東西</b> —— 產線用的那把存在 GitHub 上，
+        瀏覽器讀不到，所以即時字幕要另外填一把在這台裝置。</p>
+
+      <button class="btn btn--go" id="save">儲存設定</button>
+      <p class="hint">金鑰只存在這台裝置的瀏覽器，不會上傳。</p>
+    </div>
+  </details>
+</section>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+'use strict';
+var OWNER='xin7355-collab', REPO='tool';
+var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
+/* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
+   舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
+var APP_VER='1.0.9';
+var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
+/* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
+   （畫面上會看到 cd: .../Documents;: no such file or directory）。
+   所以不能先 cd 再跑，改成直接給絕對路徑；腳本自己會切工作目錄、自己更新。 */
+var SCRIPT='~/Documents/yt2deck.py';
+var RUNNER='python3 '+SCRIPT;
+var $=function(s){return document.querySelector(s);};
+var all=function(s){return Array.prototype.slice.call(document.querySelectorAll(s));};
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){
+  return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
+function enc(p){return encodeURI(p);}
+
+var tt;
+function toast(m){var t=$('#toast');t.textContent=m;t.setAttribute('data-on','1');
+  clearTimeout(tt);tt=setTimeout(function(){t.removeAttribute('data-on');},3200);}
+function copy(txt){
+  if(navigator.clipboard&&navigator.clipboard.writeText)
+    return navigator.clipboard.writeText(txt).catch(function(){});
+  var a=document.createElement('textarea');a.value=txt;
+  a.style.cssText='position:fixed;opacity:0';document.body.appendChild(a);
+  a.select();try{document.execCommand('copy');}catch(e){}a.remove();
+  return Promise.resolve();
+}
+function getTok(){return localStorage.getItem('gh_token')||'';}
+function getYt(){return localStorage.getItem('yt_key')||'';}
+function getGq(){return localStorage.getItem('groq_key')||'';}
+
+/* ---------- 設定 ---------- */
+function cfgState(){
+  $('#ts').innerHTML=getTok()?'<span style="color:var(--teal)">✓ 已設定</span>':'<span style="color:var(--bad)">未設定</span>';
+  $('#ys').innerHTML=getYt()?'<span style="color:var(--teal)">✓</span>':'';
+  $('#gs').innerHTML=getGq()?'<span style="color:var(--teal)">✓</span>':'';
+}
+cfgState();
+$('#save').onclick=function(){
+  var t=$('#tok').value.trim(), y=$('#ytk').value.trim(), g=$('#gqk').value.trim();
+  if(t) localStorage.setItem('gh_token',t);
+  if(y) localStorage.setItem('yt_key',y);
+  if(g) localStorage.setItem('groq_key',g);
+  $('#tok').value='';$('#ytk').value='';$('#gqk').value='';cfgState();toast('已儲存 ✓');
+};
+$('#tokShow').onclick=function(){
+  var t=getTok(),v=$('#tokView');
+  if(!t){toast('還沒設定 Token');return;}
+  if(v.hidden){v.hidden=false;v.textContent=t;this.textContent='🙈 隱藏';}
+  else{v.hidden=true;v.textContent='';this.textContent='👁 顯示';}
+};
+$('#tokCopy').onclick=function(){
+  var t=getTok(); if(!t){toast('還沒設定 Token');return;}
+  copy(t).then(function(){toast('Token 已複製 ✓');});
+};
+document.querySelectorAll('[data-copy]').forEach(function(b){
+  b.onclick=function(){copy(b.getAttribute('data-copy')).then(function(){toast('已複製 ✓');});};
+});
+/* 這兩行也都必須是單一指令，理由同上（a-Shell 不吃 ; 和 &&） */
+$('#c3').textContent='curl -sfL '+RAW+' -o '+SCRIPT;
+$('#c3b').onclick=function(){copy($('#c3').textContent).then(function(){toast('已複製 ✓');});};
+$('#c2').textContent=RUNNER+' --set-token';
+$('#c2b').onclick=function(){copy($('#c2').textContent).then(function(){toast('已複製 ✓');});};
+
+/* ---------- 已抓過的紀錄 ---------- */
+/* SENT：按過「一鍵下載」的影片（送出當下就記，不等產線）
+   DONE：逐字稿真的已經生出來的影片（從 index.json 的檔名認 __yt 標記）  */
+function ls(k,d){ try{ return JSON.parse(localStorage.getItem(k))||d; }catch(e){ return d; } }
+var SENT=ls('deck_sent',{}), DONE={};
+function markSent(ids){
+  var now=Date.now();
+  ids.forEach(function(i){ SENT[i]=now; });
+  try{ localStorage.setItem('deck_sent',JSON.stringify(SENT)); }catch(e){}
+}
+function vidOf(file){ var m=/__yt([A-Za-z0-9_-]{11})\./.exec(String(file||'')); return m?m[1]:''; }
+function refreshDone(){
+  DONE={};
+  items.forEach(function(x){ var v=vidOf(x.file); if(v) DONE[v]=x.title||x.file; });
+}
+function ago(ms){
+  var m=Math.round((Date.now()-ms)/60000);
+  if(m<1) return '剛剛'; if(m<60) return m+' 分鐘前';
+  var h=Math.round(m/60); if(h<24) return h+' 小時前';
+  return Math.round(h/24)+' 天前';
+}
+
+/* ---------- 搜尋紀錄 ---------- */
+var HIST=ls('deck_hist',[]);
+function saveHist(){ try{ localStorage.setItem('deck_hist',JSON.stringify(HIST)); }catch(e){} }
+function pushHist(q){
+  q=String(q||'').trim(); if(!q) return;
+  HIST=[q].concat(HIST.filter(function(h){return h!==q;})).slice(0,12);
+  saveHist(); drawHist();
+}
+function drawHist(){
+  var h=$('#hist'); h.innerHTML='';
+  if(!HIST.length) return;
+  HIST.forEach(function(q){
+    var b=document.createElement('button');
+    b.textContent=q; b.title='再搜尋一次：'+q;
+    b.onclick=function(){ box.value=q; $('#goBtn').textContent='搜尋'; $('#goBtn').click(); };
+    // 長按（或按住 1 秒）刪掉這筆，免得清單被用過一次的關鍵字塞滿
+    var t=null;
+    b.addEventListener('touchstart',function(){ t=setTimeout(function(){ dropHist(q); },700); });
+    ['touchend','touchmove','touchcancel'].forEach(function(e){
+      b.addEventListener(e,function(){ clearTimeout(t); });
+    });
+    b.oncontextmenu=function(e){ e.preventDefault(); dropHist(q); };
+    h.appendChild(b);
+  });
+  var c=document.createElement('button');
+  c.className='x'; c.textContent='清除紀錄';
+  c.onclick=function(){ if(confirm('清除全部搜尋紀錄？')){ HIST=[]; saveHist(); drawHist(); } };
+  h.appendChild(c);
+}
+function dropHist(q){
+  HIST=HIST.filter(function(h){return h!==q;}); saveHist(); drawHist(); toast('已移除「'+q+'」');
+}
+drawHist();
+
+/* ---------- 選影片（可複選） ---------- */
+var sel=[];   // [{id,title}]，順序就是下載順序
+function parseId(t){
+  var m=String(t||'').match(/(?:v=|\/shorts\/|\/live\/|\/embed\/|youtu\.be\/)([A-Za-z0-9_-]{11})/)
+     || String(t||'').match(/^\s*([A-Za-z0-9_-]{11})\s*$/);
+  return m?m[1]:'';
+}
+function has(id){ return sel.some(function(x){return x.id===id;}); }
+/* ashell:// 是把整串指令塞在網址裡送過去的，影片一多網址就會爆長
+   （19 支就 300 多字元），a-Shell 收到會直接閃退。超過這個長度就改走
+   「清單放 repo、指令只留 --queue」，這樣不管幾支指令長度都一樣。 */
+var CMD_MAX=110;
+function cmdFor(ids){
+  if(!ids.length) return '';
+  var plain=RUNNER+' '+ids.join(' ');
+  return plain.length<=CMD_MAX ? plain : (RUNNER+' --queue');
+}
+function usesQueue(ids){ return cmdFor(ids).indexOf('--queue')>-1; }
+/* 把待抓清單寫進 status 分支，手機端用 --queue 讀回去 */
+function pushQueue(ids){
+  var tok=getTok();
+  if(!tok) return Promise.reject(new Error('需要 GitHub Token（到⚙設定填）'));
+  var H={'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
+         'Content-Type':'application/json'};
+  var url=API+'/contents/queue.txt';
+  return fetch(url+'?ref=status&_='+Date.now(),{headers:H,cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():{}; })
+    .then(function(cur){
+      var body={message:'Queue '+ids.length+' videos [skip ci]',branch:'status',
+                content:btoa(ids.join('\n')+'\n')};
+      if(cur&&cur.sha) body.sha=cur.sha;
+      return fetch(url,{method:'PUT',headers:H,body:JSON.stringify(body)});
+    })
+    .then(function(r){ if(!r.ok) throw new Error('寫入待抓清單失敗 HTTP '+r.status); });
+}
+function ids(){ return sel.map(function(x){return x.id;}); }
+function render(){
+  var t=$('#target'), c=$('#cmd'), p=$('#picks'), bh=$('#batchHint');
+  p.innerHTML='';
+  if(sel.length){
+    // 勾選是跨頁累積的，只顯示總數會讓人以為「按一個怎麼變 19 個」
+    var page=(SS.pages[SS.cur]||[]).filter(function(x){return has(x.id);}).length;
+    var other=sel.length-page;
+    t.innerHTML=sel.length===1
+      ? '🎯 <b>'+esc(sel[0].title||('影片 '+sel[0].id))+'</b>'
+      : '🎯 已選 <b>'+sel.length+'</b> 支，會依序一次抓完'
+        +(other>0 ? '<br><span style="color:var(--dim);font-size:14px">本頁 '+page
+                    +' 支＋其他頁 '+other+' 支（按「清除已選」可全部取消）</span>' : '');
+    sel.forEach(function(x){
+      var s=document.createElement('span');
+      var i=document.createElement('i'); i.textContent=x.title||x.id;
+      var b=document.createElement('b'); b.textContent='×'; b.title='移除';
+      b.onclick=function(){ unpick(x.id); };
+      s.appendChild(i); s.appendChild(b); p.appendChild(s);
+    });
+    c.textContent=cmdFor(ids()); c.style.color='var(--ink)';
+    bh.hidden=sel.length<2;
+    bh.innerHTML='一次送 <b>'+sel.length+'</b> 支：a-Shell 會一支一支抓完再上傳，'+
+                 '中途可以切去做別的事。有哪支抓不到，其餘照樣完成。';
+  }else{
+    t.innerHTML='<span style="color:var(--dim)">還沒選影片</span>';
+    c.textContent='（先在上面貼網址或勾選影片，指令會出現在這裡）';
+    c.style.color='var(--dim)';
+    bh.hidden=true;
+  }
+  $('#bulk').hidden=!(SS.pages.length||sel.length);
+}
+/* 用 --queue 的話，得先把清單寫上去指令才有東西可讀 */
+function ready(list){
+  return usesQueue(list) ? pushQueue(list) : Promise.resolve();
+}
+$('#copyBtn').onclick=function(){
+  if(!sel.length){toast('先貼網址或勾選影片');return;}
+  var list=ids(), n=list.length;
+  if(usesQueue(list)) toast('準備清單中…');
+  ready(list)
+    .then(function(){ return copy(cmdFor(list)); })
+    .then(function(){
+      markSent(list); drawPage();
+      toast('已複製 '+n+' 支的指令 ✓ 去 a-Shell 長按貼上');
+    })
+    .catch(function(e){ toast('失敗：'+(e&&e.message||'未知錯誤')); });
+};
+$('#runBtn').onclick=function(){
+  if(!sel.length){toast('先貼網址或勾選影片');return;}
+  var list=ids();
+  if(usesQueue(list)) toast('準備清單中…（'+list.length+' 支）');
+  ready(list).then(function(){
+    copy(cmdFor(list));          // 先複製當備援，再用 ashell:// 把指令丟過去執行
+    markSent(list);
+    toast('開啟 a-Shell 抓 '+list.length+' 支…（沒反應就用下面「只複製指令」）');
+    if(window.__startWatch) window.__startWatch(list.length);
+    location.href='ashell://'+encodeURIComponent(cmdFor(list));
+  }).catch(function(e){ toast('失敗：'+(e&&e.message||'未知錯誤')); });
+};
+function pick(id,title,quiet){
+  if(!has(id)) sel.push({id:id,title:title||''});
+  render();
+  if(!quiet){ $('#results').innerHTML=''; $('#target').scrollIntoView({behavior:'smooth',block:'center'}); }
+}
+function unpick(id){ sel=sel.filter(function(x){return x.id!==id;}); render(); drawPage(); }
+$('#clrPick').onclick=function(){ sel=[]; render(); drawPage(); toast('已清除'); };
+$('#selPage').onchange=function(){
+  var list=SS.pages[SS.cur]||[], skipped=0;
+  if(this.checked){
+    // 已經有逐字稿的不用再抓一次，全選時直接略過
+    list.forEach(function(x){
+      if(DONE[x.id]){ skipped++; return; }
+      pick(x.id,x.title,1);
+    });
+    if(skipped) toast('已跳過 '+skipped+' 支抓過的（要重抓請單獨勾選）');
+  }else{
+    list.forEach(function(x){ sel=sel.filter(function(s){return s.id!==x.id;}); });
+  }
+  render(); drawPage();
+};
+
+var box=$('#box'), results=$('#results'), boxId='';
+box.addEventListener('input',function(){
+  var id=parseId(box.value);
+  $('#goBtn').textContent=id?'✓ 使用這支':'搜尋';
+  if(id===boxId) return;
+  // 改網址就換掉「上次從輸入框加進來的那支」，不要愈打愈多支
+  if(boxId) sel=sel.filter(function(x){return x.id!==boxId;});
+  boxId=id;
+  if(id) pick(id,'',1); else render();
+});
+var PIPED=['https://pipedapi.kavin.rocks','https://api.piped.private.coffee','https://pipedapi.adminforge.de'];
+var SS={q:'',mode:'',next:null,buf:[],pages:[],cur:0};
+render();          // 要在 SS 之後：render 會看 SS.pages 決定要不要顯示批次列
+function perPage(){ return parseInt($('#perPage').value,10)||10; }
+function searchYt(q,page){
+  var k=getYt();
+  if(!k) return Promise.reject(0);
+  return fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=video&maxResults='+perPage()+'&q='
+      +encodeURIComponent(q)+'&key='+k+(page?('&pageToken='+encodeURIComponent(page)):''))
+    .then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(j){return {next:j.nextPageToken||null,
+      list:(j.items||[]).map(function(x){
+        return {id:x.id.videoId,title:x.snippet.title,by:x.snippet.channelTitle};})};});
+}
+function searchPiped(q,i){
+  i=i||0; if(i>=PIPED.length) return Promise.reject(new Error('搜尋節點沒回應'));
+  var c=new AbortController(), tm=setTimeout(function(){c.abort();},7000);
+  return fetch(PIPED[i]+'/search?q='+encodeURIComponent(q)+'&filter=videos',{signal:c.signal})
+    .then(function(r){clearTimeout(tm);if(!r.ok)throw 0;return r.json();})
+    .then(function(j){
+      var it=(j.items||j||[]).filter(function(x){return x.url&&x.url.indexOf('watch?v=')>-1;});
+      if(!it.length) throw 0;
+      return it.slice(0,90).map(function(x){
+        return {id:x.url.split('watch?v=')[1].slice(0,11),title:x.title,by:x.uploaderName||''};});
+    }).catch(function(){clearTimeout(tm);return searchPiped(q,i+1);});
+}
+/* 「勾選本頁全部」要反映實際狀態：整頁都選了才打勾 */
+function syncPageBox(){
+  var list=SS.pages[SS.cur]||[], pb=$('#selPage');   // 別用 box，那是上面的網址輸入框
+  // 抓過的本來就不會被全選勾到，判斷「整頁都選了」時要把它們排除，否則永遠不會打勾
+  var want=list.filter(function(x){return !DONE[x.id];});
+  pb.checked = want.length>0 && want.every(function(x){return has(x.id);});
+}
+/* 翻頁式：每次「換掉」結果，版面不會愈拉愈長。
+   quiet=背景刷新，只換內容不捲動——不然每 15 秒就把畫面拉回搜尋結果。 */
+function drawPage(quiet){
+  var list=SS.pages[SS.cur]||[], thumb=$('#showThumb').checked;
+  results.innerHTML='';
+  list.forEach(function(x){
+    var d=document.createElement('div'); d.className='vid'+(has(x.id)?' on':'');
+    if(thumb) d.innerHTML='<img loading="lazy" src="https://i.ytimg.com/vi/'+esc(x.id)+'/mqdefault.jpg" alt="">';
+    var p=document.createElement('p');
+    p.innerHTML=esc(x.title)+'<br><span style="color:var(--dim);font-size:13.5px">'+esc(x.by||'')+'</span>';
+    // 抓過的一眼認得出來，不用再點進去確認
+    if(DONE[x.id]) p.innerHTML+='<br><span class="tag tag--done">✅ 已有逐字稿・不會重抓</span>';
+    else if(SENT[x.id]) p.innerHTML+='<br><span class="tag tag--sent">⏳ '+esc(ago(SENT[x.id]))+'送出過</span>';
+    p.style.flex='1';
+    var b=document.createElement('input'); b.type='checkbox'; b.checked=has(x.id); b.title='勾選要抓的影片';
+    b.onchange=function(){
+      if(b.checked) pick(x.id,x.title,1);
+      else sel=sel.filter(function(s){return s.id!==x.id;});   // 不重畫整頁，勾選才不會閃
+      render(); syncPageBox(); d.className='vid'+(b.checked?' on':'');
+    };
+    d.appendChild(p); d.appendChild(b); results.appendChild(d);
+  });
+  syncPageBox();
+  var hasNext=(SS.cur+1<SS.pages.length)||(SS.mode==='api'&&SS.next)||(SS.mode==='piped'&&SS.buf.length);
+  $('#bulk').hidden = !(SS.pages.length||sel.length);
+  // 上下各一組翻頁列，兩組要同步（上面那組是為了不用滑到最底才能翻頁）
+  all('.pgr').forEach(function(r){ r.hidden = !SS.pages.length; });
+  all('.pgPrev').forEach(function(b){ b.disabled = SS.cur===0; });
+  all('.pgNext').forEach(function(b){ b.disabled = !hasNext; });
+  all('.pgNum').forEach(function(s){ s.textContent='第 '+(SS.cur+1)+' 頁'; });
+  if(!quiet) results.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+all('.pgPrev').forEach(function(b){
+  b.onclick=function(){ if(SS.cur>0){SS.cur--;drawPage();} };
+});
+all('.pgNext').forEach(function(b){
+  b.onclick=function(){
+    if(SS.cur+1<SS.pages.length){ SS.cur++; drawPage(); return; }
+    if(SS.mode==='api'&&SS.next){
+      all('.pgNext').forEach(function(o){o.disabled=true;o.textContent='載入中…';});
+      searchYt(SS.q,SS.next).then(function(r){
+        SS.next=r.next||null;
+        if((r.list||[]).length){SS.pages.push(r.list);SS.cur=SS.pages.length-1;}
+      }).catch(function(){toast('載入失敗');})
+        .then(function(){
+          all('.pgNext').forEach(function(o){o.textContent='下一頁 →';});
+          drawPage();
+        });
+    }else if(SS.buf.length){
+      SS.pages.push(SS.buf.splice(0,perPage())); SS.cur=SS.pages.length-1; drawPage();
+    }
+  };
+});
+$('#showThumb').onchange=function(){ if(SS.pages.length) drawPage(); };
+$('#goBtn').onclick=function(){
+  var v=box.value.trim(); if(!v){toast('先輸入網址或關鍵字');return;}
+  var id=parseId(v); if(id){pick(id,'');toast('已選定 ✓');return;}
+  pushHist(v);       // 記下關鍵字，下次點一下就能重搜
+  results.innerHTML='<p class="hint">搜尋中…</p>';
+  all('.pgr').forEach(function(r){ r.hidden=true; });
+  SS={q:v,mode:getYt()?'api':'piped',next:null,buf:[],pages:[],cur:0};
+  var p = SS.mode==='api'
+    ? searchYt(v,null).catch(function(){SS.mode='piped';return searchPiped(v).then(function(l){return {list:l,next:null};});})
+    : searchPiped(v).then(function(l){return {list:l,next:null};});
+  p.then(function(r){
+    var list=r.list||[];
+    if(SS.mode==='piped'){ SS.buf=list.slice(perPage()); list=list.slice(0,perPage()); } else SS.next=r.next;
+    if(!list.length){results.innerHTML='<p class="hint">沒有結果</p>';return;}
+    SS.pages=[list]; SS.cur=0; drawPage();
+  }).catch(function(e){
+    results.innerHTML='<p class="hint" style="color:var(--bad)">搜尋失敗：'+esc(e.message||e)+
+      '。可以直接貼網址，或到設定填 YouTube API Key。</p>';
+  });
+};
+
+/* ---------- 錄音 ---------- */
+/* 錄完就當成一般音檔走同一條上傳→轉錄的路，正式逐字稿品質跟上傳檔案一樣。 */
+var mr=null, chunks=[], recBlob=null, recTimer=null, recStream=null;
+/* 暫停要把已錄秒數累加起來，不能單靠開始時間相減，不然暫停的空檔也會被算進去 */
+var recMs=0, recStart=0, recPaused=false;
+function recSec(){ return Math.floor((recMs+(recPaused?0:Date.now()-recStart))/1000); }
+function pickMime(){
+  var c=['audio/mp4','audio/webm;codecs=opus','audio/webm','audio/ogg;codecs=opus'];
+  for(var i=0;i<c.length;i++){
+    if(window.MediaRecorder && MediaRecorder.isTypeSupported(c[i])) return c[i];
+  }
+  return '';
+}
+function extOf(m){
+  if(m.indexOf('mp4')>-1) return '.m4a';
+  if(m.indexOf('ogg')>-1) return '.ogg';
+  return m ? '.webm' : '.m4a';
+}
+function mmss(s){ var m=Math.floor(s/60); return (m<10?'0':'')+m+':'+((s%60)<10?'0':'')+(s%60); }
+function recTick(){
+  $('#recTime').textContent=mmss(recSec())+(recPaused?'（暫停中）':'');
+  $('#recDot').style.animationPlayState=recPaused?'paused':'running';
+  var kb=chunks.reduce(function(a,b){return a+b.size;},0);
+  $('#recSize').textContent=(kb/1048576).toFixed(1)+'MB';
+  if(kb/1048576>44){ toast('已達 45MB 上限，自動停止'); stopRec(); }
+}
+function startRec(){
+  if(!navigator.mediaDevices||!window.MediaRecorder){
+    msg('#recMsg','❌ 這個瀏覽器不支援錄音，請改用 Safari。',1); return;
+  }
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(stream){
+    var m=pickMime();
+    mr=m?new MediaRecorder(stream,{mimeType:m}):new MediaRecorder(stream);
+    recStream=stream; chunks=[]; recBlob=null;
+    mr.ondataavailable=function(e){ if(e.data&&e.data.size) chunks.push(e.data); };
+    mr.onstop=function(){
+      stream.getTracks().forEach(function(t){t.stop();});
+      var type=mr.mimeType||m||'audio/mp4';
+      recBlob=new Blob(chunks,{type:type});
+      recBlob.__ext=extOf(type);
+      msg('#recMsg','✅ 錄好了：'+mmss(recSec())+'　'+(recBlob.size/1048576).toFixed(1)+
+                    'MB　→ 按下面的「⬆️ 上傳並轉錄」');
+      $('#recBox').hidden=true; $('#recBtn').textContent='🔴 開始錄音';
+      $('#pauseBtn').hidden=true; recPaused=false;
+      clearInterval(recTimer); stopLive();
+    };
+    mr.start(1000);                 // 每秒切一塊，才能即時算大小
+    recMs=0; recStart=Date.now(); recPaused=false;
+    $('#recBox').hidden=false; $('#recBtn').textContent='⏹ 停止錄音';
+    $('#pauseBtn').hidden=false; $('#pauseBtn').textContent='⏸ 暫停';
+    msg('#recMsg','');
+    recTick(); recTimer=setInterval(recTick,1000);
+    if($('#liveCap').checked) startLive(stream);
+  }).catch(function(e){
+    msg('#recMsg','❌ 沒拿到麥克風權限（'+(e&&e.name||'')+'）。請到 iPhone 設定 → Safari → 麥克風允許。',1);
+  });
+}
+function stopRec(){ if(mr&&mr.state!=='inactive') mr.stop(); }
+$('#recBtn').onclick=function(){ (mr&&mr.state!=='inactive')?stopRec():startRec(); };
+$('#pauseBtn').onclick=function(){
+  if(!mr||mr.state==='inactive') return;
+  if(mr.state==='recording'){
+    mr.pause(); recMs+=Date.now()-recStart; recPaused=true;
+    this.textContent='▶️ 繼續錄音';
+    stopLive();                       // 暫停時把麥克風還回去
+  }else{
+    mr.resume(); recStart=Date.now(); recPaused=false;
+    this.textContent='⏸ 暫停';
+    if($('#liveCap').checked) startLive(recStream);
+  }
+  recTick();
+};
+
+/* 即時字幕：只是預覽。用瀏覽器內建的語音辨識，跟正式轉錄是兩條路。 */
+/* 即時字幕改用 Groq Whisper，不再用瀏覽器內建的語音辨識。
+
+   為什麼換掉：瀏覽器的語音辨識要「自己」開麥克風，而麥克風已經被錄音佔住，
+   兩者搶不到一起——上一版永遠是空白的，換幾種寫法都一樣，那條路本來就走不通。
+
+   新做法是在「同一條音訊串流」上再開一個錄音器，每 15 秒切一段送去 Whisper。
+   同一支麥克風、兩個錄音器，沒有衝突；辨識品質也跟正式逐字稿同一個引擎。 */
+var LIVE_SEG=15000, liveRec=null, liveTimer=null, liveText='', liveBusy=0;
+function liveSay(t){ var b=$('#liveTx'); b.hidden=false; b.textContent=t; b.scrollTop=b.scrollHeight; }
+function startLive(stream){
+  var key=getGq();
+  if(!key){
+    liveSay('即時字幕需要 Groq API Key。\n\n到「⚙ 設定」填一把（console.groq.com/keys 免費申請），'+
+            '再重新開始錄音即可。\n\n錄音本身不受影響。');
+    return;
+  }
+  liveText=''; liveSay('聽取中…（每 15 秒出現一段）');
+  var cycle=function(){
+    if(!mr || mr.state!=='recording'){ return; }
+    var m=pickMime();
+    var r=m?new MediaRecorder(stream,{mimeType:m}):new MediaRecorder(stream);
+    var bits=[];
+    r.ondataavailable=function(e){ if(e.data&&e.data.size) bits.push(e.data); };
+    r.onstop=function(){
+      var type=r.mimeType||m||'audio/mp4';
+      var blob=new Blob(bits,{type:type});
+      if(blob.size>3000) sendLive(blob, extOf(type), key);
+      cycle();                       // 立刻接著錄下一段，中間幾乎沒有空隙
+    };
+    // 每段都是獨立完整的檔案，Whisper 才解得開（直接拿串流中段是解不開的）
+    r.start(); liveRec=r;
+    liveTimer=setTimeout(function(){ if(r.state!=='inactive') r.stop(); }, LIVE_SEG);
+  };
+  cycle();
+}
+function sendLive(blob, ext, key){
+  liveBusy++;
+  var fd=new FormData();
+  fd.append('file', blob, 'seg'+ext);
+  fd.append('model','whisper-large-v3-turbo');
+  fd.append('language','zh');
+  fd.append('response_format','text');
+  fetch('https://api.groq.com/openai/v1/audio/transcriptions',
+        {method:'POST',headers:{'Authorization':'Bearer '+key},body:fd})
+    .then(function(r){
+      return r.text().then(function(t){
+        if(!r.ok) throw new Error('HTTP '+r.status+'：'+t.slice(0,120));
+        return t;
+      });
+    })
+    .then(function(t){
+      t=(t||'').trim();
+      if(t){ liveText+=(liveText?'':'')+t+'\n'; liveSay(liveText); }
+    })
+    .catch(function(e){
+      liveSay(liveText+'\n〔這段辨識失敗：'+(e&&e.message||e)+'〕');
+    })
+    .then(function(){ liveBusy--; });
+}
+function stopLive(){
+  clearTimeout(liveTimer);
+  if(liveRec){ try{ if(liveRec.state!=='inactive'){ liveRec.onstop=null; liveRec.stop(); } }catch(e){} liveRec=null; }
+}
+
+/* ---------- 上傳音檔 ---------- */
+function msg(sel,t,bad){var e=$(sel);e.textContent=t||'';e.className='msg '+(bad?'bad':'ok');}
+
+/* ---------- 貼文章網址 ---------- */
+/* 只負責把網址寫進 article-inbox/，抓取跟整理都在 GitHub 那邊做，
+   跟音檔走的是同一種模式（丟進 inbox → 工作流接手）。 */
+$('#webBtn').onclick=function(){
+  var raw=($('#webUrls').value||'').split(/\s+/)
+          .map(function(x){return x.trim();})
+          .filter(function(x){return /^https?:\/\//.test(x);});
+  var seen={}, urls=[];
+  raw.forEach(function(u){ if(!seen[u]){seen[u]=1;urls.push(u);} });
+  if(!urls.length){ msg('#webMsg','⚠️ 請貼至少一個 http 開頭的網址',1); return; }
+  var tok=getTok();
+  if(!tok){ msg('#webMsg','❌ 請先到「⚙ 設定」填 GitHub Token',1); return; }
+  var btn=this; btn.disabled=true; btn.textContent='送出中…';
+  msg('#webMsg','送出 '+urls.length+' 個網址…');
+  var d=new Date(), p=function(n){return(n<10?'0':'')+n;};
+  var ts=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+
+         p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());
+  fetch(API+'/contents/'+encodeURIComponent('article-inbox/'+ts+'.txt').replace(/%2F/g,'/'),{
+    method:'PUT',
+    headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
+             'Content-Type':'application/json'},
+    body:JSON.stringify({message:'Queue '+urls.length+' articles',
+      content:btoa(unescape(encodeURIComponent(urls.join('\n')+'\n'))), branch:'main'})
+  }).then(function(r){
+    if(r.status===201||r.status===200){
+      msg('#webMsg','✅ 已送出 '+urls.length+' 篇！抓取中，完成後會出現在「📄 下載」分頁。');
+      $('#webUrls').value='';
+      if(window.__startWatch) window.__startWatch(urls.length);
+    }else if(r.status===401){ msg('#webMsg','❌ Token 無效，請到設定重新填。',1); }
+    else if(r.status===403){ msg('#webMsg','❌ Token 缺少 Contents: Read and write 權限。',1); }
+    else { msg('#webMsg','❌ 送出失敗 HTTP '+r.status,1); }
+  }).catch(function(e){ msg('#webMsg','❌ '+(e&&e.message||'送出失敗'),1); })
+   .then(function(){ btn.disabled=false; btn.textContent='📥 抓取並整理'; });
+};
+function b64(f){return new Promise(function(res,rej){
+  var r=new FileReader();
+  r.onload=function(){var s=String(r.result);res(s.slice(s.indexOf(',')+1));};
+  r.onerror=function(){rej(new Error('讀取失敗'));};
+  r.readAsDataURL(f);});}
+$('#upBtn').onclick=function(){
+  // 剛錄好的優先，其次才是選檔案
+  var f=recBlob||($('#file').files||[])[0];
+  if(!f){msg('#upMsg','⚠️ 先錄一段，或選一個音檔',1);return;}
+  var fromRec=(f===recBlob);
+  var mb=f.size/1048576;
+  if(mb>45){msg('#upMsg','❌ 檔案 '+mb.toFixed(1)+'MB 太大（上限 45MB）',1);return;}
+  var tok=getTok(); if(!tok){msg('#upMsg','❌ 請先到「⚙ 設定」填 GitHub Token',1);return;}
+  var d=new Date(),p=function(n){return(n<10?'0':'')+n;};
+  var ts=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());
+  var ext=fromRec ? (f.__ext||'.m4a') : (f.name.match(/\.[A-Za-z0-9]+$/)||['.mp3'])[0];
+  var base=($('#fileTitle').value||'').trim()||
+           (fromRec ? ('錄音_'+ts) : f.name.replace(/\.[A-Za-z0-9]+$/,''));
+  var safe=base.replace(/[\\/:*?"<>|#%&{}$!'@+`=\s]+/g,'_').replace(/_+/g,'_').slice(0,60)||'audio';
+  var btn=this; btn.disabled=true; btn.textContent='上傳中…';
+  msg('#upMsg','讀取中（'+mb.toFixed(1)+'MB）…');
+  b64(f).then(function(c){
+    msg('#upMsg','上傳中（'+mb.toFixed(1)+'MB）…');
+    return fetch(API+'/contents/'+encodeURIComponent('audio-inbox/'+ts+'_'+safe+ext).replace(/%2F/g,'/'),{
+      method:'PUT',
+      headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
+      body:JSON.stringify({message:'Upload audio',content:c,branch:'main'})});
+  }).then(function(r){
+    return r.json().catch(function(){return{};}).then(function(j){
+      if(r.status===201||r.status===200){
+        msg('#upMsg','✅ 上傳成功！轉錄中，完成後會出現在「📄 下載」分頁（不用手動刷新）。');
+        $('#file').value=''; $('#fileTitle').value='';
+        recBlob=null; msg('#recMsg','');       // 傳完就清掉，免得再按一次又送同一段
+        if(window.__startWatch) window.__startWatch();
+      }else if(r.status===401){ msg('#upMsg','❌ Token 無效，請到設定重新填。',1); }
+      else if(r.status===403){ msg('#upMsg','❌ Token 缺少 Contents: Read and write 權限。',1); }
+      else { msg('#upMsg','❌ 失敗 HTTP '+r.status+'：'+(j.message||''),1); }
+    });
+  }).catch(function(e){ msg('#upMsg','❌ '+(e&&e.message||'上傳失敗'),1); })
+   .then(function(){ btn.disabled=false; btn.textContent='⬆️ 上傳並轉錄'; });
+};
+
+/* ---------- 逐字稿 ---------- */
+var items=[], cache={};
+function sib(f){return {md:f,txt:f.replace(/\.md$/i,'.txt'),srt:f.replace(/\.md$/i,'.srt')};}
+/* 閱讀區只有一個，用搬的：點哪一篇就把它移到那一篇底下。
+   本來固定放在整個清單最後面，點第 5 篇要滑過 100 多篇才看得到內容。 */
+var openFile='';
+function closePaper(){
+  var p=$('#paper');
+  p.hidden=true; p.innerHTML=''; openFile='';
+  $('#paperHome').appendChild(p);        // 收回原位，重畫清單時才不會被一起清掉
+}
+function show(file,title,li){
+  if(openFile===file){ closePaper(); return; }   // 再點一次收起來
+  var s=sib(file), p=$('#paper');
+  openFile=file;
+  if(li) li.appendChild(p);
+  p.hidden=false; p.textContent='讀取中…';
+  fetch(enc(s.txt),{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();})
+    .catch(function(){return fetch(enc(s.md),{cache:'no-store'}).then(function(r){return r.text();});})
+    .then(function(t){
+      if(openFile!==file) return;                // 中途換了一篇就不要蓋掉
+      p.innerHTML='<div class="ph"><b>'+esc(title)+'</b><br>下載：'+
+        '<a href="'+enc(s.txt)+'" download>.txt</a> · '+
+        '<a href="'+enc(s.md)+'" download>.md</a> · '+
+        '<a href="'+enc(s.srt)+'" download>.srt</a>'+
+        '<br><a href="#" id="paperClose">✕ 收起</a></div>'+esc(t);
+      p.scrollTop=0;
+      var c=$('#paperClose');
+      if(c) c.onclick=function(e){ e.preventDefault(); closePaper(); };
+      p.scrollIntoView({behavior:'smooth',block:'nearest'});
+    }).catch(function(){ if(openFile===file) p.textContent='讀取失敗'; });
+}
+/* ---------- 名稱簡化 / 分類 / 排序 ---------- */
+/* 這是 scripts/classify.py 那套規則的前端版。舊的逐字稿沒有「短標題」欄位，
+   靠這個當場算，不用等補分類的工作流跑完就能看到乾淨的名稱。 */
+var NOISE=/(feat\.?|ft\.?|shorts|投資|股票|股市|台股|股票市場|官方頻道)/gi;
+function isCredits(seg){
+  if(/[《》]/.test(seg)) return true;
+  var ppl=seg.split(/[、,，]/).filter(function(x){return x.trim();});
+  return ppl.length>=2 && ppl.every(function(x){return x.trim().length<=5;});
+}
+function tidyTitle(raw){
+  var s=String(raw||'').replace(/__yt[A-Za-z0-9_-]{11}$/,'').replace(/_/g,' ')
+        .replace(/\s+/g,' ').trim();
+  var date='', m=s.match(/(20\d{2})[.\-/](\d{1,2})[.\-/](\d{1,2})/);
+  if(m){ date=m[1]+'-'+('0'+m[2]).slice(-2)+'-'+('0'+m[3]).slice(-2);
+         s=(s.slice(0,m.index)+' '+s.slice(m.index+m[0].length)).trim(); }
+  var series=''; m=s.match(/^\s*[【\[]([^】\]]{1,20})[】\]]\s*/);
+  if(m){ series=m[1].trim(); s=s.slice(m[0].length).trim(); }
+  var ep=''; m=s.match(/第\s*(\d{1,3})\s*集|\bEP\s*(\d{1,3})\b/i);
+  if(m){ ep='EP'+(m[1]||m[2]); s=(s.slice(0,m.index)+' '+s.slice(m.index+m[0].length)).trim(); }
+  var parts=s.split(/[｜|]/).map(function(p){return p.replace(/^[\s　！？。，、]+|[\s　！？。，、]+$/g,'');})
+             .filter(function(p){return p.length>=4 && !isCredits(p);});
+  var topic=parts.length?parts.reduce(function(a,b){return b.length>a.length?b:a;}):s.replace(/[\s　！？。]+$/,'');
+  m=topic.match(/[！？。]\s*(.+)$/);
+  if(m && m[1].split(/\s+/).every(function(w){return w.length<=8;})) topic=topic.slice(0,m.index+1);
+  topic=topic.replace(NOISE,'').replace(/[《》\-—·、,，]+$/,'').replace(/\s{2,}/g,' ')
+             .replace(/^[\s　\-·|｜]+|[\s　\-·|｜]+$/g,'');
+  var head=[series,ep].filter(Boolean).join(' ');
+  var clean=head?(head+'｜'+topic).replace(/^[｜\s]+|[｜\s]+$/g,''):topic;
+  return {clean:(clean||String(raw)).slice(0,70), series:series, ep:ep, date:date};
+}
+function nameOf(it){
+  if(!$('#cleanName').checked) return it.title||it.file;
+  return it.clean || tidyTitle(it.title||it.file).clean;   // 產線給的優先，沒有才自己算
+}
+function dateOf(it){ return it.date || tidyTitle(it.title||it.file).date || ''; }
+var catFilter='';
+function sortItems(list){
+  var how=$('#sortBy').value, a=list.slice();
+  if(how==='title') a.sort(function(x,y){return nameOf(x).localeCompare(nameOf(y),'zh-Hant');});
+  else if(how==='cat') a.sort(function(x,y){
+    return ((x.cat||'zz')+nameOf(x)).localeCompare((y.cat||'zz')+nameOf(y),'zh-Hant');});
+  else if(how==='old') a.reverse();
+  return a;   // 預設 new：index.json 本來就照檔名排，反轉即為最舊在前
+}
+function drawCats(){
+  var box=$('#cats'); box.innerHTML='';
+  var counts={};
+  items.forEach(function(x){ if(x.cat) counts[x.cat]=(counts[x.cat]||0)+1; });
+  var names=Object.keys(counts);
+  if(!names.length) return;                    // 還沒補分類就不佔版面
+  var mk=function(label,val,n){
+    var b=document.createElement('button');
+    b.textContent=label+(n!=null?(' '+n):'');
+    if(catFilter===val) b.style.cssText='border-color:var(--amber);color:var(--amber)';
+    b.onclick=function(){ catFilter=(catFilter===val?'':val); render3(); };
+    box.appendChild(b);
+  };
+  mk('全部','',items.length);
+  names.sort().forEach(function(c){ mk(c,c,counts[c]); });
+}
+/* 逐字稿清單的統一入口：分類篩選 → 排序 → 畫出來 */
+function render3(){
+  var use=catFilter?items.filter(function(x){return x.cat===catFilter;}):items;
+  drawCats(); draw(sortItems(use));
+  $('#note').textContent='共 '+use.length+' 篇'+(catFilter?('（'+catFilter+'）'):'')+
+                         '，點標題閱讀。'+(watching?'（等待新逐字稿中…）':'');
+}
+$('#sortBy').onchange=render3;
+$('#cleanName').onchange=render3;
+
+function draw(list){
+  var ul=$('#list'), keep=picked();   // 背景刷新時把使用者原本的勾選留住
+  // 展開中的閱讀區此刻掛在某個 li 裡，先接回家，不然下一行會把它一起清掉
+  $('#paperHome').appendChild($('#paper'));
+  var reopen=null;
+  ul.innerHTML='';
+  list.forEach(function(it){
+    var s=sib(it.file), li=document.createElement('li');
+    var top=document.createElement('div');
+    top.style.cssText='display:flex;gap:10px;align-items:flex-start';
+    var cb=document.createElement('input'); cb.type='checkbox'; cb.className='pick';
+    cb.style.cssText='width:22px;height:22px;flex:0 0 auto;margin-top:3px';
+    cb.setAttribute('data-file',it.file);
+    cb.checked=keep.indexOf(it.file)>-1;
+    cb.onchange=function(){
+      $('#selAll').checked=document.querySelectorAll('.pick').length===picked().length;
+      zipLabel();
+    };
+    var h=document.createElement('h3'); h.style.flex='1';
+    h.textContent=nameOf(it);
+    var meta=[it.cat||'', dateOf(it)].filter(Boolean).join('　·　');
+    if(meta||(it.tags&&it.tags.length)){
+      var sub=document.createElement('span');
+      sub.style.cssText='display:block;font-size:13px;font-weight:400;color:var(--dim);margin-top:3px';
+      sub.textContent=[meta,(it.tags||[]).join('、')].filter(Boolean).join('　·　');
+      h.appendChild(sub);
+    }
+    h.onclick=function(){show(it.file,nameOf(it),li);};
+    top.appendChild(cb); top.appendChild(h);
+    var d=document.createElement('div'); d.className='dl';
+    d.innerHTML='<a href="'+enc(s.txt)+'" download>⬇ .txt</a>'+
+      '<a href="'+enc(s.md)+'" download>.md</a><a href="'+enc(s.srt)+'" download>.srt</a>';
+    li.appendChild(top); li.appendChild(d);
+    if(it._snip){var sn=document.createElement('div');sn.className='snip';sn.innerHTML=it._snip;li.appendChild(sn);}
+    if(it.file===openFile) reopen=li;          // 這篇本來是展開的，等等放回去
+    ul.appendChild(li);
+  });
+  // 背景刷新／排序後，原本展開的那篇要維持展開，不要因為重畫就收起來
+  if(reopen) reopen.appendChild($('#paper'));
+  else if(openFile) openFile='';               // 已經不在清單裡（被篩掉或刪了）
+  $('#selAll').checked = list.length>0 && keep.length===list.length;
+  zipLabel();
+}
+$('#selAll').onchange=function(){
+  var on=this.checked;
+  document.querySelectorAll('.pick').forEach(function(c){c.checked=on;});
+  zipLabel();
+};
+
+/* ---------- 刪除（含二次確認） ---------- */
+function picked(){
+  return Array.prototype.slice.call(document.querySelectorAll('.pick:checked'))
+    .map(function(c){return c.getAttribute('data-file');});
+}
+$('#delBtn').onclick=function(){
+  var chk=picked();
+  if(!chk.length){toast('先勾選要刪除的逐字稿');return;}
+  var tok=getTok();
+  if(!tok){toast('需要 GitHub Token（到⚙設定填）');return;}
+  var names=chk.map(function(f){
+    var it=items.filter(function(x){return x.file===f;})[0];
+    return '・'+((it&&it.title)||f);
+  }).join('\n');
+  if(!confirm('確定要刪除這 '+chk.length+' 篇逐字稿嗎？\n\n'+names+'\n\n⚠️ 刪除後無法復原。')) return;
+  if(!confirm('再確認一次：真的要永久刪除這 '+chk.length+' 篇？')) return;
+
+  var btn=this; btn.disabled=true; btn.textContent='刪除中…';
+  var H={'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'};
+  // 先取 gh-pages 上 transcripts/ 的檔案清單（要 sha 才能刪）
+  fetch(API+'/contents/transcripts?ref=gh-pages',{headers:H,cache:'no-store'})
+    .then(function(r){if(!r.ok)throw new Error('讀取檔案清單失敗 HTTP '+r.status);return r.json();})
+    .then(function(files){
+      var shaOf={}; files.forEach(function(f){shaOf['transcripts/'+f.name]=f.sha;});
+      var del=[];
+      chk.forEach(function(f){
+        var s=sib(f);
+        [s.md,s.txt,s.srt].forEach(function(p){ if(shaOf[p]) del.push({path:p,sha:shaOf[p]}); });
+      });
+      // 逐個刪除（序列化，避免 GitHub 因併發改同一分支而衝突）
+      return del.reduce(function(chain,f){
+        return chain.then(function(){
+          return fetch(API+'/contents/'+encodeURIComponent(f.path).replace(/%2F/g,'/'),{
+            method:'DELETE',headers:H,
+            body:JSON.stringify({message:'Delete '+f.path,sha:f.sha,branch:'gh-pages'})
+          }).then(function(r){ if(!r.ok&&r.status!==404) throw new Error('刪除失敗 HTTP '+r.status); });
+        });
+      },Promise.resolve());
+    })
+    .then(function(){
+      // 重建索引
+      var keep=items.filter(function(x){return chk.indexOf(x.file)===-1;})
+                    .map(function(x){return {file:x.file,title:x.title};});
+      return fetch(API+'/contents/transcripts/index.json?ref=gh-pages',{headers:H,cache:'no-store'})
+        .then(function(r){return r.ok?r.json():{};})
+        .then(function(cur){
+          var body={message:'Update index after delete',branch:'gh-pages',
+                    content:btoa(unescape(encodeURIComponent(JSON.stringify(keep,null,2))))};
+          if(cur&&cur.sha) body.sha=cur.sha;
+          return fetch(API+'/contents/transcripts/index.json',{method:'PUT',headers:H,body:JSON.stringify(body)});
+        });
+    })
+    .then(function(r){
+      if(r&&!r.ok) throw new Error('更新索引失敗 HTTP '+r.status);
+      toast('已刪除 '+chk.length+' 篇 ✓');
+      $('#selAll').checked=false;
+      // 立刻從畫面上拿掉：GitHub Pages 的快取要一兩分鐘才會更新，
+      // 之前等 2.5 秒就重讀，讀回來的還是舊清單，看起來像「沒刪掉」。
+      items=items.filter(function(x){return chk.indexOf(x.file)===-1;});
+      if(items.length){ render3(); }
+      else { $('#note').textContent='還沒有逐字稿。照上面步驟做一次就會出現。'; $('#list').innerHTML=''; $('#cats').innerHTML=''; }
+      syncAfterDelete(items.length);
+    })
+    .catch(function(e){ toast('刪除失敗：'+(e&&e.message||'未知錯誤')); })
+    .then(function(){ btn.disabled=false; btn.textContent='🗑 刪除選取'; });
+};
+/* 刪除後在背景對帳：等 CDN 追上，再以伺服器上的真實清單為準。 */
+function syncAfterDelete(expect){
+  var tries=0;
+  var again=function(){
+    if(++tries>10) return;                 // 最多對帳 10 次（約 100 秒）
+    fetch('./transcripts/index.json',{cache:'no-store'})
+      .then(function(r){return r.ok?r.json():[];})
+      .then(function(j){
+        if((j||[]).length===expect){ load(true); return; }   // CDN 已更新
+        setTimeout(again,10000);
+      })
+      .catch(function(){ setTimeout(again,10000); });
+  };
+  setTimeout(again,8000);
+}
+/* 目前畫面上畫的是哪些檔案。刷新時拿來比對，一樣就完全不動 DOM，
+   畫面才不會每 15 秒閃一下、捲動位置也不會被打亂。 */
+var drawnSig='';
+function sigOf(list){ return list.map(function(x){return x.file+''+(x.title||'');}).join(''); }
+function load(quiet){
+  return fetch('./transcripts/index.json',{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.json();})
+    .then(function(j){
+      var before=items.length;
+      items=j||[];
+      var sig=sigOf(items);
+      if(sig===drawnSig && quiet) return 0;      // 沒變化 → 一個字都不用重畫
+      refreshDone();                             // 搜尋結果上的「✅ 已有逐字稿」跟著更新
+      if(SS.pages.length) drawPage(quiet);
+      if(!items.length){
+        $('#note').textContent='還沒有逐字稿。照上面步驟做一次就會出現。';
+        $('#list').innerHTML=''; $('#cats').innerHTML=''; drawnSig=sig; zipLabel(); return 0;
+      }
+      render3(); drawnSig=sig;
+      return items.length-before;
+    }).catch(function(){
+      if(quiet) return 0;                        // 背景刷新失敗就當沒發生，別把畫面清掉
+      items=[]; drawnSig='';
+      $('#note').textContent='還沒有逐字稿。照上面步驟做一次就會出現。';
+      return 0;
+    });
+}
+load();
+$('#reloadBtn').onclick=function(){
+  // 手動重新整理也只換清單，不關掉正在讀的逐字稿、不捲回頂端
+  load(true).then(function(d){ toast(d>0?('已更新 ✓ 多了 '+d+' 篇'):'已是最新 ✓'); });
+};
+
+/* ---------- 分頁切換 ---------- */
+/* 三區各自獨立顯示，版面不會一路拉到底。切頁時回到最上面，
+   不然從長長的逐字稿切過去會停在半空中。 */
+function showPane(name){
+  all('section[data-pane]').forEach(function(s){
+    s.classList.toggle('on', s.getAttribute('data-pane')===name);
+  });
+  all('.tabs button').forEach(function(b){
+    b.classList.toggle('on', b.getAttribute('data-pane')===name);
+  });
+  window.scrollTo(0,0);
+  try{ sessionStorage.setItem('deck_pane',name); }catch(e){}
+}
+all('.tabs button').forEach(function(b){
+  b.onclick=function(){ showPane(b.getAttribute('data-pane')); };
+});
+/* 轉錄進行中時，在「逐字稿」分頁上點一個小圓點，人在別的分頁也知道有進度 */
+function txDot(on){
+  var b=document.querySelector('.tabs button[data-pane="tx"]');
+  if(!b) return;
+  var d=b.querySelector('.dot');
+  if(on && !d){ d=document.createElement('span'); d.className='dot'; b.appendChild(d); }
+  else if(!on && d){ d.remove(); }
+}
+try{
+  var last=sessionStorage.getItem('deck_pane');
+  if(last) showPane(last);
+}catch(e){}
+
+/* ---------- 網頁自我更新 ---------- */
+/* iOS Safari 會把舊頁面留很久，結果我修好的東西根本傳不到手機上，
+   使用者按「一鍵下載」跑的還是舊指令。這裡主動比對版本，發現有新版就自己重載。 */
+function checkAppUpdate(){
+  fetch('./index.html?_=' + Date.now(), {cache:'no-store'})
+    .then(function(r){ return r.ok ? r.text() : ''; })
+    .then(function(t){
+      var m=/APP_VER\s*=\s*'([^']+)'/.exec(t||'');
+      if(!m || m[1]===APP_VER) return;
+      // 只自動重載一次，免得快取真的很頑固時無限跳
+      if(sessionStorage.getItem('deck_upd')!==m[1]){
+        try{ sessionStorage.setItem('deck_upd',m[1]); }catch(e){}
+        location.replace(location.pathname+'?v='+encodeURIComponent(m[1]));
+        return;
+      }
+      var b=document.createElement('div');
+      b.style.cssText='position:fixed;left:0;right:0;top:0;z-index:99;background:var(--amber);'+
+        'color:#10171A;padding:13px 16px;font-size:15.5px;font-weight:600;text-align:center';
+      b.textContent='有新版（'+m[1]+'）。請關掉這個分頁再重開，或清除 Safari 網站資料。';
+      document.body.appendChild(b);
+    })
+    .catch(function(){});
+}
+$('#ver').textContent='V'+APP_VER;   // 出問題時一眼看得出手機上跑的是哪版
+checkAppUpdate();
+
+/* 註冊 Service Worker：網址帶版本，改版時瀏覽器才會認得這是新的 SW。
+   快取策略是「網路優先」，所以不會把舊頁面卡在手機上（見 sw.js 說明）。 */
+if('serviceWorker' in navigator){
+  window.addEventListener('load',function(){
+    navigator.serviceWorker.register('sw.js?v='+encodeURIComponent(APP_VER))
+      .catch(function(){});   // 失敗就當一般網頁用，不影響任何功能
+  });
+}
+
+/* ---------- 轉錄進度條 ---------- */
+/* 產線每處理一步就把 progress.json 寫回 gh-pages，這裡固定去讀它。
+   讀不到（還沒開跑／檔案不存在）就把面板收起來，不佔版面。 */
+var pgTimer=null, pgSig='';
+var PG_LABEL={done:'完成',failed:'失敗',running:'進行中',waiting:'排隊中'};
+function pgHide(){ $('#prog').hidden=true; pgSig=''; txDot(false); }
+function drawProg(j){
+  var files=(j&&j.files)||[];
+  if(!files.length){ pgHide(); return; }
+  // 產線若被中斷，progress.json 會永遠停在 running；超過 20 分鐘沒更新就當它結束了
+  var age=(Date.now()-Date.parse(j.updated||0))/60000;
+  if(j.state!=='running' || age>20){
+    if(files.every(function(f){return f.state==='done';})){ pgHide(); return; }
+  }
+  txDot(j.state==='running' && age<=20);       // 人在別的分頁也看得到還在跑
+  var sig=JSON.stringify(files)+j.state;
+  if(sig===pgSig) return;                      // 沒變就不重畫，避免動畫一直重來
+  pgSig=sig;
+  var fin=files.filter(function(f){return f.state==='done';}).length;
+  var box=$('#prog'); box.hidden=false; box.innerHTML='';
+  var h=document.createElement('h4');
+  h.textContent=(j.state==='running'&&age<=20)
+    ? ('⚙️ 轉逐字稿中… '+fin+'/'+files.length+' 篇完成')
+    : ('轉錄結束 · '+fin+'/'+files.length+' 篇成功');
+  box.appendChild(h);
+  files.forEach(function(f){
+    var st=f.state||'waiting', pct=Math.max(0,Math.min(100,f.pct||0));
+    var d=document.createElement('div'); d.className='pf';
+    var t=document.createElement('div'); t.className='pt';
+    var i=document.createElement('i'); i.textContent=f.title||f.name;
+    var s=document.createElement('s');
+    s.textContent=(f.step||PG_LABEL[st]||'')+(st==='running'?('　'+Math.round(pct)+'%'):'');
+    t.appendChild(i); t.appendChild(s);
+    var bar=document.createElement('div');
+    bar.className='bar '+(st==='done'?'done':st==='failed'?'fail':st==='running'?'run':'wait');
+    var fill=document.createElement('span');
+    fill.style.width=(st==='done'?100:st==='waiting'?4:pct)+'%';
+    bar.appendChild(fill);
+    d.appendChild(t); d.appendChild(bar); box.appendChild(d);
+  });
+}
+/* 走 GitHub API 讀 status 分支，不要走網站自己的網址：
+   逐字稿放在 gh-pages，由 Pages 的 CDN 送出，而 CDN 會慢好幾分鐘才更新——
+   進度每幾秒就變一次，用 CDN 讀等於永遠讀到過期的舊資料，畫面上就什麼都不會動。
+   API 不經 CDN，拿到的一定是當下最新的。 */
+function pollProg(){
+  var tok=getTok();
+  if(!tok){ pgHide(); return Promise.resolve(false); }
+  return fetch(API+'/contents/progress.json?ref=status&_='+Date.now(),
+               {cache:'no-store',headers:{'Authorization':'Bearer '+tok,
+                                          'Accept':'application/vnd.github.raw'}})
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){
+      drawProg(j);
+      return j && j.state==='running' &&
+             (Date.now()-Date.parse(j.updated||0))/60000 <= 20;
+    })
+    .catch(function(){ pgHide(); return false; });
+}
+/* 有在跑就每 5 秒看一次，沒在跑就每 30 秒探一下（成本很低，一個小 JSON） */
+function pgLoop(){
+  clearTimeout(pgTimer);
+  pollProg().then(function(active){
+    pgTimer=setTimeout(pgLoop, active?5000:30000);
+  });
+}
+pgLoop();
+
+/* ---------- 送出後自動等結果（就地更新，不跳頁） ---------- */
+var watching=false, wTimer=null, wLeft=0, wWant=1, wGot=0;
+function stopWatch(msg){
+  watching=false; clearTimeout(wTimer);
+  $('#note').textContent='共 '+items.length+' 篇，點標題閱讀。';
+  if(msg) toast(msg);
+}
+function watchNote(){
+  return '共 '+items.length+' 篇，點標題閱讀。（等待中… 已到 '+wGot+'/'+wWant+' 篇）';
+}
+function startWatch(n){
+  setTimeout(pgLoop,3000);            // 剛送出，趕快去看產線有沒有動起來
+  wWant=Math.max(1,n||1); wGot=0;
+  watching=true; wLeft=40*wWant;      // 一支約等 10 分鐘，多支就等久一點
+  clearTimeout(wTimer);
+  $('#note').textContent=watchNote();
+  var tick=function(){
+    if(!watching) return;
+    if(wLeft--<=0){ stopWatch('等太久了，稍後按「重新整理」看看'); return; }
+    load(true).then(function(diff){
+      if(diff>0){
+        wGot+=diff;
+        if(wGot>=wWant){ stopWatch(wWant>1?('✅ '+wWant+' 篇逐字稿都好了！'):'✅ 新逐字稿已出現！'); return; }
+        toast('✅ 已完成 '+wGot+'/'+wWant+' 篇，繼續等…');
+      }
+      $('#note').textContent=watchNote();
+      wTimer=setTimeout(tick,15000);
+    });
+  };
+  wTimer=setTimeout(tick,15000);
+}
+window.__startWatch=startWatch;
+function doSearch(){
+  var q=$('#q').value.trim();
+  if(!q){load();return;}
+  if(!items.length){toast('目前沒有逐字稿');return;}
+  $('#note').textContent='搜尋中…';
+  Promise.all(items.map(function(it){
+    var f=sib(it.file).txt;
+    if(cache[f]!=null) return Promise.resolve({it:it,t:cache[f]});
+    return fetch(enc(f),{cache:'no-store'}).then(function(r){return r.ok?r.text():'';})
+      .catch(function(){return '';}).then(function(t){cache[f]=t;return {it:it,t:t};});
+  })).then(function(all){
+    var ql=q.toLowerCase(), hit=[];
+    all.forEach(function(x){
+      var low=x.t.toLowerCase(), i=low.indexOf(ql), n=0, sn=[];
+      while(i!==-1&&n<2){
+        var a=Math.max(0,i-25), b=Math.min(x.t.length,i+ql.length+25);
+        sn.push('…'+esc(x.t.slice(a,i))+'<mark>'+esc(x.t.slice(i,i+ql.length))+'</mark>'+esc(x.t.slice(i+ql.length,b))+'…');
+        n++; i=low.indexOf(ql,i+ql.length);
+      }
+      if(sn.length){var c2={};for(var k in x.it)c2[k]=x.it[k];c2._snip=sn.join('<br>');hit.push(c2);}
+    });
+    $('#note').textContent = hit.length?('「'+q+'」命中 '+hit.length+' 篇'):('「'+q+'」沒有命中');
+    draw(hit);
+  });
+}
+$('#qBtn').onclick=doSearch;
+$('#q').addEventListener('keydown',function(e){if(e.key==='Enter')doSearch();});
+$('#q').addEventListener('input',function(){if(!this.value.trim())load();});
+
+/* 格式用分段按鈕，不用原生下拉（手機上原生下拉又小又醜） */
+var zipFmt='txt';
+var FMT_HINT={txt:'純文字，最好讀。',md:'含時間碼與摘要。',
+              srt:'字幕檔，可配影片播放。',all:'三種格式都打包。'};
+Array.prototype.slice.call(document.querySelectorAll('#zipFmt button')).forEach(function(b){
+  b.onclick=function(){
+    zipFmt=b.getAttribute('data-v');
+    document.querySelectorAll('#zipFmt button').forEach(function(o){ o.className=(o===b?'on':''); });
+    $('#fmtHint').textContent=FMT_HINT[zipFmt]||'';
+    zipLabel();
+  };
+});
+/* 按鈕自己說會打包幾篇，不用猜「打包下載」到底包了什麼 */
+function zipLabel(){
+  var n=picked().length, b=$('#zipBtn');
+  b.textContent = !items.length ? '⬇️ 打包下載'
+    : n ? ('⬇️ 打包下載（已選 '+n+' 篇）')
+        : ('⬇️ 打包下載（全部 '+items.length+' 篇）');
+}
+$('#zipBtn').onclick=function(){
+  if(!items.length){toast('還沒有逐字稿');return;}
+  var fmt=zipFmt;
+  var chk=picked();                                  // 有勾選就只打包勾選的
+  var use=chk.length?items.filter(function(x){return chk.indexOf(x.file)>-1;}):items;
+  var kinds = fmt==='all' ? ['txt','md','srt'] : [fmt];
+  toast('打包中…（'+use.length+' 篇 · '+(fmt==='all'?'全部格式':'.'+fmt)+'）');
+  var s=document.createElement('script');
+  s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
+  s.onload=function(){
+    var zip=new JSZip(), jobs=[];
+    use.forEach(function(it){
+      var sb=sib(it.file);
+      kinds.forEach(function(k){
+        var f=sb[k], nm=f.split('/').pop();
+        jobs.push(fetch(enc(f),{cache:'no-store'}).then(function(r){return r.ok?r.text():'';})
+          .then(function(t){if(t)zip.file(kinds.length>1?(k+'/'+nm):nm,t);}).catch(function(){}));
+      });
+    });
+    Promise.all(jobs).then(function(){return zip.generateAsync({type:'blob'});})
+      .then(function(b){
+        var u=URL.createObjectURL(b),a=document.createElement('a');
+        a.href=u;a.download='transcripts-'+fmt+'.zip';document.body.appendChild(a);a.click();
+        setTimeout(function(){URL.revokeObjectURL(u);a.remove();},1500);
+        toast('已下載 ZIP ✓');
+      });
+  };
+  s.onerror=function(){toast('打包元件載入失敗');};
+  document.head.appendChild(s);
+};
+
+/* 沒設定過就把「第一次使用」展開 */
+if(!getTok()) $('#setup').open=true;
+})();
+</script>
+</body>
+</html>
