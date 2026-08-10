@@ -1,0 +1,129 @@
+name: 逐字稿產線
+
+# 完整產線：PO-token 繞過機器人驗證 →（有字幕就抓字幕；沒字幕就用 Whisper 語音辨識）
+# → 產出 .md/.txt/.srt → 累加到 gh-pages 的 transcripts/ → 前端就看得到。
+#
+# 影片來源：
+#   - 根目錄 queue.txt（一行一個網址/ID）
+#   - queue/ 收件匣資料夾裡的任何 .txt（前端「一鍵帶入」會往這裡丟）
+#   - 手動 Run workflow 時填 ids
+# 已抽過的影片會自動略過（不重抽、少打 YouTube）。
+# 要抓被鎖區/會員的影片，請在 repo Secrets 設 YT_COOKIES（cookies.txt 內容）。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - queue.txt
+      - queue/**
+      - .github/workflows/pipeline.yml
+      - scripts/grab_transcripts.py
+  schedule:
+    # 每 3 小時自動重試 queue 裡還沒成功的影片（已成功的會自動略過）。
+    # 直播結束、YouTube 轉好存檔後，逐字稿就會自動出現，不必手動重送。
+    - cron: '15 */3 * * *'
+  workflow_dispatch:
+    inputs:
+      ids:
+        description: '影片 ID 或網址（逗號/換行分隔）'
+        required: false
+        default: ''
+      force_asr:
+        description: '忽略字幕，強制語音辨識（1=是）'
+        required: false
+        default: '0'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg
+      - name: start bgutil PO-token provider
+        run: |
+          docker run --name bgutil -d -p 4416:4416 brainicism/bgutil-ytdlp-pot-provider
+          for i in $(seq 1 20); do curl -sf http://127.0.0.1:4416/ping >/dev/null 2>&1 && break; sleep 2; done
+      - run: pip install --no-cache-dir yt-dlp bgutil-ytdlp-pot-provider faster-whisper
+      - name: 取回已發佈的逐字稿（供「略過已存在」與累加）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git clone --depth 1 --branch gh-pages "$URL" site 2>/dev/null; then
+            echo "已取回既有 gh-pages"
+          else
+            mkdir -p site && cd site && git init -q -b gh-pages && git remote add origin "$URL"
+            printf '<!doctype html><meta charset=utf-8><title>transcripts</title>' > index.html && cd ..
+          fi
+          mkdir -p site/transcripts
+      - name: extract
+        env:
+          IDS: ${{ github.event.inputs.ids }}
+          LANGS: 'zh-TW,zh-Hant,zh,en'
+          ASR_BACKEND: ${{ vars.ASR_BACKEND || 'whisper' }}
+          FORCE_ASR: ${{ github.event.inputs.force_asr || vars.FORCE_ASR || '0' }}
+          WHISPER_MODEL: ${{ vars.WHISPER_MODEL || 'small' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          # 直接指定 turbo：比 whisper-large-v3 快約 4 倍，中文口語差異不大。
+          # 刻意不讀 vars.GROQ_MODEL——設定裡那個舊值會蓋掉這裡，要換再改這行。
+          GROQ_MODEL: whisper-large-v3-turbo
+          GROQ_SUMMARY: ${{ vars.GROQ_SUMMARY || '1' }}
+          GROQ_LLM_MODEL: ${{ vars.GROQ_LLM_MODEL || 'llama-3.1-8b-instant' }}
+          YT_COOKIES: ${{ secrets.YT_COOKIES }}
+          YT_PROXY: ${{ secrets.YT_PROXY }}
+          SKIP_DIR: 'site/transcripts'
+        run: |
+          FROM_FILE="$( { cat queue.txt 2>/dev/null; cat queue/*.txt 2>/dev/null; } | sed 's/#.*//' | tr '\n' ' ' )"
+          echo "queue: $FROM_FILE  inputs: $IDS"
+          python scripts/grab_transcripts.py $IDS $FROM_FILE || true
+          echo "===== _index.csv ====="; cat out/_index.csv 2>/dev/null || echo "(none)"
+      - name: publish transcripts to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          if ! ls out/*.md >/dev/null 2>&1; then echo "沒有新產出（多半是都已存在，或影片被鎖需要 YT_COOKIES）"; exit 0; fi
+          cp out/*.md out/*.txt out/*.srt site/transcripts/ 2>/dev/null || true
+          python - <<'PY'
+          import json, glob, os
+          items = []
+          for p in sorted(glob.glob("site/transcripts/*.md")):
+              name = os.path.basename(p); title = name
+              with open(p, encoding="utf-8") as f:
+                  first = f.readline().strip()
+                  if first.startswith("# "):
+                      title = first[2:].strip()
+              items.append({"file": "transcripts/" + name, "title": title})
+          json.dump(items, open("site/transcripts/index.json", "w"), ensure_ascii=False, indent=2)
+          print("索引現有", len(items), "篇逐字稿")
+          PY
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish transcripts" || { echo "no change"; exit 0; }
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:gh-pages && exit 0
+            echo "push race, retry $k"; sleep 3
+            git fetch origin gh-pages && git merge -X ours origin/gh-pages -m "merge gh-pages" || true
+          done
+          exit 1
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: transcripts
+          path: out/
+          retention-days: 7

@@ -1,0 +1,172 @@
+name: 開 Issue 抽逐字稿
+
+# 手機用法：在 GitHub App 開一個 Issue，內文貼 YouTube 網址（一行一個或任意排列）送出即可。
+# 只有 repo 擁有者開、且內文含 youtube 連結的 Issue 會被處理。
+# 抽完會在該 Issue 留言回報結果並自動關閉。
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    if: >-
+      github.event.issue.user.login == github.repository_owner &&
+      (contains(github.event.issue.body, 'youtu') || contains(github.event.issue.title, 'youtu')
+       || contains(github.event.issue.body, 'PASTE-TRANSCRIPT'))
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - name: 判斷是否為「貼上的逐字稿」
+        id: mode
+        env:
+          BODY: ${{ github.event.issue.body }}
+        run: |
+          if printf '%s' "$BODY" | grep -q 'PASTE-TRANSCRIPT'; then
+            echo "paste=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "paste=false" >> "$GITHUB_OUTPUT"
+          fi
+      - name: 記錄到 queue/（排程每 3 小時自動重試未成功的影片）
+        if: steps.mode.outputs.paste == 'false'
+        env:
+          TITLE: ${{ github.event.issue.title }}
+          BODY: ${{ github.event.issue.body }}
+          NUM: ${{ github.event.issue.number }}
+        run: |
+          mkdir -p queue
+          { echo "# issue #$NUM"; echo "$TITLE"; echo "$BODY"; } > "queue/issue-$NUM.txt"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add queue/
+          git commit -m "queue: record issue #$NUM videos [skip ci]" || exit 0
+          for k in 1 2 3; do
+            git push origin HEAD:main && break
+            git pull --rebase origin main || true; sleep 3
+          done
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - if: steps.mode.outputs.paste == 'false'
+        run: sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg
+      - name: start bgutil PO-token provider
+        if: steps.mode.outputs.paste == 'false'
+        run: |
+          docker run --name bgutil -d -p 4416:4416 brainicism/bgutil-ytdlp-pot-provider
+          for i in $(seq 1 20); do curl -sf http://127.0.0.1:4416/ping >/dev/null 2>&1 && break; sleep 2; done
+      - if: steps.mode.outputs.paste == 'false'
+        run: pip install --no-cache-dir yt-dlp bgutil-ytdlp-pot-provider faster-whisper
+      - if: steps.mode.outputs.paste == 'true'
+        run: pip install --no-cache-dir yt-dlp
+      - name: 取回已發佈的逐字稿（供「略過已存在」與累加）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git clone --depth 1 --branch gh-pages "$URL" site 2>/dev/null; then
+            echo "已取回既有 gh-pages"
+          else
+            mkdir -p site && cd site && git init -q -b gh-pages && git remote add origin "$URL"
+            printf '<!doctype html><meta charset=utf-8><title>transcripts</title>' > index.html && cd ..
+          fi
+          mkdir -p site/transcripts
+      - name: extract（影片清單來自 Issue 內文）
+        env:
+          IDS: ${{ github.event.issue.title }} ${{ github.event.issue.body }}
+          LANGS: 'zh-TW,zh-Hant,zh,en'
+          ASR_BACKEND: ${{ vars.ASR_BACKEND || 'whisper' }}
+          WHISPER_MODEL: ${{ vars.WHISPER_MODEL || 'small' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          # 直接指定 turbo：比 whisper-large-v3 快約 4 倍，中文口語差異不大。
+          # 刻意不讀 vars.GROQ_MODEL——設定裡那個舊值會蓋掉這裡，要換再改這行。
+          GROQ_MODEL: whisper-large-v3-turbo
+          GROQ_SUMMARY: ${{ vars.GROQ_SUMMARY || '1' }}
+          GROQ_LLM_MODEL: ${{ vars.GROQ_LLM_MODEL || 'llama-3.1-8b-instant' }}
+          YT_COOKIES: ${{ secrets.YT_COOKIES }}
+          YT_PROXY: ${{ secrets.YT_PROXY }}
+          SKIP_DIR: 'site/transcripts'
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: |
+          if printf '%s' "$ISSUE_BODY" | grep -q 'PASTE-TRANSCRIPT'; then
+            echo "偵測到貼上的逐字稿，直接整理存檔"
+            python scripts/save_pasted.py
+          else
+            python scripts/grab_transcripts.py || true
+            echo "===== _index.csv ====="; cat out/_index.csv 2>/dev/null || echo "(none)"
+          fi
+      - name: publish transcripts to gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          if ! ls out/*.md >/dev/null 2>&1; then echo "沒有新產出（多半是都已存在，或影片被鎖需要 YT_COOKIES）"; exit 0; fi
+          cp out/*.md out/*.txt out/*.srt site/transcripts/ 2>/dev/null || true
+          python - <<'PY'
+          import json, glob, os
+          items = []
+          for p in sorted(glob.glob("site/transcripts/*.md")):
+              name = os.path.basename(p); title = name
+              with open(p, encoding="utf-8") as f:
+                  first = f.readline().strip()
+                  if first.startswith("# "):
+                      title = first[2:].strip()
+              items.append({"file": "transcripts/" + name, "title": title})
+          json.dump(items, open("site/transcripts/index.json", "w"), ensure_ascii=False, indent=2)
+          print("索引現有", len(items), "篇逐字稿")
+          PY
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish transcripts" || { echo "no change"; exit 0; }
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:gh-pages && exit 0
+            echo "push race, retry $k"; sleep 3
+            git fetch origin gh-pages && git merge -X ours origin/gh-pages -m "merge gh-pages" || true
+          done
+          exit 1
+      - name: 回報結果到 Issue 並關閉
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SITE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+          {
+            echo "### 逐字稿產線結果"
+            echo
+            if [ -f out/_index.csv ]; then
+              echo '處理明細（status：ok=成功／skip=已存在／fail=失敗）：'
+              echo '```'
+              cat out/_index.csv
+              echo '```'
+            else
+              echo "沒有讀到任何影片。內文請貼 YouTube 網址（一行一個）。"
+            fi
+            echo
+            echo "成功的逐字稿會出現在網站：$SITE （可個別下載 .txt/.md/.srt 或一鍵打包）。"
+            echo
+            echo "> 失敗的影片**每 3 小時會自動重試**——直播結束、YouTube 轉好存檔後，逐字稿會自動出現在網站，不必重送。"
+            echo "> 若看到「被 YouTube 要求登入驗證」＝需更新 Settings → Secrets 的 YT_COOKIES。"
+            echo
+            echo "---"
+            echo "_Generated by [Claude Code](https://claude.ai/code)_"
+          } > /tmp/comment.md
+          gh issue comment "${{ github.event.issue.number }}" --repo "$GITHUB_REPOSITORY" --body-file /tmp/comment.md || true
+          gh issue close "${{ github.event.issue.number }}" --repo "$GITHUB_REPOSITORY" || true
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: transcripts
+          path: out/
+          retention-days: 7

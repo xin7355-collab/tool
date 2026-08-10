@@ -1,0 +1,154 @@
+name: 上傳音檔轉逐字稿
+
+# 前端「上傳音檔」會把檔案放進 audio-inbox/，這裡自動轉成逐字稿並發佈，
+# 處理完把音檔刪掉（逐字稿留在 gh-pages，音檔不佔 repo）。
+# 音檔不經過 YouTube，所以完全沒有機器人驗證/封鎖問題。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'audio-inbox/**'
+  # 上次沒轉成功的音檔會留在 inbox；每 2 小時自動再試一次，不用手動重傳。
+  schedule:
+    - cron: '35 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # 這個工作流只轉「已經上傳好的音檔」，不碰 YouTube，所以不需要 yt-dlp。
+      # 用 Groq 時也不需要 faster-whisper（那包會拖進 ctranslate2／onnxruntime／
+      # numpy 等一大串，裝起來又慢又用不到）。只有本機 Whisper 才裝。
+      - name: 安裝需要的東西（用 Groq 時幾乎不用裝）
+        env:
+          ASR_BACKEND: ${{ vars.ASR_BACKEND || 'whisper' }}
+        run: |
+          # 已經有 ffmpeg 就別再花 20 幾秒跑 apt-get update
+          command -v ffmpeg >/dev/null && echo "ffmpeg 已內建" || {
+            sudo apt-get -qq update && sudo apt-get -qq install -y ffmpeg; }
+          [ "$ASR_BACKEND" = "groq" ] || pip install --no-cache-dir faster-whisper
+      - name: 取回已發佈的逐字稿（累加用）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git clone --depth 1 --branch gh-pages "$URL" site 2>/dev/null; then
+            echo "已取回既有 gh-pages"
+          else
+            mkdir -p site && cd site && git init -q -b gh-pages && git remote add origin "$URL"
+            printf '<!doctype html><meta charset=utf-8><title>transcripts</title>' > index.html && cd ..
+          fi
+          mkdir -p site/transcripts
+      - name: 轉錄音檔
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # 進度條要靠它寫 gh-pages
+          LANGS: 'zh-TW,zh-Hant,zh,en'
+          ASR_BACKEND: ${{ vars.ASR_BACKEND || 'whisper' }}
+          WHISPER_MODEL: ${{ vars.WHISPER_MODEL || 'small' }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          # 直接指定 turbo：比 whisper-large-v3 快約 4 倍，中文口語差異不大。
+          # 刻意不讀 vars.GROQ_MODEL——設定裡那個舊值會蓋掉這裡，要換再改這行。
+          GROQ_MODEL: whisper-large-v3-turbo
+          GROQ_SUMMARY: ${{ vars.GROQ_SUMMARY || '1' }}
+          GROQ_LLM_MODEL: ${{ vars.GROQ_LLM_MODEL || 'llama-3.1-8b-instant' }}
+        run: |
+          ls -lh audio-inbox/ 2>/dev/null || echo "(inbox 是空的)"
+          python scripts/transcribe_upload.py
+      - name: 發佈逐字稿到 gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          if ! ls out/*.md >/dev/null 2>&1; then echo "沒有新產出"; exit 0; fi
+          # 只搬逐字稿本身：_processed.txt／_status.txt 是給工作流看的內部檔案，
+          # 之前被 cp out/*.txt 一起丟上 gh-pages，混在公開的 transcripts/ 裡面。
+          for f in out/*.md out/*.txt out/*.srt; do
+            [ -e "$f" ] || continue
+            case "$(basename "$f")" in _*) continue;; esac
+            cp "$f" site/transcripts/
+          done
+          rm -f site/transcripts/_*.txt          # 清掉先前誤傳的那些
+          python scripts/build_index.py site/transcripts
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish transcripts from uploaded audio" || { echo "no change"; exit 0; }
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:gh-pages && exit 0
+            echo "push race, retry $k"; sleep 3
+            git fetch origin gh-pages && git merge -X ours origin/gh-pages -m "merge gh-pages" || true
+          done
+          exit 1
+      - name: 完成通知（開 Issue → GitHub App 推播）
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SITE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+          # 定時重試常常跑到空 inbox（總數 0），那不是「失敗」，不該發通知洗版。
+          # 沒有 _status.txt 表示轉錄腳本自己爆了 —— 這時改數 inbox，才不會靜默不報。
+          if [ -f out/_status.txt ]; then
+            TOTAL=$(cut -d' ' -f1 out/_status.txt)
+          else
+            TOTAL=$(ls audio-inbox/ 2>/dev/null | wc -l | tr -d ' ')
+          fi
+          [ "${TOTAL:-0}" -gt 0 ] || { echo "這次沒有待處理音檔，不發通知"; exit 0; }
+          if ls out/*.md >/dev/null 2>&1; then
+            TITLES=$(head -qn 1 out/*.md | sed 's/^# /・/')
+            N=$(ls out/*.md | wc -l | tr -d ' ')
+            {
+              echo "### ✅ 逐字稿完成（$N 篇）"
+              echo
+              echo "$TITLES"
+              echo
+              echo "👉 [開啟逐字稿抽取台]($SITE)"
+            } > /tmp/note.md
+            TITLE="✅ 逐字稿完成：$(head -qn 1 out/*.md | head -1 | sed 's/^# //' | cut -c1-40)"
+          else
+            {
+              echo "### ⏳ 這次沒轉成功，音檔已保留"
+              echo
+              echo "常見原因是辨識服務暫時忙線。**音檔還留在系統裡，每 2 小時會自動再試一次**，"
+              echo "你不用重新上傳；轉好了會再通知你。"
+              echo
+              echo "想看詳細原因：[這次的執行記錄](https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})"
+            } > /tmp/note.md
+            TITLE="⏳ 逐字稿還沒轉好，會自動重試"
+          fi
+          NUM=$(gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
+                  --body-file /tmp/note.md 2>/dev/null | grep -oE '[0-9]+$') || true
+          # 立刻關閉：通知已送出，議題列表保持乾淨（同時留下歷史記錄）
+          [ -n "$NUM" ] && gh issue close "$NUM" --repo "$GITHUB_REPOSITORY" || true
+      - name: 清掉已轉好的音檔（失敗的留著等重試）
+        if: always()
+        run: |
+          [ -s out/_processed.txt ] || { echo "沒有成功轉錄的音檔，全部保留待重試"; exit 0; }
+          while IFS= read -r f; do
+            [ -n "$f" ] && git rm -q --ignore-unmatch -- "$f"
+          done < out/_processed.txt
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Clear processed audio [skip ci]" || exit 0
+          for k in 1 2 3; do
+            git push origin HEAD:main && break
+            git pull --rebase origin main || true; sleep 3
+          done
