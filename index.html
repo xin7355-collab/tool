@@ -496,7 +496,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.4';
+var APP_VER='1.1.5';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1495,6 +1495,120 @@ $('#upBtn').onclick=function(){
    .then(function(){ btn.disabled=false; btn.textContent='⬆️ 上傳並轉錄'; });
 };
 
+/* ---------- 重點摘要（手動補） ---------- */
+/* 產線抓完影片時就會順手做摘要寫進 .md，這裡是給「當時沒做成」的那些補的：
+   舊的逐字稿（摘要功能還沒上線）、或 Groq 當下忙線回失敗的。
+   分段的邏輯照抄 scripts/grab_transcripts.py：一小時的節目有三四萬字，
+   直接截前一萬字送出去只會摘到開場寒暄，而且看的人不會發現漏了。 */
+var SUM_SEG=9000, SUM_PARTS=8, sumCache={};
+var MAP_SYS='你是中文逐字稿的摘要助手。這是一段長逐字稿的其中一段。\n'
+  +'用繁體中文列出這一段真正講到的重點，2~4 點，每點一句話。\n'
+  +'有數字、標的、日期、結論就一定要留下來，那些才是有用的部分。\n'
+  +'沒有實質內容（開場招呼、業配、閒聊）就回一行「（無重點）」。\n'
+  +'直接輸出條列，不要開場白。';
+var FINAL_SYS='你是中文逐字稿的摘要助手。用繁體中文寫重點摘要，格式固定為：\n'
+  +'第一行「**一句話**：」加上一句總結；空一行；接著 4~8 點條列，每點一句話。\n'
+  +'忠於原文，不要加入原文沒有的資訊；重複的合併，沒有實質內容的略過。\n'
+  +'有數字、標的、日期、結論要保留。直接輸出，不要開場白。';
+
+function pickSummary(t){
+  var m=/【摘要】\s*\n([\s\S]*?)(?=\n【逐字稿】|\n*$)/.exec(t||'');
+  if(m && m[1].trim()) return m[1].trim();
+  m=/^##\s*摘要\s*$([\s\S]*?)(?=^##\s|^---\s*$)/m.exec(t||'');
+  return m ? m[1].trim() : '';
+}
+/* 摘要已經在上面那個框裡了，內文再原封不動重複一次只是讓人多捲一段。 */
+function stripSum(t){
+  var i=t.indexOf('【摘要】'), j=t.indexOf('【逐字稿】');
+  if(i>-1 && j>i) return (t.slice(0,i)+t.slice(j+5)).replace(/\n{3,}/g,'\n\n');
+  var m=/^##\s*摘要\s*$[\s\S]*?(?=^---\s*$)/m.exec(t);
+  if(m) return t.slice(0,m.index)+t.slice(m.index+m[0].length);
+  return t;
+}
+function bodyOf(t){
+  var i=(t||'').indexOf('【逐字稿】');
+  if(i>-1) return t.slice(i+5);
+  var j=(t||'').search(/^---\s*$/m);
+  return j>-1 ? t.slice(j+3) : (t||'');
+}
+function cut(t,size){
+  var out=[], i=0;
+  while(i<t.length){ out.push(t.slice(i,i+size)); i+=size; }
+  return out.filter(function(s){ return s.trim(); });
+}
+function groqChat(sys,user){
+  var k=getGq();
+  if(!k) return Promise.reject(new Error('請先到「⚙ 設定」填 Groq API Key（console.groq.com 免費申請）'));
+  return fetch('https://api.groq.com/openai/v1/chat/completions',{
+    method:'POST',
+    headers:{'Authorization':'Bearer '+k,'Content-Type':'application/json'},
+    body:JSON.stringify({model:'llama-3.1-8b-instant',temperature:0.3,
+      messages:[{role:'system',content:sys},{role:'user',content:user}]})
+  }).then(function(r){
+    if(r.status===401) throw new Error('Groq 金鑰無效，請到「⚙ 設定」重填');
+    if(r.status===429) throw new Error('Groq 忙線中，等一下再試');
+    if(!r.ok) throw new Error('Groq HTTP '+r.status);
+    return r.json();
+  }).then(function(j){
+    return ((((j.choices||[])[0]||{}).message)||{}).content||'';
+  });
+}
+/* 一段一段讀，讀完再合成一份。手機上序列跑，不要一次併發打爆 Groq 的速率限制。 */
+function makeSummary(title, body, tick){
+  body=(body||'').replace(/\*\*\[[0-9:]+\]\([^)]*\)\*\*\s*/g,'').trim();  // 拿掉時間碼連結
+  if(!body) return Promise.reject(new Error('這篇沒有內容可以摘要'));
+  var parts=cut(body,SUM_SEG);
+  if(parts.length>SUM_PARTS) parts=cut(body,Math.ceil(body.length/SUM_PARTS));
+  if(parts.length===1){
+    tick('讀全文…');
+    return groqChat(FINAL_SYS,'影片標題：'+title+'\n\n逐字稿：\n'+parts[0]);
+  }
+  var notes=[];
+  return parts.reduce(function(chain,seg,i){
+    return chain.then(function(){
+      tick('讀第 '+(i+1)+'/'+parts.length+' 段…');
+      return groqChat(MAP_SYS,'影片標題：'+title+'\n\n第 '+(i+1)+'/'+parts.length+' 段：\n'+seg)
+        .then(function(s){ if(s && s.indexOf('（無重點）')<0) notes.push(s); })
+        .catch(function(){});                 // 某一段掛掉就跳過，別讓整篇失敗
+    });
+  },Promise.resolve()).then(function(){
+    if(!notes.length) throw new Error('每一段都沒讀到內容');
+    tick('合併重點…');
+    return groqChat(FINAL_SYS,'影片標題：'+title+'\n\n以下是各段整理出來的重點，'
+                    +'請合併成一份完整摘要：\n'+notes.join('\n'))
+      .then(function(s){ return s || notes.join('\n'); })   // 合併失敗就用各段重點
+      .catch(function(){ return notes.join('\n'); });
+  });
+}
+/* 寫回 gh-pages 的 .md 和 .txt。形狀跟預期不合時用附加的，不要硬切壞檔案。 */
+function injectMd(t,s){
+  if(/^##\s*摘要\s*$/m.test(t)) return t;
+  var i=t.search(/^---\s*$/m);
+  if(i<0) return t.replace(/\s*$/,'')+'\n\n## 摘要\n\n'+s+'\n';
+  return t.slice(0,i)+'## 摘要\n\n'+s+'\n\n'+t.slice(i);
+}
+function injectTxt(t,s){
+  if(t.indexOf('【摘要】')>-1) return t;
+  var i=t.indexOf('\n\n');
+  if(i<0) return t.replace(/\s*$/,'')+'\n\n【摘要】\n'+s+'\n';
+  return t.slice(0,i+2)+'【摘要】\n'+s+'\n\n【逐字稿】\n\n'+t.slice(i+2);
+}
+function putFile(path,text,note){
+  var tok=getTok();
+  if(!tok) return Promise.reject(new Error('請先到「⚙ 設定」填 GitHub Token'));
+  var H={'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
+         'Content-Type':'application/json'};
+  var url=API+'/contents/'+encodeURIComponent(path).replace(/%2F/g,'/');
+  return fetch(url+'?ref=gh-pages&_='+Date.now(),{headers:H,cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(cur){
+      var body={message:note,branch:'gh-pages',content:b64utf8(text)};
+      if(cur&&cur.sha) body.sha=cur.sha;
+      return fetch(url,{method:'PUT',headers:H,body:JSON.stringify(body)});
+    })
+    .then(function(r){ if(!r.ok) throw new Error('寫回失敗 HTTP '+r.status); });
+}
+
 /* ---------- 逐字稿 ---------- */
 var items=[], cache={};
 function sib(f){return {md:f,txt:f.replace(/\.md$/i,'.txt'),srt:f.replace(/\.md$/i,'.srt')};}
@@ -1520,13 +1634,74 @@ function show(file,title,li){
         '<a href="'+enc(s.txt)+'" download>.txt</a> · '+
         '<a href="'+enc(s.md)+'" download>.md</a> · '+
         '<a href="'+enc(s.srt)+'" download>.srt</a>'+
-        '<br><a href="#" id="paperClose">✕ 收起</a></div>'+esc(t);
+        '<br><a href="#" id="paperClose">✕ 收起</a></div>'+
+        '<div id="sumBox"></div>'+esc(stripSum(t));
       p.scrollTop=0;
       var c=$('#paperClose');
       if(c) c.onclick=function(e){ e.preventDefault(); closePaper(); };
+      drawSum(file,title,t);
       p.scrollIntoView({behavior:'smooth',block:'nearest'});
     }).catch(function(){ if(openFile===file) p.textContent='讀取失敗'; });
 }
+/* 有摘要就直接攤開給你看——這才是「重點」該有的位置，不用捲過整篇逐字稿去找。
+   沒有的話給一顆按鈕當場補，補完寫回 gh-pages，之後每次打開都在，
+   早上 11 點那則彙整通知也讀得到。 */
+function drawSum(file,title,text){
+  var box=$('#sumBox'); if(!box) return;
+  var s=sumCache[file]||pickSummary(text);
+  box.innerHTML='';
+  box.style.cssText='margin:0 0 14px';
+  if(s){
+    // 閱讀區是淺色紙張（.paper 深字淺底），摘要框要跟著淺色配色——
+    // 用深底的話字是深的，會變成深字配深底，整塊看不見
+    var d=document.createElement('div');
+    d.style.cssText='background:#EAE6D8;border-left:3px solid #1A6858;border-radius:8px;'
+      +'padding:12px 14px;font-size:15px;line-height:1.75;white-space:pre-wrap;color:#221E17';
+    var h=document.createElement('b');
+    h.textContent='📌 重點摘要'; h.style.cssText='display:block;margin-bottom:6px;color:#1A6858';
+    d.appendChild(h); d.appendChild(document.createTextNode(s.replace(/\*\*/g,'')));
+    box.appendChild(d);
+    return;
+  }
+  // 同樣是淺底深字：.btn 沒設 color，放進 .paper 會繼承紙張的深色字
+  var b=document.createElement('button');
+  b.className='btn btn--sm';
+  b.style.cssText='margin-top:0;width:auto;padding:10px 14px;background:#EAE6D8;'
+    +'border-color:#1A6858;color:#1A6858;font-weight:600';
+  b.textContent='✨ 產生重點摘要';
+  var note=document.createElement('span');
+  note.style.cssText='margin-left:10px;font-size:14px;color:#6B6355';
+  b.onclick=function(){
+    b.disabled=true;
+    var tick=function(m){ note.textContent=m; };
+    tick('準備中…');
+    makeSummary(title,bodyOf(text),tick)
+      .then(function(sum){
+        sum=(sum||'').trim();
+        if(!sum) throw new Error('沒有產生出內容');
+        sumCache[file]=sum;
+        tick('存回去…');
+        var sb=sib(file);
+        // .md 是那則每日彙整讀的來源，.txt 是預設下載格式，兩個都要補，
+        // 只補一個的話下次打開（畫面讀 .txt）會看起來像沒存到
+        return fetch(enc(sb.md),{cache:'no-store'}).then(function(r){return r.ok?r.text():'';})
+          .then(function(md){ return md ? putFile(sb.md,injectMd(md,sum),'Add summary: '+title) : null; })
+          .then(function(){ return fetch(enc(sb.txt),{cache:'no-store'}); })
+          .then(function(r){ return r.ok?r.text():''; })
+          .then(function(tx){ return tx ? putFile(sb.txt,injectTxt(tx,sum),'Add summary: '+title) : null; })
+          .then(function(){ toast('摘要已存回 ✓'); })
+          .catch(function(e){ toast('摘要好了，但沒存回去：'+(e&&e.message||e)); })
+          .then(function(){ if(openFile===file) drawSum(file,title,text); });
+      })
+      .catch(function(e){
+        b.disabled=false;
+        tick('');
+        toast('❌ '+(e&&e.message||'摘要失敗'));
+      });
+  };
+  box.appendChild(b); box.appendChild(note);
+}
+
 /* ---------- 名稱簡化 / 分類 / 排序 ---------- */
 /* 這是 scripts/classify.py 那套規則的前端版。舊的逐字稿沒有「短標題」欄位，
    靠這個當場算，不用等補分類的工作流跑完就能看到乾淨的名稱。 */
@@ -1686,9 +1861,9 @@ $('#delBtn').onclick=function(){
       },Promise.resolve());
     })
     .then(function(){
-      // 重建索引
-      var keep=items.filter(function(x){return chk.indexOf(x.file)===-1;})
-                    .map(function(x){return {file:x.file,title:x.title};});
+      // 重建索引：整筆留著。以前這裡只挑 file/title 出來寫回去，等於每刪一篇
+      // 就把「所有」還留著的逐字稿的分類、關鍵字、短標題一起洗掉。
+      var keep=items.filter(function(x){return chk.indexOf(x.file)===-1;});
       return fetch(API+'/contents/transcripts/index.json?ref=gh-pages',{headers:H,cache:'no-store'})
         .then(function(r){return r.ok?r.json():{};})
         .then(function(cur){
