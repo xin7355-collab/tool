@@ -716,7 +716,15 @@ def main():
         except Exception as e:
             msg = str(e).replace("\n", " ")
             if "Sign in to confirm" in msg or "not a bot" in msg:
-                msg = "被 YouTube 要求登入驗證（此 IP 被判定為機器人）。請在本機執行，或提供 YT_COOKIES／YT_PROXY。"
+                # 只有「下載音檔」會被擋，查影片資訊和抓字幕都過得去——所以這個錯誤
+                # 一定代表「這支沒有字幕、需要語音辨識」。原本的訊息只說「請在本機
+                # 執行」，但真正該做的是手機那條路（住宅 IP），講清楚省得每次重猜。
+                msg = ("這支沒有字幕，要下載音檔做語音辨識，但 YouTube 擋掉 GitHub 機房 IP"
+                       "（要求登入確認不是機器人）。\n"
+                       "     → 用手機的 a-Shell 跑 `python3 yt2deck.py %s`，"
+                       "住宅 IP 幾乎都過得去，抓完會自動上傳。\n"
+                       "     → 或補一份有效的 YT_COOKIES（Netscape cookies.txt）。\n"
+                       "     → 剛發布的影片可能只是自動字幕還沒生好，產線每 3 小時會再試。" % vid)
             elif "format is not available" in msg:
                 msg = ("影片目前沒有可下載的內容——多半是直播中或直播剛結束仍在處理"
                        "（也可能是會員／地區限制）。等影片頁顯示片長（非 LIVE）後再送一次。")
