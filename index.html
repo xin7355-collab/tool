@@ -40,16 +40,19 @@
   header h1{margin:0;font-size:26px;font-weight:700;letter-spacing:.02em;flex:1;min-width:0}
   header #ver{margin:0;font-size:12.5px;color:var(--dim);flex:0 0 auto}
 
-  /* 分頁：一次只顯示一區，版面不會拉得又臭又長 */
+  /* 分頁：一次只顯示一區，版面不會拉得又臭又長。
+     圖示放上面、字放下面——六個分頁擠在手機寬度裡，排成一行會被壓到換行。 */
   .tabs{display:flex;gap:0;margin-top:14px}
   .tabs button{
-    flex:1;background:none;border:0;border-bottom:3px solid transparent;
-    padding:12px 4px 11px;font-size:15.5px;color:var(--dim);cursor:pointer
+    flex:1;min-width:0;background:none;border:0;border-bottom:3px solid transparent;
+    padding:9px 2px 8px;font-size:12.5px;line-height:1.15;color:var(--dim);cursor:pointer;
+    display:flex;flex-direction:column;align-items:center;gap:3px;white-space:nowrap
   }
+  .tabs button .ic{font-size:18px;line-height:1}
   .tabs button.on{color:var(--amber);border-bottom-color:var(--amber);font-weight:700}
   .tabs button .dot{
-    display:inline-block;width:8px;height:8px;border-radius:50%;
-    background:var(--amber);margin-left:5px;vertical-align:middle
+    position:absolute;width:8px;height:8px;border-radius:50%;
+    background:var(--amber);margin:-2px 0 0 22px
   }
   section[data-pane]{display:none}
   section[data-pane].on{display:block}
@@ -203,11 +206,12 @@
     <p id="ver"></p>
   </div>
   <nav class="tabs">
-    <button type="button" data-pane="get" class="on">🎬 抓影片</button>
-    <button type="button" data-pane="up">🎙 上傳音檔</button>
-    <button type="button" data-pane="web">📰 文章</button>
-    <button type="button" data-pane="tx">📄 下載</button>
-    <button type="button" data-pane="cfg">⚙ 設定</button>
+    <button type="button" data-pane="get" class="on"><span class="ic">🎬</span>抓影片</button>
+    <button type="button" data-pane="up"><span class="ic">🎙</span>上傳音檔</button>
+    <button type="button" data-pane="web"><span class="ic">📰</span>文章</button>
+    <button type="button" data-pane="sub"><span class="ic">📡</span>追蹤</button>
+    <button type="button" data-pane="tx"><span class="ic">📄</span>下載</button>
+    <button type="button" data-pane="cfg"><span class="ic">⚙</span>設定</button>
   </nav>
 </header>
 
@@ -306,6 +310,46 @@
       一樣有<b>摘要、分類、關鍵字</b>，也能一起打包下載。</p>
     <p class="hint">一般新聞、部落格直接就抓得到。若某個網站內容是靠 JavaScript 生出來的
       而抓不到，跟我說一聲，可以開啟瀏覽器模式再試。</p>
+  </div>
+</section>
+
+<section data-pane="sub">
+  <div class="card">
+    <div class="step"><span>追蹤頻道</span></div>
+    <input class="in" id="subQ" placeholder="貼頻道網址，或 @帳號">
+    <p class="lbl" style="margin-top:14px">加入時要不要先抓幾支來看？</p>
+    <div class="seg" id="subFill">
+      <button type="button" data-v="0" class="on">不抓</button>
+      <button type="button" data-v="1">最新 1 支</button>
+      <button type="button" data-v="3">最新 3 支</button>
+    </div>
+    <label style="margin:14px 0 0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink)">
+      <input type="checkbox" id="subShorts" checked style="width:22px;height:22px">略過 Shorts 短影片
+    </label>
+    <details style="margin-top:6px">
+      <summary style="font-size:14.5px;padding:10px 0">只要某類影片？（選填）</summary>
+      <div class="pad" style="padding:0 0 4px">
+        <label>標題要含有</label>
+        <input class="in" id="subOnly" placeholder="盤前,盤後（留空＝全部都要）">
+        <label style="margin-top:10px">標題含這些就不要</label>
+        <input class="in" id="subNot" placeholder="精華,重播">
+        <p class="hint">用逗號分隔，不分大小寫。加入之後想改，取消追蹤再加一次。</p>
+      </div>
+    </details>
+    <button class="btn btn--go" id="subAdd">➕ 加入追蹤</button>
+    <p class="msg" id="subMsg"></p>
+
+    <hr class="sep">
+    <p class="hint" style="margin-top:0">每天<b>早上 7 點</b>自動檢查有沒有新片，
+      有就自動抓逐字稿；<b>11 點</b>把當天完成的<b>重點摘要</b>整理成一則通知送到手機
+      （用 GitHub App 收）。</p>
+    <div id="subStat" class="hist" hidden></div>
+    <ul class="tx" id="subList"></ul>
+    <p class="hint" id="subNote">載入中…</p>
+    <div class="row" style="margin-top:10px">
+      <button class="btn btn--sm" id="subReload" style="margin-top:0">重新整理</button>
+      <button class="btn btn--sm" id="subNow" style="margin-top:0">⚡ 立刻檢查一次</button>
+    </div>
   </div>
 </section>
 
@@ -421,7 +465,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.0.9';
+var APP_VER='1.1.1';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -948,6 +992,205 @@ $('#webBtn').onclick=function(){
   }).catch(function(e){ msg('#webMsg','❌ '+(e&&e.message||'送出失敗'),1); })
    .then(function(){ btn.disabled=false; btn.textContent='📥 抓取並整理'; });
 };
+
+/* ---------- 追蹤頻道 ---------- */
+/* 清單就是 main 分支上的 subs.json。這裡只管「使用者想追誰」，
+   認頻道、抓新片、發摘要都在 GitHub 那邊做——瀏覽器根本連不到 youtube.com
+   的頁面（跨網域被擋），拿不到頻道 ID，只能交給伺服器端。
+   存檔會觸發追蹤工作流，所以剛加入就會馬上查一次，不用等到隔天早上。 */
+var subs={channels:[]}, subsSha='', subsLoaded=false, subFill='0', wstate={};
+
+function b64utf8(s){ return btoa(unescape(encodeURIComponent(s))); }
+function unb64utf8(s){ return decodeURIComponent(escape(atob(String(s).replace(/\s/g,'')))); }
+function subsH(tok){
+  return {'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
+          'Content-Type':'application/json'};
+}
+function loadSubs(){
+  var tok=getTok();
+  if(!tok){ $('#subNote').textContent='請先到「⚙ 設定」填 GitHub Token。'; return Promise.resolve(); }
+  $('#subNote').textContent='載入中…';
+  return fetch(API+'/contents/subs.json?ref=main&_='+Date.now(),
+               {headers:subsH(tok),cache:'no-store'})
+    .then(function(r){
+      if(r.status===404){ subs={channels:[]}; subsSha=''; return null; }   // 還沒建立過
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    })
+    .then(function(j){
+      if(j){
+        subsSha=j.sha;
+        try{ subs=JSON.parse(unb64utf8(j.content))||{}; }catch(e){ subs={}; }
+        if(!subs.channels) subs.channels=[];
+      }
+      subsLoaded=true; renderSubs();
+      return loadWState();                  // 狀態是附加資訊，讀不到也不影響清單
+    })
+    .catch(function(e){ $('#subNote').textContent='讀取失敗：'+(e&&e.message||e); });
+}
+/* 系統做到哪了：上次檢查時間、還在轉的影片。沒有這個，加完頻道就是一片安靜，
+   分不出「正常運作」跟「壞掉了」。 */
+function loadWState(){
+  var tok=getTok(); if(!tok) return;
+  return fetch(API+'/contents/.watch-state.json?ref=main&_='+Date.now(),
+               {headers:subsH(tok),cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){
+      if(!j) return;
+      try{ wstate=JSON.parse(unb64utf8(j.content))||{}; }catch(e){ wstate={}; }
+      renderSubs();
+    }).catch(function(){});
+}
+function ago(iso){
+  var t=Date.parse(iso||''); if(!t) return '';
+  var m=Math.round((Date.now()-t)/60000);
+  if(m<2) return '剛剛';
+  if(m<60) return m+' 分鐘前';
+  if(m<48*60) return Math.round(m/60)+' 小時前';
+  return Math.round(m/1440)+' 天前';
+}
+/* 存檔用 sha 做樂觀鎖：伺服器那邊也會改這個檔（填頻道名稱），
+   撞到就重讀一次再存，不要把對方寫的東西蓋掉。 */
+function saveSubs(note){
+  var tok=getTok();
+  if(!tok) return Promise.reject(new Error('請先到「⚙ 設定」填 GitHub Token'));
+  var put=function(sha){
+    var body={message:note||'Update subscriptions',branch:'main',
+              content:b64utf8(JSON.stringify(subs,null,1)+'\n')};
+    if(sha) body.sha=sha;
+    return fetch(API+'/contents/subs.json',
+                 {method:'PUT',headers:subsH(tok),body:JSON.stringify(body)});
+  };
+  return put(subsSha).then(function(r){
+    if(r.status===409||r.status===422){
+      return fetch(API+'/contents/subs.json?ref=main&_='+Date.now(),
+                   {headers:subsH(tok),cache:'no-store'})
+        .then(function(x){ return x.ok?x.json():null; })
+        .then(function(j){ return put(j&&j.sha); });
+    }
+    return r;
+  }).then(function(r){
+    if(r.status===401) throw new Error('Token 無效，請到設定重新填');
+    if(r.status===403) throw new Error('Token 缺少 Contents: Read and write 權限');
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(function(j){ if(j&&j.content) subsSha=j.content.sha; });
+}
+function renderSubs(){
+  var ul=$('#subList'); ul.innerHTML='';
+  var list=subs.channels||[];
+  $('#subNote').textContent = list.length
+    ? '追蹤中 '+list.length+' 個頻道'
+    : '還沒追蹤任何頻道。貼上頻道網址就可以開始。';
+
+  var pend=(wstate.pending||[]), bar=$('#subStat');
+  bar.innerHTML='';
+  if(list.length && (wstate.checked||pend.length)){
+    var bits=[];
+    if(wstate.checked) bits.push('上次檢查：'+ago(wstate.checked));
+    bits.push(pend.length ? '轉錄中 '+pend.length+' 支' : '沒有待轉的影片');
+    bits.forEach(function(t){
+      var s=document.createElement('button');
+      s.type='button'; s.disabled=true; s.style.opacity='.85'; s.textContent=t;
+      bar.appendChild(s);
+    });
+    bar.hidden=false;
+  }else{ bar.hidden=true; }
+
+  list.forEach(function(ch,i){
+    var li=document.createElement('li');
+    var h=document.createElement('h3');
+    h.style.cursor='default';
+    h.textContent=ch.name||ch.q||'(未命名)';
+    li.appendChild(h);
+    var p=document.createElement('p');
+    p.className='hint'; p.style.margin='0 0 10px';
+    if(ch.err){
+      p.innerHTML='⚠️ '+esc(ch.err);
+    }else if(!ch.id){
+      p.innerHTML='⏳ 系統正在確認這個頻道，通常一兩分鐘內完成';
+    }else{
+      var st=(wstate.channels||{})[ch.id]||{};
+      var rows=['每天自動檢查新片'+(st.checked?'（'+ago(st.checked)+'查過）':'')];
+      var mine=pend.filter(function(x){ return x.c===ch.name; });
+      if(mine.length) rows.push('⏳ 轉錄中：'+esc(mine[0].t||mine[0].v)
+                                +(mine.length>1?' 等 '+mine.length+' 支':''));
+      else if((st.last||[]).length) rows.push('最近抓到：'+esc(st.last[st.last.length-1].t||''));
+      var flt=[];
+      if(ch.skip_shorts!==false) flt.push('略過 Shorts');
+      if(ch.only) flt.push('只要含「'+esc(ch.only)+'」');
+      if(ch['not']) flt.push('排除「'+esc(ch['not'])+'」');
+      if(flt.length) rows.push('<span style="color:var(--dim)">'+flt.join('・')+'</span>');
+      p.innerHTML=rows.join('<br>');
+    }
+    li.appendChild(p);
+    var b=document.createElement('button');
+    b.className='btn btn--sm';
+    b.style.cssText='margin-top:0;width:auto;padding:8px 14px;border-color:var(--bad);color:var(--bad)';
+    b.textContent='🗑 取消追蹤';
+    b.onclick=function(){
+      if(!confirm('不再追蹤「'+(ch.name||ch.q)+'」？已經抓好的逐字稿會留著。')) return;
+      var keep=subs.channels.slice(); keep.splice(i,1);
+      var old=subs.channels; subs.channels=keep; renderSubs();
+      saveSubs('Unsubscribe channel').catch(function(e){
+        subs.channels=old; renderSubs();                 // 存不進去就退回原狀
+        msg('#subMsg','❌ '+(e&&e.message||'取消失敗'),1);
+      });
+    };
+    li.appendChild(b);
+    ul.appendChild(li);
+  });
+}
+all('#subFill button').forEach(function(b){
+  b.onclick=function(){
+    subFill=b.getAttribute('data-v');
+    all('#subFill button').forEach(function(o){ o.className=(o===b?'on':''); });
+  };
+});
+$('#subAdd').onclick=function(){
+  var q=($('#subQ').value||'').trim();
+  if(!q){ msg('#subMsg','⚠️ 請貼頻道網址或 @帳號',1); return; }
+  if(!getTok()){ msg('#subMsg','❌ 請先到「⚙ 設定」填 GitHub Token',1); return; }
+  var btn=this;
+  var go=function(){
+    if(!subs.channels) subs.channels=[];
+    var dup=subs.channels.some(function(c){ return (c.q||'')===q || (c.id&&c.id===q); });
+    if(dup){ msg('#subMsg','這個頻道已經在追蹤了',1); btn.disabled=false; btn.textContent='➕ 加入追蹤'; return; }
+    var ch={q:q, backfill:parseInt(subFill,10)||0,
+            skip_shorts:$('#subShorts').checked,
+            added:new Date().toISOString().slice(0,10)};
+    if(($('#subOnly').value||'').trim()) ch.only=$('#subOnly').value.trim();
+    if(($('#subNot').value||'').trim()) ch['not']=$('#subNot').value.trim();
+    subs.channels.push(ch);
+    renderSubs();
+    return saveSubs('Subscribe '+q).then(function(){
+      $('#subQ').value=''; $('#subOnly').value=''; $('#subNot').value='';
+      msg('#subMsg','✅ 已加入！系統正在確認頻道'
+          +(subFill!=='0' ? '，並開始抓最新 '+subFill+' 支' : '')
+          +'。稍後按「重新整理」就會看到頻道名稱。');
+    });
+  };
+  btn.disabled=true; btn.textContent='送出中…';
+  msg('#subMsg','');
+  // 先確保手上是最新的清單，免得用舊資料覆蓋掉伺服器剛寫進去的頻道名稱
+  (subsLoaded ? Promise.resolve() : loadSubs())
+    .then(go)
+    .catch(function(e){ msg('#subMsg','❌ '+(e&&e.message||'加入失敗'),1); renderSubs(); })
+    .then(function(){ btn.disabled=false; btn.textContent='➕ 加入追蹤'; });
+};
+$('#subReload').onclick=function(){ msg('#subMsg',''); subsLoaded=false; loadSubs(); };
+/* 立刻檢查：不呼叫 Actions API（那要另外的 Token 權限），而是重存一次訂閱檔——
+   存檔本身就是追蹤工作流的觸發條件，等於借同一條路踢它一腳。 */
+$('#subNow').onclick=function(){
+  if(!(subs.channels||[]).length){ msg('#subMsg','還沒有追蹤任何頻道',1); return; }
+  var btn=this; btn.disabled=true; btn.textContent='送出中…';
+  subs.poke=new Date().toISOString();
+  saveSubs('Check subscriptions now')
+    .then(function(){ msg('#subMsg','✅ 已請系統馬上檢查一次，大約一兩分鐘。'
+                          +'有新片會直接開始抓，摘要仍在早上 11 點彙整。'); })
+    .catch(function(e){ msg('#subMsg','❌ '+(e&&e.message||'送出失敗'),1); })
+    .then(function(){ btn.disabled=false; btn.textContent='⚡ 立刻檢查一次'; });
+};
 function b64(f){return new Promise(function(res,rej){
   var r=new FileReader();
   r.onload=function(){var s=String(r.result);res(s.slice(s.indexOf(',')+1));};
@@ -1266,6 +1509,8 @@ function showPane(name){
   });
   window.scrollTo(0,0);
   try{ sessionStorage.setItem('deck_pane',name); }catch(e){}
+  // 訂閱清單第一次打開才去讀，不然每次開網站都多打一次 API
+  if(name==='sub' && !subsLoaded) loadSubs();
 }
 all('.tabs button').forEach(function(b){
   b.onclick=function(){ showPane(b.getAttribute('data-pane')); };

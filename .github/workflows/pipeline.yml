@@ -97,19 +97,8 @@ jobs:
           set -e
           if ! ls out/*.md >/dev/null 2>&1; then echo "沒有新產出（多半是都已存在，或影片被鎖需要 YT_COOKIES）"; exit 0; fi
           cp out/*.md out/*.txt out/*.srt site/transcripts/ 2>/dev/null || true
-          python - <<'PY'
-          import json, glob, os
-          items = []
-          for p in sorted(glob.glob("site/transcripts/*.md")):
-              name = os.path.basename(p); title = name
-              with open(p, encoding="utf-8") as f:
-                  first = f.readline().strip()
-                  if first.startswith("# "):
-                      title = first[2:].strip()
-              items.append({"file": "transcripts/" + name, "title": title})
-          json.dump(items, open("site/transcripts/index.json", "w"), ensure_ascii=False, indent=2)
-          print("索引現有", len(items), "篇逐字稿")
-          PY
+          # 用共用的建索引程式：inline 版只認得標題，會把分類/關鍵字/短標題洗掉
+          python scripts/build_index.py site/transcripts
           cd site
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
