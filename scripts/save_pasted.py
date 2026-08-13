@@ -70,7 +70,7 @@ def groq_summary(title, text):
             "https://api.groq.com/openai/v1/chat/completions", data=body,
             headers={"Authorization": "Bearer " + GROQ_API_KEY,
                      "Content-Type": "application/json",
-                     "User-Agent": "transcript-tool/1.0"})
+                     "User-Agent": "tool/1.0"})
         with urllib.request.urlopen(req, timeout=120) as r:
             j = json.loads(r.read().decode("utf-8", "replace"))
         s = (j.get("choices") or [{}])[0].get("message", {}).get("content", "").strip()

@@ -18,6 +18,7 @@
 輸出：out/NN_<標題>.md / .srt / .txt，外加 out/_index.csv。逐支寫檔，不累積記憶體。
 """
 import os, re, csv, sys, json, glob, time, tempfile, pathlib, urllib.request
+from concurrent.futures import ThreadPoolExecutor
 
 # yt_dlp 刻意不在這裡 import：轉錄「已上傳音檔」根本不碰 YouTube，
 # 那條路的工作流也就不裝 yt-dlp。放模組層會讓 transcribe_upload 一 import 就炸。
@@ -309,7 +310,6 @@ def groq_asr_cues(audio_path, on_progress=None):
     on_progress(做完幾段, 總共幾段)：給網站畫讀取條用，可不給。
     """
     import subprocess, glob as _glob
-    from concurrent.futures import ThreadPoolExecutor
     if not GROQ_API_KEY:
         raise RuntimeError("ASR_BACKEND=groq 但未設定 GROQ_API_KEY")
     with tempfile.TemporaryDirectory() as td:
@@ -481,36 +481,110 @@ def groq_polish(title, paras):
     return out if len(out) == len(paras) else None
 
 
+SUM_SEG = int(os.environ.get("SUMMARY_CHARS") or "9000")
+SUM_PARTS = int(os.environ.get("SUMMARY_PARTS") or "8")
+
+MAP_SYS = ("你是中文逐字稿的摘要助手。這是一段長逐字稿的其中一段。\n"
+           "用繁體中文列出這一段真正講到的重點，2~4 點，每點一句話。\n"
+           "有數字、標的、日期、結論就一定要留下來，那些才是有用的部分。\n"
+           "沒有實質內容（開場招呼、業配、閒聊）就回一行「（無重點）」。\n"
+           "直接輸出條列，不要開場白。")
+FINAL_SYS = ("你是中文逐字稿的摘要助手。用繁體中文寫重點摘要，格式固定為：\n"
+             "第一行「**一句話**：」加上一句總結；空一行；接著 4~8 點條列，每點一句話。\n"
+             "忠於原文，不要加入原文沒有的資訊；重複的合併，沒有實質內容的略過。\n"
+             "有數字、標的、日期、結論要保留。直接輸出，不要開場白。")
+
+
+def _groq_chat(sys_msg, user_msg, temperature=0.3, timeout=120, tries=4):
+    """呼叫 Groq 對話模型。壅塞就等一下再試，失敗回空字串。
+
+    429／5xx 都是「等一下就好」的錯，不重試等於整篇摘要白白掉了；
+    伺服器有給 Retry-After 就聽它的，這比自己亂猜等多久準。
+    """
+    if not GROQ_API_KEY:
+        return ""
+    body = json.dumps({
+        "model": GROQ_LLM_MODEL, "temperature": temperature,
+        "messages": [{"role": "system", "content": sys_msg},
+                     {"role": "user", "content": user_msg}],
+    }).encode("utf-8")
+    for n in range(1, tries + 1):
+        try:
+            req = urllib.request.Request(
+                "https://api.groq.com/openai/v1/chat/completions", data=body,
+                headers={"Authorization": "Bearer " + GROQ_API_KEY,
+                         "Content-Type": "application/json",
+                         "User-Agent": "transcript-tool/1.0"})
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                j = json.loads(r.read().decode("utf-8", "replace"))
+            return (j.get("choices") or [{}])[0].get("message", {}).get("content", "").strip()
+        except urllib.error.HTTPError as e:
+            if e.code not in (429, 500, 502, 503, 520, 524) or n == tries:
+                print("    摘要這段失敗：HTTP %s" % e.code, flush=True)
+                return ""
+            wait = float(e.headers.get("Retry-After") or 0) or min(30, 3 * n)
+        except Exception as e:
+            if n == tries:
+                print("    摘要這段失敗：%s" % str(e).replace("\n", " ")[:90], flush=True)
+                return ""
+            wait = 3 * n
+        time.sleep(wait)
+    return ""
+
+
+def _chunks(text, size):
+    """照段落切塊，不要切在句子中間。"""
+    out, cur = [], ""
+    for line in text.split("\n"):
+        if cur and len(cur) + len(line) > size:
+            out.append(cur); cur = ""
+        cur += line + "\n"
+    if cur.strip():
+        out.append(cur)
+    return out
+
+
 def groq_summary(title, text):
-    """用 Groq LLM 產生繁中重點摘要。任何失敗都回空字串，不影響逐字稿產出。"""
+    """用 Groq LLM 產生繁中重點摘要。任何失敗都回空字串，不影響逐字稿產出。
+
+    長片要先分段各摘一次，再把段摘要合成一份。以前是直接截前一萬字送出去——
+    一支一小時的節目有三、四萬字，等於只摘到開場寒暄，後面真正在講的全沒讀到，
+    而且看摘要的人完全不會發現漏了。
+    """
     if not (GROQ_API_KEY and GROQ_SUMMARY):
         return ""
-    try:
-        body = json.dumps({
-            "model": GROQ_LLM_MODEL,
-            "temperature": 0.3,
-            "messages": [
-                {"role": "system", "content":
-                 "你是逐字稿摘要助手。用繁體中文輸出 3~6 點條列重點摘要，每點一句話，"
-                 "忠於原文、不要添加原文沒有的資訊，直接輸出條列即可，不要開場白。"},
-                {"role": "user", "content":
-                 "影片標題：%s\n\n逐字稿（可能截斷）：\n%s" % (title, text[:10000])},
-            ],
-        }).encode("utf-8")
-        req = urllib.request.Request(
-            "https://api.groq.com/openai/v1/chat/completions", data=body,
-            headers={"Authorization": "Bearer " + GROQ_API_KEY,
-                     "Content-Type": "application/json",
-                     "User-Agent": "transcript-tool/1.0"})
-        with urllib.request.urlopen(req, timeout=120) as r:
-            j = json.loads(r.read().decode("utf-8", "replace"))
-        s = (j.get("choices") or [{}])[0].get("message", {}).get("content", "").strip()
+    text = (text or "").strip()
+    if not text:
+        return ""
+
+    parts = _chunks(text, SUM_SEG)
+    if len(parts) > SUM_PARTS:                     # 超長節目：加大每段，不要放棄後半
+        parts = _chunks(text, -(-len(text) // SUM_PARTS))
+    if len(parts) == 1:
+        s = _groq_chat(FINAL_SYS, "影片標題：%s\n\n逐字稿：\n%s" % (title, text))
         if s:
             print("    已產生摘要（%s）" % GROQ_LLM_MODEL, flush=True)
         return s
-    except Exception as e:
-        print("    摘要失敗（略過）：%s" % str(e).replace("\n", " ")[:120], flush=True)
+
+    print("    摘要：全文 %d 字，分 %d 段讀" % (len(text), len(parts)), flush=True)
+    with ThreadPoolExecutor(max_workers=3) as ex:
+        got = list(ex.map(lambda a: _groq_chat(
+            MAP_SYS, "影片標題：%s\n\n第 %d/%d 段：\n%s" % (title, a[0], len(parts), a[1])),
+            list(enumerate(parts, 1))))
+    notes = [g for g in got if g and "（無重點）" not in g]
+    if not notes:
+        print("    摘要失敗（略過）：每一段都沒讀到", flush=True)
         return ""
+
+    merged = _groq_chat(FINAL_SYS, "影片標題：%s\n\n以下是各段整理出來的重點，"
+                        "請合併成一份完整摘要：\n%s" % (title, "\n".join(notes)))
+    if merged:
+        print("    已產生摘要（%s，讀完 %d/%d 段）"
+              % (GROQ_LLM_MODEL, len(notes), len(parts)), flush=True)
+        return merged
+    # 合併那一次掛掉就把各段重點接起來，資訊還在，只是沒整理過
+    print("    摘要合併失敗，改用各段重點", flush=True)
+    return "\n".join(notes)
 
 
 def write_outputs(n, vid, title, lang, cues):

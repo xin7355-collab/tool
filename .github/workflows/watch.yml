@@ -1,0 +1,144 @@
+name: 追蹤頻道（每日新片＋重點彙整）
+
+# 兩件事，分兩個時段做：
+#   07:00（台灣）檢查訂閱的頻道有沒有新片 → 排進 queue/watch.txt → 產線接手轉逐字稿
+#   11:00（台灣）把這段時間新完成的逐字稿摘要收成一則 Issue → GitHub App 推到手機
+# 中間隔四小時是留給產線跑的：下載＋辨識一支長片要不少時間，太早彙整會什麼都沒有。
+#
+# cron 一律 UTC，台灣時間要減 8 小時（07:00→前一天 23:00、11:00→03:00）。
+# GitHub 的排程本來就可能延遲十幾分鐘，這種「一天一次」的用途不受影響。
+#
+# 注意：公開 repo 若連續 60 天沒有任何提交，GitHub 會自動停用排程工作流。
+# 這個產線天天都在推東西，正常情況不會遇到；真的停了到 Actions 頁面按啟用即可。
+
+on:
+  schedule:
+    - cron: '0 23 * * *'     # 台灣 07:00 檢查新片
+    - cron: '0 3 * * *'      # 台灣 11:00 彙整重點
+  push:
+    branches: [main]
+    paths:
+      - subs.json            # 剛加入頻道就馬上查一次，不用等到隔天
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: '要做哪一段'
+        required: false
+        default: 'both'
+        type: choice
+        options: [both, check, digest]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  check:
+    name: 檢查新片
+    if: >-
+      github.event_name == 'push' ||
+      github.event.schedule == '0 23 * * *' ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode != 'digest')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    # 兩個工作都會改 .watch-state.json，共用同一個群組讓它們排隊，不要對撞
+    concurrency:
+      group: watch-state
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 取回已發佈的逐字稿檔名（判斷哪些影片已經有了）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          # 放 /tmp 不放工作目錄：等一下要 git add -A，這些暫存檔不能被一起提交
+          # 只要檔名不要內容：--filter=blob:none 不下載檔案本體，七百多篇也只要幾秒
+          if git clone --filter=blob:none --no-checkout --depth 1 \
+               --branch gh-pages "$URL" /tmp/gp 2>/dev/null; then
+            git -C /tmp/gp ls-tree -r --name-only HEAD transcripts > /tmp/have.txt \
+              || : > /tmp/have.txt
+          else
+            : > /tmp/have.txt
+          fi
+          wc -l < /tmp/have.txt
+      - name: 檢查訂閱頻道
+        id: watch
+        env:
+          HAVE_LIST: /tmp/have.txt
+        run: python scripts/watch_channels.py
+      - name: 把新片排進產線
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          # 每天都會有一筆（狀態檔記了這次檢查時間）。看起來像噪音，但有兩個用處：
+          # 網站上「上次檢查」才不會停在幾天前，而且公開 repo 連續 60 天沒提交
+          # 會被 GitHub 停用排程，這筆剛好順便當保活。
+          git diff --cached --quiet && { echo "沒有異動"; exit 0; }
+          git commit -m "watch: 發現 ${{ steps.watch.outputs.new }} 支新片"
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:main && exit 0
+            echo "push race, retry $k"; sleep 3
+            git pull --rebase origin main || true
+          done
+          exit 1
+
+  digest:
+    name: 重點彙整
+    if: >-
+      github.event.schedule == '0 3 * * *' ||
+      (github.event_name == 'workflow_dispatch' && inputs.mode != 'check')
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    concurrency:
+      group: watch-state
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 取回已發佈的逐字稿
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone --depth 1 --branch gh-pages \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site \
+            || mkdir -p site/transcripts
+      - name: 整理今天的重點
+        id: dg
+        env:
+          SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/
+        run: python scripts/daily_digest.py
+      - name: 推播（開 Issue → GitHub App 通知）
+        if: steps.dg.outputs.count
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          NUM=$(gh issue create --repo "$GITHUB_REPOSITORY" \
+                  --title "${{ steps.dg.outputs.title }}" \
+                  --body-file digest.md 2>/dev/null | grep -oE '[0-9]+$') || true
+          # 開完就關：通知已經送出去了，議題列表保持乾淨（內容仍留著可以回頭翻）
+          [ -n "$NUM" ] && gh issue close "$NUM" --repo "$GITHUB_REPOSITORY" || true
+      - name: 記住已彙整的篇目
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .watch-state.json
+          git diff --cached --quiet && { echo "沒有異動"; exit 0; }
+          # 這個提交只是記帳，不該讓產線跟著跑一輪
+          git commit -m "watch: 記錄已彙整的逐字稿 [skip ci]"
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:main && exit 0
+            echo "push race, retry $k"; sleep 3
+            git pull --rebase origin main || true
+          done
+          exit 1

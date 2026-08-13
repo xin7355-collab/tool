@@ -115,7 +115,7 @@ def _groq_json(prompt, text, tries=5):
             "https://api.groq.com/openai/v1/chat/completions", data=body,
             headers={"Authorization": "Bearer " + GROQ_API_KEY,
                      "Content-Type": "application/json",
-                     "User-Agent": "transcript-tool"})
+                     "User-Agent": "tool"})
         try:
             with urllib.request.urlopen(req, timeout=90) as r:
                 j = json.loads(r.read().decode("utf-8", "replace"))

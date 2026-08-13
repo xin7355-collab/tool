@@ -77,7 +77,7 @@ class Progress:
             headers={"Authorization": "Bearer " + TOKEN,
                      "Accept": "application/vnd.github+json",
                      "Content-Type": "application/json",
-                     "User-Agent": "transcript-tool-progress"})
+                     "User-Agent": "tool-progress"})
         with urllib.request.urlopen(req, timeout=30) as r:
             return json.loads(r.read().decode("utf-8", "replace") or "{}")
 
