@@ -333,7 +333,7 @@
     <div id="subHits"></div>
     <p class="hint" id="subPlain">直接打名字搜尋就好；貼<b>頻道網址</b>、<b>@帳號</b>，
       或那個頻道<b>任何一支影片</b>的網址也可以。<br>
-      加進來之後，這個頻道<b>每天早上 7 點</b>的新片會自動抓成逐字稿。</p>
+      加進來之後，這個頻道的新片會在<b>每天 05:30、12:00、21:30</b>被檢查、自動抓成逐字稿。</p>
 
     <details style="margin-top:12px">
       <summary style="font-size:14.5px;padding:12px 0">進階選項（可以不管）</summary>
@@ -374,10 +374,12 @@
     <details style="margin-top:14px">
       <summary style="font-size:14.5px;padding:12px 0">這套東西是怎麼跑的？</summary>
       <div class="pad" style="padding:0 0 4px">
-        <p class="hint" style="margin-top:0">每天<b>早上 7 點</b>自動檢查追蹤的頻道有沒有新片，
-          有就自動抓成逐字稿，放進「📄 下載」分頁。</p>
-        <p class="hint"><b>早上 11 點</b>把當天完成的<b>重點摘要</b>整理成一則通知送到手機
-          —— 用 GitHub App 收，所以手機要裝 GitHub App 並開啟通知。</p>
+        <p class="hint" style="margin-top:0">每天 <b>05:30、12:00、21:30</b> 三個時段，
+          自動檢查追蹤的頻道有沒有新片，有就抓成逐字稿放進「📄 下載」分頁。</p>
+        <p class="hint">同樣那三個時段，也會把<b>這段時間新完成的重點摘要</b>收成一則通知送到手機
+          —— 用 GitHub App 收，所以手機要裝 GitHub App 並開啟通知。<b>沒有新東西就不會發</b>。</p>
+        <p class="hint">抓片和彙整錯開一輪：這次排進去的片子產線要跑一陣子，會在下一個時段才報給你。
+          所以早上報昨晚轉完的、中午報早上排的、晚上報中午排的。</p>
         <p class="hint">剛加入的頻道不用等到隔天：存檔當下就會先查一次。</p>
       </div>
     </details>
@@ -496,7 +498,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.5';
+var APP_VER='1.1.6';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1188,7 +1190,7 @@ function renderSubs(){
     }else{
       var st=(wstate.channels||{})[ch.id]||{};
       var rows=[ch.off ? '已暫停，不會再自動抓'
-                       : '每天早上 7 點自動檢查'+(st.checked?'（'+ago(st.checked)+'查過）':'')];
+                       : '每天 05:30／12:00／21:30 檢查'+(st.checked?'（'+ago(st.checked)+'查過）':'')];
       var mine=pend.filter(function(x){ return x.c===ch.name; });
       if(mine.length) rows.push('⏳ 轉錄中：'+esc(mine[0].t||mine[0].v)
                                 +(mine.length>1?' 等 '+mine.length+' 支':''));
@@ -1449,7 +1451,7 @@ $('#subNow').onclick=function(){
   subs.poke=new Date().toISOString();
   saveSubs('Check subscriptions now')
     .then(function(){ msg('#subMsg','✅ 已請系統現在去找新片，大約一兩分鐘。'
-                          +'有新片會直接開始抓，摘要仍在早上 11 點彙整。'); })
+                          +'有新片會直接開始抓，重點摘要在下一個時段（05:30／12:00／21:30）彙整。'); })
     .catch(function(e){ msg('#subMsg','❌ '+(e&&e.message||'送出失敗'),1); })
     .then(function(){ btn.disabled=false; btn.textContent='⚡ 現在就找新片'; });
 };
@@ -1645,7 +1647,7 @@ function show(file,title,li){
 }
 /* 有摘要就直接攤開給你看——這才是「重點」該有的位置，不用捲過整篇逐字稿去找。
    沒有的話給一顆按鈕當場補，補完寫回 gh-pages，之後每次打開都在，
-   早上 11 點那則彙整通知也讀得到。 */
+   那三個時段的彙整通知也讀得到。 */
 function drawSum(file,title,text){
   var box=$('#sumBox'); if(!box) return;
   var s=sumCache[file]||pickSummary(text);

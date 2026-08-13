@@ -14,9 +14,10 @@
   （有字幕→抓字幕；沒字幕→Whisper 語音辨識），把結果發佈到 `gh-pages/transcripts/`，前端就看得到。
 - 要抓鎖區/會員影片：repo → **Settings → Secrets and variables → Actions** 新增 `YT_COOKIES`
   （已登入 YouTube 的 `cookies.txt` 內容）；需要代理再加 `YT_PROXY`。
-- 追蹤頻道：前端「📡 追蹤」分頁貼頻道網址，寫進 `subs.json`。`watch.yml` 每天
-  台灣時間 07:00 讀頻道 RSS 找新片、排進產線，11:00 把當天完成的摘要收成一則
-  Issue 推到手機。狀態在 `.watch-state.json`（機器維護，不用手動改）。
+- 追蹤頻道：前端「📡 追蹤」分頁搜尋頻道名字或貼網址，寫進 `subs.json`。`watch.yml` 每天
+  台灣時間 **05:30／12:00／21:30** 各跑一次：讀頻道 RSS 找新片排進產線，並把這段時間
+  新完成的摘要收成一則 Issue 推到手機（沒有新東西就不發）。抓片與彙整刻意錯開一輪——
+  這次排進去的片子會在下一個時段才被報出來。狀態在 `.watch-state.json`（機器維護，不用手動改）。
 
 ## 本機執行（最穩，用你自己的 IP）
 

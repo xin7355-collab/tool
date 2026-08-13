@@ -1,20 +1,29 @@
 name: 追蹤頻道（每日新片＋重點彙整）
 
-# 兩件事，分兩個時段做：
-#   07:00（台灣）檢查訂閱的頻道有沒有新片 → 排進 queue/watch.txt → 產線接手轉逐字稿
-#   11:00（台灣）把這段時間新完成的逐字稿摘要收成一則 Issue → GitHub App 推到手機
-# 中間隔四小時是留給產線跑的：下載＋辨識一支長片要不少時間，太早彙整會什麼都沒有。
+# 每天三個時段（台灣 05:30 / 12:00 / 21:30），每個時段都做兩件事：
+#   檢查訂閱的頻道有沒有新片 → 排進 queue/watch.txt → 產線接手轉逐字稿
+#   把這段時間新完成的逐字稿摘要收成一則 Issue → GitHub App 推到手機
 #
-# cron 一律 UTC，台灣時間要減 8 小時（07:00→前一天 23:00、11:00→03:00）。
-# GitHub 的排程本來就可能延遲十幾分鐘，這種「一天一次」的用途不受影響。
+# 兩件事同一個時段做、卻不會互相等，是因為它們本來就錯開一輪：這次排進去的片子
+# 產線要跑一陣子，會在「下一個」時段才被彙整進去。所以是滾動的——早上報昨晚轉完的，
+# 中午報早上排的，晚上報中午排的。
+#
+# 檢查一定要跟彙整同頻率。之前檢查一天只跑一次，如果只把彙整加到三次，
+# 當天發布的影片要等隔天才被發現，另外兩則通知幾乎永遠是空的。
+# （沒有新東西時 daily_digest.py 會安靜跳過，不會發空通知。）
+#
+# cron 一律 UTC，台灣時間要減 8 小時。跨過午夜的要記得連日期一起退：
+#   台灣 05:30 → UTC 前一天 21:30；12:00 → 04:00；21:30 → 13:30
+# GitHub 的排程本來就可能延遲十幾分鐘，這種用途不受影響。
 #
 # 注意：公開 repo 若連續 60 天沒有任何提交，GitHub 會自動停用排程工作流。
 # 這個產線天天都在推東西，正常情況不會遇到；真的停了到 Actions 頁面按啟用即可。
 
 on:
   schedule:
-    - cron: '0 23 * * *'     # 台灣 07:00 檢查新片
-    - cron: '0 3 * * *'      # 台灣 11:00 彙整重點
+    - cron: '30 21 * * *'    # 台灣 05:30
+    - cron: '0 4 * * *'      # 台灣 12:00
+    - cron: '30 13 * * *'    # 台灣 21:30
   push:
     branches: [main]
     paths:
@@ -37,7 +46,7 @@ jobs:
     name: 檢查新片
     if: >-
       github.event_name == 'push' ||
-      github.event.schedule == '0 23 * * *' ||
+      github.event_name == 'schedule' ||
       (github.event_name == 'workflow_dispatch' && inputs.mode != 'digest')
     runs-on: ubuntu-latest
     timeout-minutes: 20
@@ -92,7 +101,7 @@ jobs:
   digest:
     name: 重點彙整
     if: >-
-      github.event.schedule == '0 3 * * *' ||
+      github.event_name == 'schedule' ||
       (github.event_name == 'workflow_dispatch' && inputs.mode != 'check')
     runs-on: ubuntu-latest
     timeout-minutes: 20
