@@ -133,6 +133,13 @@
   .tx .dl a:active{border-color:var(--amber);color:var(--amber)}
 
   /* 分段選擇器：手機上比原生下拉好按，也不會出現系統醜箭頭 */
+  /* 頻道搜尋結果。不共用 .vid：那個的 button 規則是 42px 方塊，會把「追蹤」壓成一顆方鈕 */
+  .ch{display:flex;gap:12px;align-items:center;padding:10px;border:1px solid var(--line);
+    border-radius:9px;margin-top:10px;background:#0E1518}
+  .ch img{width:52px;height:52px;border-radius:50%;object-fit:cover;background:#182226;flex:0 0 auto}
+  .ch p{margin:0;font-size:15px;line-height:1.45;flex:1;min-width:0}
+  .ch button{flex:0 0 auto;width:auto;margin-top:0;padding:10px 14px;font-size:15px}
+
   .seg{display:flex;margin-top:8px;border:1px solid var(--line);border-radius:9px;overflow:hidden}
   .seg button{flex:1;background:#0E1518;border:0;border-left:1px solid var(--line);
     padding:13px 4px;font-size:15.5px;color:var(--dim);cursor:pointer}
@@ -319,11 +326,13 @@
 <section data-pane="sub">
   <div class="card">
     <div class="step"><span>追蹤頻道</span></div>
-    <input class="in" id="subQ" placeholder="貼頻道網址，或 @帳號">
-    <button class="btn btn--go" id="subAdd">➕ 加入追蹤</button>
+    <input class="in" id="subQ" placeholder="打頻道名字，例如：李兆華">
+    <button class="btn btn--go" id="subAdd">🔍 搜尋頻道</button>
     <p class="msg" id="subMsg"></p>
-    <p class="hint" id="subPlain">加進來之後，這個頻道<b>每天早上 7 點</b>的新片會自動抓成逐字稿。
-      只想收特定影片、或想順便補抓舊片，再展開下面的進階。</p>
+    <div id="subHits"></div>
+    <p class="hint" id="subPlain">直接打名字搜尋就好；貼<b>頻道網址</b>、<b>@帳號</b>，
+      或那個頻道<b>任何一支影片</b>的網址也可以。<br>
+      加進來之後，這個頻道<b>每天早上 7 點</b>的新片會自動抓成逐字稿。</p>
 
     <details style="margin-top:12px">
       <summary style="font-size:14.5px;padding:12px 0">進階選項（可以不管）</summary>
@@ -486,7 +495,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.2';
+var APP_VER='1.1.3';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1128,7 +1137,7 @@ function renderSubs(){
   var list=subs.channels||[];
   $('#subNote').textContent = list.length
     ? '追蹤中 '+list.length+' 個頻道'
-    : '還沒追蹤任何頻道。在上面貼頻道網址就可以開始。';
+    : '還沒追蹤任何頻道。在上面打頻道名字搜尋就可以開始。';
   // 一個頻道都沒有時，「更新狀態／現在就找新片」沒有東西可以作用，先收起來
   $('#subTools').hidden = !list.length;
 
@@ -1154,7 +1163,7 @@ function renderSubs(){
     h.textContent=(ch.off?'⏸ ':'')+(ch.name||ch.q||'(未命名)');
     li.appendChild(h);
     // 名稱還沒回來時，至少讓使用者看得到自己貼的是什麼
-    if(ch.name && ch.q && ch.name!==ch.q){
+    if(ch.name && /^@/.test(ch.q||'')){
       var q=document.createElement('p');
       q.className='hint'; q.style.cssText='margin:-4px 0 8px;color:#5B6F75';
       q.textContent=ch.q; li.appendChild(q);
@@ -1282,38 +1291,139 @@ all('#subFill button').forEach(function(b){
     all('#subFill button').forEach(function(o){ o.className=(o===b?'on':''); });
   };
 });
-$('#subAdd').onclick=function(){
-  var q=($('#subQ').value||'').trim();
-  if(!q){ msg('#subMsg','⚠️ 請貼頻道網址或 @帳號',1); return; }
+/* base 可以只有 {q}（使用者自己貼的），也可以是搜尋結果的 {q,id,name}。
+   帶 id 進來的最好：伺服器不用再去認頻道，卡片馬上就有名字，不必等也不必輪詢。 */
+function addChannel(base, btn){
   if(!getTok()){ msg('#subMsg','❌ 請先到「⚙ 設定」填 GitHub Token',1); return; }
-  var btn=this;
+  var lbl=btn.textContent;
   var go=function(){
     if(!subs.channels) subs.channels=[];
-    var dup=subs.channels.some(function(c){ return (c.q||'')===q || (c.id&&c.id===q); });
-    if(dup){ msg('#subMsg','這個頻道已經在追蹤了',1); btn.disabled=false; btn.textContent='➕ 加入追蹤'; return; }
-    var ch={q:q, backfill:parseInt(subFill,10)||0,
+    var dup=subs.channels.some(function(c){
+      return (base.id && c.id===base.id) || (c.q||'')===base.q || (c.id&&c.id===base.q); });
+    if(dup){ msg('#subMsg','這個頻道已經在追蹤了',1); return; }
+    var ch={q:base.q, backfill:parseInt(subFill,10)||0,
             skip_shorts:$('#subShorts').checked,
             added:new Date().toISOString().slice(0,10)};
+    if(base.id) ch.id=base.id;
+    if(base.name) ch.name=base.name;
     if(($('#subOnly').value||'').trim()) ch.only=$('#subOnly').value.trim();
     if(($('#subNot').value||'').trim()) ch['not']=$('#subNot').value.trim();
     subs.channels.push(ch);
     renderSubs();
-    return saveSubs('Subscribe '+q).then(function(){
+    return saveSubs('Subscribe '+base.q).then(function(){
       $('#subQ').value=''; $('#subOnly').value=''; $('#subNot').value='';
-      msg('#subMsg','✅ 已加入'
+      $('#subHits').innerHTML=''; syncAddBtn();
+      msg('#subMsg','✅ 已追蹤「'+(base.name||base.q)+'」'
           +(subFill!=='0' ? '，正在抓最新 '+subFill+' 支' : '')
-          +'。頻道名稱確認好會自己出現在下面。');
-      pollSubs();
+          +(base.id ? '' : '。頻道名稱確認好會自己出現在下面。'));
+      if(!base.id) pollSubs();          // 只有還要伺服器認頻道時才需要盯
       var card=$('#subList'); if(card&&card.scrollIntoView) card.scrollIntoView({behavior:'smooth',block:'center'});
     });
   };
   btn.disabled=true; btn.textContent='送出中…';
   msg('#subMsg','');
   // 先確保手上是最新的清單，免得用舊資料覆蓋掉伺服器剛寫進去的頻道名稱
-  (subsLoaded ? Promise.resolve() : loadSubs())
+  return (subsLoaded ? Promise.resolve() : loadSubs())
     .then(go)
     .catch(function(e){ msg('#subMsg','❌ '+(e&&e.message||'加入失敗'),1); renderSubs(); })
-    .then(function(){ btn.disabled=false; btn.textContent='➕ 加入追蹤'; });
+    .then(function(){ btn.disabled=false; btn.textContent=lbl; });
+}
+
+/* 貼進來的東西已經指名道姓（網址／@帳號／頻道 ID）就直接加，不然當成名字去搜。 */
+function isChanRef(q){
+  return /^https?:\/\//i.test(q) || /^@/.test(q) || /^UC[0-9A-Za-z_-]{22}$/.test(q);
+}
+function syncAddBtn(){
+  var q=($('#subQ').value||'').trim();
+  $('#subAdd').textContent = (q && isChanRef(q)) ? '➕ 直接加入追蹤' : '🔍 搜尋頻道';
+}
+$('#subQ').oninput=syncAddBtn;
+$('#subQ').onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); $('#subAdd').click(); } };
+
+function nsub(n){
+  n=parseInt(n,10);
+  if(!(n>0)) return '';
+  if(n>=10000) return (n/10000).toFixed(n>=100000?0:1).replace(/\.0$/,'')+' 萬人訂閱';
+  return n+' 人訂閱';
+}
+/* 有 YouTube 金鑰就用官方 API，沒有就走 Piped 鏡像——跟「抓影片」那邊同一套備援。
+   兩邊都給得出頻道 ID，所以搜尋挑出來的頻道可以直接用，不用再認一次。 */
+function searchChanApi(q){
+  var k=getYt(); if(!k) return Promise.reject(0);
+  return fetch('https://www.googleapis.com/youtube/v3/search?part=snippet&type=channel&maxResults=10&q='
+      +encodeURIComponent(q)+'&key='+k)
+    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){
+      return (j.items||[]).map(function(x){
+        var t=x.snippet&&x.snippet.thumbnails||{};
+        return {id:(x.id&&x.id.channelId)||'', name:(x.snippet&&x.snippet.title)||'',
+                thumb:((t.default||t.medium||{}).url)||'',
+                desc:(x.snippet&&x.snippet.description)||'', subs:''};
+      }).filter(function(c){ return c.id; });
+    });
+}
+function searchChanPiped(q,i){
+  i=i||0; if(i>=PIPED.length) return Promise.reject(new Error('搜尋節點都沒回應'));
+  var c=new AbortController(), tm=setTimeout(function(){c.abort();},7000);
+  return fetch(PIPED[i]+'/search?q='+encodeURIComponent(q)+'&filter=channels',{signal:c.signal})
+    .then(function(r){ clearTimeout(tm); if(!r.ok) throw 0; return r.json(); })
+    .then(function(j){
+      var it=(j.items||j||[]).filter(function(x){ return x.url&&x.url.indexOf('/channel/')>-1; });
+      if(!it.length) throw 0;
+      return it.slice(0,10).map(function(x){
+        return {id:x.url.split('/channel/')[1].split(/[?#\/]/)[0],
+                name:x.name||x.title||'', thumb:x.thumbnail||'',
+                desc:x.description||'', subs:nsub(x.subscribers)};
+      });
+    }).catch(function(){ clearTimeout(tm); return searchChanPiped(q,i+1); });
+}
+function drawHits(list){
+  var box=$('#subHits'); box.innerHTML='';
+  var t=document.createElement('p');
+  t.className='hint'; t.textContent='找到 '+list.length+' 個頻道，點「追蹤」就會加入：';
+  box.appendChild(t);
+  list.forEach(function(c){
+    var d=document.createElement('div'); d.className='ch';
+    if(c.thumb){
+      var im=document.createElement('img');
+      im.loading='lazy'; im.src=c.thumb; im.alt='';
+      im.onerror=function(){ im.remove(); };      // 鏡像的圖有時候掛掉，別留一塊空白
+      d.appendChild(im);
+    }
+    var p=document.createElement('p');
+    p.innerHTML='<b>'+esc(c.name)+'</b>'
+      +(c.subs ? '<br><span style="color:var(--dim);font-size:13.5px">'+esc(c.subs)+'</span>' : '')
+      +(c.desc ? '<br><span style="color:#5B6F75;font-size:13px">'+esc(c.desc.slice(0,50))+'</span>' : '');
+    var b=document.createElement('button');
+    b.className='btn btn--sm'; b.textContent='➕ 追蹤';
+    b.onclick=function(){
+      addChannel({q:'https://www.youtube.com/channel/'+c.id, id:c.id, name:c.name}, b);
+    };
+    d.appendChild(p); d.appendChild(b); box.appendChild(d);
+  });
+}
+$('#subAdd').onclick=function(){
+  var q=($('#subQ').value||'').trim();
+  if(!q){ msg('#subMsg','⚠️ 打頻道名字，或貼網址／@帳號',1); return; }
+  if(isChanRef(q)) return addChannel({q:q}, this);
+
+  var btn=this, lbl=btn.textContent;
+  btn.disabled=true; btn.textContent='搜尋中…';
+  msg('#subMsg',''); $('#subHits').innerHTML='';
+  (getYt() ? searchChanApi(q).catch(function(){ return searchChanPiped(q); })
+           : searchChanPiped(q))
+    .then(function(list){
+      if(!list || !list.length){
+        msg('#subMsg','找不到這個名字。改貼頻道網址，或那個頻道任何一支影片的網址，一樣可以加。',1);
+        return;
+      }
+      drawHits(list);
+    })
+    .catch(function(e){
+      msg('#subMsg','❌ 搜尋失敗：'+(e&&e.message||e)
+          +'。改貼頻道網址或影片網址一樣可以加。',1);
+    })
+    .then(function(){ btn.disabled=false; btn.textContent=lbl; });
 };
 $('#subReload').onclick=function(){ msg('#subMsg',''); subEditIdx=-1; stopPoll(); subsLoaded=false; loadSubs(); };
 /* 立刻檢查：不呼叫 Actions API（那要另外的 Token 權限），而是重存一次訂閱檔——
