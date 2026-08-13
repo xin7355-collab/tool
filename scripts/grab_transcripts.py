@@ -27,7 +27,33 @@ from concurrent.futures import ThreadPoolExecutor
 OUT = pathlib.Path("out"); OUT.mkdir(exist_ok=True)
 LANGS = [s.strip() for s in os.environ.get(
     "LANGS", "zh-TW,zh-Hant,zh-HK,zh,en").split(",") if s.strip()]
+
+
+def usable_proxy(url):
+    """代理位址要有 scheme 和主機名，例如 http://1.2.3.4:8080、socks5://user:pw@host:1080。
+
+    設錯的話 yt-dlp 每一支都會在連線前就炸（Python 解析主機名的
+    「label empty or too long」），跟 cookie 一樣是「選填設定弄死全部」。
+    寧可不走代理也不要全滅——公開影片本來就不需要代理。
+    """
+    from urllib.parse import urlparse
+    try:
+        u = urlparse((url or "").strip())
+    except Exception:
+        return False
+    if u.scheme not in ("http", "https", "socks4", "socks4a", "socks5", "socks5h"):
+        return False
+    host = u.hostname or ""
+    if not host or not re.fullmatch(r"[A-Za-z0-9._:\[\]-]+", host):
+        return False
+    return all(lb and len(lb) <= 63 for lb in host.split("."))
+
+
 PROXY = os.environ.get("YT_PROXY", "").strip()
+if PROXY and not usable_proxy(PROXY):
+    print("⚠️ YT_PROXY 不是可用的代理位址（要像 http://主機:埠 或 socks5://主機:埠），這次忽略它。\n"
+          "   公開影片不受影響；用不到就到 Settings → Secrets 把 YT_PROXY 刪掉。", flush=True)
+    PROXY = ""
 PLAYER_CLIENTS = [s.strip() for s in os.environ.get(
     "YT_PLAYER_CLIENTS", "tv,web_safari,web").split(",") if s.strip()]
 ID_RE = re.compile(r"(?:v=|/shorts/|/live/|/embed/|youtu\.be/)([A-Za-z0-9_-]{11})|([A-Za-z0-9_-]{11})")
@@ -640,7 +666,7 @@ def write_outputs(n, vid, title, lang, cues):
 
 
 def main():
-    global COOKIEFILE
+    global COOKIEFILE, PROXY
     args = sys.argv[1:]
     ids = parse_ids(" ".join(args) if args else os.environ.get("IDS", ""))
     print(f"待處理 {len(ids)} 支影片"
@@ -660,14 +686,17 @@ def main():
             except Exception as e1:   # YouTube 對機房 IP 偶發刁難（格式/5xx）→ 等一下重試一次
                 m1 = str(e1)
                 if ("format is not available" in m1 or "HTTP Error 5" in m1
-                        or "Connection" in m1 or "cookie" in m1.lower()):
+                        or "Connection" in m1 or "cookie" in m1.lower()
+                        or "label empty or too long" in m1 or "proxy" in m1.lower()):
                     # 半失效的 cookie（瀏覽器輪換後）會讓 YouTube 回空格式清單；
                     # 這支影片改走無 cookie + PO-token 重試，下一支恢復先用 cookie。
-                    saved_cookie = COOKIEFILE
-                    if COOKIEFILE:
-                        print("  暫時性失敗（%s），12 秒後改用無 cookie 重試…"
-                              % m1.replace("\n", " ")[:90], flush=True)
+                    saved_cookie, saved_proxy = COOKIEFILE, PROXY
+                    dropped = [n for n, v in (("cookie", COOKIEFILE), ("代理", PROXY)) if v]
+                    if dropped:
+                        print("  暫時性失敗（%s），12 秒後改用無 %s 重試…"
+                              % (m1.replace("\n", " ")[:90], "／".join(dropped)), flush=True)
                         COOKIEFILE = ""
+                        PROXY = ""
                     else:
                         print("  暫時性失敗（%s），12 秒後重試一次…"
                               % m1.replace("\n", " ")[:90], flush=True)
@@ -675,7 +704,7 @@ def main():
                     try:
                         title, lang, cues = get_transcript(vid)
                     finally:
-                        COOKIEFILE = saved_cookie
+                        COOKIEFILE, PROXY = saved_cookie, saved_proxy
                 else:
                     raise
             chars, npara = write_outputs(n, vid, title, lang, cues)
