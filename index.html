@@ -362,6 +362,7 @@
     <div class="step"><span>追蹤中</span></div>
     <p class="hint" id="subNote" style="margin:-6px 0 0">載入中…</p>
     <div id="subStat" class="hist" hidden></div>
+    <div id="subStuck" hidden></div>
     <ul class="tx" id="subList" style="margin-top:14px"></ul>
     <div id="subTools" hidden>
       <div class="row" style="margin-top:12px">
@@ -498,7 +499,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.6';
+var APP_VER='1.1.7';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1166,6 +1167,49 @@ function renderSubs(){
     });
     bar.hidden=false;
   }else{ bar.hidden=true; }
+
+  /* 等著轉的影片給一條出路。GitHub 機房 IP 常被 YouTube 要求「登入確認不是機器人」，
+     被擋的時候連字幕清單都拿不到，產線就一直卡著——畫面上卻只寫「轉錄中」，
+     看起來像在跑。手機是住宅 IP，過得去，所以直接把一鍵指令端到面前。 */
+  var stuck=$('#subStuck');
+  stuck.innerHTML='';
+  if(pend.length){
+    var stuckIds=pend.map(function(x){ return x.v; }).filter(Boolean);
+    var box=document.createElement('div');
+    box.style.cssText='border:1px solid #5A4A2A;background:#1E1B14;border-radius:9px;'
+      +'padding:12px 14px;margin-top:10px';
+    var p=document.createElement('p');
+    p.className='hint'; p.style.margin='0';
+    p.innerHTML='⏳ 有 <b>'+stuckIds.length+' 支</b>還沒轉出逐字稿。<br>'
+      +'產線每 3 小時會自動重試，但 YouTube 常擋 GitHub 機房 IP —— 一直沒進來就用手機抓，'
+      +'手機是住宅 IP，幾乎都過得去。';
+    box.appendChild(p);
+    var b=document.createElement('button');
+    b.className='btn btn--go';
+    b.style.cssText='font-size:16px;padding:13px;margin-top:12px';
+    b.textContent='🚀 用手機補抓這 '+stuckIds.length+' 支';
+    b.onclick=function(){
+      b.disabled=true;
+      ready(stuckIds).then(function(){
+        copy(cmdFor(stuckIds));           // 先複製當備援，跳轉失敗還能自己貼
+        toast('開啟 a-Shell 抓 '+stuckIds.length+' 支…（沒反應就用下面的指令）');
+        location.href='ashell://'+encodeURIComponent(cmdFor(stuckIds));
+      }).catch(function(e){ toast('失敗：'+(e&&e.message||'未知錯誤')); })
+        .then(function(){ b.disabled=false; });
+    };
+    box.appendChild(b);
+    var cmd=document.createElement('div');
+    cmd.className='cmd'; cmd.style.marginTop='10px';
+    cmd.textContent=cmdFor(stuckIds);
+    box.appendChild(cmd);
+    var tip=document.createElement('p');
+    tip.className='hint';
+    tip.innerHTML='沒反應（App 沒裝或系統擋跳轉）就長按上面那行複製，開 a-Shell 貼上執行。'
+      +'第一次用要先裝：<span style="color:var(--dim)">pip install -U yt-dlp</span>';
+    box.appendChild(tip);
+    stuck.appendChild(box);
+    stuck.hidden=false;
+  }else{ stuck.hidden=true; }
 
   list.forEach(function(ch,i){
     var li=document.createElement('li');
