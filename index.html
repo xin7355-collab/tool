@@ -328,6 +328,7 @@
     <div class="step"><span>追蹤頻道</span></div>
     <input class="in" id="subQ" placeholder="打頻道名字，例如：李兆華">
     <button class="btn btn--go" id="subAdd">🔍 搜尋頻道</button>
+    <div class="hist" id="subHist"></div>
     <p class="msg" id="subMsg"></p>
     <div id="subHits"></div>
     <p class="hint" id="subPlain">直接打名字搜尋就好；貼<b>頻道網址</b>、<b>@帳號</b>，
@@ -495,7 +496,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.3';
+var APP_VER='1.1.4';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -579,38 +580,47 @@ function ago(ms){
 }
 
 /* ---------- 搜尋紀錄 ---------- */
-var HIST=ls('deck_hist',[]);
-function saveHist(){ try{ localStorage.setItem('deck_hist',JSON.stringify(HIST)); }catch(e){} }
-function pushHist(q){
-  q=String(q||'').trim(); if(!q) return;
-  HIST=[q].concat(HIST.filter(function(h){return h!==q;})).slice(0,12);
-  saveHist(); drawHist();
-}
-function drawHist(){
-  var h=$('#hist'); h.innerHTML='';
-  if(!HIST.length) return;
-  HIST.forEach(function(q){
-    var b=document.createElement('button');
-    b.textContent=q; b.title='再搜尋一次：'+q;
-    b.onclick=function(){ box.value=q; $('#goBtn').textContent='搜尋'; $('#goBtn').click(); };
-    // 長按（或按住 1 秒）刪掉這筆，免得清單被用過一次的關鍵字塞滿
-    var t=null;
-    b.addEventListener('touchstart',function(){ t=setTimeout(function(){ dropHist(q); },700); });
-    ['touchend','touchmove','touchcancel'].forEach(function(e){
-      b.addEventListener(e,function(){ clearTimeout(t); });
+/* 影片關鍵字和頻道名字各存一份——兩者混在一起選起來很難找——但操作方式一樣，
+   所以做成共用的：點一下重搜，長按（或右鍵）刪一筆，最後一顆是清空。 */
+function makeHist(key, sel, onPick){
+  var H=ls(key,[]), wrap=$(sel);
+  function save(){ try{ localStorage.setItem(key,JSON.stringify(H)); }catch(e){} }
+  function drop(q){ H=H.filter(function(x){return x!==q;}); save(); draw(); toast('已移除「'+q+'」'); }
+  function draw(){
+    if(!wrap) return;
+    wrap.innerHTML='';
+    if(!H.length) return;
+    H.forEach(function(q){
+      var b=document.createElement('button');
+      b.textContent=q; b.title='再搜尋一次：'+q;
+      b.onclick=function(){ onPick(q); };
+      // 長按（或按住 0.7 秒）刪掉這筆，免得清單被用過一次的關鍵字塞滿
+      var t=null;
+      b.addEventListener('touchstart',function(){ t=setTimeout(function(){ drop(q); },700); });
+      ['touchend','touchmove','touchcancel'].forEach(function(e){
+        b.addEventListener(e,function(){ clearTimeout(t); });
+      });
+      b.oncontextmenu=function(e){ e.preventDefault(); drop(q); };
+      wrap.appendChild(b);
     });
-    b.oncontextmenu=function(e){ e.preventDefault(); dropHist(q); };
-    h.appendChild(b);
-  });
-  var c=document.createElement('button');
-  c.className='x'; c.textContent='清除紀錄';
-  c.onclick=function(){ if(confirm('清除全部搜尋紀錄？')){ HIST=[]; saveHist(); drawHist(); } };
-  h.appendChild(c);
+    var c=document.createElement('button');
+    c.className='x'; c.textContent='清除紀錄';
+    c.onclick=function(){ if(confirm('清除全部搜尋紀錄？')){ H=[]; save(); draw(); } };
+    wrap.appendChild(c);
+  }
+  draw();
+  return {
+    push:function(q){
+      q=String(q||'').trim(); if(!q) return;
+      H=[q].concat(H.filter(function(x){return x!==q;})).slice(0,12);
+      save(); draw();
+    },
+    draw:draw
+  };
 }
-function dropHist(q){
-  HIST=HIST.filter(function(h){return h!==q;}); saveHist(); drawHist(); toast('已移除「'+q+'」');
-}
-drawHist();
+var HIST=makeHist('deck_hist','#hist',function(q){
+  box.value=q; $('#goBtn').textContent='搜尋'; $('#goBtn').click();
+});
 
 /* ---------- 選影片（可複選） ---------- */
 var sel=[];   // [{id,title}]，順序就是下載順序
@@ -829,7 +839,7 @@ $('#showThumb').onchange=function(){ if(SS.pages.length) drawPage(); };
 $('#goBtn').onclick=function(){
   var v=box.value.trim(); if(!v){toast('先輸入網址或關鍵字');return;}
   var id=parseId(v); if(id){pick(id,'');toast('已選定 ✓');return;}
-  pushHist(v);       // 記下關鍵字，下次點一下就能重搜
+  HIST.push(v);      // 記下關鍵字，下次點一下就能重搜
   results.innerHTML='<p class="hint">搜尋中…</p>';
   all('.pgr').forEach(function(r){ r.hidden=true; });
   SS={q:v,mode:getYt()?'api':'piped',next:null,buf:[],pages:[],cur:0};
@@ -1339,6 +1349,10 @@ function syncAddBtn(){
 }
 $('#subQ').oninput=syncAddBtn;
 $('#subQ').onkeydown=function(e){ if(e.key==='Enter'){ e.preventDefault(); $('#subAdd').click(); } };
+/* 只記名字，不記貼進來的網址：一整條 youtube 網址做成標籤又長又認不出是誰。 */
+var SUBHIST=makeHist('deck_subhist','#subHist',function(q){
+  $('#subQ').value=q; syncAddBtn(); $('#subAdd').click();
+});
 
 function nsub(n){
   n=parseInt(n,10);
@@ -1408,6 +1422,7 @@ $('#subAdd').onclick=function(){
   if(isChanRef(q)) return addChannel({q:q}, this);
 
   var btn=this, lbl=btn.textContent;
+  SUBHIST.push(q);
   btn.disabled=true; btn.textContent='搜尋中…';
   msg('#subMsg',''); $('#subHits').innerHTML='';
   (getYt() ? searchChanApi(q).catch(function(){ return searchChanPiped(q); })
