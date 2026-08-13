@@ -35,12 +35,34 @@ GAP, MAX_CHARS = 1.6, 180
 # 已發佈目錄：若某支影片的逐字稿已存在其中，本次就略過（不重抽、少打 YouTube）
 SKIP_DIR = os.environ.get("SKIP_DIR", "").strip()
 
+def looks_netscape(text):
+    """粗略檢查是不是 Netscape cookies.txt：至少要有一行是 6 個以上 tab 分隔的欄位。
+
+    格式不對時 yt-dlp 不是「忽略 cookie」而是整個拒收，於是**每一支**影片都失敗——
+    連根本不需要登入的公開影片也一起死。瀏覽器外掛匯出成 JSON、或複製貼上時
+    tab 被轉成空白，都會踩到。寧可不用 cookie 也不要全滅。
+    """
+    for ln in (text or "").splitlines():
+        ln = ln.strip()
+        if not ln or ln.startswith("#"):
+            continue
+        if len(ln.split("\t")) >= 6:
+            return True
+    return False
+
+
 # cookies：YT_COOKIES（cookies.txt 內容）優先寫成暫存檔；或直接給 YT_COOKIES_FILE 路徑。
 COOKIEFILE = os.environ.get("YT_COOKIES_FILE", "").strip()
 if not COOKIEFILE and os.environ.get("YT_COOKIES", "").strip():
-    _t = tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8")
-    _t.write(os.environ["YT_COOKIES"]); _t.close()
-    COOKIEFILE = _t.name
+    _raw = os.environ["YT_COOKIES"]
+    if looks_netscape(_raw):
+        _t = tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8")
+        _t.write(_raw); _t.close()
+        COOKIEFILE = _t.name
+    else:
+        print("⚠️ YT_COOKIES 不是 Netscape cookies.txt 格式（欄位要用 tab 分隔），這次忽略它。\n"
+              "   公開影片不受影響；要抓會員／鎖區影片請重新匯出 cookies.txt，\n"
+              "   或到 Settings → Secrets 把 YT_COOKIES 刪掉。", flush=True)
 
 
 def parse_ids(raw):
@@ -637,7 +659,8 @@ def main():
                 title, lang, cues = get_transcript(vid)
             except Exception as e1:   # YouTube 對機房 IP 偶發刁難（格式/5xx）→ 等一下重試一次
                 m1 = str(e1)
-                if "format is not available" in m1 or "HTTP Error 5" in m1 or "Connection" in m1:
+                if ("format is not available" in m1 or "HTTP Error 5" in m1
+                        or "Connection" in m1 or "cookie" in m1.lower()):
                     # 半失效的 cookie（瀏覽器輪換後）會讓 YouTube 回空格式清單；
                     # 這支影片改走無 cookie + PO-token 重試，下一支恢復先用 cookie。
                     saved_cookie = COOKIEFILE
@@ -678,7 +701,11 @@ def main():
         w = csv.DictWriter(f, fieldnames=["video_id", "title", "lang", "chars", "paragraphs", "status"])
         w.writeheader(); w.writerows(index)
     print(f"完成：成功 {ok}，失敗 {fail}", flush=True)
+    # 一支都沒成功、卻有失敗的＝這批整個壞了（cookie 壞掉、被擋、網路不通…）。
+    # 以前這裡永遠回 0，工作流就永遠是綠的，壞了幾天也沒人知道。
+    # 部分成功仍回 0：那些成功的還是要發佈出去。
+    return 1 if (ok == 0 and fail > 0) else 0
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main() or 0)

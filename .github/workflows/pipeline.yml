@@ -88,8 +88,12 @@ jobs:
         run: |
           FROM_FILE="$( { cat queue.txt 2>/dev/null; cat queue/*.txt 2>/dev/null; } | sed 's/#.*//' | tr '\n' ' ' )"
           echo "queue: $FROM_FILE  inputs: $IDS"
-          python scripts/grab_transcripts.py $IDS $FROM_FILE || true
+          # 不要無條件 || true：抽取全掛時要讓這一步變紅，否則工作流永遠是綠的，
+          # 壞了幾天也沒人發現。腳本只有「一支都沒成功」才回非零，部分成功仍照常發佈。
+          python scripts/grab_transcripts.py $IDS $FROM_FILE; RC=$?
           echo "===== _index.csv ====="; cat out/_index.csv 2>/dev/null || echo "(none)"
+          [ "$RC" = 0 ] || echo "::error::這批影片全部抽取失敗，原因見上面的 _index.csv"
+          exit $RC
       - name: publish transcripts to gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
