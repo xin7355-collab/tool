@@ -68,6 +68,9 @@
     width:100%;background:#0E1518;border:1px solid var(--line);border-radius:9px;
     padding:14px;font-size:17px;color:inherit
   }
+  /* 提示字要比真的輸入值暗得多。用預設的灰在這個底色上跟已填的值幾乎一樣，
+     使用者會以為篩選條件已經填好了。 */
+  .in::placeholder{color:#5B6F75;opacity:1}
   .btn{
     width:100%;background:#26363B;border:1px solid var(--line);border-radius:9px;
     padding:15px;font-size:17px;cursor:pointer;margin-top:10px;font-weight:500
@@ -317,39 +320,57 @@
   <div class="card">
     <div class="step"><span>追蹤頻道</span></div>
     <input class="in" id="subQ" placeholder="貼頻道網址，或 @帳號">
-    <p class="lbl" style="margin-top:14px">加入時要不要先抓幾支來看？</p>
-    <div class="seg" id="subFill">
-      <button type="button" data-v="0" class="on">不抓</button>
-      <button type="button" data-v="1">最新 1 支</button>
-      <button type="button" data-v="3">最新 3 支</button>
-    </div>
-    <label style="margin:14px 0 0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink)">
-      <input type="checkbox" id="subShorts" checked style="width:22px;height:22px">略過 Shorts 短影片
-    </label>
-    <details style="margin-top:6px">
-      <summary style="font-size:14.5px;padding:10px 0">只要某類影片？（選填）</summary>
-      <div class="pad" style="padding:0 0 4px">
-        <label>標題要含有</label>
-        <input class="in" id="subOnly" placeholder="盤前,盤後（留空＝全部都要）">
-        <label style="margin-top:10px">標題含這些就不要</label>
-        <input class="in" id="subNot" placeholder="精華,重播">
-        <p class="hint">用逗號分隔，不分大小寫。加入之後想改，取消追蹤再加一次。</p>
-      </div>
-    </details>
     <button class="btn btn--go" id="subAdd">➕ 加入追蹤</button>
     <p class="msg" id="subMsg"></p>
+    <p class="hint" id="subPlain">加進來之後，這個頻道<b>每天早上 7 點</b>的新片會自動抓成逐字稿。
+      只想收特定影片、或想順便補抓舊片，再展開下面的進階。</p>
 
-    <hr class="sep">
-    <p class="hint" style="margin-top:0">每天<b>早上 7 點</b>自動檢查有沒有新片，
-      有就自動抓逐字稿；<b>11 點</b>把當天完成的<b>重點摘要</b>整理成一則通知送到手機
-      （用 GitHub App 收）。</p>
+    <details style="margin-top:12px">
+      <summary style="font-size:14.5px;padding:12px 0">進階選項（可以不管）</summary>
+      <div class="pad" style="padding:0 0 4px">
+        <p class="lbl" style="margin-top:0">加入時順便補抓最近幾支</p>
+        <div class="seg" id="subFill">
+          <button type="button" data-v="0" class="on">不補抓</button>
+          <button type="button" data-v="1">最新 1 支</button>
+          <button type="button" data-v="3">最新 3 支</button>
+        </div>
+        <p class="hint">補抓會<b>立刻</b>排進產線，長片一支可能跑十幾分鐘。只想收之後的新片就維持「不補抓」。</p>
+        <label style="margin:16px 0 0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink)">
+          <input type="checkbox" id="subShorts" checked style="width:22px;height:22px">略過 Shorts 短影片
+        </label>
+        <label style="margin-top:16px">標題要含有</label>
+        <input class="in" id="subOnly" placeholder="例如：盤前,盤後">
+        <label style="margin-top:10px">標題含這些就跳過</label>
+        <input class="in" id="subNot" placeholder="例如：精華,重播">
+        <p class="hint">逗號分隔，不分大小寫。<b>兩欄都空著＝這個頻道的新片全部都收</b>。
+          加入之後還能在下面的頻道卡片上改，不用取消重加。</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="step"><span>追蹤中</span></div>
+    <p class="hint" id="subNote" style="margin:-6px 0 0">載入中…</p>
     <div id="subStat" class="hist" hidden></div>
-    <ul class="tx" id="subList"></ul>
-    <p class="hint" id="subNote">載入中…</p>
-    <div class="row" style="margin-top:10px">
-      <button class="btn btn--sm" id="subReload" style="margin-top:0">重新整理</button>
-      <button class="btn btn--sm" id="subNow" style="margin-top:0">⚡ 立刻檢查一次</button>
+    <ul class="tx" id="subList" style="margin-top:14px"></ul>
+    <div id="subTools" hidden>
+      <div class="row" style="margin-top:12px">
+        <button class="btn btn--sm" id="subReload" style="margin-top:0">🔄 更新狀態</button>
+        <button class="btn btn--sm" id="subNow" style="margin-top:0">⚡ 現在就找新片</button>
+      </div>
+      <p class="hint"><b>更新狀態</b>只是重讀一次進度，不會去抓東西。<b>現在就找新片</b>才會請系統馬上去看各頻道有沒有新片。</p>
     </div>
+
+    <details style="margin-top:14px">
+      <summary style="font-size:14.5px;padding:12px 0">這套東西是怎麼跑的？</summary>
+      <div class="pad" style="padding:0 0 4px">
+        <p class="hint" style="margin-top:0">每天<b>早上 7 點</b>自動檢查追蹤的頻道有沒有新片，
+          有就自動抓成逐字稿，放進「📄 下載」分頁。</p>
+        <p class="hint"><b>早上 11 點</b>把當天完成的<b>重點摘要</b>整理成一則通知送到手機
+          —— 用 GitHub App 收，所以手機要裝 GitHub App 並開啟通知。</p>
+        <p class="hint">剛加入的頻道不用等到隔天：存檔當下就會先查一次。</p>
+      </div>
+    </details>
   </div>
 </section>
 
@@ -465,7 +486,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.1';
+var APP_VER='1.1.2';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1006,10 +1027,11 @@ function subsH(tok){
   return {'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
           'Content-Type':'application/json'};
 }
-function loadSubs(){
+/* quiet：自動輪詢時用。不要把清單換成「載入中…」，畫面每 5 秒閃一下比沒更新還煩。 */
+function loadSubs(quiet){
   var tok=getTok();
   if(!tok){ $('#subNote').textContent='請先到「⚙ 設定」填 GitHub Token。'; return Promise.resolve(); }
-  $('#subNote').textContent='載入中…';
+  if(!quiet) $('#subNote').textContent='載入中…';
   return fetch(API+'/contents/subs.json?ref=main&_='+Date.now(),
                {headers:subsH(tok),cache:'no-store'})
     .then(function(r){
@@ -1041,6 +1063,19 @@ function loadWState(){
       renderSubs();
     }).catch(function(){});
 }
+/* 頻道名稱是伺服器認出來才寫回 subs.json 的，要等一兩分鐘。原本叫使用者自己按
+   「重新整理」等它出現——那是把系統的工作丟給人。這裡自己盯著，拿到名稱或錯誤就停。 */
+var subPoll=null, subPollN=0;
+function pollSubs(){
+  if(subPoll) clearInterval(subPoll);
+  subPollN=0;
+  subPoll=setInterval(function(){
+    if(!(subs.channels||[]).some(function(c){ return !c.id && !c.err; })){ stopPoll(); return; }
+    if(++subPollN>24){ stopPoll(); msg('#subMsg','頻道確認比平常久，按「🔄 更新狀態」再看一次。',1); return; }
+    subsLoaded=false; loadSubs(1);
+  },5000);
+}
+function stopPoll(){ if(subPoll) clearInterval(subPoll); subPoll=null; }
 function ago(iso){
   var t=Date.parse(iso||''); if(!t) return '';
   var m=Math.round((Date.now()-t)/60000);
@@ -1076,12 +1111,26 @@ function saveSubs(note){
     return r.json();
   }).then(function(j){ if(j&&j.content) subsSha=j.content.sha; });
 }
+/* 哪張卡片的篩選正在編輯。輪詢會重畫整個清單，記住這個才不會把編輯中的面板收掉。 */
+var subEditIdx=-1;
+
+function filterWords(ch){
+  var f=[];
+  f.push(ch.skip_shorts!==false ? '略過 Shorts' : '含 Shorts');
+  if(ch.only) f.push('只要標題含「'+esc(ch.only)+'」');
+  if(ch['not']) f.push('跳過標題含「'+esc(ch['not'])+'」');
+  if(!ch.only && !ch['not']) f.push('新片全收');
+  return f.join('・');
+}
+
 function renderSubs(){
   var ul=$('#subList'); ul.innerHTML='';
   var list=subs.channels||[];
   $('#subNote').textContent = list.length
     ? '追蹤中 '+list.length+' 個頻道'
-    : '還沒追蹤任何頻道。貼上頻道網址就可以開始。';
+    : '還沒追蹤任何頻道。在上面貼頻道網址就可以開始。';
+  // 一個頻道都沒有時，「更新狀態／現在就找新片」沒有東西可以作用，先收起來
+  $('#subTools').hidden = !list.length;
 
   var pend=(wstate.pending||[]), bar=$('#subStat');
   bar.innerHTML='';
@@ -1099,45 +1148,131 @@ function renderSubs(){
 
   list.forEach(function(ch,i){
     var li=document.createElement('li');
+    if(ch.off) li.style.opacity='.55';
     var h=document.createElement('h3');
     h.style.cursor='default';
-    h.textContent=ch.name||ch.q||'(未命名)';
+    h.textContent=(ch.off?'⏸ ':'')+(ch.name||ch.q||'(未命名)');
     li.appendChild(h);
+    // 名稱還沒回來時，至少讓使用者看得到自己貼的是什麼
+    if(ch.name && ch.q && ch.name!==ch.q){
+      var q=document.createElement('p');
+      q.className='hint'; q.style.cssText='margin:-4px 0 8px;color:#5B6F75';
+      q.textContent=ch.q; li.appendChild(q);
+    }
     var p=document.createElement('p');
-    p.className='hint'; p.style.margin='0 0 10px';
+    p.className='hint'; p.style.margin='0 0 12px';
     if(ch.err){
       p.innerHTML='⚠️ '+esc(ch.err);
+      p.style.color='var(--bad)';
     }else if(!ch.id){
-      p.innerHTML='⏳ 系統正在確認這個頻道，通常一兩分鐘內完成';
+      p.innerHTML='⏳ 正在確認這個頻道，通常一兩分鐘 —— 好了會自己顯示，不用一直按';
     }else{
       var st=(wstate.channels||{})[ch.id]||{};
-      var rows=['每天自動檢查新片'+(st.checked?'（'+ago(st.checked)+'查過）':'')];
+      var rows=[ch.off ? '已暫停，不會再自動抓'
+                       : '每天早上 7 點自動檢查'+(st.checked?'（'+ago(st.checked)+'查過）':'')];
       var mine=pend.filter(function(x){ return x.c===ch.name; });
       if(mine.length) rows.push('⏳ 轉錄中：'+esc(mine[0].t||mine[0].v)
                                 +(mine.length>1?' 等 '+mine.length+' 支':''));
       else if((st.last||[]).length) rows.push('最近抓到：'+esc(st.last[st.last.length-1].t||''));
-      var flt=[];
-      if(ch.skip_shorts!==false) flt.push('略過 Shorts');
-      if(ch.only) flt.push('只要含「'+esc(ch.only)+'」');
-      if(ch['not']) flt.push('排除「'+esc(ch['not'])+'」');
-      if(flt.length) rows.push('<span style="color:var(--dim)">'+flt.join('・')+'</span>');
+      rows.push('<span style="color:#5B6F75">'+filterWords(ch)+'</span>');
       p.innerHTML=rows.join('<br>');
     }
     li.appendChild(p);
-    var b=document.createElement('button');
-    b.className='btn btn--sm';
-    b.style.cssText='margin-top:0;width:auto;padding:8px 14px;border-color:var(--bad);color:var(--bad)';
-    b.textContent='🗑 取消追蹤';
-    b.onclick=function(){
+
+    var bar=document.createElement('div');
+    bar.className='row';
+    var mk=function(txt,css,fn){
+      var b=document.createElement('button');
+      b.className='btn btn--sm';
+      b.style.cssText='margin-top:0;'+(css||'');
+      b.textContent=txt; b.onclick=fn; bar.appendChild(b); return b;
+    };
+    /* 認不出頻道時，錯誤訊息叫使用者「改貼網址」，卻沒有地方改——只能刪掉重加。
+       這裡直接給一個改的入口，清掉 err 讓伺服器下一輪重認。
+       這種卡片只留「改網址／取消」：頻道都還認不出來，調篩選和暫停沒有意義，
+       四顆按鈕擠在一行反而每顆都折成兩行按不到。 */
+    if(ch.err) mk('✏️ 改網址','border-color:var(--amber);color:var(--amber)',function(){
+      var v=prompt('改貼這個頻道的網址\n（貼那個頻道「任何一支影片」的網址最保險）', ch.q||'');
+      if(v==null) return;
+      v=v.trim(); if(!v || v===ch.q) return;
+      var oq=ch.q, oe=ch.err;
+      ch.q=v; delete ch.err; delete ch.id;
+      renderSubs(); msg('#subMsg','');
+      saveSubs('Fix channel url')
+        .then(function(){ msg('#subMsg','✅ 已更新，正在重新確認這個頻道'); pollSubs(); })
+        .catch(function(e){
+          ch.q=oq; ch.err=oe;
+          renderSubs(); msg('#subMsg','❌ '+(e&&e.message||'存檔失敗'),1);
+        });
+    });
+    if(!ch.err){
+      mk(subEditIdx===i?'收起':'⚙ 篩選','',function(){
+        subEditIdx=(subEditIdx===i?-1:i);
+        stopPoll();                     // 編輯中不要被輪詢重畫，打到一半的字會不見
+        renderSubs();
+      });
+      mk(ch.off?'▶️ 恢復':'⏸ 暫停','',function(){
+        var was=ch.off; ch.off=!was; if(!ch.off) delete ch.off;
+        renderSubs();
+        saveSubs(was?'Resume channel':'Pause channel').catch(function(e){
+          if(was) ch.off=true; else delete ch.off;
+          renderSubs(); msg('#subMsg','❌ '+(e&&e.message||'存檔失敗'),1);
+        });
+      });
+    }
+    mk('🗑 取消','border-color:var(--bad);color:var(--bad)',function(){
       if(!confirm('不再追蹤「'+(ch.name||ch.q)+'」？已經抓好的逐字稿會留著。')) return;
       var keep=subs.channels.slice(); keep.splice(i,1);
-      var old=subs.channels; subs.channels=keep; renderSubs();
+      var old=subs.channels; subs.channels=keep; subEditIdx=-1; renderSubs();
       saveSubs('Unsubscribe channel').catch(function(e){
         subs.channels=old; renderSubs();                 // 存不進去就退回原狀
         msg('#subMsg','❌ '+(e&&e.message||'取消失敗'),1);
       });
-    };
-    li.appendChild(b);
+    });
+    li.appendChild(bar);
+
+    if(subEditIdx===i){
+      var box=document.createElement('div');
+      box.style.cssText='margin-top:12px;border-top:1px solid var(--line);padding-top:12px';
+      var sh=document.createElement('label');
+      sh.style.cssText='margin:0;display:flex;align-items:center;gap:8px;font-size:15px;color:var(--ink)';
+      var shc=document.createElement('input');
+      shc.type='checkbox'; shc.checked=(ch.skip_shorts!==false);
+      shc.style.cssText='width:22px;height:22px';
+      sh.appendChild(shc); sh.appendChild(document.createTextNode('略過 Shorts 短影片'));
+      box.appendChild(sh);
+      var field=function(txt,val,ph){
+        var l=document.createElement('label'); l.style.marginTop='12px'; l.textContent=txt;
+        var inp=document.createElement('input');
+        inp.className='in'; inp.value=val||''; inp.placeholder=ph;
+        box.appendChild(l); box.appendChild(inp); return inp;
+      };
+      var oi=field('標題要含有',ch.only,'例如：盤前,盤後');
+      var ni=field('標題含這些就跳過',ch['not'],'例如：精華,重播');
+      var tip=document.createElement('p');
+      tip.className='hint'; tip.textContent='兩欄都空著＝這個頻道的新片全部都收。改動只影響之後的新片。';
+      box.appendChild(tip);
+      var save=document.createElement('button');
+      save.className='btn btn--go'; save.style.cssText='font-size:16px;padding:13px';
+      save.textContent='儲存篩選';
+      save.onclick=function(){
+        var before={s:ch.skip_shorts,o:ch.only,n:ch['not']};
+        ch.skip_shorts=shc.checked;
+        if(oi.value.trim()) ch.only=oi.value.trim(); else delete ch.only;
+        if(ni.value.trim()) ch['not']=ni.value.trim(); else delete ch['not'];
+        subEditIdx=-1; renderSubs(); msg('#subMsg','');
+        saveSubs('Update channel filters')
+          .then(function(){ msg('#subMsg','✅ 篩選已更新'); })
+          .catch(function(e){
+            ch.skip_shorts=before.s;
+            if(before.o) ch.only=before.o; else delete ch.only;
+            if(before.n) ch['not']=before.n; else delete ch['not'];
+            renderSubs(); msg('#subMsg','❌ '+(e&&e.message||'存檔失敗'),1);
+          });
+      };
+      box.appendChild(save);
+      li.appendChild(box);
+    }
     ul.appendChild(li);
   });
 }
@@ -1165,9 +1300,11 @@ $('#subAdd').onclick=function(){
     renderSubs();
     return saveSubs('Subscribe '+q).then(function(){
       $('#subQ').value=''; $('#subOnly').value=''; $('#subNot').value='';
-      msg('#subMsg','✅ 已加入！系統正在確認頻道'
-          +(subFill!=='0' ? '，並開始抓最新 '+subFill+' 支' : '')
-          +'。稍後按「重新整理」就會看到頻道名稱。');
+      msg('#subMsg','✅ 已加入'
+          +(subFill!=='0' ? '，正在抓最新 '+subFill+' 支' : '')
+          +'。頻道名稱確認好會自己出現在下面。');
+      pollSubs();
+      var card=$('#subList'); if(card&&card.scrollIntoView) card.scrollIntoView({behavior:'smooth',block:'center'});
     });
   };
   btn.disabled=true; btn.textContent='送出中…';
@@ -1178,7 +1315,7 @@ $('#subAdd').onclick=function(){
     .catch(function(e){ msg('#subMsg','❌ '+(e&&e.message||'加入失敗'),1); renderSubs(); })
     .then(function(){ btn.disabled=false; btn.textContent='➕ 加入追蹤'; });
 };
-$('#subReload').onclick=function(){ msg('#subMsg',''); subsLoaded=false; loadSubs(); };
+$('#subReload').onclick=function(){ msg('#subMsg',''); subEditIdx=-1; stopPoll(); subsLoaded=false; loadSubs(); };
 /* 立刻檢查：不呼叫 Actions API（那要另外的 Token 權限），而是重存一次訂閱檔——
    存檔本身就是追蹤工作流的觸發條件，等於借同一條路踢它一腳。 */
 $('#subNow').onclick=function(){
@@ -1186,10 +1323,10 @@ $('#subNow').onclick=function(){
   var btn=this; btn.disabled=true; btn.textContent='送出中…';
   subs.poke=new Date().toISOString();
   saveSubs('Check subscriptions now')
-    .then(function(){ msg('#subMsg','✅ 已請系統馬上檢查一次，大約一兩分鐘。'
+    .then(function(){ msg('#subMsg','✅ 已請系統現在去找新片，大約一兩分鐘。'
                           +'有新片會直接開始抓，摘要仍在早上 11 點彙整。'); })
     .catch(function(e){ msg('#subMsg','❌ '+(e&&e.message||'送出失敗'),1); })
-    .then(function(){ btn.disabled=false; btn.textContent='⚡ 立刻檢查一次'; });
+    .then(function(){ btn.disabled=false; btn.textContent='⚡ 現在就找新片'; });
 };
 function b64(f){return new Promise(function(res,rej){
   var r=new FileReader();
@@ -1510,7 +1647,8 @@ function showPane(name){
   window.scrollTo(0,0);
   try{ sessionStorage.setItem('deck_pane',name); }catch(e){}
   // 訂閱清單第一次打開才去讀，不然每次開網站都多打一次 API
-  if(name==='sub' && !subsLoaded) loadSubs();
+  if(name==='sub'){ if(!subsLoaded) loadSubs(); }
+  else stopPoll();                 // 離開分頁就別再背景輪詢了
 }
 all('.tabs button').forEach(function(b){
   b.onclick=function(){ showPane(b.getAttribute('data-pane')); };
