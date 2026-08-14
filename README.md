@@ -12,8 +12,11 @@
 - 前端：`index.html`（部署到 GitHub Pages，含「雲端產出的逐字稿」面板）。
 - 產線：在 `queue.txt` 一行貼一個 YouTube 網址/ID，commit 後 `pipeline.yml` 會自動抽取
   （有字幕→抓字幕；沒字幕→Whisper 語音辨識），把結果發佈到 `gh-pages/transcripts/`，前端就看得到。
-- 要抓鎖區/會員影片：repo → **Settings → Secrets and variables → Actions** 新增 `YT_COOKIES`
-  （已登入 YouTube 的 `cookies.txt` 內容）；需要代理再加 `YT_PROXY`。
+- **`YT_COOKIES`**：GitHub 機房 IP 常被 YouTube 要求「登入確認不是機器人」，擋住之後
+  連字幕清單都拿不到。設了這個就能通過驗證、恢復全自動；鎖區／會員影片也靠它。
+  取得方式見 [如何取得cookies.md](如何取得cookies.md)。沒有的話改用前端的
+  「🚀 用手機補抓」（手機是住宅 IP，不會被擋）。
+  格式錯的話程式會印警告並略過，不會拖垮整批。
 - 追蹤頻道：前端「📡 追蹤」分頁搜尋頻道名字或貼網址，寫進 `subs.json`。`watch.yml` 每天
   台灣時間 **05:30／12:00／21:30** 各跑一次：讀頻道 RSS 找新片排進產線，並把這段時間
   新完成的摘要收成一則 Issue 推到手機（沒有新東西就不發）。抓片與彙整刻意錯開一輪——
