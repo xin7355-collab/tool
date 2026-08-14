@@ -15,7 +15,7 @@ yt-dlp 在這裡跑幾乎都會成功。下載完直接呼叫 GitHub API 上傳�
 """
 import os, re, sys, json, time, base64, urllib.request, urllib.parse, urllib.error
 
-VERSION = "3"
+VERSION = "4"
 OWNER, REPO = "xin7355-collab", "tool"
 API = "https://api.github.com/repos/%s/%s" % (OWNER, REPO)
 RAW = ("https://raw.githubusercontent.com/%s/%s/main/scripts/yt2deck.py"
@@ -186,9 +186,7 @@ def download(url):
                            "   原始訊息：%s" % (why, first))
     raise RuntimeError(
         "YouTube 擋住了這支影片（試過 %d 種下載方式都不行）。\n"
-        "   ・同一批其他影片有成功 → 是這支本身有問題，不用更新 yt-dlp。\n"
-        "   ・整批都失敗 → 多半是 yt-dlp 太舊，請執行：pip install -U yt-dlp\n"
-        "   （你目前的 yt-dlp 版本：%s）\n"
+        "   （yt-dlp %s）原因看最後的總結——失敗比例高就是版本太舊，不是這支的問題。\n"
         "   原始錯誤：%s" % (len(PLAYER_CLIENTS), ver, first))
 
 
@@ -490,11 +488,24 @@ def main():
             print("  ✅ %s" % t[:50], flush=True)
         for a, e in bad:
             print("  ✗ %s → %s" % (a[:30], e.split("\n")[0], ), flush=True)
-        if ok and bad:
-            # 大部分都成功 → 工具沒問題，別讓使用者跑去更新 yt-dlp 白忙一場
-            print("\n  其他 %d 支都成功了，代表工具本身正常；\n"
-                  "  上面失敗的是那幾支影片自己的限制（會員限定／年齡限制／已下架等）。"
-                  % len(ok), flush=True)
+        # 診斷要看比例，不能只看「有沒有人成功」。舊版只要有 1 支成功就斷言
+        # 「工具本身正常、是那幾支影片自己的限制」——20 支失敗 14 支時照樣這樣講，
+        # 使用者去看影片發現根本能看、也不是會員，就白白繞遠路。
+        # 過期的 yt-dlp 典型症狀正是「大部分掛、少數還能過」。
+        n = len(ok) + len(bad)
+        if bad and not ok:
+            print("\n  ⚠️ 整批都失敗 → 幾乎可以確定是 yt-dlp 太舊。\n"
+                  "     請執行：pip install -U yt-dlp", flush=True)
+        elif len(bad) >= 3 and len(bad) * 3 >= n:
+            print("\n  ⚠️ 失敗 %d/%d 支（%d%%）→ 這個比例不是「剛好那幾支有問題」。\n"
+                  "     過期的 yt-dlp 就是這樣：大部分掛、少數還能過。\n"
+                  "     請先執行：pip install -U yt-dlp\n"
+                  "     （你目前的版本：%s）然後重跑一次同一批。"
+                  % (len(bad), n, round(len(bad) * 100 / n), ydl_ver), flush=True)
+        elif bad:
+            print("\n  其他 %d 支都成功，失敗的只有 %d 支 → 多半是那幾支影片自己的限制\n"
+                  "  （會員限定／年齡限制／已下架）。真的不確定就更新一次 yt-dlp 再試：\n"
+                  "  pip install -U yt-dlp" % (len(ok), len(bad)), flush=True)
     if bad and not ok:
         sys.exit(1)
 
