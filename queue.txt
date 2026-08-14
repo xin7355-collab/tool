@@ -1,4 +1,20 @@
-# 一行一個 YouTube 網址或 ID。改動這個檔並 push，產線(pipeline.yml)就會抽取並發佈到前端。
-# 建議直接用網站前端送出，不必手動編輯這個檔。已成功的影片會自動略過；失敗的每 3 小時自動重試。
-https://www.youtube.com/live/P1NPqGFR4CE
-https://youtu.be/8JndNGutcDo
+ZU-7tQaqn8I
+FbcVbGLkMJM
+mP6hG9RP5lw
+gHqGp4_3YnI
+DONIn-HPxZ8
+_JrL_VULyIc
+x9DMYhdPAm0
+Q302fneeIRg
+NCcVIgqvMB8
+jF-Ew7gbW0Y
+jWcDQQjhHsw
+eoxiLPmh-18
+c15-RDsva0k
+oLMuyZZ6b8Q
+s_G0Nzq3p74
+AvE43ByH624
+bDHB2Qz8jo4
+bKbH9KRgmb8
+kHE44MLftNI
+JMGHisbuen0
