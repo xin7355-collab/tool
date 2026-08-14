@@ -638,7 +638,10 @@ def groq_summary(title, text):
 def write_outputs(n, vid, title, lang, cues):
     paras = to_paragraphs(cues)
     chars = sum(len(p["t"]) for p in paras)
-    stem = f"{safe_name(title)}_{vid}"
+    # 影片 ID 用 __yt 夾在檔名裡：yt2deck／transcribe_upload、前端的 vidOf、
+    # classify 去尾巴全都認這個標記。這裡以前只用底線，同一支影片經手機和
+    # 產線各做一次就會產生兩個檔名不同、誰也認不出誰的重複檔。
+    stem = f"{safe_name(title)}__yt{vid}"
     link = f"https://youtu.be/{vid}"
     summary = groq_summary(title, "\n".join(p["t"] for p in paras))
 
@@ -675,7 +678,9 @@ def main():
     index, ok, fail = [], 0, 0
     for n, vid in enumerate(ids, 1):
         print(f"[{n}/{len(ids)}] {vid}", flush=True)
-        if SKIP_DIR and glob.glob(os.path.join(SKIP_DIR, f"*_{vid}.md")):
+        # 不要寫死分隔符：庫裡同時有 __yt<ID> 和 _<ID> 兩種舊檔名，
+        # 綁死一種就會把另一種當成「還沒抓過」而重抓。11 碼 ID 夠獨特。
+        if SKIP_DIR and glob.glob(os.path.join(SKIP_DIR, f"*{vid}.md")):
             print("  已存在，略過（先前已產出）", flush=True)
             index.append({"video_id": vid, "title": "", "lang": "",
                           "chars": 0, "paragraphs": 0, "status": "skip"})

@@ -31,7 +31,7 @@ MAX_NEW = int(os.environ.get("WATCH_MAX_NEW") or "6")   # 單一頻道一次最�
 NS = {"a": "http://www.w3.org/2005/Atom",
       "yt": "http://www.youtube.com/xml/schemas/2015"}
 CH_ID = re.compile(r"UC[0-9A-Za-z_-]{22}")
-VID_IN_NAME = re.compile(r"_([0-9A-Za-z_-]{11})\.md$")
+VID_IN_NAME = re.compile(r"(?:__yt|_)([0-9A-Za-z_-]{11})\.md$")   # 兩種舊檔名都要認
 
 
 def now():

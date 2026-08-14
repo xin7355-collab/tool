@@ -499,7 +499,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.7';
+var APP_VER='1.1.8';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -570,7 +570,7 @@ function markSent(ids){
   ids.forEach(function(i){ SENT[i]=now; });
   try{ localStorage.setItem('deck_sent',JSON.stringify(SENT)); }catch(e){}
 }
-function vidOf(file){ var m=/__yt([A-Za-z0-9_-]{11})\./.exec(String(file||'')); return m?m[1]:''; }
+function vidOf(file){ var m=/(?:__yt|_)([A-Za-z0-9_-]{11})\./.exec(String(file||'')); return m?m[1]:''; }
 function refreshDone(){
   DONE={};
   items.forEach(function(x){ var v=vidOf(x.file); if(v) DONE[v]=x.title||x.file; });
@@ -1760,7 +1760,9 @@ function isCredits(seg){
 function tidyTitle(raw){
   var s=String(raw||'').replace(/__yt[A-Za-z0-9_-]{11}$/,'').replace(/_/g,' ')
         .replace(/\s+/g,' ').trim();
-  var date='', m=s.match(/(20\d{2})[.\-/](\d{1,2})[.\-/](\d{1,2})/);
+  // 分隔符也吃空白：檔名的 _ 在上一行已經換成空白，2026_7_13 這種原本漏掉。
+  // (?!\d) 是為了不要把 2026 7 130 這種切一半。
+  var date='', m=s.match(/(20\d{2})\s*[.\-/ ]\s*(\d{1,2})\s*[.\-/ ]\s*(\d{1,2})(?!\d)/);
   if(m){ date=m[1]+'-'+('0'+m[2]).slice(-2)+'-'+('0'+m[3]).slice(-2);
          s=(s.slice(0,m.index)+' '+s.slice(m.index+m[0].length)).trim(); }
   var series=''; m=s.match(/^\s*[【\[]([^】\]]{1,20})[】\]]\s*/);
@@ -1784,13 +1786,29 @@ function nameOf(it){
 }
 function dateOf(it){ return it.date || tidyTitle(it.title||it.file).date || ''; }
 var catFilter='';
+/* 排序用的日期：先看進站日（build_index.py 記的），沒有才退回內容日期。
+   進站日是唯一每篇都會有的時間，而且「最新在前」使用者要的就是最新進來的。 */
+function keyOf(it){ return it.added || dateOf(it) || ''; }
 function sortItems(list){
   var how=$('#sortBy').value, a=list.slice();
   if(how==='title') a.sort(function(x,y){return nameOf(x).localeCompare(nameOf(y),'zh-Hant');});
   else if(how==='cat') a.sort(function(x,y){
     return ((x.cat||'zz')+nameOf(x)).localeCompare((y.cat||'zz')+nameOf(y),'zh-Hant');});
-  else if(how==='old') a.reverse();
-  return a;   // 預設 new：index.json 本來就照檔名排，反轉即為最舊在前
+  else{
+    /* index.json 是 sorted(glob) 產生的＝檔名字母序。以前這裡直接拿它當新舊，
+       所以新抓進來的永遠不會在最上面。改成真的比日期；沒有日期的（早期那批）
+       排在最後，彼此維持原本的檔名順序，不要亂跳。 */
+    var pos={}; list.forEach(function(x,i){ pos[x.file]=i; });
+    a.sort(function(x,y){
+      var dx=keyOf(x), dy=keyOf(y);
+      if(dx&&dy&&dx!==dy) return dx<dy ? 1 : -1;
+      if(dx&&!dy) return -1;
+      if(!dx&&dy) return 1;
+      return pos[x.file]-pos[y.file];
+    });
+    if(how==='old') a.reverse();
+  }
+  return a;
 }
 function drawCats(){
   var box=$('#cats'); box.innerHTML='';
