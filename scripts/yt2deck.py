@@ -15,13 +15,37 @@ yt-dlp 在這裡跑幾乎都會成功。下載完直接呼叫 GitHub API 上傳�
 """
 import os, re, sys, json, time, base64, urllib.request, urllib.parse, urllib.error
 
-VERSION = "4"
+VERSION = "5"
 OWNER, REPO = "xin7355-collab", "tool"
 API = "https://api.github.com/repos/%s/%s" % (OWNER, REPO)
 RAW = ("https://raw.githubusercontent.com/%s/%s/main/scripts/yt2deck.py"
        % (OWNER, REPO))
 MAX_MB = 45
 TOKEN_FILES = ["deck_token.txt", os.path.expanduser("~/Documents/deck_token.txt")]
+COOKIE_FILES = ["deck_cookies.txt", os.path.expanduser("~/Documents/deck_cookies.txt")]
+
+
+def find_cookies():
+    """有 cookies.txt 就用。YouTube 現在對「沒有登入態的下載」會直接擋，
+    住宅 IP 也一樣——手機能過的比例愈來愈低。產線那邊就是靠 cookies 才恢復的。
+
+    格式不對的話 yt-dlp 不是忽略它，而是整個中止下載，所以先檢查過再用。
+    """
+    for p in COOKIE_FILES:
+        try:
+            with open(p, encoding="utf-8") as f:
+                txt = f.read()
+        except OSError:
+            continue
+        for ln in txt.splitlines():
+            ln = ln.strip()
+            if ln and not ln.startswith("#") and len(ln.split("\t")) >= 6:
+                return p
+        print("⚠️ %s 不是 Netscape cookies.txt 格式（欄位要 tab 分隔），略過。" % p, flush=True)
+    return ""
+
+
+COOKIEFILE = find_cookies()
 
 
 def self_update():
@@ -159,6 +183,8 @@ def download(url):
         }
         if clients:
             opts["extractor_args"] = {"youtube": {"player_client": clients}}
+        if COOKIEFILE:
+            opts["cookiefile"] = COOKIEFILE
         try:
             _sweep()                      # 上一輪的半成品先清掉
             with yt_dlp.YoutubeDL(opts) as y:
@@ -185,9 +211,11 @@ def download(url):
         raise RuntimeError("%s。\n   這是影片本身的限制，不是程式問題，同批其他影片不受影響。\n"
                            "   原始訊息：%s" % (why, first))
     raise RuntimeError(
-        "YouTube 擋住了這支影片（試過 %d 種下載方式都不行）。\n"
-        "   （yt-dlp %s）原因看最後的總結——失敗比例高就是版本太舊，不是這支的問題。\n"
-        "   原始錯誤：%s" % (len(PLAYER_CLIENTS), ver, first))
+        "YouTube 擋住了這支影片（試過 %d 種下載方式都不行%s）。\n"
+        "   （yt-dlp %s）失敗很多支的話看最後的總結，那裡會說該調什麼。\n"
+        "   原始錯誤：%s"
+        % (len(PLAYER_CLIENTS), "、有帶 cookies" if COOKIEFILE else "、沒帶 cookies",
+           ver, first))
 
 
 def upload(path, title, token, vid=""):
@@ -430,8 +458,10 @@ def main():
     token = get_token()
     if args and args[0] in ("--queue", "-q"):
         args = fetch_queue(token)
-    print("yt2deck v%s（yt-dlp %s）— 這次收到 %d 支" % (VERSION, ydl_ver, len(args)),
-          flush=True)
+    print("yt2deck v%s（yt-dlp %s，%s）— 這次收到 %d 支"
+          % (VERSION, ydl_ver,
+             ("有 cookies" if COOKIEFILE else "沒有 cookies ← 大量失敗多半是這個"),
+             len(args)), flush=True)
 
     # 同一批裡重複勾到的先去掉（純 ID 和完整網址算同一支）
     seen, uniq, dup = set(), [], 0
@@ -493,15 +523,24 @@ def main():
         # 使用者去看影片發現根本能看、也不是會員，就白白繞遠路。
         # 過期的 yt-dlp 典型症狀正是「大部分掛、少數還能過」。
         n = len(ok) + len(bad)
-        if bad and not ok:
-            print("\n  ⚠️ 整批都失敗 → 幾乎可以確定是 yt-dlp 太舊。\n"
-                  "     請執行：pip install -U yt-dlp", flush=True)
-        elif len(bad) >= 3 and len(bad) * 3 >= n:
-            print("\n  ⚠️ 失敗 %d/%d 支（%d%%）→ 這個比例不是「剛好那幾支有問題」。\n"
-                  "     過期的 yt-dlp 就是這樣：大部分掛、少數還能過。\n"
-                  "     請先執行：pip install -U yt-dlp\n"
-                  "     （你目前的版本：%s）然後重跑一次同一批。"
-                  % (len(bad), n, round(len(bad) * 100 / n), ydl_ver), flush=True)
+        # 大量失敗時最常見的原因是「沒有登入態」，不是版本太舊——YouTube 現在
+        # 對匿名下載愈擋愈兇，住宅 IP 也一樣。先前這裡叫人去更新 yt-dlp，
+        # 但版本明明已經是最新的，只是把人帶去繞遠路。
+        if bad and (not ok or (len(bad) >= 3 and len(bad) * 3 >= n)):
+            head = ("整批都失敗" if not ok
+                    else "失敗 %d/%d 支（%d%%）" % (len(bad), n, round(len(bad) * 100 / n)))
+            if not COOKIEFILE:
+                print("\n  ⚠️ %s → 最可能是 YouTube 要求登入驗證（這台沒有帶 cookies）。\n"
+                      "     把 cookies.txt 存成 ~/Documents/deck_cookies.txt 就會自動使用，\n"
+                      "     取法見 repo 裡的「如何取得cookies.md」。\n"
+                      "     （yt-dlp %s；版本通常不是原因，真的要排除再跑 pip install -U yt-dlp）"
+                      % (head, ydl_ver), flush=True)
+            else:
+                print("\n  ⚠️ %s → 已經有帶 cookies（%s），所以多半是：\n"
+                      "     ・cookies 過期了 → 重新匯出一份\n"
+                      "     ・這個 IP 被 YouTube 暫時限制 → 等一陣子，或切換行動網路／Wi-Fi\n"
+                      "     （yt-dlp %s）"
+                      % (head, os.path.basename(COOKIEFILE), ydl_ver), flush=True)
         elif bad:
             print("\n  其他 %d 支都成功，失敗的只有 %d 支 → 多半是那幾支影片自己的限制\n"
                   "  （會員限定／年齡限制／已下架）。真的不確定就更新一次 yt-dlp 再試：\n"
