@@ -85,6 +85,24 @@ Actions → **逐字稿產線** → Run workflow。跑完看日誌：
 | `Sign in to confirm you're not a bot` | 格式對了但 cookie 沒被接受（多半是匯出後又在瀏覽器動過 YouTube，重做一次） |
 | `完成：成功 N，失敗 0` | 成功，恢復全自動 |
 
+## 手機（yt2deck）也要同一份 cookies
+
+`yt2deck.py` 一樣會被 YouTube 要求登入驗證——住宅 IP 只是比較不容易被盯上，
+不是免疫。大量失敗（尤其看到 `No video formats found` 或 `403 Forbidden`）
+通常就是這個原因，跟 yt-dlp 版本無關。
+
+把同一份 cookies.txt 存到手機：
+
+```
+~/Documents/deck_cookies.txt
+```
+
+`yt2deck.py` 啟動時會自己找這個檔，開頭那行會顯示「有 cookies」或「沒有 cookies」。
+格式不對會印警告並略過，不會拖垮整批。
+
+> 從電腦傳到 iPhone：用 AirDrop、或存進 iCloud 雲端硬碟再用「檔案」App
+> 搬到 a-Shell 的 Documents 資料夾。
+
 ## 關於 `YT_PROXY`——多半不需要，先看完再決定
 
 現在設定的那個值是**壞的**（不是可用的代理位址），已經被程式擋下並忽略。
