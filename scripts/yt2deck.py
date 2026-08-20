@@ -15,7 +15,7 @@ yt-dlp 在這裡跑幾乎都會成功。下載完直接呼叫 GitHub API 上傳�
 """
 import os, re, sys, json, time, base64, urllib.request, urllib.parse, urllib.error
 
-VERSION = "6"
+VERSION = "7"
 OWNER, REPO = "xin7355-collab", "tool"
 API = "https://api.github.com/repos/%s/%s" % (OWNER, REPO)
 RAW = ("https://raw.githubusercontent.com/%s/%s/main/scripts/yt2deck.py"
@@ -302,41 +302,57 @@ def set_token():
     print("✅ 已存入 deck_token.txt（長度 %d，開頭 %s…）" % (len(tok), tok[:10]))
 
 
-def set_cookies():
-    """把剪貼簿裡的 cookies.txt 存起來。
+def set_cookies(src=""):
+    """存 cookies.txt。給了路徑就讀檔，沒給就讀剪貼簿。
 
-    不能用 input() 讓使用者貼：cookies 是多行、而且欄位靠 tab 分隔——終端機會把
-    tab 當成自動補齊吃掉，貼進去的東西就毀了。a-Shell 有 pbpaste 可以直接讀剪貼簿，
-    而 Cookie-Editor 的「Export」本來就是匯到剪貼簿，剛好接得上。
+    不能用 input() 讓使用者貼：cookies 是多行、欄位靠 tab 分隔——終端機會把 tab
+    當成自動補齊吃掉，貼進去就毀了。a-Shell 有 pbpaste 可以直接讀剪貼簿，
+    Cookie-Editor 的「Export」剛好就是匯到剪貼簿。
+
+    但剪貼簿很容易在中途被別的東西蓋掉（複製個網址就沒了），所以也接受檔案路徑：
+        python3 yt2deck.py --set-cookies ~/Documents/cookies.txt
     """
-    txt = ""
-    try:
-        import subprocess
-        txt = subprocess.run(["pbpaste"], capture_output=True, text=True,
-                             timeout=20).stdout
-    except Exception:
-        txt = ""
-    if not txt.strip():
-        print("剪貼簿是空的，或這台沒有 pbpaste。\n"
-              "改成貼上模式：整份貼進來，最後自己打一行 END 再按 Enter。\n"
-              "（這條路 tab 可能會被終端機吃掉，失敗的話改用 pbpaste 那條）", flush=True)
-        lines = []
-        while True:
-            try:
-                ln = input()
-            except EOFError:
-                break
-            if ln.strip() == "END":
-                break
-            lines.append(ln)
-        txt = "\n".join(lines)
+    txt, where = "", ""
+    if src:
+        path = os.path.expanduser(src)
+        try:
+            with open(path, encoding="utf-8", errors="replace") as f:
+                txt = f.read()
+            where = path
+        except OSError as e:
+            sys.exit("讀不到 %s（%s）。\n"
+                     "   路徑可以用「檔案」App 長按檔案 → 拷貝路徑，或先把檔案\n"
+                     "   搬到 a-Shell 的 Documents 再直接打檔名。" % (path, e.strerror or e))
+    else:
+        try:
+            import subprocess
+            txt = subprocess.run(["pbpaste"], capture_output=True, text=True,
+                                 timeout=20).stdout
+            where = "剪貼簿"
+        except Exception:
+            txt = ""
 
     rows = [ln for ln in txt.splitlines()
             if ln.strip() and not ln.strip().startswith("#") and len(ln.split("\t")) >= 6]
     if not rows:
-        sys.exit("這份不是 Netscape cookies.txt 格式（每行要 6 個以上 tab 分隔的欄位）。\n"
-                 "   Cookie-Editor 匯出時請選 Netscape，不要選 JSON。\n"
-                 "   （讀到 %d 個字元、%d 行）" % (len(txt), len(txt.splitlines())))
+        # 把實際讀到什麼講出來——「格式不對」四個字沒辦法讓人知道是拿錯東西還是選錯格式
+        head = " ".join(txt.split())[:40]
+        looks_json = txt.lstrip().startswith(("[", "{"))
+        why = ("看起來是 JSON" if looks_json
+               else "看起來不是 cookies" if txt.strip()
+               else "是空的")
+        sys.exit(
+            "從%s讀到的東西不是 Netscape cookies.txt（每行要 6 個以上 tab 分隔的欄位）。\n"
+            "   讀到 %d 個字元、%d 行，%s：%s\n"
+            "\n"
+            "   %s"
+            % (where or "剪貼簿", len(txt), len(txt.splitlines()), why,
+               (head + "…") if head else "(空白)",
+               ("Cookie-Editor 匯出時要選 Netscape，不要選 JSON。" if looks_json else
+                "常見原因：匯出之後又複製了別的東西，剪貼簿被蓋掉了。\n"
+                "   → 重新 Export 一次，然後「馬上」切到 a-Shell 執行這個指令；\n"
+                "   → 或把 cookies 存成檔案，再用：\n"
+                "        python3 yt2deck.py --set-cookies 檔名.txt")))
     with open("deck_cookies.txt", "w", encoding="utf-8") as f:
         f.write(txt if txt.endswith("\n") else txt + "\n")
     yt = sum(1 for r in rows if "youtube" in r.split("\t")[0].lower())
@@ -493,7 +509,7 @@ def main():
         set_token()
         return
     if sys.argv[1] in ("--set-cookies", "-c"):
-        set_cookies()
+        set_cookies(sys.argv[2] if len(sys.argv) > 2 else "")
         return
     self_update()
     args = [a for a in sys.argv[1:] if a not in ("--force", "-f")]
