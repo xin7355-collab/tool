@@ -7,8 +7,8 @@ GitHub 機房 IP 會被 YouTube 要求「登入確認不是機器人」，擋在
 
 沒有也能用，只是每次都要按追蹤分頁的「🚀 用手機補抓」（手機是住宅 IP，不會被擋）。
 
-> ⚠️ **要一台電腦**（Mac / Windows）。iPhone 上做不到——Safari 和 iOS 版 Chrome
-> 都不能安裝這類擴充功能，也讀不到自己的 cookie 檔。
+> **iPhone 也可以**，用 Safari 的 **Cookie-Editor** 擴充功能（App Store 裝，
+> 在 Safari 設定裡啟用）。電腦上則是 Chrome/Edge/Firefox 的同類擴充。
 
 ## 開始前：建議用小號
 
@@ -22,8 +22,9 @@ cookies 等於那個 Google 帳號的通行證，拿到的人可以用你的身�
 
 ### 1. 裝擴充功能
 
-| 瀏覽器 | 裝這個 |
+| 裝置 | 裝這個 |
 |---|---|
+| **iPhone Safari** | App Store 搜尋 **Cookie-Editor** → 到「設定 → Safari → 擴充功能」啟用 |
 | Chrome / Edge | 線上應用程式商店搜尋 **Get cookies.txt LOCALLY** |
 | Firefox | 附加元件搜尋 **cookies.txt** |
 
@@ -97,11 +98,37 @@ Actions → **逐字稿產線** → Run workflow。跑完看日誌：
 ~/Documents/deck_cookies.txt
 ```
 
-`yt2deck.py` 啟動時會自己找這個檔，開頭那行會顯示「有 cookies」或「沒有 cookies」。
-格式不對會印警告並略過，不會拖垮整批。
+### 最省事：直接在 iPhone 上設
 
-> 從電腦傳到 iPhone：用 AirDrop、或存進 iCloud 雲端硬碟再用「檔案」App
-> 搬到 a-Shell 的 Documents 資料夾。
+1. Safari 開 youtube.com（確認是登入狀態）
+2. 點網址列的擴充功能圖示 → **Cookie-Editor** → 右下角 **Export** →
+   選 **Netscape**（會顯示「Cookies exported to clipboard as Netscape format」）
+3. 打開 a-Shell，執行：
+
+```
+python3 yt2deck.py --set-cookies
+```
+
+它會直接讀剪貼簿（`pbpaste`）、檢查格式、存成 `deck_cookies.txt`，並告訴你
+存進去幾筆、其中 youtube.com 的有幾筆。
+
+> **不要**用「貼上到提示字元」的方式。cookies 的欄位是 **tab** 分隔的，
+> 終端機會把 tab 當成自動補齊吃掉，貼進去就毀了。所以才走剪貼簿。
+
+### 從電腦傳過去（如果你在電腦上匯出）
+
+AirDrop，或存進 iCloud 雲端硬碟再用「檔案」App 搬到 a-Shell 的 Documents。
+
+### 確認有沒有生效
+
+`yt2deck.py` 開頭那行會直接寫：
+
+```
+yt2deck v6（yt-dlp 2026.07.04，有 cookies）— 這次收到 20 支
+                                 ↑ 沒設的話會寫「沒有 cookies ← 大量失敗多半是這個」
+```
+
+格式不對會印警告並略過，不會拖垮整批。
 
 ## 關於 `YT_PROXY`——多半不需要，先看完再決定
 

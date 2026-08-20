@@ -15,7 +15,7 @@ yt-dlp 在這裡跑幾乎都會成功。下載完直接呼叫 GitHub API 上傳�
 """
 import os, re, sys, json, time, base64, urllib.request, urllib.parse, urllib.error
 
-VERSION = "5"
+VERSION = "6"
 OWNER, REPO = "xin7355-collab", "tool"
 API = "https://api.github.com/repos/%s/%s" % (OWNER, REPO)
 RAW = ("https://raw.githubusercontent.com/%s/%s/main/scripts/yt2deck.py"
@@ -302,6 +302,50 @@ def set_token():
     print("✅ 已存入 deck_token.txt（長度 %d，開頭 %s…）" % (len(tok), tok[:10]))
 
 
+def set_cookies():
+    """把剪貼簿裡的 cookies.txt 存起來。
+
+    不能用 input() 讓使用者貼：cookies 是多行、而且欄位靠 tab 分隔——終端機會把
+    tab 當成自動補齊吃掉，貼進去的東西就毀了。a-Shell 有 pbpaste 可以直接讀剪貼簿，
+    而 Cookie-Editor 的「Export」本來就是匯到剪貼簿，剛好接得上。
+    """
+    txt = ""
+    try:
+        import subprocess
+        txt = subprocess.run(["pbpaste"], capture_output=True, text=True,
+                             timeout=20).stdout
+    except Exception:
+        txt = ""
+    if not txt.strip():
+        print("剪貼簿是空的，或這台沒有 pbpaste。\n"
+              "改成貼上模式：整份貼進來，最後自己打一行 END 再按 Enter。\n"
+              "（這條路 tab 可能會被終端機吃掉，失敗的話改用 pbpaste 那條）", flush=True)
+        lines = []
+        while True:
+            try:
+                ln = input()
+            except EOFError:
+                break
+            if ln.strip() == "END":
+                break
+            lines.append(ln)
+        txt = "\n".join(lines)
+
+    rows = [ln for ln in txt.splitlines()
+            if ln.strip() and not ln.strip().startswith("#") and len(ln.split("\t")) >= 6]
+    if not rows:
+        sys.exit("這份不是 Netscape cookies.txt 格式（每行要 6 個以上 tab 分隔的欄位）。\n"
+                 "   Cookie-Editor 匯出時請選 Netscape，不要選 JSON。\n"
+                 "   （讀到 %d 個字元、%d 行）" % (len(txt), len(txt.splitlines())))
+    with open("deck_cookies.txt", "w", encoding="utf-8") as f:
+        f.write(txt if txt.endswith("\n") else txt + "\n")
+    yt = sum(1 for r in rows if "youtube" in r.split("\t")[0].lower())
+    print("✅ 已存入 deck_cookies.txt（%d 筆 cookie，其中 youtube.com 的有 %d 筆）"
+          % (len(rows), yt))
+    if not yt:
+        print("⚠️ 裡面沒有 youtube.com 的 cookie —— 匯出時要停在 youtube.com 的分頁上。")
+
+
 DONE_FILE = "deck_done.txt"      # 手機上的備援名單，連不到 GitHub 時才派上用場
 QUEUE_BRANCH, QUEUE_PATH = "status", "queue.txt"
 
@@ -442,10 +486,14 @@ def main():
         sys.exit('用法：python3 yt2deck.py 影片ID [影片ID ...]\n'
                  '     （也可以直接給完整 YouTube 網址，可一次給多支）\n'
                  '     已經有逐字稿的會自動跳過；要重抓請加 --force\n'
-                 '設定 Token：python3 yt2deck.py --set-token')
+                 '設定 Token：python3 yt2deck.py --set-token\n'
+                 '設定 cookies：python3 yt2deck.py --set-cookies（先用 Cookie-Editor 匯出到剪貼簿）')
     _workdir()
     if sys.argv[1] in ("--set-token", "-t"):
         set_token()
+        return
+    if sys.argv[1] in ("--set-cookies", "-c"):
+        set_cookies()
         return
     self_update()
     args = [a for a in sys.argv[1:] if a not in ("--force", "-f")]
