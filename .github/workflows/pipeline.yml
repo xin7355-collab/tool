@@ -97,6 +97,11 @@ jobs:
           python scripts/grab_transcripts.py $IDS $FROM_FILE; RC=$?
           echo "===== _index.csv ====="; cat out/_index.csv 2>/dev/null || echo "(none)"
           [ "$RC" = 0 ] || echo "::error::這批影片全部抽取失敗，原因見上面的 _index.csv"
+          # 個別影片失敗（清單裡多半是直播或會員限定）不讓整條產線變紅——
+          # 每 3 小時寄一封信只會讓人開始無視警報。留個黃色註記就夠了。
+          if [ "$RC" = 0 ] && grep -qE ',"?fail:' out/_index.csv 2>/dev/null; then
+            echo "::warning::有影片抽取失敗（其他的照常發佈），詳見上面的 _index.csv"
+          fi
           exit $RC
       - name: publish transcripts to gh-pages
         env:
