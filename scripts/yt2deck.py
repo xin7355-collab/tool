@@ -15,7 +15,7 @@ yt-dlp 在這裡跑幾乎都會成功。下載完直接呼叫 GitHub API 上傳�
 """
 import os, re, sys, json, time, base64, urllib.request, urllib.parse, urllib.error
 
-VERSION = "7"
+VERSION = "8"
 OWNER, REPO = "xin7355-collab", "tool"
 API = "https://api.github.com/repos/%s/%s" % (OWNER, REPO)
 RAW = ("https://raw.githubusercontent.com/%s/%s/main/scripts/yt2deck.py"
@@ -25,11 +25,63 @@ TOKEN_FILES = ["deck_token.txt", os.path.expanduser("~/Documents/deck_token.txt"
 COOKIE_FILES = ["deck_cookies.txt", os.path.expanduser("~/Documents/deck_cookies.txt")]
 
 
+HTTPONLY = "#HttpOnly_"
+
+
+def normalize_netscape(text):
+    """把瀏覽器外掛匯出的 cookies.txt 修成 Python 的解析器吃得下的樣子。
+
+    Cookie-Editor 這類擴充在 `.youtube.com` 這種開頭有點的網域上，第二欄
+    （include-subdomains）照樣寫 FALSE。但 Python 的 http.cookiejar 對這兩欄有
+    `assert domain_specified == initial_dot`，對不上就**整個檔案拒收**，
+    yt-dlp 於是連公開影片都抓不了——看起來像被 YouTube 擋，其實是自己沒讀進來。
+
+    只改那一欄（和空的到期時間），不動任何 cookie 內容。
+    回傳 (修好的文字, 改了幾行, 丟掉幾行, 還剩幾筆)。
+    """
+    out, fixed, dropped, kept = [], 0, 0, 0
+    for raw in (text or "").splitlines():
+        raw = raw.rstrip("\r")
+        s = raw.strip()
+        if not s or (s.startswith("#") and not s.startswith(HTTPONLY)):
+            out.append(raw)
+            continue
+        pre, body = "", raw
+        if body.startswith(HTTPONLY):
+            pre, body = HTTPONLY, body[len(HTTPONLY):]
+        f = body.split("\t")
+        if len(f) != 7:
+            dropped += 1
+            continue
+        bad = False
+        want = "TRUE" if f[0].startswith(".") else "FALSE"
+        if f[1] != want:
+            f[1], bad = want, True
+        if not f[4].strip().isdigit():
+            f[4], bad = "0", True
+        fixed += bad
+        kept += 1
+        out.append(pre + "\t".join(f))
+    return "\n".join(out) + "\n", fixed, dropped, kept
+
+
+def loadable(path):
+    """真的用 yt-dlp 底下那個解析器讀一次。「看起來像」不算數——
+    之前就是粗檢查放行、yt-dlp 卻拒收，結果整批下載被拖垮。"""
+    try:
+        import http.cookiejar
+        jar = http.cookiejar.MozillaCookieJar()
+        jar.load(path, ignore_discard=True, ignore_expires=True)
+        return len(jar)
+    except Exception:
+        return 0
+
+
 def find_cookies():
     """有 cookies.txt 就用。YouTube 現在對「沒有登入態的下載」會直接擋，
     住宅 IP 也一樣——手機能過的比例愈來愈低。產線那邊就是靠 cookies 才恢復的。
 
-    格式不對的話 yt-dlp 不是忽略它，而是整個中止下載，所以先檢查過再用。
+    格式不對的話 yt-dlp 不是忽略它，而是整個中止下載，所以先修、再實際讀一次。
     """
     for p in COOKIE_FILES:
         try:
@@ -37,11 +89,21 @@ def find_cookies():
                 txt = f.read()
         except OSError:
             continue
-        for ln in txt.splitlines():
-            ln = ln.strip()
-            if ln and not ln.startswith("#") and len(ln.split("\t")) >= 6:
-                return p
-        print("⚠️ %s 不是 Netscape cookies.txt 格式（欄位要 tab 分隔），略過。" % p, flush=True)
+        good, fixed, dropped, kept = normalize_netscape(txt)
+        if not kept:
+            print("⚠️ %s 不是 Netscape cookies.txt 格式（欄位要 tab 分隔），略過。" % p, flush=True)
+            continue
+        if good != txt:
+            try:
+                with open(p, "w", encoding="utf-8") as f:
+                    f.write(good)
+                print("ℹ️ %s 修正了 %d 行、略過 %d 行（外掛匯出的小差異），已存回。"
+                      % (p, fixed, dropped), flush=True)
+            except OSError:
+                pass
+        if loadable(p):
+            return p
+        print("⚠️ %s 修完還是讀不進去，略過。請重新匯出一份。" % p, flush=True)
     return ""
 
 
@@ -353,11 +415,17 @@ def set_cookies(src=""):
                 "   → 重新 Export 一次，然後「馬上」切到 a-Shell 執行這個指令；\n"
                 "   → 或把 cookies 存成檔案，再用：\n"
                 "        python3 yt2deck.py --set-cookies 檔名.txt")))
+    # 直接照抄會踩到 Cookie-Editor 的欄位小差異，yt-dlp 讀不進去（見 normalize_netscape）
+    good, fixed, dropped, kept = normalize_netscape(txt)
     with open("deck_cookies.txt", "w", encoding="utf-8") as f:
-        f.write(txt if txt.endswith("\n") else txt + "\n")
-    yt = sum(1 for r in rows if "youtube" in r.split("\t")[0].lower())
-    print("✅ 已存入 deck_cookies.txt（%d 筆 cookie，其中 youtube.com 的有 %d 筆）"
-          % (len(rows), yt))
+        f.write(good)
+    yt = sum(1 for r in good.splitlines()
+             if r.strip() and len(r.split("\t")) == 7 and "youtube" in r.split("\t")[0].lower())
+    n = loadable("deck_cookies.txt")
+    if not n:
+        sys.exit("存起來了，但 yt-dlp 的解析器還是讀不進去。請重新 Export 一份 Netscape 格式。")
+    print("✅ 已存入 deck_cookies.txt（%d 筆 cookie，其中 youtube.com 的有 %d 筆）%s"
+          % (kept, yt, ("；順手修正了 %d 行" % fixed) if fixed else ""))
     if not yt:
         print("⚠️ 裡面沒有 youtube.com 的 cookie —— 匯出時要停在 youtube.com 的分頁上。")
 
