@@ -31,7 +31,10 @@ MAX_NEW = int(os.environ.get("WATCH_MAX_NEW") or "6")   # 單一頻道一次最�
 NS = {"a": "http://www.w3.org/2005/Atom",
       "yt": "http://www.youtube.com/xml/schemas/2015"}
 CH_ID = re.compile(r"UC[0-9A-Za-z_-]{22}")
-VID_IN_NAME = re.compile(r"(?:__yt|_)([0-9A-Za-z_-]{11})\.md$")   # 兩種舊檔名都要認
+# 兩種舊檔名都要認。結尾允許一個引號：`git ls-tree` 預設會把含中文的檔名整個
+# 用雙引號括起來（core.quotePath），`\.md$` 就永遠對不上——這裡的檔名幾乎都有中文，
+# 等於一支都認不出來，pending 永遠清不掉、網站上「轉錄中」的數字一直不會動。
+VID_IN_NAME = re.compile(r"(?:__yt|_)([0-9A-Za-z_-]{11})\.md\"?$")
 
 
 def now():
