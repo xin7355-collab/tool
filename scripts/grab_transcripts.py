@@ -77,14 +77,72 @@ def looks_netscape(text):
     return False
 
 
+HTTPONLY = "#HttpOnly_"
+
+
+def normalize_netscape(text):
+    """把瀏覽器外掛匯出的 cookies.txt 修成 Python 的解析器吃得下的樣子。
+
+    Cookie-Editor 這類擴充在 `.youtube.com` 這種開頭有點的網域上，第二欄
+    （include-subdomains）照樣寫 FALSE。但 Python 的 http.cookiejar 對這兩欄有
+    `assert domain_specified == initial_dot`，對不上就**整個檔案拒收**，
+    yt-dlp 於是連公開影片都抓不了——看起來像被 YouTube 擋，其實是自己沒讀進來。
+
+    只改那一欄（和空的到期時間），不動任何 cookie 內容。
+    回傳 (修好的文字, 改了幾行, 丟掉幾行, 還剩幾筆)。
+    """
+    out, fixed, dropped, kept = [], 0, 0, 0
+    for raw in (text or "").splitlines():
+        raw = raw.rstrip("\r")
+        s = raw.strip()
+        if not s or (s.startswith("#") and not s.startswith(HTTPONLY)):
+            out.append(raw)
+            continue
+        pre, body = "", raw
+        if body.startswith(HTTPONLY):
+            pre, body = HTTPONLY, body[len(HTTPONLY):]
+        f = body.split("\t")
+        if len(f) != 7:
+            dropped += 1        # 欄位數不對的救不回來，丟掉總比整份被拒收好
+            continue
+        bad = False
+        want = "TRUE" if f[0].startswith(".") else "FALSE"
+        if f[1] != want:
+            f[1], bad = want, True
+        if not f[4].strip().isdigit():
+            f[4], bad = "0", True
+        fixed += bad
+        kept += 1
+        out.append(pre + "\t".join(f))
+    return "\n".join(out) + "\n", fixed, dropped, kept
+
+
 # cookies：YT_COOKIES（cookies.txt 內容）優先寫成暫存檔；或直接給 YT_COOKIES_FILE 路徑。
 COOKIEFILE = os.environ.get("YT_COOKIES_FILE", "").strip()
 if not COOKIEFILE and os.environ.get("YT_COOKIES", "").strip():
     _raw = os.environ["YT_COOKIES"]
     if looks_netscape(_raw):
-        _t = tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8")
-        _t.write(_raw); _t.close()
-        COOKIEFILE = _t.name
+        _txt, _fixed, _dropped, _kept = normalize_netscape(_raw)
+        if _fixed or _dropped:
+            print("ℹ️ YT_COOKIES 修正了 %d 行、略過 %d 行不合格的（多半是外掛匯出的小差異），"
+                  "還有 %d 筆可用。" % (_fixed, _dropped, _kept), flush=True)
+        if not _kept:
+            print("⚠️ YT_COOKIES 修完之後一筆都不剩，這次不用它。", flush=True)
+        else:
+            _t = tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8")
+            _t.write(_txt); _t.close()
+            # 最後真的用同一個解析器讀一次。之前只做「像不像」的粗檢查，
+            # 檢查過了 yt-dlp 卻讀不進去，結果整批被拖垮——那正是要避免的事。
+            try:
+                import http.cookiejar as _cjmod
+                _cj = _cjmod.MozillaCookieJar()
+                _cj.load(_t.name, ignore_discard=True, ignore_expires=True)
+                COOKIEFILE = _t.name
+                print("cookies：可用 %d 筆" % len(_cj), flush=True)
+            except Exception as _e:
+                print("⚠️ YT_COOKIES 修完還是讀不進去（%s），這次不用它。\n"
+                      "   請重新匯出一份 Netscape 格式的 cookies.txt。"
+                      % str(_e).replace("\n", " ")[:140], flush=True)
     else:
         print("⚠️ YT_COOKIES 不是 Netscape cookies.txt 格式（欄位要用 tab 分隔），這次忽略它。\n"
               "   公開影片不受影響；要抓會員／鎖區影片請重新匯出 cookies.txt，\n"
