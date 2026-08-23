@@ -69,7 +69,9 @@ jobs:
           # 刻意不讀 vars.GROQ_MODEL——設定裡那個舊值會蓋掉這裡，要換再改這行。
           GROQ_MODEL: whisper-large-v3-turbo
           GROQ_SUMMARY: ${{ vars.GROQ_SUMMARY || '1' }}
-          GROQ_LLM_MODEL: ${{ vars.GROQ_LLM_MODEL || 'llama-3.1-8b-instant' }}
+          # 同上，刻意不讀 vars.GROQ_LLM_MODEL：llama-3.1-8b-instant 已於
+          # 2026-08-16 停用，設定裡若留著舊值會蓋掉這裡，摘要又會整批 404。
+          GROQ_LLM_MODEL: openai/gpt-oss-20b
         run: |
           ls -lh audio-inbox/ 2>/dev/null || echo "(inbox 是空的)"
           # 全掛時要變紅：之前腳本永遠回 None＝綠燈，inbox 卡了一整天沒人發現。

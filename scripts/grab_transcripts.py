@@ -219,7 +219,9 @@ GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "").strip()
 GROQ_MODEL   = os.environ.get("GROQ_MODEL", "whisper-large-v3-turbo").strip()
 # 自動摘要：有 GROQ_API_KEY 時，用 Groq 的 LLM 幫每篇逐字稿產生重點摘要（失敗就略過，不影響產出）
 GROQ_SUMMARY   = os.environ.get("GROQ_SUMMARY", "1") == "1"
-GROQ_LLM_MODEL = os.environ.get("GROQ_LLM_MODEL", "llama-3.1-8b-instant").strip()
+# llama-3.1-8b-instant 在 2026-08-16 被 Groq 關掉，之後每次呼叫都回 404 ——
+# 摘要與 AI 校對從那天起全部靜默失效。官方指定的接替就是 gpt-oss-20b。
+GROQ_LLM_MODEL = os.environ.get("GROQ_LLM_MODEL", "openai/gpt-oss-20b").strip()
 GROQ_SEG     = int(os.environ.get("GROQ_SEG_SECONDS", "600") or "600")   # 每段秒數，控制單檔 <25MB
 # 小於這個大小就不切段、直接整份送 Groq（上限 25MB，留點餘裕）
 GROQ_DIRECT_MB  = float(os.environ.get("GROQ_DIRECT_MB", "20") or "20")
@@ -492,6 +494,7 @@ def groq_polish(title, paras):
         "逐行對應輸出，輸入幾行就輸出幾行，不要加編號或說明。"
     )
     out, buf, blen = [], [], 0
+    fixed_any = []          # 真的被改過的段數；全部沿用原文就不能說「已校對」
 
     def flush(chunk):
         if not chunk:
@@ -513,19 +516,25 @@ def groq_polish(title, paras):
                 j = json.loads(r.read().decode("utf-8", "replace"))
             got = [x for x in j["choices"][0]["message"]["content"].split("\n") if x.strip()]
         except Exception as e:
-            print("    校對這段失敗（沿用原文）：%s" % str(e)[:70], flush=True)
+            hint = ("（Groq 找不到模型 %s，多半已停用）" % GROQ_LLM_MODEL
+                    if "404" in str(e) else "")
+            print("    校對這段失敗（沿用原文）：%s%s" % (str(e)[:70], hint), flush=True)
             out.extend(chunk); return
         # 行數對不上，或長度掉超過三成 = 它自己摘要了，不能用
         if len(got) != len(chunk) or len("".join(got)) < len(raw) * 0.7:
             print("    校對結果不對齊（沿用原文）：%d 行 → %d 行" % (len(chunk), len(got)), flush=True)
             out.extend(chunk); return
-        out.extend(got)
+        out.extend(got); fixed_any.append(len(got))
 
     for p in paras:
         buf.append(p); blen += len(p)
         if blen >= POLISH_SEG:
             flush(buf); buf, blen = [], 0
     flush(buf)
+    # 每一段都退回原文時，之前照樣回 out（＝原文），呼叫端就印「已校對 N 段」、
+    # 還在 .txt 開頭寫「此版已用 AI 校對錯字」。模型被下架後每篇都這樣，等於說謊。
+    if not fixed_any:
+        return None
     return out if len(out) == len(paras) else None
 
 
@@ -568,7 +577,11 @@ def _groq_chat(sys_msg, user_msg, temperature=0.3, timeout=120, tries=4):
             return (j.get("choices") or [{}])[0].get("message", {}).get("content", "").strip()
         except urllib.error.HTTPError as e:
             if e.code not in (429, 500, 502, 503, 520, 524) or n == tries:
-                print("    摘要這段失敗：HTTP %s" % e.code, flush=True)
+                # 404 幾乎都是模型被下架，不是網路問題。把模型名印出來，
+                # 不然只看到「HTTP 404」會以為是暫時性錯誤，繼續等下一批。
+                print("    摘要這段失敗：HTTP %s%s"
+                      % (e.code, "（Groq 找不到模型 %s，多半已停用）" % GROQ_LLM_MODEL
+                         if e.code == 404 else ""), flush=True)
                 return ""
             wait = float(e.headers.get("Retry-After") or 0) or min(30, 3 * n)
         except Exception as e:

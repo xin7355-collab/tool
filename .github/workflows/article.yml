@@ -49,7 +49,9 @@ jobs:
       - name: 抓文章
         env:
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GROQ_LLM_MODEL: ${{ vars.GROQ_LLM_MODEL || 'llama-3.1-8b-instant' }}
+          # 刻意不讀 vars.GROQ_LLM_MODEL：llama-3.1-8b-instant 已於 2026-08-16
+          # 停用，設定裡若留著舊值會蓋掉這裡，整批 404。要換模型就改這行。
+          GROQ_LLM_MODEL: openai/gpt-oss-20b
           GROQ_SUMMARY: ${{ vars.GROQ_SUMMARY || '1' }}
           DECK_CATEGORIES: ${{ vars.DECK_CATEGORIES }}
         run: |
