@@ -85,7 +85,9 @@ jobs:
         env:
           IDS: ${{ github.event.issue.title }} ${{ github.event.issue.body }}
           LANGS: 'zh-TW,zh-Hant,zh,en'
-          ASR_BACKEND: ${{ vars.ASR_BACKEND || 'whisper' }}
+          # ASR_BACKEND 是 repo Variable（不是 Secret），搬家時沒跟著搬，就會退回
+          # 機房 CPU 跑本機 Whisper——慢到逾時。所以有金鑰時預設就走 Groq。
+          ASR_BACKEND: ${{ vars.ASR_BACKEND || (secrets.GROQ_API_KEY && 'groq') || 'whisper' }}
           WHISPER_MODEL: ${{ vars.WHISPER_MODEL || 'small' }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           # 直接指定 turbo：比 whisper-large-v3 快約 4 倍，中文口語差異不大。
