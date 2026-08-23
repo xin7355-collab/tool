@@ -499,7 +499,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.8';
+var APP_VER='1.1.9';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1582,17 +1582,21 @@ function cut(t,size){
   while(i<t.length){ out.push(t.slice(i,i+size)); i+=size; }
   return out.filter(function(s){ return s.trim(); });
 }
+/* llama-3.1-8b-instant 在 2026-08-16 被 Groq 關掉，之後這裡每次都 404，
+   「✨ 產生重點摘要」按下去只會跳 HTTP 404。換成官方指定的接替型號。 */
+var GQ_MODEL='openai/gpt-oss-20b';
 function groqChat(sys,user){
   var k=getGq();
   if(!k) return Promise.reject(new Error('請先到「⚙ 設定」填 Groq API Key（console.groq.com 免費申請）'));
   return fetch('https://api.groq.com/openai/v1/chat/completions',{
     method:'POST',
     headers:{'Authorization':'Bearer '+k,'Content-Type':'application/json'},
-    body:JSON.stringify({model:'llama-3.1-8b-instant',temperature:0.3,
+    body:JSON.stringify({model:GQ_MODEL,temperature:0.3,
       messages:[{role:'system',content:sys},{role:'user',content:user}]})
   }).then(function(r){
     if(r.status===401) throw new Error('Groq 金鑰無效，請到「⚙ 設定」重填');
     if(r.status===429) throw new Error('Groq 忙線中，等一下再試');
+    if(r.status===404) throw new Error('Groq 找不到模型 '+GQ_MODEL+'（多半是被停用了，要更新程式）');
     if(!r.ok) throw new Error('Groq HTTP '+r.status);
     return r.json();
   }).then(function(j){
