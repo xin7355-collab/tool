@@ -38,7 +38,9 @@ jobs:
       # numpy 等一大串，裝起來又慢又用不到）。只有本機 Whisper 才裝。
       - name: 安裝需要的東西（用 Groq 時幾乎不用裝）
         env:
-          ASR_BACKEND: ${{ vars.ASR_BACKEND || 'whisper' }}
+          # ASR_BACKEND 是 repo Variable（不是 Secret），搬家時沒跟著搬，就會退回
+          # 機房 CPU 跑本機 Whisper——慢到逾時。所以有金鑰時預設就走 Groq。
+          ASR_BACKEND: ${{ vars.ASR_BACKEND || (secrets.GROQ_API_KEY && 'groq') || 'whisper' }}
         run: |
           # 已經有 ffmpeg 就別再花 20 幾秒跑 apt-get update
           command -v ffmpeg >/dev/null && echo "ffmpeg 已內建" || {
@@ -60,7 +62,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # 進度條要靠它寫 gh-pages
           LANGS: 'zh-TW,zh-Hant,zh,en'
-          ASR_BACKEND: ${{ vars.ASR_BACKEND || 'whisper' }}
+          ASR_BACKEND: ${{ vars.ASR_BACKEND || (secrets.GROQ_API_KEY && 'groq') || 'whisper' }}
           WHISPER_MODEL: ${{ vars.WHISPER_MODEL || 'small' }}
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
           # 直接指定 turbo：比 whisper-large-v3 快約 4 倍，中文口語差異不大。
@@ -70,7 +72,10 @@ jobs:
           GROQ_LLM_MODEL: ${{ vars.GROQ_LLM_MODEL || 'llama-3.1-8b-instant' }}
         run: |
           ls -lh audio-inbox/ 2>/dev/null || echo "(inbox 是空的)"
-          python scripts/transcribe_upload.py
+          # 全掛時要變紅：之前腳本永遠回 None＝綠燈，inbox 卡了一整天沒人發現。
+          # 部分成功仍回 0，照常往下發佈。
+          python scripts/transcribe_upload.py || {
+            echo "::error::這批音檔一支都沒轉成功，原因見上面的訊息"; exit 1; }
       - name: 發佈逐字稿到 gh-pages
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

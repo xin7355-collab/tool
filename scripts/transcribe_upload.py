@@ -42,11 +42,16 @@ def main():
     if not files:
         # 定時重試跑到空 inbox 是常態，寫下 0/0 讓工作流知道「不用發通知」。
         (OUT / "_status.txt").write_text("0 0\n", encoding="utf-8")
-        print("audio-inbox/ 沒有音檔"); return
+        print("audio-inbox/ 沒有音檔"); return 0
     use_groq = ASR_BACKEND == "groq" and GROQ_API_KEY
     print("待處理 %d 個音檔（引擎：%s）" %
           (len(files), ("Groq " + GROQ_MODEL) if use_groq else ("本機 Whisper " + WHISPER_MODEL)),
           flush=True)
+    if not use_groq and GROQ_API_KEY:
+        # 有金鑰卻沒用到，多半是 repo Variable `ASR_BACKEND` 沒設。機房只有兩核 CPU，
+        # 本機 Whisper 跑一小時的節目要好幾小時，整批一定撞到逾時，一支都出不來。
+        print("⚠️ 有 GROQ_API_KEY 卻用本機 Whisper（ASR_BACKEND=%r）——這在機房上慢到會逾時。"
+              % ASR_BACKEND, flush=True)
 
     # 進度發佈到 gh-pages，網站就能畫出每個檔案自己的讀取條
     titles = [(p, clean_title(p)[0]) for p in files]
@@ -63,6 +68,9 @@ def main():
     (OUT / "_processed.txt").write_text("\n".join(done) + ("\n" if done else ""),
                                         encoding="utf-8")
     (OUT / "_status.txt").write_text("%d %d\n" % (len(files), ok), encoding="utf-8")
+    # 一支都沒轉成功就回非零，讓工作流變紅並寄信。之前是永遠回 None＝綠燈，
+    # inbox 卡了一整天、每兩小時重試一次全掛，畫面上還是一片綠。
+    return 1 if ok == 0 else 0
 
 
 def run_all(files, use_groq, pg):
@@ -94,8 +102,13 @@ def run_all(files, use_groq, pg):
                             5 + 85.0 * cur / max(1.0, total))
                 cues = asr_cues(wav, on_progress=report)
             if not cues:
-                pg.fail(i, "辨識結果為空")
-                print("  辨識結果為空", flush=True); continue
+                # 光說「為空」查不出原因。音檔只有幾十 KB 多半是手機那端下載就斷了，
+                # 留在 inbox 每兩小時重試一次也不會變好，要看得出來才能砍掉重抓。
+                kb = os.path.getsize(path) // 1024
+                why = "辨識結果為空（檔案只有 %d KB，多半是下載時就壞了）" % kb if kb < 64 \
+                      else "辨識結果為空"
+                pg.fail(i, why[:60])
+                print("  " + why, flush=True); continue
 
             paras = to_paragraphs(cues)
             chars = sum(len(p["t"]) for p in paras)
@@ -162,4 +175,4 @@ def run_all(files, use_groq, pg):
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main() or 0)
