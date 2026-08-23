@@ -15,7 +15,8 @@ OUT = pathlib.Path("out")
 GAP, MAX_CHARS = 1.6, 180
 GROQ_API_KEY = os.environ.get("GROQ_API_KEY", "").strip()
 GROQ_SUMMARY = os.environ.get("GROQ_SUMMARY", "1") == "1"
-GROQ_LLM_MODEL = os.environ.get("GROQ_LLM_MODEL", "llama-3.1-8b-instant").strip()
+# llama-3.1-8b-instant 於 2026-08-16 被 Groq 停用（呼叫一律 404）。
+GROQ_LLM_MODEL = os.environ.get("GROQ_LLM_MODEL", "openai/gpt-oss-20b").strip()
 
 
 def safe_name(s):

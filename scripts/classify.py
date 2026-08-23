@@ -23,7 +23,8 @@ CATEGORIES = [c.strip() for c in
               if c.strip()]
 
 GROQ_API_KEY = (os.environ.get("GROQ_API_KEY") or "").strip()
-GROQ_LLM = (os.environ.get("GROQ_LLM_MODEL") or "llama-3.1-8b-instant").strip()
+# llama-3.1-8b-instant 於 2026-08-16 被 Groq 停用（呼叫一律 404）。
+GROQ_LLM = (os.environ.get("GROQ_LLM_MODEL") or "openai/gpt-oss-20b").strip()
 
 # 標題結尾常見的雜訊：頻道名、來賓名、節目名、shorts 標籤之類
 NOISE = re.compile(
