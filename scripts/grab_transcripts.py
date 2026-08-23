@@ -813,11 +813,16 @@ def main():
     with (OUT / "_index.csv").open("w", encoding="utf-8-sig", newline="") as f:
         w = csv.DictWriter(f, fieldnames=["video_id", "title", "lang", "chars", "paragraphs", "status"])
         w.writeheader(); w.writerows(index)
-    print(f"完成：成功 {ok}，失敗 {fail}", flush=True)
+    skipped = sum(1 for x in index if x.get("status") == "skip")
+    print(f"完成：成功 {ok}，失敗 {fail}，略過 {skipped}（先前已產出）", flush=True)
     # 一支都沒成功、卻有失敗的＝這批整個壞了（cookie 壞掉、被擋、網路不通…）。
     # 以前這裡永遠回 0，工作流就永遠是綠的，壞了幾天也沒人知道。
     # 部分成功仍回 0：那些成功的還是要發佈出去。
-    return 1 if (ok == 0 and fail > 0) else 0
+    #
+    # 但「略過 59＋失敗 1」不是整批壞掉，只是清單裡有一支難搞的（直播、會員限定…）。
+    # 那種情況每 3 小時紅一次、寄一封信，只會讓人開始無視所有警報。
+    # 有略過的＝產線本來就在動，失敗就當個別影片的事。
+    return 1 if (ok == 0 and fail > 0 and skipped == 0) else 0
 
 
 if __name__ == "__main__":
