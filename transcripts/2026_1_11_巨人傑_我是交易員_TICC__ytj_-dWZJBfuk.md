@@ -1,7 +1,6 @@
 # 2026_1_11_巨人傑_我是交易員_TICC
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=j_-dWZJBfuk)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：2026 1 11 巨人傑 我是交易員 TICC
 
-
+- 日期：2026-01-31
 
 ---
 
