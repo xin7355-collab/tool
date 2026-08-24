@@ -1,7 +1,6 @@
 # 砸1億元買0050！分析師郭哲榮「賺千萬」暴紅_shorts
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=UaR-Pk84mpk)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：砸1億元買0050！分析師郭哲榮「賺千萬」暴紅
 
-
+- 日期：2026-08-02
 
 ---
 

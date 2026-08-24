@@ -1,7 +1,6 @@
 # 台股巨獸_-_巨人傑_『我是交易員』_講座精華_台股_投資理財_巨人傑
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=ng3qoIbojfU)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：巨獸 - 巨人傑 『我是交易員』 講座精華 理財 巨人傑
 
-
+- 日期：2026-01-12
 
 ---
 

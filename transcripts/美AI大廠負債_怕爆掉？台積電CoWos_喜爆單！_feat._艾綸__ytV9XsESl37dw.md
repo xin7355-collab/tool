@@ -1,17 +1,13 @@
 # 美AI大廠負債_怕爆掉？台積電CoWos_喜爆單！_feat._艾綸
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=V9XsESl37dw)
-
 - 辨識：ASR:small
-
 - 統計：456 字 / 3 段
-
 - 短標題：美AI大廠負債 怕爆掉？
 - 分類：其他
 - 關鍵字：台積電、CoWos、AI晶片、GPU
-- 短標題：美AI大廠負債 怕爆掉？
+- 日期：2026-08-20
 
 ---
 

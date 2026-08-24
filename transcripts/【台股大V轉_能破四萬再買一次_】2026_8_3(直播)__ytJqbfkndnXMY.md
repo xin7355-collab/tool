@@ -1,7 +1,6 @@
 # 【台股大V轉_能破四萬再買一次_】2026_8_3(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=JqbfkndnXMY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：台股大V轉 能破四萬再買一次｜2026 8 3(直播)
 
-
+- 日期：2026-08-03
 
 ---
 

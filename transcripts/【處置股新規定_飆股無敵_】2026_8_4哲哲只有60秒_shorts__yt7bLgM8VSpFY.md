@@ -1,7 +1,6 @@
 # 【處置股新規定_飆股無敵_】2026_8_4哲哲只有60秒_shorts
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=7bLgM8VSpFY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：處置股新規定 飆股無敵｜2026 8 4哲哲只有60秒
 
-
+- 日期：2026-08-04
 
 ---
 

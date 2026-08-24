@@ -1,7 +1,6 @@
 # 反彈沒撿不急_還有回檔！鍾大膽佛心公開_本週關鍵點位！_李兆華_鍾大膽
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=EIATpQhnk_I)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：反彈沒撿不急 還有回檔！
 
-
+- 日期：2026-08-04
 
 ---
 

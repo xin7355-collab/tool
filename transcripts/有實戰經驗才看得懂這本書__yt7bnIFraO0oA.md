@@ -1,7 +1,6 @@
 # 有實戰經驗才看得懂這本書
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=7bnIFraO0oA)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：有實戰經驗才看得懂這本書
 
-
+- 日期：2024-09-05
 
 ---
 

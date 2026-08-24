@@ -1,7 +1,6 @@
 # 【這週_台股最後期末考_】2026_7_13(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=AC_UA_yTcB0)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：這週 台股最後期末考｜2026 7 13(直播)
 
-
+- 日期：2026-07-13
 
 ---
 

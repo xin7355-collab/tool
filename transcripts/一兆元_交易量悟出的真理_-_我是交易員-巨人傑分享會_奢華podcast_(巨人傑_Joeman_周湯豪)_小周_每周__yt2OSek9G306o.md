@@ -1,7 +1,6 @@
 # 一兆元_交易量悟出的真理_-_我是交易員-巨人傑分享會_奢華podcast_(巨人傑_Joeman_周湯豪)_小周_每周
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=2OSek9G306o)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：一兆元 交易量悟出的真理 - 我是交易員-巨人傑分享會 奢華podcast (巨人傑 Joeman 周湯豪) 小周 每周
 
-
+- 日期：2026-01-15
 
 ---
 

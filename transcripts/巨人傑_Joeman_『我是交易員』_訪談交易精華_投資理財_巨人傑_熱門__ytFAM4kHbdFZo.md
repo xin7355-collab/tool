@@ -1,7 +1,6 @@
 # 巨人傑_Joeman_『我是交易員』_訪談交易精華_投資理財_巨人傑_熱門
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=FAM4kHbdFZo)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：巨人傑 Joeman 『我是交易員』 訪談交易精華 理財 巨人傑 熱門
 
-
+- 日期：2026-01-16
 
 ---
 

@@ -1,7 +1,6 @@
 # 狂_真砸1億買0050_郭哲榮_不推槓桿型ETF｜TVBS新聞_TVBSNEWS02
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=29vU7xCfXNU)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：狂 真砸1億買0050 郭哲榮 不推槓桿型ETF
 
-
+- 日期：2026-07-30
 
 ---
 

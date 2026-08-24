@@ -1,7 +1,6 @@
 # 巨人傑的交易經驗-如何擴大交易部位！_巨人傑_https_youtube.com_shorts_AGMpijCDnZE
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=AGMpijCDnZE)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：巨人傑的交易經驗-如何擴大交易部位！ 巨人傑 https youtube.com AGMpijCDnZE
 
+- 日期：2026-02-12
 
 
 ## 摘要
-
 
 
 1. 巨人傑認為，擴大交易部位需要在獲利高、勝率有把握的時候進行。
@@ -25,8 +24,6 @@
 3. 小部位的停損可以允許更多次的交易，但如果停損太小，可能會忽視虧損。
 4. 巨人傑認為，對虧損有痛感是可以逼自己修正和優化策略的關鍵。
 5. 如果對賠錢沒有感覺，就不會去找出策略的漏洞和原因。
-
-
 
 ---
 

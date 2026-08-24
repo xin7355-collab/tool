@@ -1,7 +1,6 @@
 # 《兆華與股惑仔影片版》突然回跌不緊張_7月續強_PCB.設備可撿_被動.功率追強_ft.AI達人_蔡明翰
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=cF_UISQmMpU)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：《兆華與股惑仔影片版》突然回跌不緊張 7月續強 PCB.設備可撿 被動.功率追強 AI達人 蔡明翰
 
-
+- 日期：2026-06-23
 
 ---
 

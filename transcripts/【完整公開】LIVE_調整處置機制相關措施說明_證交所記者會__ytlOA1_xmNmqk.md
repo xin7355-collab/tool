@@ -1,7 +1,6 @@
 # 【完整公開】LIVE_調整處置機制相關措施說明_證交所記者會
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=lOA1_xmNmqk)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：完整公開｜LIVE 調整處置機制相關措施說明 證交所記者會
 
-
+- 日期：2026-08-03
 
 ---
 

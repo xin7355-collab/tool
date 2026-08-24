@@ -1,7 +1,6 @@
 # 【處置股鬆綁_台股大利多？】_shorts
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=jMv1MWS4IdY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：處置股鬆綁 台股大利多？
 
-
+- 日期：2026-08-04
 
 ---
 

@@ -1,7 +1,6 @@
 # 【破四萬點_我砸一億進場_】2026_7_28哲哲只有60秒_shorts
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=VX7ueg2EKj0)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：破四萬點 我砸一億進場｜2026 7 28哲哲只有60秒
 
-
+- 日期：2026-07-28
 
 ---
 

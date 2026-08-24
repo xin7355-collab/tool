@@ -1,7 +1,6 @@
 # 神秘當沖王_巨人傑_真面目首曝_31歲成億級交易員│94看新聞
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=OXPOmnF_Dww)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：神秘當沖王 巨人傑 真面目首曝 31歲成億級交易員│94看新聞
 
-
+- 日期：2024-07-30
 
 ---
 

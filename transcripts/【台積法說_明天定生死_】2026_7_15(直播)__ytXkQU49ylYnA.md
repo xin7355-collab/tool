@@ -1,7 +1,6 @@
 # 【台積法說_明天定生死_】2026_7_15(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=XkQU49ylYnA)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：台積法說 明天定生死｜2026 7 15(直播)
 
-
+- 日期：2026-07-15
 
 ---
 

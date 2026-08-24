@@ -1,7 +1,6 @@
 # 巨人傑與周教授的論戰
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=LAKNATC85tE)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：巨人傑與周教授的論戰
 
-
+- 日期：2026-01-14
 
 ---
 

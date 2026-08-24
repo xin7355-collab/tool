@@ -1,7 +1,6 @@
 # 【今天_我買了一億0050】2026_7_29哲哲只有60秒_shorts
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=7kNBMVVmw3g)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：今天 我買了一億0050｜2026 7 29哲哲只有60秒
 
-
+- 日期：2026-07-29
 
 ---
 

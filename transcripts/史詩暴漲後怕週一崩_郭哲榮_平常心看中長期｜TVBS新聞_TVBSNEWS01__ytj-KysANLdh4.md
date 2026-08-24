@@ -1,7 +1,6 @@
 # 史詩暴漲後怕週一崩_郭哲榮_平常心看中長期｜TVBS新聞_TVBSNEWS01
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=j-KysANLdh4)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：史詩暴漲後怕週一崩 郭哲榮 平常心看中長期
 
-
+- 日期：2026-08-02
 
 ---
 

@@ -1,7 +1,6 @@
 # 聊一下我長期持有台積電的根本邏輯_本影片非投資建議請謹慎理財
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=Tl20LjQFUXE)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：聊一下我長期持有台積電的根本邏輯 本影片非建議請謹慎理財
 
-
+- 日期：2024-03-19
 
 ---
 

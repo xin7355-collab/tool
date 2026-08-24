@@ -1,7 +1,6 @@
 # EP7.台股當沖之王_巨人傑_從1萬到年成交額3000億的交易之路
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=4wRr2KssKcU)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：EP7｜.當沖之王 巨人傑 從1萬到年成交額3000億的交易之路
 
-
+- 日期：2023-12-13
 
 ---
 

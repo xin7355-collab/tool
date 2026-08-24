@@ -1,7 +1,6 @@
 # 巨人傑的交易法：從心魔到邏輯
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=6b4sHUCAOsM)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：巨人傑的交易法：從心魔到邏輯
 
-
+- 日期：2026-01-11
 
 ---
 

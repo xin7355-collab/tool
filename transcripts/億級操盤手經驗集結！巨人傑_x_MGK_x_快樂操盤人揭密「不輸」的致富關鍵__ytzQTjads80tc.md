@@ -1,7 +1,6 @@
 # 億級操盤手經驗集結！巨人傑_x_MGK_x_快樂操盤人揭密「不輸」的致富關鍵
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=zQTjads80tc)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：億級操盤手經驗集結！巨人傑 x MGK x 快樂操盤人揭密「不輸」的致富關鍵
 
-
+- 日期：2025-12-11
 
 ---
 

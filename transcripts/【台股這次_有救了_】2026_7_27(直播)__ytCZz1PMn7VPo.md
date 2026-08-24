@@ -1,7 +1,6 @@
 # 【台股這次_有救了_】2026_7_27(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=CZz1PMn7VPo)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：台股這次 有救了｜2026 7 27(直播)
 
-
+- 日期：2026-07-27
 
 ---
 

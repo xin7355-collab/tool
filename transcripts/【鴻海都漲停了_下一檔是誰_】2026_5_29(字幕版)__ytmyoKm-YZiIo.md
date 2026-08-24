@@ -1,7 +1,6 @@
 # 【鴻海都漲停了_下一檔是誰_】2026_5_29(字幕版)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=myoKm-YZiIo)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：鴻海都漲停了 下一檔是誰｜2026 5 29(字幕版)
 
-
+- 日期：2026-05-29
 
 ---
 

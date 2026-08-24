@@ -1,7 +1,6 @@
 # 《兆華與股惑仔影片版》韓國ETF殺招上路_油價破百利空測試_漲價產業會收成_(ABF.CCL.矽晶圓)_ft.國家級基金
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=UTebxHLq4oY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：《兆華與股惑仔影片版》韓國ETF殺招上路 油價破百利空測試 漲價產業會收成 (ABF.CCL.矽晶圓) 國家級基金
 
-
+- 日期：2026-07-24
 
 ---
 

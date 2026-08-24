@@ -1,7 +1,6 @@
 # 【台股颱風假_你家少賺130萬！】2026_7_10(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=NaqIbiqt_uU)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：台股颱風假 你家少賺130萬！｜2026 7 10(直播)
 
-
+- 日期：2026-07-10
 
 ---
 

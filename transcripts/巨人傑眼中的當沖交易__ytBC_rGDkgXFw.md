@@ -1,7 +1,6 @@
 # 巨人傑眼中的當沖交易
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=BC_rGDkgXFw)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：巨人傑眼中的當沖交易
 
-
+- 日期：2026-02-02
 
 ---
 

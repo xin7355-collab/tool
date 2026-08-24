@@ -1,7 +1,6 @@
 # 【韓國大熔斷、台股這次跌真的】2026_7_7(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=p5vXKZmdDm0)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：韓國大熔斷、台股這次跌真的｜2026 7 7(直播)
 
-
+- 日期：2026-07-07
 
 ---
 

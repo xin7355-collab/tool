@@ -1,7 +1,6 @@
 # 台股傳奇交易員,巨人傑的當沖策略_天下文化_巨人思維
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=wwy2NhRYrPI)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：傳奇交易員,巨人傑的當沖策略 天下文化 巨人思維
 
-
+- 日期：2024-05-06
 
 ---
 

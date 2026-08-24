@@ -1,7 +1,6 @@
 # 【我一億買台股_沒用嗎_】2026_7_30(字幕版)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=j58_BZKvbDU)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：我一億買台股 沒用嗎｜2026 7 30(字幕版)
 
-
+- 日期：2026-07-30
 
 ---
 

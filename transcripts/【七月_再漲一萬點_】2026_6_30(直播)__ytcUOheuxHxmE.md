@@ -1,7 +1,6 @@
 # 【七月_再漲一萬點_】2026_6_30(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=cUOheuxHxmE)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：七月 再漲一萬點｜2026 6 30(直播)
 
-
+- 日期：2026-06-30
 
 ---
 

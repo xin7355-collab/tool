@@ -1,7 +1,6 @@
 # 台股創盤中最大漲點！_郭哲榮砸1億買0050秒賺8百萬｜_鏡新聞
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=iXLwqz5g1ls)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：創盤中最大漲點！ 郭哲榮砸1億買0050秒賺8百萬
 
-
+- 日期：2026-07-31
 
 ---
 

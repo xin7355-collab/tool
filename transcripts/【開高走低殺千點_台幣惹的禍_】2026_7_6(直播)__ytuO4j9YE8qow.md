@@ -1,7 +1,6 @@
 # 【開高走低殺千點_台幣惹的禍_】2026_7_6(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=uO4j9YE8qow)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：開高走低殺千點 台幣惹的禍｜2026 7 6(直播)
 
-
+- 日期：2026-07-06
 
 ---
 

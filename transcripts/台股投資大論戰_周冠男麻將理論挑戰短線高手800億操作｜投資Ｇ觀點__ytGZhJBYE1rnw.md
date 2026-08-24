@@ -1,7 +1,6 @@
 # 台股投資大論戰_周冠男麻將理論挑戰短線高手800億操作｜投資Ｇ觀點
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=GZhJBYE1rnw)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：大論戰 周冠男麻將理論挑戰短線高手800億操作
 
-
+- 日期：2026-01-22
 
 ---
 

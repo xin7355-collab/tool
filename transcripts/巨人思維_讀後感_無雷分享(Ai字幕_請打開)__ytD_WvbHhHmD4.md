@@ -1,7 +1,6 @@
 # 巨人思維_讀後感_無雷分享(Ai字幕_請打開)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=D_WvbHhHmD4)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：巨人思維 讀後感 無雷分享(Ai字幕 請打開)
 
-
+- 日期：2024-05-24
 
 ---
 

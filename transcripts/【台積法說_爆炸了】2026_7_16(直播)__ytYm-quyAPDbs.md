@@ -1,7 +1,6 @@
 # 【台積法說_爆炸了】2026_7_16(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=Ym-quyAPDbs)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：台積法說 爆炸了｜2026 7 16(直播)
 
-
+- 日期：2026-07-16
 
 ---
 

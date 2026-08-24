@@ -1,7 +1,6 @@
 # 《兆華與股惑仔影片版》AI鬼故事_哪一條該怕？6月營收出爐_檢驗買還賣_ft.AI達人_蔡明翰
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=CogGe_rVfV8)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：《兆華與股惑仔影片版》AI鬼故事 哪一條該怕？
 
-
+- 日期：2026-07-07
 
 ---
 

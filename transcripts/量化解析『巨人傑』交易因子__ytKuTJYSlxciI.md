@@ -1,7 +1,6 @@
 # 量化解析『巨人傑』交易因子
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=KuTJYSlxciI)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：量化解析『巨人傑』交易因子
 
-
+- 日期：2026-01-12
 
 ---
 

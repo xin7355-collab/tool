@@ -1,7 +1,6 @@
 # 砸1億買0050封神_郭哲榮出面秀_大賺千萬｜TVBS新聞_TVBSNEWS01
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=FeUmeaogeU4)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：砸1億買0050封神 郭哲榮出面秀 大賺千萬
 
-
+- 日期：2026-07-31
 
 ---
 

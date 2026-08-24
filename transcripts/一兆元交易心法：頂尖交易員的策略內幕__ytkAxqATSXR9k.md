@@ -1,7 +1,6 @@
 # 一兆元交易心法：頂尖交易員的策略內幕
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=kAxqATSXR9k)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：一兆元交易心法：頂尖交易員的策略內幕
 
-
+- 日期：2026-01-11
 
 ---
 

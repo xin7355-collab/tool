@@ -1,7 +1,6 @@
 # 【韓股正式破底_台股受不了_】2026_7_8(直播)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=dgL35HENLNA)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：韓股正式破底 台股受不了｜2026 7 8(直播)
 
-
+- 日期：2026-07-08
 
 ---
 

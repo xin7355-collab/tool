@@ -1,7 +1,6 @@
 # 台股周一挫咧等？郭哲榮「1億還沒賣」：別過度恐慌【理財密碼】
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=Je_FdFHXgE4)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：周一挫咧等？郭哲榮「1億還沒賣」：別過度恐慌【理財密碼】
 
-
+- 日期：2026-08-02
 
 ---
 

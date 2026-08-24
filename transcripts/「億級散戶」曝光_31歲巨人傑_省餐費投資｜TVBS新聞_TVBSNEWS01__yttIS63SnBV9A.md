@@ -1,7 +1,6 @@
 # 「億級散戶」曝光_31歲巨人傑_省餐費投資｜TVBS新聞_TVBSNEWS01
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=tIS63SnBV9A)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：「億級散戶」曝光 31歲巨人傑 省餐費
 
-
+- 日期：2024-07-30
 
 ---
 

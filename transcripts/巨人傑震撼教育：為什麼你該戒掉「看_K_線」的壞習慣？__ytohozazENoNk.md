@@ -1,7 +1,6 @@
 # 巨人傑震撼教育：為什麼你該戒掉「看_K_線」的壞習慣？
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=ohozazENoNk)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：巨人傑震撼教育：為什麼你該戒掉「看 K 線」的壞習慣
 
-
+- 日期：2026-01-12
 
 ---
 

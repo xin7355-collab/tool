@@ -1,7 +1,6 @@
 # 《巨人思維》：短線交易像賭博嗎？看完你會懂職業交易在做什麼
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=M_Uhxotglig)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：《巨人思維》：短線交易像賭博嗎？看完你會懂職業交易在做什麼
 
-
+- 日期：2026-01-17
 
 ---
 

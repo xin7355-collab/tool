@@ -1,7 +1,6 @@
 # 台股頻創新高！獲利了結？_億級散戶_不急著賣_AI原物料新主流！巨人傑看好PCB、CCL｜非凡財經新聞｜20250923
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=dvqk4KKo7PA)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：頻創新高！獲利了結？ 億級散戶 不急著賣 AI原物料新主流！巨人傑看好PCB、CCL
 
-
+- 日期：2025-09-23
 
 ---
 

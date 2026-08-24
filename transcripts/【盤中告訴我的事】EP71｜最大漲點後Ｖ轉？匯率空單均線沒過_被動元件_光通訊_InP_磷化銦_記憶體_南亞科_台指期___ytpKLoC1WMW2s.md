@@ -1,7 +1,6 @@
 # 【盤中告訴我的事】EP71｜最大漲點後Ｖ轉？匯率空單均線沒過_被動元件_光通訊_InP_磷化銦_記憶體_南亞科_台指期_
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=pKLoC1WMW2s)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：盤中告訴我的事 EP71｜最大漲點後Ｖ轉？
 
-
+- 日期：2026-08-04
 
 ---
 
