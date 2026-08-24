@@ -1,0 +1,67 @@
+name: 補上片日期（既有逐字稿）
+
+# 網站列表要顯示影片是哪天上片的。新抓的逐字稿在產線就記下來了（yt-dlp 本來
+# 就會回 upload_date），但先前產出的那些沒有——影片 ID 就在檔名裡，跟 YouTube
+# 問一次就有，不必重新轉錄。
+#
+# 每天跑一次，把當天新進、還沒有日期的補上（手機上傳的音檔那條路問不到日期，
+# 靠這裡收尾）。要一次補完歷史資料就手動觸發、limit 填 0。
+
+on:
+  schedule:
+    - cron: '10 5 * * *'      # 台灣 13:10，避開產線與追蹤的時段
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: '這次最多處理幾篇（0 = 全部）'
+        required: false
+        default: '0'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gh-pages-write
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # 大部分影片走「抓網頁讀 uploadDate」就夠了，用不到 yt-dlp；
+      # 但被擋的那些要退回 yt-dlp，所以還是先裝好。
+      - run: pip install --no-cache-dir -U yt-dlp
+      - name: 取回已發佈的逐字稿
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git clone --depth 1 --branch gh-pages \
+            "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" site
+      - name: 問 YouTube 上片日期
+        env:
+          BACKFILL_LIMIT: ${{ inputs.limit }}
+          YT_COOKIES: ${{ secrets.YT_COOKIES }}
+        run: python scripts/backfill_dates.py
+      - name: 重建索引並發佈
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          python scripts/build_index.py site/transcripts
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Backfill upload dates [skip ci]" || { echo "no change"; exit 0; }
+          for k in 1 2 3; do
+            git push origin HEAD:gh-pages && exit 0
+            git fetch origin gh-pages && git merge -X ours origin/gh-pages -m merge || true
+          done
+          exit 1
