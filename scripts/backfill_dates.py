@@ -52,16 +52,27 @@ def date_from_ytdlp(vid):
     return "%s-%s-%s" % (d[:4], d[4:6], d[6:8]) if len(d) == 8 and d.isdigit() else ""
 
 
+_html_miss = 0          # 連續失敗次數；機房 IP 上這條路是全滅，試幾次就別再試了
+
+
 def lookup(vid):
     """回傳 (日期, 用了哪條路)。都拿不到就回 ("", 最後一個錯誤)。"""
-    try:
-        d = date_from_html(vid)
-        if d:
-            return d, "html"
-    except Exception as e:
-        last = "html: %s" % str(e)[:60]
+    global _html_miss
+    if _html_miss >= 3:
+        last = "html: 這個環境走不通，已跳過"
     else:
-        last = "html: 頁面裡找不到日期"
+        try:
+            d = date_from_html(vid)
+            if d:
+                _html_miss = 0
+                return d, "html"
+        except Exception as e:
+            last = "html: %s" % str(e)[:60]
+        else:
+            last = "html: 頁面裡找不到日期"
+        _html_miss += 1
+        if _html_miss == 3:
+            print("   （影片頁這條路連續三次拿不到，後面只走 yt-dlp）", flush=True)
     try:
         d = date_from_ytdlp(vid)
         if d:
