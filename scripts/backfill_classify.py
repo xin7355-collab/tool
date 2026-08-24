@@ -10,18 +10,10 @@ import os, re, sys, glob
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import classify as cls
+import frontmatter as fm
 
 SITE = os.environ.get("SITE_DIR", "site/transcripts")
 LIMIT = int(os.environ.get("BACKFILL_LIMIT", "0") or "0")   # 0 = 不限
-
-
-def split_head(text):
-    """拆成 (前言行, 逐字稿本體)。前言是第一個 --- 之前的部分。"""
-    lines = text.split("\n")
-    for i, ln in enumerate(lines):
-        if ln.strip().startswith("---"):
-            return lines[:i], "\n".join(lines[i + 1:])
-    return lines, ""
 
 
 def main():
@@ -44,7 +36,7 @@ def main():
     done, catted, failed = 0, 0, 0
     for n, p in enumerate(todo, 1):
         text = open(p, encoding="utf-8").read()
-        head, body = split_head(text)
+        head, body = fm.split_head(text)
         title = head[0][2:].strip() if head and head[0].startswith("# ") else os.path.basename(p)
         print("[%d/%d] %s" % (n, len(todo), title[:40]), flush=True)
         meta = cls.classify(title, body)
@@ -53,23 +45,19 @@ def main():
             failed += 1
         tidy = cls.tidy(title)
 
-        add = []
-        if meta.get("cat"):
-            add.append("- 分類：" + meta["cat"])
-        if meta.get("tags"):
-            add.append("- 關鍵字：" + "、".join(meta["tags"]))
-        if tidy.get("clean"):
-            add.append("- 短標題：" + tidy["clean"])
-        if tidy.get("date"):
-            add.append("- 日期：" + tidy["date"])
-        if not add:
+        add = {"分類": meta.get("cat") or "",
+               "關鍵字": "、".join(meta.get("tags") or []),
+               "短標題": tidy.get("clean") or "",
+               # 標題裡的日期是備胎。已經有日期就別碰——那多半是
+               # backfill_dates.py 跟 YouTube 問到的真正上片日，比猜標題準。
+               "日期": "" if re.search(r"^-\s*日期：\s*\S", text, re.M)
+                       else (tidy.get("date") or "")}
+        if not any(add.values()):
             print("   沒有可補的欄位", flush=True); continue
 
-        # 插在前言最後一行「有內容的」之後，維持原本排版
-        while head and not head[-1].strip():
-            head.pop()
-        new = "\n".join(head + add) + "\n\n---\n" + body
-        open(p, "w", encoding="utf-8").write(new)
+        # 交給 frontmatter：它會把欄位放進開頭那個區塊，而不是接在摘要後面，
+        # 重跑也不會像以前那樣多出一份重複的「- 關鍵字：」「- 短標題：」
+        open(p, "w", encoding="utf-8").write(fm.apply(text, add))
         print("   → %s / %s" % (meta.get("cat") or "-", "、".join(meta.get("tags") or [])), flush=True)
         done += 1
         if meta.get("cat"):

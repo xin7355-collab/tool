@@ -485,6 +485,12 @@ def groq_asr_cues(audio_path, on_progress=None):
     return cues
 
 
+def ymd(s):
+    """yt-dlp 的 upload_date 是 20260821 這種字串，轉成 2026-08-21。"""
+    s = str(s or "")
+    return "%s-%s-%s" % (s[:4], s[4:6], s[6:8]) if len(s) == 8 and s.isdigit() else ""
+
+
 def get_transcript(vid):
     import yt_dlp
     # ignore_no_formats_error：有些影片對機房 IP 只回 SABR 串流（無可選格式），
@@ -493,6 +499,9 @@ def get_transcript(vid):
                                      "ignore_no_formats_error": True})) as y:
         info = y.extract_info("https://www.youtube.com/watch?v=" + vid, download=False)
     title = info.get("title") or vid
+    # 上片日期：這裡已經跟 YouTube 要過完整資料了，順手帶出來，
+    # 網站列表才有日期可以顯示（以前只能從標題猜，375 篇裡只猜得出 34 篇）
+    up = ymd(info.get("upload_date"))
     picked = None if FORCE_ASR else (pick_lang(info.get("subtitles")) or pick_lang(info.get("automatic_captions")))
     if picked:
         lang, fmts = picked
@@ -502,7 +511,7 @@ def get_transcript(vid):
         cues = cues_from_json3(content) if (fmt.get("ext") == "json3"
                                             or content.lstrip().startswith("{")) else cues_from_vtt(content)
         if cues:
-            return title, lang, cues
+            return title, lang, cues, up
     # 沒有字幕 → 語音辨識（ASR）
     ls = info.get("live_status")
     if ls in ("is_live", "is_upcoming"):
@@ -529,7 +538,7 @@ def get_transcript(vid):
             cues = asr_cues(audio_path)
     if not cues:
         raise RuntimeError("語音辨識結果為空")
-    return title, lang_tag, cues
+    return title, lang_tag, cues, (up or ymd(ainfo.get("upload_date")))
 
 
 POLISH = (os.environ.get("GROQ_POLISH") or "1") not in ("0", "false", "")
@@ -706,7 +715,7 @@ def groq_summary(title, text):
     return "\n".join(notes)
 
 
-def write_outputs(n, vid, title, lang, cues):
+def write_outputs(n, vid, title, lang, cues, up=""):
     paras = to_paragraphs(cues)
     chars = sum(len(p["t"]) for p in paras)
     # 影片 ID 用 __yt 夾在檔名裡：yt2deck／transcribe_upload、前端的 vidOf、
@@ -717,7 +726,10 @@ def write_outputs(n, vid, title, lang, cues):
     summary = groq_summary(title, "\n".join(p["t"] for p in paras))
 
     md = [f"# {title}", "", f"- 影片：{link}", f"- 字幕：{lang}",
-          f"- 統計：{chars} 字 / {len(paras)} 段", ""]
+          f"- 統計：{chars} 字 / {len(paras)} 段"]
+    if up:
+        md.append(f"- 日期：{up}")     # 上片日期，網站列表要顯示
+    md.append("")
     if summary:
         md += ["## 摘要", "", summary, ""]
     md += ["---", ""]
@@ -758,7 +770,7 @@ def main():
             continue
         try:
             try:
-                title, lang, cues = get_transcript(vid)
+                title, lang, cues, up = get_transcript(vid)
             except Exception as e1:   # YouTube 對機房 IP 偶發刁難（格式/5xx）→ 等一下重試一次
                 m1 = str(e1)
                 if ("format is not available" in m1 or "HTTP Error 5" in m1
@@ -778,12 +790,12 @@ def main():
                               % m1.replace("\n", " ")[:90], flush=True)
                     time.sleep(12)
                     try:
-                        title, lang, cues = get_transcript(vid)
+                        title, lang, cues, up = get_transcript(vid)
                     finally:
                         COOKIEFILE, PROXY = saved_cookie, saved_proxy
                 else:
                     raise
-            chars, npara = write_outputs(n, vid, title, lang, cues)
+            chars, npara = write_outputs(n, vid, title, lang, cues, up)
             print(f"  完成：{chars} 字 / {npara} 段 / {lang}", flush=True)
             index.append({"video_id": vid, "title": title, "lang": lang,
                           "chars": chars, "paragraphs": npara, "status": "ok"})
