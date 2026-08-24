@@ -499,7 +499,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.1.9';
+var APP_VER='1.2.0';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1789,6 +1789,14 @@ function nameOf(it){
   return it.clean || tidyTitle(it.title||it.file).clean;   // 產線給的優先，沒有才自己算
 }
 function dateOf(it){ return it.date || tidyTitle(it.title||it.file).date || ''; }
+/* 每張卡都要看得到日期。優先用上片日（產線問 yt-dlp 拿的，或補日期工作流補的）；
+   還沒問到的先顯示進站日，但要標出來——兩種日期長得一樣的話，會讓人把
+   「這篇什麼時候進到庫裡」誤當成「這集什麼時候播的」。 */
+function dateLabel(it){
+  var d=dateOf(it);
+  if(d) return d;
+  return it.added ? '進站 '+it.added : '';
+}
 var catFilter='';
 /* 排序用的日期：先看進站日（build_index.py 記的），沒有才退回內容日期。
    進站日是唯一每篇都會有的時間，而且「最新在前」使用者要的就是最新進來的。 */
@@ -1860,7 +1868,7 @@ function draw(list){
     };
     var h=document.createElement('h3'); h.style.flex='1';
     h.textContent=nameOf(it);
-    var meta=[it.cat||'', dateOf(it)].filter(Boolean).join('　·　');
+    var meta=[it.cat||'', dateLabel(it)].filter(Boolean).join('　·　');
     if(meta||(it.tags&&it.tags.length)){
       var sub=document.createElement('span');
       sub.style.cssText='display:block;font-size:13px;font-weight:400;color:var(--dim);margin-top:3px';
