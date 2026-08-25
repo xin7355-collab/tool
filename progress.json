@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T11:04:17Z",
+ "updated": "2026-08-25T11:04:18Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -13,9 +13,9 @@
   {
    "name": "20260825-173848_世界首個_免費_無限制_AI_圖像生成器，幾秒鐘內創建令人驚嘆的_AI_生成圖像丨Raphael_AI_實用評測__ytc8RPcAIEAE0.webm",
    "title": "世界首個_免費_無限制_AI_圖像生成器，幾秒鐘內創建令人驚嘆的_AI_生成圖像丨Raphael_AI_實用評測",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20260825-173856_Chatgpt_images_2_0_最新8种生图玩法_一键解锁最强模型_太震撼了_...AI搞钱_AI工具_AI副业___ytl9jSL-ajlSI.webm",
