@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T12:04:01Z",
+ "updated": "2026-08-25T12:04:02Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -111,9 +111,9 @@
   {
    "name": "20260825-174147_免费开源！用_gpt-image-2_生成4K图片，还能自建API无限用_GPT_Image_Playground__ytZgXNsr9zgoY.webm",
    "title": "免费开源！用_gpt-image-2_生成4K图片，还能自建API无限用_GPT_Image_Playground",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（3437 字）",
+   "pct": 100
   },
   {
    "name": "20260825-174155_ChatGPT_Image_2.0_生成圖片能力實測！對決_Gemini_Banana_2_誰最強？__ytw8Xjs3CnRvw.webm",
