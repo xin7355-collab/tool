@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T11:26:36Z",
+ "updated": "2026-08-25T11:39:13Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -105,8 +105,8 @@
    "name": "20260825-174139_即梦_｜图片生成·简单一致性｜零基础出图！__ytdBuehYGQD58.m4a",
    "title": "即梦_｜图片生成·简单一致性｜零基础出图！",
    "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "step": "分類中…",
+   "pct": 96
   },
   {
    "name": "20260825-174147_免费开源！用_gpt-image-2_生成4K图片，还能自建API无限用_GPT_Image_Playground__ytZgXNsr9zgoY.webm",
