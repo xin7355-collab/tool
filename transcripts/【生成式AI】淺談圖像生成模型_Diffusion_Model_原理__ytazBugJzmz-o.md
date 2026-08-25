@@ -1,0 +1,92 @@
+# 【生成式AI】淺談圖像生成模型_Diffusion_Model_原理
+
+
+
+- 來源：[YouTube 影片](https://www.youtube.com/watch?v=azBugJzmz-o)
+
+- 辨識：Groq:whisper-large-v3-turbo
+
+- 統計：4726 字 / 28 段
+
+- 分類：其他
+
+- 關鍵字：Diffusion Model、Stable Diffusion、Denoising Diffusion Probabilistic Model、AI圖像生成
+
+- 短標題：生成式AI｜淺談圖像生成模型 Diffusion Model 原理
+
+
+
+## 摘要
+
+
+
+**一句話**：Diffusion Model 透過從高噪聲圖像逐步去噪，結合文字提示，利用大量圖文對資料訓練噪聲預測器，實現高品質影像生成。
+
+- Diffusion Model 以 Denoising Diffusion Probabilistic Model（DDPM）為核心，廣泛應用於 DALL·E、Imagen 與 Stable Diffusion 等系統。  
+- 生成流程先從符合圖像尺寸（如 256×256）的高斯噪聲向量開始，經過預設步數（如 1999→1）逐步去噪，最終得到清晰圖像。  
+- 去噪模型為單一模型，輸入為噪聲圖像與步數 ID；其內部的 Noise Predictor 預測該步驟的噪聲，並將其減去以產生去噪結果。  
+- 訓練 Noise Predictor 需要圖像加噪的前向過程資料：將真實圖像逐步加入 Gaussian 噪聲，記錄每一步的噪聲量與真實噪聲，作為輸入–輸出對。  
+- 為實現文字到圖像的生成，需使用圖文對資料；大型資料集如 LAION‑5B 擁有 5.85 billion 張圖像，並包含多語言文字描述。  
+- 在文字提示的情況下，Noise Predictor 會額外接收文字輸入，並在每一步根據圖像、步數與文字共同預測噪聲，完成文本驅動的去噪與生成。
+
+
+
+---
+
+
+
+**[00:00]** 好 那今天这堂课是要跟大家简略的介绍Diffusion Model的基本概念其实Diffusion Model有很多不同的变形以下的说明主要来自最知名的Denoising Diffusion Probabilistic Model 大家常常提到的DDPM 今天其实比较成功的那些用Diffusion Model做的影像生成的系统
+
+**[00:27]** 比如说Dali或者Google的Imagen 或者Stable Diffusion 基本上都是用差不多的方法来作为他们的Diffusion的model 好 那这个Diffusion model 是怎么运作的呢运作的方法是这样子的我们来看它是怎么生成一张图片的在生成图片的第一步是你要去sample一个都是杂讯的图片就是你sample出一个
+
+**[00:57]** 从Gaussian distribution里面你也sample出一个vector 这个vector里面有的数字这个vector的dimension 跟你要生成的图片大小是一模一样的假设你今天要生一张256 乘256的图片从normal distribution sample出来的那个vector 它的dimension就要是256乘256那么多
+
+**[01:18]** 那就把你sample到的那个256乘256的vector 排成一张图片的样子然后接下来你就有一个Denoise的module Denoise的内容那等一下会讲说这个Denoise的内容内部长什么样子这个Denoise的内容从它的名字里面就可以知道说输入一张都是杂讯的图那输出它就会把杂讯滤掉一点那就可能看到有一个猫的形状然后再做Denoise
+
+**[01:48]** 那猫的形状就逐渐出来那就Denoise越做越多越做越多期待最终你就看到一张清晰的图片那这个denoise的次数是事先定好的那我们通常会给每一个denoise的步骤给它一个编号那产生最终图片的那个编号比较小了那一开始从完全都是杂讯的输入开始做denoise的编号比较大所以我们这边就从1999一直排到2排到1 那这个从杂讯到图片的步骤
+
+**[02:21]** 它叫做reverse的process 在概念上这件事情其实就像是米开朗基罗说的雕像其实本来就已经在大理石里面它只是把不要的部分拿掉Diffusion Model做的事情就是一样的本来图片就已经在杂讯里面它只是把试作杂讯的部分把它滤掉就产生一张图片好 那以下我本来是想用Me Journey 把这句话的意境呈现出来后来发现其实有点困难
+
+**[02:55]** 我直接把这句话丢到Me Journey里面他就画了一些雕像的半成品出来就ChangeBT有一个专门把Pump改成Me Journey 可以吃的Pump的咒语然后生一下看起来是这个样看起来是不太行然后后来我决定自己手动输入然后我输入的句子是类似有一个大胃像在石头里面但是看起来Mit Journey还是没有很懂这个意境
+
+**[03:20]** 他没有办法画一个大卫像在石头里面的感觉就想说他可以画一个有点透明的石头然后里面有一个大卫像看起来我Quant的功力非常的弱没有办法让他画这件事情你如果看这个Me Journey的那个Discord 里面的人都画出来的图都让我看为观止非常地羡慕每个人都是涌唱大师所以我涌唱的技巧还非常地不纯熟没有办法把我心中想要表达的意境画出来好
+
+**[03:49]** 那接下来就要讲Denoise的model了那从这个图上看来你可能会想说这个Denoise的model 是不是同一个呢是不是同一个Denoise的model 反复用很多次呢是我们这边是把同一个Denoise的model 反复进行使用但是因为在这边每一个状况你输入的图片差异非常大在这个状况你输入的东西就是一个纯杂讯那这个状况你输入的东西它杂讯非常小
+
+**[04:19]** 它已经非常接近完整的图所以如果是同一个模型它可能不一定能够真的做得很好所以怎么办呢你这个Denoise的model 它除了吃要被Denoise的那张图片以外它还会多吃一个输入这个输入代表现在Noise严重的程度然后1000代表刚开始Denoise的时候这个时候Noise的严重程度很大然后一代表说现在Denoise的步骤快结束了
+
+**[04:47]** 这个是最后一步Denoise的步骤那显然杂讯很小那这个Denoise的model 希望它可以根据我们现在输入在第几个step的资讯做出不同的回应所以这个是Denoise的model 所以我们确实只有用一个Denoise的model 但是这个Denoise的model 会吃一个额外的数字告诉它说现在是在Denoise的哪一个step
+
+**[05:11]** 那Denoise的module里面实际内部做的事情是什么呢在Denoise的模组里面它实际上有一个Noise predictor 这个Noise predictor做的事情就是去预测说在这张图片里面的杂讯长什么样子这个Noise predictor就吃这个要被Denoise的图片跟吃一个Noise现在严重的程度也就是我们现在进行到Denoise的
+
+**[05:39]** 底几个步骤的代号然后就输出一张杂讯的图他就是预测说在这张图片里面杂讯应该长什么样子再把它输出的杂讯去剪掉这个要被Denoise的图片然后就产生Denoise以后的结果所以这边Denoise的model 并不是输入一张有Noise的图片输出就直接是Denoise后的图片它其实是产生一个输入的图片的杂讯再把杂讯扣掉输入的图片来达到denoise的效果
+
+**[06:17]** 那你可能会想说那为什么要这么麻烦呢为什么不直接认一个ant to an的model输入是要被denoise的图片输出就直接是denoise的结果呢你可以这么做你可以这么做那我在文献上也看过有人这么做不过现在多数的论文可能还是选择任一个Noise的predictor 因为可以想想看产生一张图片跟产生Noise 它的难度是不一样
+
+**[06:46]** 如果你今天你的Denoise muscle 可以产生一只带杂讯的猫那它几乎就可以说它已经会画一只猫了所以要产生一个带杂讯的猫跟产生一张图片里面的杂讯这个难度是不一样的所以直接认一个 noise predictor 可能是比较简单的认一个 anti-read model 要直接产生 de-noise 的结果是比较困难的接下来的问题就是
+
+**[07:14]** 怎么训练这个 noise predictor 我们已经知道我们一个 de-noise 的 model 是一个 noisy 的 image 然后吃一个现在在Denoise的step的数目的step的ID 然后产生Denoise的结果我们又告诉你说其实Denoise的module里面是一个noise的predictor 它是要吃这张图片吃一个ID
+
+**[07:35]** 然后产生一个预测出来的诈讯但是你要产生出一个预测出来的诈讯你得要有ground truth 我们在训练内卧的时候你就是要有pair data才能够训练你需要告诉noise predictor 这张图片里面的杂讯长什么样子它才能够学习怎么把杂讯输出出来那这件事情怎么做呢怎么制造出这样子的资料呢这个 Noise Predictor 它的训练资料
+
+**[08:05]** 是我们人去创造出来的怎么创造呢它的创造方法是这样你从你的 database 里面拿一张图片出来你自己加噪音进去就 Random 从 Gaussian Distribution 里面sample 一组杂讯出来加上去产生有点 noise 的 image 那你可能再sample一次再得到更 noisy 的 image 以此类推最后整张图片就看不出来原来是什么东西
+
+**[08:31]** 你把你的手上的有的照片都做这样子的事情这个加噪音的过程叫做 forward 的 process 又叫做 diffusion 的 process 那做完这个 diffusion process 以后你就有 noise predictor 的训练资料了怎么说呢对Noise Predictor来说它的训练资料就是这一张加完杂讯的图片跟现在是第几次加杂讯是内卧的输入
+
+**[09:00]** 而加入的这个杂讯就是内卧应该要predict的输出就是内卧输出的光数所以你在做完这个diffusion的process以后你手上就有训练资料了你就告诉Noise Predictor说看到这张图看到第二个step 输入二这个数字你要输出是什么你的光处就是一个这个样子的noise 接下来就跟训练一般的内容一样train下去就结束了但是我们要的不只是深图而已
+
+**[09:35]** 刚才讲的好像是只是从一个杂讯里面深出图还没有把文字考虑进来要怎么把文字考虑进来呢在下一页后影片就会讲怎么把文字考虑进来但是在讲怎么把文字考虑进来之前需要先让大家知道的事情是如果你今天要训练一个影像生成的模型它是吃文字产生图片你其实还是需要成对的资料你还是需要图片跟文字成对的资料需要多少成对的资料呢在我们的作业6里面我们其实没有叫大家从文字生图片
+
+**[10:14]** 只有直接生图片而已那我们的资料是七万张图那七万张图当然非常的少ImageNet它是每一张图片有一个类别的标记还不是那个图片的描述不是像Cat in the snow这样图片的描述它只是每一张图有一个标记然后它有100万张图片我们先用这个圆圈的大小来代表图片的数量我告诉你今天这些你在网路上看到的非常厉害的什么Meat Journey
+
+**[10:43]** Stable Diffusion 或者是Dali 他们的资料往往来自于Lion Lion有多少image呢5.85 billion的图片有58.5亿张的图片所以如果你把图片的数量换算成有原色的圈圈的话ImageNet你可能以为已经很大了Lion有这么大有这么多图片所以难怪今天这一些模型可以产生这么好的结果Lion其实有一个搜寻的demo的平台
+
+**[11:17]** 你可以去裡面看看它裡面有什麼樣的圖片那裡面真的是啥都有比如說貓的圖片呢它不是只有貓的圖片跟英文文字的對應它還有跟中文的對應還有跟日文的對應所以就知道說為什麼今天那一些影像生成模式不是只看得懂英文你給它中文它八成都也看得懂那是因為它的訓練資料裡面也有中文跟其他的語言你可以事实上在里面你找得找得到自己的照片我是试一下我是找不到自己的照片蛮多名人的照片
+
+**[11:53]** 比如说川普那个随便一找就一大堆所以你也不用意外说为什么那个Me Journey都画得出川普因为他就是知道川普长什么样子所以这个是你需要准备的训练资料好那有了这个文字跟影像成对的资料以后我们先来看一下Denoise的时候你是怎么做的Denoise的时候你的做法非常的简单把文字加到Denoise的模组就结束了
+
+**[12:24]** 所以现在Denoise的模组不是只看输入的图片做Denoise 它是根据输入的图片加上一段文字的叙述去把Noise拿掉所以在每一个step 你的Denoise的模组都会有一个额外的输入这个额外的输入就是你要它根据这段文字的叙述生什么样的图片好那这个Denoise module里面的Noise predictor要怎么改呢你就是直接把这段文字
+
+**[12:52]** 给Noise predictor 就结束了要让Noise predictor 多一个额外的输入也就是这段文字就结束了好那训练的部分要怎么改呢你现在每一张图片都有一段文字所以今天你先把这张图片做完Diffusion的process以后你在训练的时候不只要给你的noise predictor 加入杂讯后的图片还有现在step的ID 多给一个就是文字的输入
+
+**[13:21]** 然后noise predictor 会根据这三样东西产生适当的noise 就这样产生要去消掉的noise 产生这个光处这个就是DDPM完整演算法的algorithm 从它原始论文里面直接结出来的就这样没有更多东西了就这样子然后但是这两个LGISM里面其实还是暗藏一些玄机这个我们就留着下次再跟大家讲
