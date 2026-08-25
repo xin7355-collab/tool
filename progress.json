@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T11:09:03Z",
+ "updated": "2026-08-25T11:09:37Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -49,8 +49,8 @@
    "name": "20260825-173941_ChatGPT_Image_2.0_vs_Nano_Banana_2誰生圖更強？超專業商品海報_精細中文生成｜看完這11__ytNMlB6HNFir8.webm",
    "title": "ChatGPT_Image_2.0_vs_Nano_Banana_2誰生圖更強？超專業商品海報_精細中文生成｜看完這11",
    "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "step": "分類中…",
+   "pct": 96
   },
   {
    "name": "20260825-173951_爆火的_Z-Image_模型！8G_显存能跑，无内容审查、支持NFWS、超高速，本地部署教程！支持（Win_Mac）_零__ytnSiPsBA1q9U.webm",
