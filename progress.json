@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T12:35:12Z",
+ "updated": "2026-08-25T12:35:13Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -125,9 +125,9 @@
   {
    "name": "20260825-174207_2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta_AI圖片影片免費生成功能解析！GROK,_META_AI,__ytVlTlBIkSSP0.webm",
    "title": "2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta_AI圖片影片免費生成功能解析！GROK,_META_AI,",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   }
  ]
 }
