@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T12:30:49Z",
+ "updated": "2026-08-25T12:35:11Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -119,8 +119,8 @@
    "name": "20260825-174155_ChatGPT_Image_2.0_生成圖片能力實測！對決_Gemini_Banana_2_誰最強？__ytw8Xjs3CnRvw.webm",
    "title": "ChatGPT_Image_2.0_生成圖片能力實測！對決_Gemini_Banana_2_誰最強？",
    "state": "running",
-   "step": "分類中…",
-   "pct": 96
+   "step": "AI 校對錯字…",
+   "pct": 97
   },
   {
    "name": "20260825-174207_2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta_AI圖片影片免費生成功能解析！GROK,_META_AI,__ytVlTlBIkSSP0.webm",
