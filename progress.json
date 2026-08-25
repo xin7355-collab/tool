@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T11:13:27Z",
+ "updated": "2026-08-25T11:13:31Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -83,9 +83,9 @@
   {
    "name": "20260825-174051_【生成式AI】淺談圖像生成模型_Diffusion_Model_原理__ytazBugJzmz-o.webm",
    "title": "【生成式AI】淺談圖像生成模型_Diffusion_Model_原理",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（4726 字）",
+   "pct": 100
   },
   {
    "name": "20260825-174102_Google_免費生圖！Nano_Banana_9大應用教學｜超強繪圖AI工具學起來｜生成多人一致性__ytGRvLNhpT0I8.webm",
