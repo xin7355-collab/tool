@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T11:14:36Z",
+ "updated": "2026-08-25T11:14:37Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -90,9 +90,9 @@
   {
    "name": "20260825-174102_Google_免費生圖！Nano_Banana_9大應用教學｜超強繪圖AI工具學起來｜生成多人一致性__ytGRvLNhpT0I8.webm",
    "title": "Google_免費生圖！Nano_Banana_9大應用教學｜超強繪圖AI工具學起來｜生成多人一致性",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（5503 字）",
+   "pct": 100
   },
   {
    "name": "20260825-174120_实测！搭建批量生成_合成图片工厂(20min).别再一张张生成图片啦~只需准备一份表格，AI_就能批量生成并上传无版权营__ytGxuvQvy6k7o.webm",
