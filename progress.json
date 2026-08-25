@@ -1,154 +1,133 @@
 {
- "run": "32831139914",
- "state": "done",
- "updated": "2026-08-25T09:53:19Z",
+ "run": "32840255579",
+ "state": "running",
+ "updated": "2026-08-25T11:04:10Z",
  "files": [
   {
-   "name": "20260825-173257_03_手沖達人沖煮步驟不藏私【中焙男子Hardy】__ythh-l69T1wxE.webm",
-   "title": "03_手沖達人沖煮步驟不藏私【中焙男子Hardy】",
-   "state": "done",
-   "step": "完成（1500 字）",
-   "pct": 100
+   "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
+   "title": "2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173304_世界咖啡沖煮冠軍粕谷哲，史上最好用的手沖手法！__yt6Erv5Tc15YY.webm",
-   "title": "世界咖啡沖煮冠軍粕谷哲，史上最好用的手沖手法！",
-   "state": "done",
-   "step": "完成（2115 字）",
-   "pct": 100
+   "name": "20260825-173848_世界首個_免費_無限制_AI_圖像生成器，幾秒鐘內創建令人驚嘆的_AI_生成圖像丨Raphael_AI_實用評測__ytc8RPcAIEAE0.webm",
+   "title": "世界首個_免費_無限制_AI_圖像生成器，幾秒鐘內創建令人驚嘆的_AI_生成圖像丨Raphael_AI_實用評測",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173309_你真的了解咖啡么_咖啡高级常识__ytmotxyzLrf4Y.webm",
-   "title": "你真的了解咖啡么_咖啡高级常识",
-   "state": "done",
-   "step": "完成（4004 字）",
-   "pct": 100
+   "name": "20260825-173856_Chatgpt_images_2_0_最新8种生图玩法_一键解锁最强模型_太震撼了_...AI搞钱_AI工具_AI副业___ytl9jSL-ajlSI.webm",
+   "title": "Chatgpt_images_2_0_最新8种生图玩法_一键解锁最强模型_太震撼了_...AI搞钱_AI工具_AI副业_",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173317_手沖咖啡-咖啡粉該磨多粗_-元食咖啡-Coffee_powder_coarse-Coffee_beans_ground___yt3agylcAFZY8.webm",
-   "title": "手沖咖啡-咖啡粉該磨多粗_-元食咖啡-Coffee_powder_coarse-Coffee_beans_ground_",
-   "state": "done",
-   "step": "完成（3089 字）",
-   "pct": 100
+   "name": "20260825-173909_最强_AI_图片模型来了！Ideogram_4_正式开源，媲美_GPT-Image_Midjourney，支持本地部署！__ytA26xy-RyAfs.webm",
+   "title": "最强_AI_图片模型来了！Ideogram_4_正式开源，媲美_GPT-Image_Midjourney，支持本地部署！",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173325_［居家手沖必看］兩人份咖啡要怎麼沖？_日本咖啡達人分享_絕對會變好喝的關鍵__ytgp1nA8ap804.m4a",
-   "title": "［居家手沖必看］兩人份咖啡要怎麼沖？_日本咖啡達人分享_絕對會變好喝的關鍵",
-   "state": "done",
-   "step": "完成（2608 字）",
-   "pct": 100
+   "name": "20260825-173917_Gemini_史詩級更新！Nano_Banana_Pro_毫無敵手！一口氣帶你看20種超狂生圖應用！效果堪稱最強！｜泛科__ytik0Us3vBD_E.webm",
+   "title": "Gemini_史詩級更新！Nano_Banana_Pro_毫無敵手！一口氣帶你看20種超狂生圖應用！效果堪稱最強！｜泛科",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173332_調整咖啡酸甜風味的關鍵方法-手沖咖啡慢慢來-元食咖啡__ytFSE_k60ooME.m4a",
-   "title": "調整咖啡酸甜風味的關鍵方法-手沖咖啡慢慢來-元食咖啡",
-   "state": "done",
-   "step": "完成（1868 字）",
-   "pct": 100
+   "name": "20260825-173928_不只吉卜力！ChatGPT_一分鐘做好Line貼圖、Logo_免費付費差異實測_解答商用__ytUgzHFZPwZHI.webm",
+   "title": "不只吉卜力！ChatGPT_一分鐘做好Line貼圖、Logo_免費付費差異實測_解答商用",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173338_2023手沖再也不翻車_有手就會_看懂了誰都是專家_小白必看__ytx8ByBEY47Ag.m4a",
-   "title": "2023手沖再也不翻車_有手就會_看懂了誰都是專家_小白必看",
-   "state": "done",
-   "step": "完成（4582 字）",
-   "pct": 100
+   "name": "20260825-173941_ChatGPT_Image_2.0_vs_Nano_Banana_2誰生圖更強？超專業商品海報_精細中文生成｜看完這11__ytNMlB6HNFir8.webm",
+   "title": "ChatGPT_Image_2.0_vs_Nano_Banana_2誰生圖更強？超專業商品海報_精細中文生成｜看完這11",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173346_手沖一杯好咖啡教學分享(以300CC咖啡為例，洗紙及溫杯的水要倒掉喔！)__ytbVCSwXaIxbE.webm",
-   "title": "手沖一杯好咖啡教學分享(以300CC咖啡為例，洗紙及溫杯的水要倒掉喔！)",
-   "state": "done",
-   "step": "完成（154 字）",
-   "pct": 100
+   "name": "20260825-173951_爆火的_Z-Image_模型！8G_显存能跑，无内容审查、支持NFWS、超高速，本地部署教程！支持（Win_Mac）_零__ytnSiPsBA1q9U.webm",
+   "title": "爆火的_Z-Image_模型！8G_显存能跑，无内容审查、支持NFWS、超高速，本地部署教程！支持（Win_Mac）_零",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173352_鵲Kasasagi_Coffee_Roasters_手沖咖啡教學__ytdmXKOnOpPyA.m4a",
-   "title": "鵲Kasasagi_Coffee_Roasters_手沖咖啡教學",
-   "state": "done",
-   "step": "完成（160 字）",
-   "pct": 100
+   "name": "20260825-173959_我用一個_Claude_Skill_(技能)_省下了所有生成圖片和影片的訂閱費用！每個月現省上千元！__ytWyJJFzbdjuY.webm",
+   "title": "我用一個_Claude_Skill_(技能)_省下了所有生成圖片和影片的訂閱費用！每個月現省上千元！",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173404_〖咖啡沖煮攻略〗6_個小技巧，讓你的手沖咖啡馬上更好喝__yt9QJjIMHSAsM.webm",
-   "title": "〖咖啡沖煮攻略〗6_個小技巧，讓你的手沖咖啡馬上更好喝",
-   "state": "done",
-   "step": "完成（1953 字）",
-   "pct": 100
+   "name": "20260825-174011_完全免费！无需登录无限生成AI视频_图片！VEO_AI_Free_实测_Seedance_2.0_效果炸裂太震撼了__ytdfWJ-GjA7xA.webm",
+   "title": "完全免费！无需登录无限生成AI视频_图片！VEO_AI_Free_实测_Seedance_2.0_效果炸裂太震撼了",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173410_世界沖煮冠軍粕谷哲首席咖啡師來台！現場傳授手沖秘訣！feat.粕谷哲首席咖啡師Rikuto__ytuvi02VtCwRo.webm",
-   "title": "世界沖煮冠軍粕谷哲首席咖啡師來台！現場傳授手沖秘訣！feat.粕谷哲首席咖啡師Rikuto",
-   "state": "done",
-   "step": "完成（3475 字）",
-   "pct": 100
+   "name": "20260825-174031_別再買_AI_會員了！這_6_個_AI_工具其實可以無限免費使用（2026）__ytO3XWVi12hZg.webm",
+   "title": "別再買_AI_會員了！這_6_個_AI_工具其實可以無限免費使用（2026）",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173417_什麼手沖手法這麼危險？但真的很好喝！__ytK6dsgtuFbBM.m4a",
-   "title": "什麼手沖手法這麼危險？但真的很好喝！",
-   "state": "done",
-   "step": "完成（1604 字）",
-   "pct": 100
+   "name": "20260825-174051_【生成式AI】淺談圖像生成模型_Diffusion_Model_原理__ytazBugJzmz-o.webm",
+   "title": "【生成式AI】淺談圖像生成模型_Diffusion_Model_原理",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173423_我的簡單生活好物_手沖咖啡工具,_手沖需要準備什麼工具？最簡單的沖煮咖啡準備__ytJG9Gf53A_Mw.m4a",
-   "title": "我的簡單生活好物_手沖咖啡工具,_手沖需要準備什麼工具？最簡單的沖煮咖啡準備",
-   "state": "done",
-   "step": "完成（2603 字）",
-   "pct": 100
+   "name": "20260825-174102_Google_免費生圖！Nano_Banana_9大應用教學｜超強繪圖AI工具學起來｜生成多人一致性__ytGRvLNhpT0I8.webm",
+   "title": "Google_免費生圖！Nano_Banana_9大應用教學｜超強繪圖AI工具學起來｜生成多人一致性",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173431_手沖咖啡太酸怎麼辦！？｜居家手沖三大心法實作分享__ytCaqGZC-2BD8.webm",
-   "title": "手沖咖啡太酸怎麼辦！？｜居家手沖三大心法實作分享",
-   "state": "done",
-   "step": "完成（3561 字）",
-   "pct": 100
+   "name": "20260825-174120_实测！搭建批量生成_合成图片工厂(20min).别再一张张生成图片啦~只需准备一份表格，AI_就能批量生成并上传无版权营__ytGxuvQvy6k7o.webm",
+   "title": "实测！搭建批量生成_合成图片工厂(20min).别再一张张生成图片啦~只需准备一份表格，AI_就能批量生成并上传无版权营",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173438_〖咖啡沖煮攻略〗VVcafe_小教室_-_手沖咖啡香氣、酸、甜的調整方式__ytTFy9NfUKwGQ.m4a",
-   "title": "〖咖啡沖煮攻略〗VVcafe_小教室_-_手沖咖啡香氣、酸、甜的調整方式",
-   "state": "done",
-   "step": "完成（700 字）",
-   "pct": 100
+   "name": "20260825-174139_即梦_｜图片生成·简单一致性｜零基础出图！__ytdBuehYGQD58.m4a",
+   "title": "即梦_｜图片生成·简单一致性｜零基础出图！",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173452_簡易手沖咖啡法-手沖咖啡入門_ep1-元食咖啡-POUR_OVER_COFFEE_BASIC-STEAMING-YUAN__ytgV9zrwcbLKo.webm",
-   "title": "簡易手沖咖啡法-手沖咖啡入門_ep1-元食咖啡-POUR_OVER_COFFEE_BASIC-STEAMING-YUAN",
-   "state": "done",
-   "step": "完成（2160 字）",
-   "pct": 100
+   "name": "20260825-174147_免费开源！用_gpt-image-2_生成4K图片，还能自建API无限用_GPT_Image_Playground__ytZgXNsr9zgoY.webm",
+   "title": "免费开源！用_gpt-image-2_生成4K图片，还能自建API无限用_GPT_Image_Playground",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173502_兩人份手沖咖啡的好球帶教學，新手也可以，適用任何咖啡豆｜金萬與筱彤的經營者筆記_咖啡_coffee__yt7a-KdT5w39s.webm",
-   "title": "兩人份手沖咖啡的好球帶教學，新手也可以，適用任何咖啡豆｜金萬與筱彤的經營者筆記_咖啡_coffee",
-   "state": "done",
-   "step": "完成（3592 字）",
-   "pct": 100
+   "name": "20260825-174155_ChatGPT_Image_2.0_生成圖片能力實測！對決_Gemini_Banana_2_誰最強？__ytw8Xjs3CnRvw.webm",
+   "title": "ChatGPT_Image_2.0_生成圖片能力實測！對決_Gemini_Banana_2_誰最強？",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20260825-173516_夏天必備！手沖冰咖啡手法！__ytDvlMzL8PAvY.webm",
-   "title": "夏天必備！手沖冰咖啡手法！",
-   "state": "done",
-   "step": "完成（878 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260825-173530_〖咖啡沖煮攻略〗又是一個大咖！又是一集滿滿沖煮知識的一集！鵲咖啡跟大家分享他的獨家心法，每次必中好球帶！__ytws5HcTTJ86o.webm",
-   "title": "〖咖啡沖煮攻略〗又是一個大咖！又是一集滿滿沖煮知識的一集！鵲咖啡跟大家分享他的獨家心法，每次必中好球帶！",
-   "state": "done",
-   "step": "完成（4692 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260825-173540_4_6法，世界冠軍的手沖奧義__ytIZ6fTaX_VBQ.m4a",
-   "title": "4_6法，世界冠軍的手沖奧義",
-   "state": "done",
-   "step": "完成（3105 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260825-173838_完全免費！這個_AI_圖片生成神器不用登入還能狂生圖__ytpdhu6WYBVis.m4a",
-   "title": "完全免費！這個_AI_圖片生成神器不用登入還能狂生圖",
-   "state": "done",
-   "step": "完成（3041 字）",
-   "pct": 100
+   "name": "20260825-174207_2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta_AI圖片影片免費生成功能解析！GROK,_META_AI,__ytVlTlBIkSSP0.webm",
+   "title": "2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta_AI圖片影片免費生成功能解析！GROK,_META_AI,",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
