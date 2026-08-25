@@ -1,7 +1,7 @@
 {
  "run": "32840255579",
  "state": "running",
- "updated": "2026-08-25T11:10:02Z",
+ "updated": "2026-08-25T11:10:20Z",
  "files": [
   {
    "name": "20260825-173843_2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.m4a",
@@ -56,8 +56,8 @@
    "name": "20260825-173951_爆火的_Z-Image_模型！8G_显存能跑，无内容审查、支持NFWS、超高速，本地部署教程！支持（Win_Mac）_零__ytnSiPsBA1q9U.webm",
    "title": "爆火的_Z-Image_模型！8G_显存能跑，无内容审查、支持NFWS、超高速，本地部署教程！支持（Win_Mac）_零",
    "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "step": "分類中…",
+   "pct": 96
   },
   {
    "name": "20260825-173959_我用一個_Claude_Skill_(技能)_省下了所有生成圖片和影片的訂閱費用！每個月現省上千元！__ytWyJJFzbdjuY.webm",
