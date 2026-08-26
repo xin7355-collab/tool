@@ -1,21 +1,14 @@
 {
- "run": "32942914198",
- "state": "done",
- "updated": "2026-08-26T07:28:47Z",
+ "run": "32943113573",
+ "state": "running",
+ "updated": "2026-08-26T07:31:00Z",
  "files": [
   {
-   "name": "20260826-000001_TEST-PDF文字層.pdf",
-   "title": "TEST-PDF文字層",
-   "state": "done",
-   "step": "完成（162 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260826-000002_TEST-圖片辨識.jpg",
-   "title": "TEST-圖片辨識",
-   "state": "done",
-   "step": "完成（662 字）",
-   "pct": 100
+   "name": "20260826-000003_TEST-圖片辨識2.jpg",
+   "title": "TEST-圖片辨識2",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
