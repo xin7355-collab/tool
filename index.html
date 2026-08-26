@@ -291,9 +291,9 @@
 
 <section data-pane="doc">
   <div class="card">
-    <div class="step"><span>上傳 PDF 或圖片</span></div>
+    <div class="step"><span>上傳 PDF、圖片或純文字</span></div>
     <input type="file" class="in" id="docFile" multiple
-      accept="application/pdf,.pdf,image/*">
+      accept="application/pdf,.pdf,image/*,text/plain,.txt,.md,.csv">
     <input class="in" id="docTitle" placeholder="標題（留空用檔名）" style="margin-top:10px">
     <button class="btn btn--go" id="docBtn">📑 上傳並讀取文字</button>
     <p class="msg" id="docMsg"></p>
@@ -309,7 +309,7 @@
       表格版面也讀得懂），它讀不到才退回傳統 OCR。</p>
     <p class="hint">照片會在你手機上先縮小再上傳，省流量也比較快。
       拍的時候<b>盡量拍正、光線平均</b>，準確度差很多。</p>
-    <p class="hint">單檔 20MB 以內，PDF 一次最多讀 40 頁。</p>
+    <p class="hint">單檔 20MB 以內，PDF 一次最多讀 40 頁，<b>可以一次選很多份</b>。</p>
   </div>
 </section>
 
@@ -335,11 +335,12 @@
 
   <div class="card">
     <div class="step"><span>上傳音檔</span></div>
-    <input type="file" class="in" id="file" accept="audio/*,.m4a,.mp3,.wav,.flac,.ogg,.opus">
+    <input type="file" class="in" id="file" multiple accept="audio/*,video/*,.m4a,.mp3,.wav,.flac,.ogg,.opus,.mp4,.webm">
     <input class="in" id="fileTitle" placeholder="標題（留空用檔名）" style="margin-top:10px">
     <button class="btn btn--go" id="upBtn">⬆️ 上傳並轉錄</button>
     <p class="msg" id="upMsg"></p>
-    <p class="hint">單檔 45MB 以內（約 1~2 小時）。</p>
+    <p class="hint">單檔 45MB 以內（約 1~2 小時），<b>可以一次選很多個</b>——會一個一個傳，
+      中間有一個失敗不影響其他的。</p>
   </div>
 </section>
 
@@ -388,6 +389,26 @@
         <input class="in" id="subNot" placeholder="例如：精華,重播">
         <p class="hint">逗號分隔，不分大小寫。<b>兩欄都空著＝這個頻道的新片全部都收</b>。
           加入之後還能在下面的頻道卡片上改，不用取消重加。</p>
+      </div>
+    </details>
+  </div>
+
+  <div class="card">
+    <div class="step"><span>雲端硬碟資料夾</span></div>
+    <input class="in" id="gdQ" placeholder="貼 Google 雲端硬碟的資料夾網址">
+    <button class="btn btn--go" id="gdAdd">☁️ 加入資料夾</button>
+    <p class="msg" id="gdMsg"></p>
+    <ul class="tx" id="gdList" style="margin-top:12px"></ul>
+    <p class="hint" id="gdNote">載入中…</p>
+    <details style="margin-top:12px">
+      <summary style="font-size:14.5px;padding:12px 0">第一次要設定（只做一次）</summary>
+      <div class="pad" style="padding:0 0 4px">
+        <p class="hint" style="margin-top:0">系統用一個「機器人 Google 帳號」去讀你的資料夾，
+          所以資料夾<b>維持私人</b>，不用改成公開連結。你只要把資料夾分享給它。</p>
+        <p class="lbl">把資料夾分享給這個帳號（檢視者權限就夠）</p>
+        <div class="cmd" id="gdAcct">（還沒設定服務帳號）</div>
+        <p class="hint">看到「還沒設定」表示 <code>GDRIVE_KEY</code> 這個 Secret 還沒填，
+          做法見 repo 裡的 <b>如何接Google雲端硬碟.md</b>。</p>
       </div>
     </details>
   </div>
@@ -533,7 +554,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.3.0';
+var APP_VER='1.4.0';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1167,6 +1188,112 @@ function saveSubs(note){
     return r.json();
   }).then(function(j){ if(j&&j.content) subsSha=j.content.sha; });
 }
+/* ---------- Google 雲端硬碟資料夾 ---------- */
+/* 跟追蹤頻道同一個道理：這裡只管「你想收哪個資料夾」，去讀、去下載、分派到
+   哪個收件匣都在 GitHub 那邊做——瀏覽器沒有服務帳號的金鑰，也不該有。
+   收進來之後就交給既有的產線，音檔走轉錄、文件走讀取，不另外做一套。 */
+var gdrive={folders:[]}, gdSha='', gdState={};
+
+function ghJson(path){
+  var tok=getTok(); if(!tok) return Promise.resolve(null);
+  return fetch(API+'/contents/'+path+'?ref=main&_='+Date.now(),
+               {headers:subsH(tok),cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){
+      if(!j||!j.content) return null;
+      try{ return {sha:j.sha, data:JSON.parse(unb64utf8(j.content))}; }catch(e){ return null; }
+    }).catch(function(){ return null; });
+}
+function gdId(s){
+  s=String(s||'').trim();
+  var m=s.match(/\/folders\/([A-Za-z0-9_-]{10,})/)||s.match(/[?&]id=([A-Za-z0-9_-]{10,})/);
+  if(m) return m[1];
+  return /^[A-Za-z0-9_-]{10,}$/.test(s) ? s : '';
+}
+function loadGDrive(){
+  return Promise.all([ghJson('gdrive.json'), ghJson('.gdrive-state.json')])
+    .then(function(a){
+      if(a[0]){ gdSha=a[0].sha; gdrive=a[0].data||{}; }
+      if(!gdrive.folders) gdrive.folders=[];
+      gdState=(a[1]&&a[1].data)||{};
+      renderGD();
+    });
+}
+function renderGD(){
+  var ul=$('#gdList'); ul.innerHTML='';
+  var acct=gdState.account||'';
+  $('#gdAcct').textContent=acct||'（還沒設定服務帳號）';
+  (gdrive.folders||[]).forEach(function(fo,i){
+    var li=document.createElement('li');
+    var h=document.createElement('h3'); h.style.flex='1';
+    h.textContent=fo.name||'（名稱待確認）';
+    var err=(gdState.errs||{})[fo.id];
+    var sub=document.createElement('span');
+    sub.style.cssText='display:block;font-size:13px;font-weight:400;color:var(--dim);margin-top:3px';
+    sub.textContent=err?('⚠️ '+err):(fo.id);
+    if(err) sub.style.color='var(--bad)';
+    h.appendChild(sub);
+    var top=document.createElement('div'); top.className='top';
+    top.appendChild(h);
+    var del=document.createElement('div'); del.className='dl';
+    del.innerHTML='<a href="#">✕ 移除</a>';
+    del.querySelector('a').onclick=function(e){
+      e.preventDefault();
+      if(!confirm('不再收這個資料夾？\n（已經收進來的逐字稿不會被刪）')) return;
+      gdrive.folders.splice(i,1);
+      saveGDrive('Remove Drive folder').then(renderGD)
+        .catch(function(x){ msg('#gdMsg','❌ '+(x&&x.message||x),1); });
+    };
+    li.appendChild(top); li.appendChild(del); ul.appendChild(li);
+  });
+  var n=(gdrive.folders||[]).length;
+  var when=gdState.checked?String(gdState.checked).slice(0,16).replace('T',' '):'還沒查過';
+  $('#gdNote').innerHTML = n
+    ? ('收著 <b>'+n+'</b> 個資料夾，每小時檢查一次（上次：'+esc(when)+'）。'+
+       (gdState.took?('　這次收進 '+gdState.took+' 個。'):''))
+    : '還沒加入資料夾。丟進資料夾的<b>錄音、影片、PDF、照片、Google 文件</b>都會自動收進來。';
+}
+function saveGDrive(note){
+  var tok=getTok();
+  if(!tok) return Promise.reject(new Error('請先按右上角 ⚙ 填 GitHub Token'));
+  var put=function(sha){
+    var body={message:note||'Update Drive folders',branch:'main',
+              content:b64utf8(JSON.stringify(gdrive,null,1)+'\n')};
+    if(sha) body.sha=sha;
+    return fetch(API+'/contents/gdrive.json',
+                 {method:'PUT',headers:subsH(tok),body:JSON.stringify(body)});
+  };
+  return put(gdSha).then(function(r){
+    if(r.status===409||r.status===422){          // 有人（或上一輪同步）先改過，重讀再寫
+      return ghJson('gdrive.json').then(function(j){ return put(j&&j.sha); });
+    }
+    return r;
+  }).then(function(r){
+    if(r.status===401) throw new Error('Token 無效，請按右上角 ⚙ 重新填');
+    if(r.status===403) throw new Error('Token 缺少 Contents: Read and write 權限');
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return r.json();
+  }).then(function(j){ if(j&&j.content) gdSha=j.content.sha; });
+}
+$('#gdAdd').onclick=function(){
+  var id=gdId($('#gdQ').value);
+  if(!id){ msg('#gdMsg','⚠️ 認不出資料夾。請貼網址，長得像 drive.google.com/drive/folders/…',1); return; }
+  if((gdrive.folders||[]).some(function(x){return x.id===id;})){
+    msg('#gdMsg','這個資料夾已經在收了。',1); return; }
+  gdrive.folders.push({id:id, name:''});
+  var btn=this; btn.disabled=true;
+  msg('#gdMsg','加入中…');
+  saveGDrive('Add Drive folder').then(function(){
+    $('#gdQ').value='';
+    msg('#gdMsg','✅ 加好了。系統會馬上去看一次；資料夾名稱和裡面的檔案要一兩分鐘才會出現。');
+    renderGD();
+    setTimeout(loadGDrive, 45000);      // 等伺服器認出名字再重讀一次
+  }).catch(function(e){
+    gdrive.folders.pop();
+    msg('#gdMsg','❌ '+(e&&e.message||e),1);
+  }).then(function(){ btn.disabled=false; });
+};
+
 /* 哪張卡片的篩選正在編輯。輪詢會重畫整個清單，記住這個才不會把編輯中的面板收掉。 */
 var subEditIdx=-1;
 
@@ -1538,49 +1665,98 @@ function b64(f){return new Promise(function(res,rej){
   r.onload=function(){var s=String(r.result);res(s.slice(s.indexOf(',')+1));};
   r.onerror=function(){rej(new Error('讀取失敗'));};
   r.readAsDataURL(f);});}
-$('#upBtn').onclick=function(){
-  // 剛錄好的優先，其次才是選檔案
-  var f=recBlob||($('#file').files||[])[0];
-  if(!f){msg('#upMsg','⚠️ 先錄一段，或選一個音檔',1);return;}
-  var fromRec=(f===recBlob);
-  var mb=f.size/1048576;
-  if(mb>45){msg('#upMsg','❌ 檔案 '+mb.toFixed(1)+'MB 太大（上限 45MB）',1);return;}
-  var tok=getTok(); if(!tok){msg('#upMsg','❌ 請先到「⚙ 設定」填 GitHub Token',1);return;}
-  var d=new Date(),p=function(n){return(n<10?'0':'')+n;};
-  var ts=d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());
-  var ext=fromRec ? (f.__ext||'.m4a') : (f.name.match(/\.[A-Za-z0-9]+$/)||['.mp3'])[0];
-  var base=($('#fileTitle').value||'').trim()||
-           (fromRec ? ('錄音_'+ts) : f.name.replace(/\.[A-Za-z0-9]+$/,''));
-  var safe=base.replace(/[\\/:*?"<>|#%&{}$!'@+`=\s]+/g,'_').replace(/_+/g,'_').slice(0,60)||'audio';
-  var btn=this; btn.disabled=true; btn.textContent='上傳中…';
-  msg('#upMsg','讀取中（'+mb.toFixed(1)+'MB）…');
-  b64(f).then(function(c){
-    msg('#upMsg','上傳中（'+mb.toFixed(1)+'MB）…');
-    return fetch(API+'/contents/'+encodeURIComponent('audio-inbox/'+ts+'_'+safe+ext).replace(/%2F/g,'/'),{
-      method:'PUT',
-      headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json','Content-Type':'application/json'},
-      body:JSON.stringify({message:'Upload audio',content:c,branch:'main'})});
-  }).then(function(r){
-    return r.json().catch(function(){return{};}).then(function(j){
-      if(r.status===201||r.status===200){
-        msg('#upMsg','✅ 上傳成功！轉錄中，完成後會出現在「📄 下載」分頁（不用手動刷新）。');
-        $('#file').value=''; $('#fileTitle').value='';
-        recBlob=null; msg('#recMsg','');       // 傳完就清掉，免得再按一次又送同一段
-        if(window.__startWatch) window.__startWatch();
-      }else if(r.status===401){ msg('#upMsg','❌ Token 無效，請到設定重新填。',1); }
-      else if(r.status===403){ msg('#upMsg','❌ Token 缺少 Contents: Read and write 權限。',1); }
-      else { msg('#upMsg','❌ 失敗 HTTP '+r.status+'：'+(j.message||''),1); }
-    });
-  }).catch(function(e){ msg('#upMsg','❌ '+(e&&e.message||'上傳失敗'),1); })
-   .then(function(){ btn.disabled=false; btn.textContent='⬆️ 上傳並轉錄'; });
-};
-
-/* ---------- 文件（PDF／圖片）讀成文字 ---------- */
+/* ---------- 批次上傳（音檔與文件共用） ---------- */
+/* 一次選十幾個檔案是常態（一整天的錄音、掃描一疊公文），所以上傳這件事
+   本身要能成批做：逐一送、逐一回報，中間有一個壞掉不影響其他的。
+   音檔和文件差別只在「放進哪個收件匣、要不要先縮小」，其餘完全一樣。 */
 function stamp(){
   var d=new Date(),p=function(n){return(n<10?'0':'')+n;};
   return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+
          p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());
 }
+function safeBase(s,dflt){
+  return String(s||'').replace(/[\\/:*?"<>|#%&{}$!'@+`=\s]+/g,'_')
+                      .replace(/_+/g,'_').slice(0,60)||dflt;
+}
+/* opts: dir 收件匣、msgSel 訊息欄、btn 按鈕、label 按鈕原本的字、
+         maxMB 單檔上限、note 提交訊息、prepare(檔案)→Promise<Blob>、
+         nameOf(檔案, 索引, blob)→檔名 */
+function sendFiles(files, opts){
+  var tok=getTok();
+  if(!tok){ msg(opts.msgSel,'❌ 請先按右上角 ⚙ 填 GitHub Token',1); return; }
+  var btn=opts.btn, n=files.length, ok=0, bad=[];
+  btn.disabled=true;
+  var one=function(f,i){
+    var show=function(s){ msg(opts.msgSel, (n>1?('['+(i+1)+'/'+n+'] '):'')+s); };
+    btn.textContent='上傳中 '+(i+1)+'/'+n+'…';
+    show('處理中：'+(f.name||'錄音'));
+    return (opts.prepare?opts.prepare(f):Promise.resolve(f)).then(function(blob){
+      var mb=blob.size/1048576;
+      if(mb>opts.maxMB) throw new Error('檔案 '+mb.toFixed(1)+'MB，超過 '+opts.maxMB+'MB');
+      show('上傳中（'+mb.toFixed(1)+'MB）…');
+      return b64(blob).then(function(c){
+        var path=opts.dir+'/'+opts.nameOf(f,i,blob);
+        return fetch(API+'/contents/'+encodeURIComponent(path).replace(/%2F/g,'/'),{
+          method:'PUT',
+          headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
+                   'Content-Type':'application/json'},
+          body:JSON.stringify({message:opts.note,content:c,branch:'main'})});
+      });
+    }).then(function(r){
+      return r.json().catch(function(){return{};}).then(function(j){
+        if(r.status===201||r.status===200){ ok++; return; }
+        throw new Error(r.status===401?'Token 無效，請按右上角 ⚙ 重新填'
+                       :r.status===403?'Token 缺少 Contents: Read and write 權限'
+                       :('HTTP '+r.status+'：'+(j.message||'')));
+      });
+    }).catch(function(e){
+      // 一個壞掉不該讓其他的也不傳——十個檔案裡有一個太大是常有的事
+      bad.push((f.name||'錄音')+'：'+(e&&e.message||'失敗'));
+    });
+  };
+  var chain=Promise.resolve();
+  files.forEach(function(f,i){ chain=chain.then(function(){ return one(f,i); }); });
+  return chain.then(function(){
+    btn.disabled=false; btn.textContent=opts.label;
+    if(ok && !bad.length){
+      msg(opts.msgSel,'✅ 已上傳 '+ok+' 個！'+opts.done);
+      if(opts.after) opts.after();
+      if(window.__startWatch) window.__startWatch(ok);
+    }else if(ok){
+      msg(opts.msgSel,'⚠️ 成功 '+ok+' 個，失敗 '+bad.length+' 個：\n'+bad.join('\n'),1);
+      if(opts.after) opts.after();
+      if(window.__startWatch) window.__startWatch(ok);
+    }else{
+      msg(opts.msgSel,'❌ 全部失敗：\n'+bad.join('\n'),1);
+    }
+  });
+}
+
+$('#upBtn').onclick=function(){
+  // 剛錄好的優先，其次才是選檔案（現在可以一次選很多個）
+  var picked=Array.prototype.slice.call(($('#file').files)||[]);
+  var files=recBlob?[recBlob]:picked;
+  if(!files.length){msg('#upMsg','⚠️ 先錄一段，或選音檔（可以一次選很多個）',1);return;}
+  var fromRec=!!recBlob, ts=stamp();
+  sendFiles(files,{
+    dir:'audio-inbox', msgSel:'#upMsg', btn:this, label:'⬆️ 上傳並轉錄',
+    maxMB:45, note:'Upload audio',
+    done:'轉錄中，完成後會出現在「📄 下載」分頁（不用手動刷新）。',
+    nameOf:function(f,i){
+      var ext=fromRec?(f.__ext||'.m4a'):(f.name.match(/\.[A-Za-z0-9]+$/)||['.mp3'])[0];
+      // 標題欄只在單檔時有意義；一次傳很多個就各自用檔名
+      var base=(files.length===1?($('#fileTitle').value||'').trim():'')||
+               (fromRec?('錄音_'+ts):f.name.replace(/\.[A-Za-z0-9]+$/,''));
+      return ts+(files.length>1?'-'+(i+1):'')+'_'+safeBase(base,'audio')+ext;
+    },
+    after:function(){
+      $('#file').value=''; $('#fileTitle').value='';
+      recBlob=null; msg('#recMsg','');     // 傳完就清掉，免得再按一次又送同一段
+    }
+  });
+};
+
+/* ---------- 文件（PDF／圖片／純文字）讀成文字 ---------- */
 /* 照片先在手機上縮小再上傳。12MP 一張就 4MB，4G 傳很久；而且雲端視覺模型
    對內嵌圖片有大小上限，太大的直接被拒。長邊 2000px 對辨識文字綽綽有餘。
    順便解決 HEIC：畫進 canvas 再輸出就變成 JPEG 了。 */
@@ -1604,51 +1780,20 @@ function shrinkImg(f){
 }
 $('#docBtn').onclick=function(){
   var fs=Array.prototype.slice.call(($('#docFile').files)||[]);
-  if(!fs.length){msg('#docMsg','⚠️ 先選一個 PDF 或圖片',1);return;}
-  var tok=getTok(); if(!tok){msg('#docMsg','❌ 請先按右上角 ⚙ 填 GitHub Token',1);return;}
-  var btn=this; btn.disabled=true; btn.textContent='上傳中…';
-  var okN=0, fail='';
-  fs.reduce(function(chain,f,i){
-    return chain.then(function(){
-      if(fail) return;                        // 前面壞了就別再往上傳
-      msg('#docMsg','處理中 '+(i+1)+'/'+fs.length+'：'+f.name);
-      return shrinkImg(f).then(function(blob){
-        var mb=blob.size/1048576;
-        if(mb>20) throw new Error(f.name+'：縮小後仍有 '+mb.toFixed(1)+'MB（上限 20MB）');
-        var ext=(blob!==f) ? '.jpg'
-                : (f.name.match(/\.[A-Za-z0-9]+$/)||['.pdf'])[0];
-        // 標題欄只在單檔時有意義；一次傳很多份就各自用檔名
-        var base=(fs.length===1 ? ($('#docTitle').value||'').trim() : '')
-                 || f.name.replace(/\.[A-Za-z0-9]+$/,'');
-        var safe=base.replace(/[\\/:*?"<>|#%&{}$!'@+`=\s]+/g,'_')
-                     .replace(/_+/g,'_').slice(0,60)||'doc';
-        // 同一秒傳完好幾份會撞到同一個路徑（GitHub 回 422），編號加在時間戳後面
-        var name=stamp()+(fs.length>1?'-'+(i+1):'')+'_'+safe+ext;
-        msg('#docMsg','上傳中 '+(i+1)+'/'+fs.length+'（'+mb.toFixed(1)+'MB）…');
-        return b64(blob).then(function(c){
-          return fetch(API+'/contents/'+encodeURIComponent('doc-inbox/'+name).replace(/%2F/g,'/'),{
-            method:'PUT',
-            headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
-                     'Content-Type':'application/json'},
-            body:JSON.stringify({message:'Upload document',content:c,branch:'main'})});
-        });
-      }).then(function(r){
-        return r.json().catch(function(){return{};}).then(function(j){
-          if(r.status===201||r.status===200){ okN++; return; }
-          fail=(r.status===401)?'Token 無效，請按右上角 ⚙ 重新填。'
-             :(r.status===403)?'Token 缺少 Contents: Read and write 權限。'
-             :('失敗 HTTP '+r.status+'：'+(j.message||''));
-        });
-      });
-    });
-  }, Promise.resolve())
-  .catch(function(e){ fail=(e&&e.message)||'上傳失敗'; })
-  .then(function(){
-    btn.disabled=false; btn.textContent='📑 上傳並讀取文字';
-    if(fail){ msg('#docMsg','❌ '+(okN?('已傳 '+okN+' 份，然後：'):'')+fail,1); return; }
-    msg('#docMsg','✅ 已上傳 '+okN+' 份！讀取中，完成後會出現在「📄 下載」分頁（不用手動刷新）。');
-    $('#docFile').value=''; $('#docTitle').value='';
-    if(window.__startWatch) window.__startWatch(okN);
+  if(!fs.length){msg('#docMsg','⚠️ 先選檔案（PDF、圖片或純文字，可以一次選很多個）',1);return;}
+  var ts=stamp();
+  sendFiles(fs,{
+    dir:'doc-inbox', msgSel:'#docMsg', btn:this, label:'📑 上傳並讀取文字',
+    maxMB:20, note:'Upload document', prepare:shrinkImg,
+    done:'讀取中，完成後會出現在「📄 下載」分頁（不用手動刷新）。',
+    nameOf:function(f,i,blob){
+      var ext=(blob!==f)?'.jpg':(f.name.match(/\.[A-Za-z0-9]+$/)||['.pdf'])[0];
+      var base=(fs.length===1?($('#docTitle').value||'').trim():'')||
+               f.name.replace(/\.[A-Za-z0-9]+$/,'');
+      // 同一秒傳好幾份會撞到同一個路徑（GitHub 回 422），編號加在時間戳後面
+      return ts+(fs.length>1?'-'+(i+1):'')+'_'+safeBase(base,'doc')+ext;
+    },
+    after:function(){ $('#docFile').value=''; $('#docTitle').value=''; }
   });
 };
 
@@ -2144,7 +2289,7 @@ function showPane(name){
   window.scrollTo(0,0);
   try{ sessionStorage.setItem('deck_pane',name); }catch(e){}
   // 訂閱清單第一次打開才去讀，不然每次開網站都多打一次 API
-  if(name==='sub'){ if(!subsLoaded) loadSubs(); }
+  if(name==='sub'){ if(!subsLoaded){ loadSubs(); loadGDrive(); } }
   else stopPoll();                 // 離開分頁就別再背景輪詢了
 }
 all('.tabs button, #cfgBtn').forEach(function(b){
