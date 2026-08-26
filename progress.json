@@ -1,7 +1,7 @@
 {
  "run": "32930431150",
  "state": "running",
- "updated": "2026-08-26T04:33:50Z",
+ "updated": "2026-08-26T04:33:51Z",
  "files": [
   {
    "name": "20260826-122850_20251203_公文系統教育訓練(基礎篇)__ytg7u9T3XYVvo.m4a",
@@ -13,9 +13,9 @@
   {
    "name": "20260826-122944_電子公文與簽核流程的比較__ytAMs0TQCfHCY.m4a",
    "title": "電子公文與簽核流程的比較",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   }
  ]
 }
