@@ -371,6 +371,20 @@
     "srt": true
   },
   {
+    "file": "transcripts/TEST-K線圖表2__doc.md",
+    "title": "TEST-K線圖表2",
+    "src": "上傳文件（20260826-000011_TEST-K線圖表2.pdf）",
+    "cat": "新手教學",
+    "tags": [
+      "W底",
+      "頸線",
+      "量價確認"
+    ],
+    "clean": "TEST-K線圖表2",
+    "added": "2026-08-26",
+    "srt": false
+  },
+  {
     "file": "transcripts/TEST-K線圖表__doc.md",
     "title": "TEST-K線圖表",
     "src": "上傳文件（20260826-000010_TEST-K線圖表.pdf）",
