@@ -14,7 +14,7 @@
 讀完之後跟逐字稿走同一條路：摘要、分類、短標題，寫成 out/*.md 與 *.txt，
 發佈到 gh-pages 就出現在「📄 下載」分頁，可以搜尋、打包、下載。
 """
-import os, re, sys, glob, json, time, base64, shutil, tempfile, subprocess
+import os, re, io, sys, glob, json, time, base64, shutil, tempfile, subprocess
 import urllib.request, urllib.error
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -33,6 +33,13 @@ EXTS = PDF_EXT + IMG_EXT + TXT_EXT
 # 掃描的 PDF 常常還是有零星幾個字（頁碼、浮水印），不能只看有沒有。
 MIN_TEXT = int(os.environ.get("DOC_MIN_TEXT", "120") or "120")
 MAX_PAGES = int(os.environ.get("DOC_MAX_PAGES", "40") or "40")
+# 一份文件裡最多讀幾張圖。技術分析講義一頁一張圖是常態，四十頁就是四十次
+# 視覺辨識——會很慢也很花額度。超過就只標出「這裡有圖」，不硬讀。
+MAX_CHARTS = int(os.environ.get("DOC_MAX_CHARTS", "12") or "12")
+# 太小的圖是 logo、項目符號、分隔線，讀了也沒東西。走勢圖不會這麼小。
+MIN_CHART_PX = int(os.environ.get("DOC_MIN_CHART_PX", "240") or "240")
+# 掃描頁重繪的解析度。150 對 K 線的上下影線和成交量數字太糊，拉到 220。
+SCAN_DPI = int(os.environ.get("DOC_SCAN_DPI", "220") or "220")
 # 這個模型在 Groq 目前是 preview 狀態，可能被換掉；換掉時會 404，
 # 程式會自動退到 Tesseract，不會整批失敗。要換模型改這裡就好。
 VISION_MODEL = os.environ.get("GROQ_VISION_MODEL", "qwen/qwen3.6-27b").strip()
@@ -42,7 +49,27 @@ OCR_SYS = (
     "你是文件辨識工具。把圖片裡的文字原封不動抄出來，用繁體中文輸出。\n"
     "只輸出文字本身：不要加開場白、不要說明、不要摘要、不要改寫或補字。\n"
     "保留原本的段落與換行；表格請用 Markdown 表格；標題保留成一行。\n"
-    "看不清楚的字用 □ 代替，不要猜。整張圖沒有文字就只回一行：（沒有文字）"
+    "看不清楚的字用 □ 代替，不要猜。\n"
+    "如果頁面上有走勢圖或圖表，抄完文字後另起一段，用「【圖表】」開頭描述它。\n"
+    "整張圖沒有任何內容就只回一行：（沒有文字）"
+)
+# 走勢圖要的是另一種輸出：不是抄字，是把視覺資訊翻成文字。
+# 最後那條規則是重點——視覺模型很會認型態，卻很不會讀座標軸，
+# 讓它自由發揮就會把 152.5 的頸線講成 150，而且講得非常有自信。
+CHART_SYS = (
+    "你在看一張技術分析圖表。用繁體中文描述它，只講圖上看得到的東西。\n"
+    "依序說明（沒有就跳過，不要硬湊）：\n"
+    "1. 圖表種類與時間框架：日K／週K／分K／折線／柱狀。看不出來就說看不出來。\n"
+    "2. 走勢與K線型態：長紅棒突破、槌子線、十字星、頭肩頂、W 底、箱型整理…\n"
+    "3. 均線排列與交叉、成交量放大或萎縮、量價有沒有背離。\n"
+    "4. 圖上「有明確標註」的價位、頸線、支撐壓力、箭頭與文字：照抄。\n"
+    "\n"
+    "規則：\n"
+    "・座標軸的數字看不清楚時，用相對描述（「約在近期高點附近」），\n"
+    "  **絕對不要自己編一個精確價格**。寧可說看不清楚。\n"
+    "・只描述圖上有的，不要推測後續走勢，不要給投資建議。\n"
+    "・如果這不是走勢圖（照片、logo、表格截圖），就直接說它是什麼。\n"
+    "・不要開場白，直接寫描述。"
 )
 
 
@@ -50,61 +77,122 @@ def which(name):
     return shutil.which(name)
 
 
-# ---------- 第 1 層：PDF 文字層 ----------
+# ---------- 第 1 層：PDF 的文字層與圖表 ----------
 
-def pdf_text(path):
-    """抽 PDF 內嵌的文字層。沒有 pypdf 或抽不到就回空字串。"""
-    try:
-        from pypdf import PdfReader
-    except ImportError:
+def _heading(size, body):
+    """字級換算標題階層。
+
+    PDF 沒有「標題」這個概念，只有字級。但重建階層很值得：AI 讀的時候靠它
+    切段落、抓上下文，人在手機上看也才不是一整片沒有段落的字牆。
+    """
+    if not body:
         return ""
-    try:
-        reader = PdfReader(path)
-    except Exception as e:
-        print("    PDF 讀不開（%s）" % str(e)[:60], flush=True)
-        return ""
+    r = size / body
+    return "# " if r >= 1.6 else "## " if r >= 1.34 else "### " if r >= 1.14 else ""
+
+
+def pdf_parts(path):
+    """把 PDF 拆成依閱讀順序排好的片段。
+
+    回傳 [("text", markdown), ("image", bytes, 寬, 高, 是不是整頁), ...]。
+    圖片要留在原本的位置：技術分析講義的「以下圖為例，頸線位置在 152.5 元」
+    跟那張圖必須黏在一起，拆開之後兩邊都沒有意義。
+    """
+    import pymupdf
+    doc = pymupdf.open(path)
+    pages = list(doc)[:MAX_PAGES]
+
+    sizes = {}
+    for page in pages:                       # 先看整份文件最常出現的字級＝內文
+        for blk in page.get_text("dict")["blocks"]:
+            for ln in blk.get("lines") or []:
+                for sp in ln["spans"]:
+                    if sp["text"].strip():
+                        k = round(sp["size"])
+                        sizes[k] = sizes.get(k, 0) + len(sp["text"].strip())
+    body = max(sizes, key=sizes.get) if sizes else 0
+
+    parts = []
+    for page in pages:
+        parea = abs(page.rect) or 1
+        for blk in page.get_text("dict")["blocks"]:
+            if blk.get("type") == 1:
+                w, h = blk.get("width") or 0, blk.get("height") or 0
+                full = (abs(pymupdf.Rect(blk["bbox"])) / parea) > 0.7
+                parts.append(("image", blk.get("image") or b"", w, h, full))
+                continue
+            # 同一個區塊裡的行合成一段；跨行斷掉的中文句子接回去
+            top, lines = 0, []
+            for ln in blk.get("lines") or []:
+                txt = "".join(sp["text"] for sp in ln["spans"]).strip()
+                if not txt:
+                    continue
+                top = max(top, max((sp["size"] for sp in ln["spans"]), default=0))
+                lines.append(txt)
+            if not lines:
+                continue
+            head = _heading(top, body)
+            parts.append(("text", head + (" ".join(lines) if head else "".join(lines))))
+    return _join_wraps(parts)
+
+
+# 一句話被排版換行切斷時，前半段不會有句尾標點。有的話就是真的分段了。
+ENDS = "。！？：；…」』）】》!?:;.)]"
+
+
+def _join_wraps(parts):
+    """把被排版切斷的同一段接回去。
+
+    PDF 常常一行就是一個區塊，照抄的話「…成交量須放」和「大。第三…」會變成
+    兩段。中文的換行不等於分段，接不回去的話讀起來斷斷續續，摘要與切片也會
+    在句子中間被切開。
+    """
     out = []
-    for page in reader.pages[:MAX_PAGES]:
-        try:
-            out.append(page.extract_text() or "")
-        except Exception:
-            out.append("")
-    return "\n\n".join(t.strip() for t in out if t.strip())
+    for part in parts:
+        if (part[0] == "text" and out and out[-1][0] == "text"
+                and not part[1].startswith("#") and not out[-1][1].startswith("#")
+                and out[-1][1] and out[-1][1][-1] not in ENDS):
+            out[-1] = ("text", out[-1][1] + part[1])
+        else:
+            out.append(part)
+    return out
 
 
-def pdf_to_images(path, tmpdir):
-    """把 PDF 每頁轉成 JPEG 給 OCR 用。150dpi 對印刷字體夠了，檔案也小。"""
-    if not which("pdftoppm"):
-        raise RuntimeError("沒有 pdftoppm（poppler-utils），無法把掃描 PDF 轉成圖片")
-    pat = os.path.join(tmpdir, "page")
-    subprocess.run(["pdftoppm", "-jpeg", "-r", "150", "-l", str(MAX_PAGES), path, pat],
-                   check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    return sorted(glob.glob(pat + "*.jpg"))
+def pdf_page_images(path):
+    """整頁重繪成圖，給「完全沒有文字層」的掃描件用。"""
+    import pymupdf
+    doc = pymupdf.open(path)
+    out = []
+    for page in list(doc)[:MAX_PAGES]:
+        out.append(page.get_pixmap(dpi=SCAN_DPI).tobytes("jpeg"))
+    return out
 
 
 # ---------- 第 2 層：Groq 視覺 ----------
 
-def shrink(path):
-    """太大的圖縮到 Groq 吃得下。回傳可以直接讀的檔案路徑。"""
-    if os.path.getsize(path) * 4 // 3 <= MAX_IMG_B64:
-        return path
+def shrink(data):
+    """太大的圖縮到 Groq 吃得下。進出都是 bytes——PDF 裡的圖是從文件直接
+    取出來的，本來就沒有檔案，不要為了縮圖多繞一次磁碟。"""
+    if len(data) * 4 // 3 <= MAX_IMG_B64:
+        return data
     try:
         from PIL import Image
     except ImportError:
-        return path                      # 沒 Pillow 就照原樣送，失敗再退 Tesseract
+        return data                      # 沒 Pillow 就照原樣送，失敗再退 Tesseract
     try:
-        im = Image.open(path).convert("RGB")
-        tmp, out = path + ".small.jpg", path
+        im = Image.open(io.BytesIO(data)).convert("RGB")
+        out = data
         for w in (2200, 1700, 1300, 1000):
+            buf = io.BytesIO()
             small = im.copy()
             small.thumbnail((w, w * 4), Image.LANCZOS)
-            small.save(tmp, "JPEG", quality=85, optimize=True)
-            out = tmp
-            if os.path.getsize(tmp) * 4 // 3 <= MAX_IMG_B64:
+            small.save(buf, "JPEG", quality=85, optimize=True)
+            out = buf.getvalue()
+            if len(out) * 4 // 3 <= MAX_IMG_B64:
                 break
         return out
     except Exception:
-        return path                      # 縮不成就照原樣送，失敗再退 Tesseract
+        return data                      # 縮不成就照原樣送，失敗再退 Tesseract
 
 
 def strip_think(s):
@@ -119,19 +207,22 @@ def strip_think(s):
     return s.strip()
 
 
-def ocr_groq(path):
-    """送一張圖給 Groq 的視覺模型。失敗回 ("", 原因)。"""
+def ocr_groq(data, sys_msg=OCR_SYS):
+    """送一張圖給 Groq 的視覺模型。失敗回 ("", 原因)。
+
+    sys_msg 決定要它做哪件事：抄文字（OCR_SYS）還是描述走勢圖（CHART_SYS）。
+    同一張圖用錯提示詞，出來的東西會完全不一樣。
+    """
     if not GROQ_API_KEY:
         return "", "沒有 GROQ_API_KEY"
-    p = shrink(path)
-    with open(p, "rb") as f:
-        b64 = base64.b64encode(f.read()).decode("ascii")
+    data = shrink(data)
+    b64 = base64.b64encode(data).decode("ascii")
     if len(b64) > MAX_IMG_B64:
         return "", "圖片太大（%d KB）" % (len(b64) // 1024)
     body = json.dumps({
         "model": VISION_MODEL, "temperature": 0,
         "messages": [{"role": "user", "content": [
-            {"type": "text", "text": OCR_SYS},
+            {"type": "text", "text": sys_msg},
             {"type": "image_url",
              "image_url": {"url": "data:image/jpeg;base64," + b64}}]}],
     }).encode("utf-8")
@@ -161,30 +252,106 @@ def ocr_groq(path):
 
 # ---------- 第 3 層：Tesseract ----------
 
-def ocr_tesseract(path):
+def ocr_tesseract(data):
+    """Tesseract 只吃檔案，所以這裡才落地一次；上面兩層都在記憶體裡跑。"""
     if not which("tesseract"):
         return "", "機器上沒有 tesseract"
+    tmp = None
     try:
-        r = subprocess.run(["tesseract", path, "stdout", "-l", "chi_tra+eng", "--psm", "3"],
+        with tempfile.NamedTemporaryFile("wb", suffix=".png", delete=False) as f:
+            f.write(data); tmp = f.name
+        r = subprocess.run(["tesseract", tmp, "stdout", "-l", "chi_tra+eng", "--psm", "3"],
                            capture_output=True, timeout=180)
         return r.stdout.decode("utf-8", "replace").strip(), ""
     except Exception as e:
         return "", str(e)[:80]
+    finally:
+        if tmp:
+            try:
+                os.remove(tmp)
+            except OSError:
+                pass
 
 
-def ocr_page(path):
+def ocr_page(data, sys_msg=OCR_SYS):
     """一張圖 → (文字, 用了哪條路)。Groq 優先，失敗退 Tesseract。"""
-    txt, why = ocr_groq(path)
+    txt, why = ocr_groq(data, sys_msg)
     if txt and "（沒有文字）" not in txt:
         return txt, "groq"
     if txt:
         return "", "groq"                       # 模型說這張沒有文字，就別再花時間
     print("      Groq 讀不到（%s），改用 Tesseract" % why, flush=True)
-    txt, why2 = ocr_tesseract(path)
+    # Tesseract 只會抄字，看不懂走勢圖。走勢圖讀不到就讀不到，
+    # 硬用 OCR 只會抄回一堆座標軸數字，比沒有更糟。
+    if sys_msg is CHART_SYS:
+        return "", "none"
+    txt, why2 = ocr_tesseract(data)
     if txt:
         return txt, "tesseract"
     print("      Tesseract 也讀不到（%s）" % why2, flush=True)
     return "", "none"
+
+
+def read_pdf(path, on_page=None):
+    """PDF：文字層重建成有標題階層的 Markdown，圖表就地翻成文字插回原位。
+
+    以前只抽文字層就收工。對一般公文沒問題，但技術分析講義的內容大半在圖上——
+    「以下圖為例，頸線位置在 152.5 元」抽得到，那張圖抽不到，等於整章白讀。
+    """
+    parts = pdf_parts(path)
+    chars = sum(len(re.sub(r"\s", "", x[1])) for x in parts if x[0] == "text")
+    imgs = [x for x in parts if x[0] == "image"]
+
+    # 完全沒有文字層＝掃描件，整頁重繪去辨識（原路）
+    if chars < MIN_TEXT and not imgs:
+        return "", "PDF 既沒有文字層也沒有圖片"
+    if chars < MIN_TEXT and all(x[4] for x in imgs):
+        print("    沒有文字層，當成掃描件辨識…", flush=True)
+        pages = pdf_page_images(path)
+        got, ways = [], set()
+        for i, data in enumerate(pages, 1):
+            if on_page:
+                on_page(i, len(pages))
+            txt, how = ocr_page(data)
+            ways.add(how)
+            if txt:
+                got.append(txt)
+        if not got:
+            return "", "每一頁都辨識不出文字"
+        ways.discard("none")
+        return "\n\n".join(got), "辨識 %d 頁（%s）" % (len(pages), "＋".join(sorted(ways)) or "?")
+
+    # 有文字層：邊走邊把圖讀成文字，插在它原本的位置
+    big = [x for x in imgs if min(x[2], x[3]) >= MIN_CHART_PX and x[1]]
+    todo = big[:MAX_CHARTS]
+    out, done, skipped = [], 0, 0
+    for part in parts:
+        if part[0] == "text":
+            out.append(part[1])
+            continue
+        _, data, w, h, full = part
+        if part not in todo:
+            if data and min(w, h) >= MIN_CHART_PX:
+                skipped += 1
+                out.append("> **【圖表】**（這份文件圖表太多，這張沒有讀）")
+            continue
+        done += 1
+        if on_page:
+            on_page(done, len(todo))
+        # 整頁那麼大的圖多半是掃描頁，要抄字；小一點的才是插圖／走勢圖
+        txt, how = ocr_page(data, OCR_SYS if full else CHART_SYS)
+        if txt:
+            out.append("> **【圖表】** " + txt.replace("\n", "\n> "))
+        else:
+            out.append("> **【圖表】**（讀不出來）")
+
+    body = "\n\n".join(x for x in out if x.strip())
+    how = "PDF 文字層"
+    if done:
+        how += " ＋ 讀了 %d 張圖" % done
+    if skipped:
+        how += "（另有 %d 張沒讀）" % skipped
+    return body, how
 
 
 # ---------- 整份文件 ----------
@@ -205,29 +372,11 @@ def read_doc(path, on_page=None):
         with open(path, encoding="utf-8", errors="replace") as f:
             return f.read(), "純文字檔（編碼有問題，可能有亂碼）"
     if ext in PDF_EXT:
-        text = pdf_text(path)
-        if len(re.sub(r"\s", "", text)) >= MIN_TEXT:
-            return text, "PDF 內建文字層"
-        print("    沒有文字層（或幾乎是空的），當成掃描件做辨識…", flush=True)
-        with tempfile.TemporaryDirectory() as td:
-            pages = pdf_to_images(path, td)
-            if not pages:
-                return "", "PDF 轉不出圖片"
-            got, ways = [], set()
-            for i, p in enumerate(pages, 1):
-                if on_page:
-                    on_page(i, len(pages))
-                t, how = ocr_page(p)
-                ways.add(how)
-                if t:
-                    got.append(t)
-            if not got:
-                return "", "每一頁都辨識不出文字"
-            ways.discard("none")
-            return "\n\n".join(got), "辨識 %d 頁（%s）" % (len(pages), "＋".join(sorted(ways)) or "?")
+        return read_pdf(path, on_page)
     if on_page:
         on_page(1, 1)
-    t, how = ocr_page(path)
+    with open(path, "rb") as f:
+        t, how = ocr_page(f.read())
     if not t:
         return "", "圖片辨識不出文字"
     return t, {"groq": "圖片辨識（Groq 視覺）", "tesseract": "圖片辨識（Tesseract）"}.get(how, "圖片辨識")

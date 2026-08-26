@@ -4,6 +4,8 @@ name: 上傳文件讀成文字
 # 處理完把原始檔刪掉（文字留在 gh-pages，原檔不佔 repo）。
 #
 # 有文字層的 PDF 直接抽，不必辨識也不會有錯字；掃描件和照片才送去辨識。
+# PDF 裡的走勢圖會另外送去視覺模型描述，插回它在文章裡原本的位置——
+# 技術分析講義的內容大半在圖上，只抽文字等於整章白讀。
 
 on:
   push:
@@ -36,11 +38,11 @@ jobs:
           python-version: '3.12'
       - name: 安裝讀取工具
         run: |
-          # poppler-utils：抽 PDF 文字層抽不到時，把每頁轉成圖片
           # tesseract + chi_tra：Groq 視覺模型掛掉或被下架時的後路，繁中要另外裝語言包
+          # （poppler-utils 拿掉了：PyMuPDF 自己就會重繪頁面，少裝一個套件）
           sudo apt-get -qq update
-          sudo apt-get -qq install -y poppler-utils tesseract-ocr tesseract-ocr-chi-tra
-          pip install --no-cache-dir pypdf pillow
+          sudo apt-get -qq install -y tesseract-ocr tesseract-ocr-chi-tra
+          pip install --no-cache-dir pymupdf pillow
       - name: 取回已發佈的逐字稿（累加用）
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
