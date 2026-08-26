@@ -49,7 +49,10 @@ jobs:
           BACKFILL_LIMIT: ${{ inputs.limit }}
           YT_COOKIES: ${{ secrets.YT_COOKIES }}
         run: python scripts/backfill_dates.py
+      # always()：就算上一步回了非零，已經補到的日期和「哪些問不到」的記錄
+      # 都要存下來，不然下次又從頭問同一批問不到的。重建索引本來就是冪等的。
       - name: 重建索引並發佈
+        if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |

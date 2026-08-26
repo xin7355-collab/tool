@@ -18,6 +18,10 @@ import frontmatter as fm
 
 SITE = os.environ.get("SITE_DIR", "site/transcripts")
 LIMIT = int(os.environ.get("BACKFILL_LIMIT", "0") or "0")     # 0 = 不限
+# 有些影片就是問不到日期（下架、私人、YouTube 回的資料不完整）。記下來，
+# 試過幾次還是不行就別再問了——不然每晚都在重跑同一批註定失敗的。
+MISS_FILE = os.environ.get("DATE_MISSES", "")
+MAX_MISS = 3
 PAUSE = float(os.environ.get("BACKFILL_PAUSE", "0.6") or "0")  # 每支之間喘一下
 VID_IN_NAME = re.compile(r"(?:__yt|_)([A-Za-z0-9_-]{11})\.md$")
 UA = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
@@ -82,45 +86,81 @@ def lookup(vid):
         return "", "%s；yt-dlp: %s" % (last, str(e).replace("\n", " ")[:80])
 
 
+def miss_path():
+    return MISS_FILE or os.path.join(SITE, ".date-misses.json")
+
+
+def load_misses():
+    try:
+        with open(miss_path(), encoding="utf-8") as f:
+            return {k: int(v) for k, v in json.load(f).items()}
+    except (OSError, ValueError, AttributeError):
+        return {}
+
+
+def save_misses(d):
+    try:
+        with open(miss_path(), "w", encoding="utf-8") as f:
+            json.dump(d, f, ensure_ascii=False, indent=1, sort_keys=True)
+    except OSError:
+        pass
+
+
 def main():
     files = sorted(glob.glob(os.path.join(SITE, "*.md")))
     if not files:
         print("找不到逐字稿"); return 0
-    todo = []
+    misses = load_misses()
+    todo, given_up = [], 0
     for p in files:
         m = VID_IN_NAME.search(os.path.basename(p))
         if not m:
-            continue                       # 上傳的音檔／文章沒有影片 ID，問不到日期
+            continue                       # 上傳的音檔／文件／文章沒有影片 ID，問不到日期
         if re.search(r"^-\s*日期：\s*\S", open(p, encoding="utf-8").read(1500), re.M):
             continue
+        if misses.get(m.group(1), 0) >= MAX_MISS:
+            given_up += 1
+            continue
         todo.append((p, m.group(1)))
-    print("共 %d 篇，其中 %d 篇還沒有上片日期" % (len(files), len(todo)), flush=True)
+    print("共 %d 篇，其中 %d 篇還沒有上片日期%s"
+          % (len(files), len(todo),
+             ("；另有 %d 篇問過 %d 次都拿不到，不再重試" % (given_up, MAX_MISS)) if given_up else ""),
+          flush=True)
     if not todo:
         return 0
     if LIMIT:
         todo = todo[:LIMIT]
+    first_try = sum(1 for _, v in todo if v not in misses)
 
     ok, bad, ways = 0, 0, {}
     for n, (p, vid) in enumerate(todo, 1):
         d, how = lookup(vid)
         if not d:
             bad += 1
-            print("[%d/%d] %s 拿不到日期（%s）" % (n, len(todo), vid, how), flush=True)
+            misses[vid] = misses.get(vid, 0) + 1
+            print("[%d/%d] %s 拿不到日期（第 %d 次，%s）"
+                  % (n, len(todo), vid, misses[vid], how), flush=True)
         else:
             text = open(p, encoding="utf-8").read()
             open(p, "w", encoding="utf-8").write(fm.apply(text, {"日期": d}))
             ok += 1
+            misses.pop(vid, None)
             ways[how] = ways.get(how, 0) + 1
             print("[%d/%d] %s → %s" % (n, len(todo), vid, d), flush=True)
         if PAUSE:
             time.sleep(PAUSE)
 
+    save_misses(misses)
     print("補上 %d 篇（%s），拿不到 %d 篇"
           % (ok, "、".join("%s %d" % kv for kv in ways.items()) or "-", bad), flush=True)
-    # 一篇都補不到＝兩條路都被擋，不是正常結果，別用綠燈蓋過去
-    if todo and not ok:
-        print("::error::一篇都沒補到——YouTube 兩條路都拿不到日期", flush=True)
+    # 紅燈只留給「真的壞掉」：連沒試過的新影片都問不到，才是整條路被擋。
+    # 已經失敗過的那批問不到是常態（影片下架、私人、YouTube 回的資料不完整），
+    # 為了它們每晚紅一次、寄一封信，只會讓人開始無視所有警報。
+    if not ok and first_try:
+        print("::error::連沒試過的影片都拿不到日期——YouTube 兩條路都不通", flush=True)
         return 1
+    if not ok:
+        print("這批都是先前就問不到的，%d 次之後會自動放棄，不再重試。" % MAX_MISS, flush=True)
     return 0
 
 
