@@ -384,6 +384,19 @@
     "added": "2026-08-26"
   },
   {
+    "file": "transcripts/TEST-圖片辨識2__doc.md",
+    "title": "TEST-圖片辨識2",
+    "src": "上傳文件（20260826-000003_TEST-圖片辨識2.jpg）",
+    "cat": "其他",
+    "tags": [
+      "公文系統",
+      "線上簽核",
+      "電子憑證"
+    ],
+    "clean": "TEST-圖片辨識2",
+    "added": "2026-08-26"
+  },
+  {
     "file": "transcripts/TEST-圖片辨識__doc.md",
     "title": "TEST-圖片辨識",
     "src": "上傳文件（20260826-000002_TEST-圖片辨識.jpg）",
