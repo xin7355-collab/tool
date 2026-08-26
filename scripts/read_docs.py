@@ -104,6 +104,18 @@ def shrink(path):
         return path                      # 縮不成就照原樣送，失敗再退 Tesseract
 
 
+def strip_think(s):
+    """拿掉模型自己的推理過程。
+
+    qwen3 系列是「會思考」的模型，回覆常常先來一段 <think>…</think> 說明它打算
+    怎麼讀這張圖。那不是圖片上的文字，留著就會被當成內文寫進逐字稿——實測一張
+    只有 200 字的公文，辨識結果有 400 字是它在自言自語。
+    """
+    s = re.sub(r"(?is)<think>.*?</think>", "", s or "")
+    s = re.sub(r"(?is)<think>.*$", "", s)        # 沒有收尾的（被截斷）整段都不要
+    return s.strip()
+
+
 def ocr_groq(path):
     """送一張圖給 Groq 的視覺模型。失敗回 ("", 原因)。"""
     if not GROQ_API_KEY:
@@ -129,8 +141,8 @@ def ocr_groq(path):
         try:
             with urllib.request.urlopen(req, timeout=180) as r:
                 j = json.loads(r.read().decode("utf-8", "replace"))
-            txt = (j.get("choices") or [{}])[0].get("message", {}).get("content", "").strip()
-            return txt, ""
+            msg = (j.get("choices") or [{}])[0].get("message", {}) or {}
+            return strip_think(msg.get("content") or ""), ""
         except urllib.error.HTTPError as e:
             if e.code == 404:
                 return "", "Groq 找不到模型 %s（多半已停用）" % VISION_MODEL
