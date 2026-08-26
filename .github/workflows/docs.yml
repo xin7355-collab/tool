@@ -1,0 +1,143 @@
+name: 上傳文件讀成文字
+
+# 前端「📑 文件」分頁會把 PDF／圖片放進 doc-inbox/，這裡讀成文字並發佈，
+# 處理完把原始檔刪掉（文字留在 gh-pages，原檔不佔 repo）。
+#
+# 有文字層的 PDF 直接抽，不必辨識也不會有錯字；掃描件和照片才送去辨識。
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'doc-inbox/**'
+  # 上次沒讀成功的留在 inbox；每 2 小時自動再試一次，不用手動重傳。
+  schedule:
+    - cron: '5 */2 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: pipeline
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: 安裝讀取工具
+        run: |
+          # poppler-utils：抽 PDF 文字層抽不到時，把每頁轉成圖片
+          # tesseract + chi_tra：Groq 視覺模型掛掉或被下架時的後路，繁中要另外裝語言包
+          sudo apt-get -qq update
+          sudo apt-get -qq install -y poppler-utils tesseract-ocr tesseract-ocr-chi-tra
+          pip install --no-cache-dir pypdf pillow
+      - name: 取回已發佈的逐字稿（累加用）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          URL="https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          if git clone --depth 1 --branch gh-pages "$URL" site 2>/dev/null; then
+            echo "已取回既有 gh-pages"
+          else
+            mkdir -p site && cd site && git init -q -b gh-pages && git remote add origin "$URL"
+            printf '<!doctype html><meta charset=utf-8><title>transcripts</title>' > index.html && cd ..
+          fi
+          mkdir -p site/transcripts
+      - name: 讀取文件
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # 進度條要靠它寫 gh-pages
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_SUMMARY: ${{ vars.GROQ_SUMMARY || '1' }}
+          # 刻意不讀 vars.*：llama-3.1-8b-instant 已於 2026-08-16 停用，
+          # 設定裡若留著舊值會蓋掉這裡，整批 404。要換模型就改這兩行。
+          GROQ_LLM_MODEL: openai/gpt-oss-20b
+          GROQ_VISION_MODEL: qwen/qwen3.6-27b
+          DECK_CATEGORIES: ${{ vars.DECK_CATEGORIES }}
+        run: |
+          ls -lh doc-inbox/ 2>/dev/null || echo "(inbox 是空的)"
+          python scripts/read_docs.py || {
+            echo "::error::這批文件一份都沒讀成功，原因見上面的訊息"; exit 1; }
+      - name: 發佈到 gh-pages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          if ! ls out/*.md >/dev/null 2>&1; then echo "沒有新產出"; exit 0; fi
+          for f in out/*.md out/*.txt; do
+            [ -e "$f" ] || continue
+            case "$(basename "$f")" in _*) continue;; esac
+            cp "$f" site/transcripts/
+          done
+          python scripts/build_index.py site/transcripts
+          cd site
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Publish text from uploaded documents" || { echo "no change"; exit 0; }
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:gh-pages && exit 0
+            echo "push race, retry $k"; sleep 3
+            git fetch origin gh-pages && git merge -X ours origin/gh-pages -m "merge gh-pages" || true
+          done
+          exit 1
+      - name: 完成通知（開 Issue → GitHub App 推播）
+        if: always()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          SITE="https://${GITHUB_REPOSITORY_OWNER}.github.io/${GITHUB_REPOSITORY#*/}/"
+          if [ -f out/_status.txt ]; then
+            TOTAL=$(cut -d' ' -f1 out/_status.txt)
+          else
+            TOTAL=$(ls doc-inbox/ 2>/dev/null | wc -l | tr -d ' ')
+          fi
+          [ "${TOTAL:-0}" -gt 0 ] || { echo "這次沒有待處理文件，不發通知"; exit 0; }
+          if ls out/*.md >/dev/null 2>&1; then
+            TITLES=$(head -qn 1 out/*.md | sed 's/^# /・/')
+            N=$(ls out/*.md | wc -l | tr -d ' ')
+            {
+              echo "### ✅ 文件讀好了（$N 份）"
+              echo
+              echo "$TITLES"
+              echo
+              echo "👉 [開啟逐字稿抽取台]($SITE)"
+            } > /tmp/note.md
+            TITLE="✅ 文件讀好了：$(head -qn 1 out/*.md | head -1 | sed 's/^# //' | cut -c1-40)"
+          else
+            {
+              echo "### ⏳ 這次沒讀成功，原始檔已保留"
+              echo
+              echo "**檔案還留在系統裡，每 2 小時會自動再試一次**，你不用重新上傳。"
+              echo
+              echo "想看詳細原因：[這次的執行記錄](https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})"
+            } > /tmp/note.md
+            TITLE="⏳ 文件還沒讀好，會自動重試"
+          fi
+          NUM=$(gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
+                  --body-file /tmp/note.md 2>/dev/null | grep -oE '[0-9]+$') || true
+          [ -n "$NUM" ] && gh issue close "$NUM" --repo "$GITHUB_REPOSITORY" || true
+      - name: 清掉已讀好的原始檔（失敗的留著等重試）
+        if: always()
+        run: |
+          [ -s out/_processed.txt ] || { echo "沒有成功讀取的文件，全部保留待重試"; exit 0; }
+          while IFS= read -r f; do
+            [ -n "$f" ] && git rm -q --ignore-unmatch -- "$f"
+          done < out/_processed.txt
+          git diff --cached --quiet && exit 0
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Clear processed documents [skip ci]" || exit 0
+          for k in 1 2 3; do
+            git push origin HEAD:main && break
+            git pull --rebase origin main || true; sleep 3
+          done

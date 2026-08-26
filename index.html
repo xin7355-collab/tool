@@ -39,9 +39,18 @@
   header .top{display:flex;align-items:baseline;gap:10px}
   header h1{margin:0;font-size:26px;font-weight:700;letter-spacing:.02em;flex:1;min-width:0}
   header #ver{margin:0;font-size:12.5px;color:var(--dim);flex:0 0 auto}
+  /* 設定移到右上角：它是「設一次就不管了」的東西，佔一格分頁太浪費——
+     分頁列的寬度是五等分還是六等分，在手機上差很多。 */
+  #cfgBtn{
+    flex:0 0 auto;align-self:center;width:38px;height:38px;border-radius:50%;
+    background:none;border:1px solid var(--line);color:var(--dim);
+    font-size:19px;line-height:1;cursor:pointer;padding:0
+  }
+  #cfgBtn.on{color:var(--amber);border-color:var(--amber)}
 
   /* 分頁：一次只顯示一區，版面不會拉得又臭又長。
-     圖示放上面、字放下面——六個分頁擠在手機寬度裡，排成一行會被壓到換行。 */
+     圖示放上面、字放下面——六個分頁擠在手機寬度裡，排成一行會被壓到換行。
+     設定不佔分頁（移到右上角 ⚙），才塞得下「文件」。 */
   .tabs{display:flex;gap:0;margin-top:14px}
   .tabs button{
     flex:1;min-width:0;background:none;border:0;border-bottom:3px solid transparent;
@@ -214,14 +223,15 @@
   <div class="top">
     <h1>逐字稿抽取台</h1>
     <p id="ver"></p>
+    <button type="button" id="cfgBtn" data-pane="cfg" aria-label="設定" title="設定">⚙</button>
   </div>
   <nav class="tabs">
     <button type="button" data-pane="get" class="on"><span class="ic">🎬</span>抓影片</button>
+    <button type="button" data-pane="doc"><span class="ic">📑</span>文件</button>
     <button type="button" data-pane="up"><span class="ic">🎙</span>上傳音檔</button>
     <button type="button" data-pane="web"><span class="ic">📰</span>文章</button>
     <button type="button" data-pane="sub"><span class="ic">📡</span>追蹤</button>
     <button type="button" data-pane="tx"><span class="ic">📄</span>下載</button>
-    <button type="button" data-pane="cfg"><span class="ic">⚙</span>設定</button>
   </nav>
 </header>
 
@@ -276,6 +286,30 @@
     <p class="hint"><b>一鍵下載</b>：會直接跳到 a-Shell 並自動執行，不用貼上。勾幾支就一次抓幾支。<br>
       若沒反應（App 未安裝或系統擋跳轉），改按「只複製指令」→ 開 a-Shell → 長按貼上 → Enter。</p>
     <p class="hint">指令前面那一長串是<b>自動抓最新版程式</b>用的 —— 有這段，手機上就永遠不用手動更新。</p>
+  </div>
+</section>
+
+<section data-pane="doc">
+  <div class="card">
+    <div class="step"><span>上傳 PDF 或圖片</span></div>
+    <input type="file" class="in" id="docFile" multiple
+      accept="application/pdf,.pdf,image/*">
+    <input class="in" id="docTitle" placeholder="標題（留空用檔名）" style="margin-top:10px">
+    <button class="btn btn--go" id="docBtn">📑 上傳並讀取文字</button>
+    <p class="msg" id="docMsg"></p>
+    <p class="hint">讀出來的文字會跟逐字稿放在同一個「📄 下載」分頁，
+      一樣有<b>摘要、分類、關鍵字</b>，也能一起打包下載。</p>
+  </div>
+
+  <div class="card">
+    <div class="step"><span>會怎麼讀</span></div>
+    <p class="hint"><b>電腦產生的 PDF</b>（公文、報告、投影片匯出的那種）裡面本來就有文字，
+      直接抽出來——<b>零錯字、幾秒就好</b>，不經過任何辨識。</p>
+    <p class="hint"><b>掃描件和照片</b>才需要辨識，先用 AI 視覺模型讀（繁體中文最準，
+      表格版面也讀得懂），它讀不到才退回傳統 OCR。</p>
+    <p class="hint">照片會在你手機上先縮小再上傳，省流量也比較快。
+      拍的時候<b>盡量拍正、光線平均</b>，準確度差很多。</p>
+    <p class="hint">單檔 20MB 以內，PDF 一次最多讀 40 頁。</p>
   </div>
 </section>
 
@@ -499,7 +533,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.2.0';
+var APP_VER='1.3.0';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1541,6 +1575,83 @@ $('#upBtn').onclick=function(){
    .then(function(){ btn.disabled=false; btn.textContent='⬆️ 上傳並轉錄'; });
 };
 
+/* ---------- 文件（PDF／圖片）讀成文字 ---------- */
+function stamp(){
+  var d=new Date(),p=function(n){return(n<10?'0':'')+n;};
+  return d.getFullYear()+p(d.getMonth()+1)+p(d.getDate())+'-'+
+         p(d.getHours())+p(d.getMinutes())+p(d.getSeconds());
+}
+/* 照片先在手機上縮小再上傳。12MP 一張就 4MB，4G 傳很久；而且雲端視覺模型
+   對內嵌圖片有大小上限，太大的直接被拒。長邊 2000px 對辨識文字綽綽有餘。
+   順便解決 HEIC：畫進 canvas 再輸出就變成 JPEG 了。 */
+function shrinkImg(f){
+  return new Promise(function(res){
+    if(!/^image\//.test(f.type)) return res(f);
+    var img=new Image(), url=URL.createObjectURL(f);
+    img.onload=function(){
+      URL.revokeObjectURL(url);
+      var max=2000, w=img.naturalWidth, h=img.naturalHeight;
+      if(!w||!h) return res(f);
+      var s=Math.min(1,max/Math.max(w,h));
+      var c=document.createElement('canvas');
+      c.width=Math.round(w*s); c.height=Math.round(h*s);
+      c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+      c.toBlob(function(b){ res(b && b.size<f.size ? b : f); },'image/jpeg',0.85);
+    };
+    img.onerror=function(){ URL.revokeObjectURL(url); res(f); };   // 解不開就照原檔送
+    img.src=url;
+  });
+}
+$('#docBtn').onclick=function(){
+  var fs=Array.prototype.slice.call(($('#docFile').files)||[]);
+  if(!fs.length){msg('#docMsg','⚠️ 先選一個 PDF 或圖片',1);return;}
+  var tok=getTok(); if(!tok){msg('#docMsg','❌ 請先按右上角 ⚙ 填 GitHub Token',1);return;}
+  var btn=this; btn.disabled=true; btn.textContent='上傳中…';
+  var okN=0, fail='';
+  fs.reduce(function(chain,f,i){
+    return chain.then(function(){
+      if(fail) return;                        // 前面壞了就別再往上傳
+      msg('#docMsg','處理中 '+(i+1)+'/'+fs.length+'：'+f.name);
+      return shrinkImg(f).then(function(blob){
+        var mb=blob.size/1048576;
+        if(mb>20) throw new Error(f.name+'：縮小後仍有 '+mb.toFixed(1)+'MB（上限 20MB）');
+        var ext=(blob!==f) ? '.jpg'
+                : (f.name.match(/\.[A-Za-z0-9]+$/)||['.pdf'])[0];
+        // 標題欄只在單檔時有意義；一次傳很多份就各自用檔名
+        var base=(fs.length===1 ? ($('#docTitle').value||'').trim() : '')
+                 || f.name.replace(/\.[A-Za-z0-9]+$/,'');
+        var safe=base.replace(/[\\/:*?"<>|#%&{}$!'@+`=\s]+/g,'_')
+                     .replace(/_+/g,'_').slice(0,60)||'doc';
+        // 同一秒傳完好幾份會撞到同一個路徑（GitHub 回 422），編號加在時間戳後面
+        var name=stamp()+(fs.length>1?'-'+(i+1):'')+'_'+safe+ext;
+        msg('#docMsg','上傳中 '+(i+1)+'/'+fs.length+'（'+mb.toFixed(1)+'MB）…');
+        return b64(blob).then(function(c){
+          return fetch(API+'/contents/'+encodeURIComponent('doc-inbox/'+name).replace(/%2F/g,'/'),{
+            method:'PUT',
+            headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
+                     'Content-Type':'application/json'},
+            body:JSON.stringify({message:'Upload document',content:c,branch:'main'})});
+        });
+      }).then(function(r){
+        return r.json().catch(function(){return{};}).then(function(j){
+          if(r.status===201||r.status===200){ okN++; return; }
+          fail=(r.status===401)?'Token 無效，請按右上角 ⚙ 重新填。'
+             :(r.status===403)?'Token 缺少 Contents: Read and write 權限。'
+             :('失敗 HTTP '+r.status+'：'+(j.message||''));
+        });
+      });
+    });
+  }, Promise.resolve())
+  .catch(function(e){ fail=(e&&e.message)||'上傳失敗'; })
+  .then(function(){
+    btn.disabled=false; btn.textContent='📑 上傳並讀取文字';
+    if(fail){ msg('#docMsg','❌ '+(okN?('已傳 '+okN+' 份，然後：'):'')+fail,1); return; }
+    msg('#docMsg','✅ 已上傳 '+okN+' 份！讀取中，完成後會出現在「📄 下載」分頁（不用手動刷新）。');
+    $('#docFile').value=''; $('#docTitle').value='';
+    if(window.__startWatch) window.__startWatch(okN);
+  });
+};
+
 /* ---------- 重點摘要（手動補） ---------- */
 /* 產線抓完影片時就會順手做摘要寫進 .md，這裡是給「當時沒做成」的那些補的：
    舊的逐字稿（摘要功能還沒上線）、或 Groq 當下忙線回失敗的。
@@ -1662,6 +1773,14 @@ function putFile(path,text,note){
 /* ---------- 逐字稿 ---------- */
 var items=[], cache={};
 function sib(f){return {md:f,txt:f.replace(/\.md$/i,'.txt'),srt:f.replace(/\.md$/i,'.srt')};}
+/* 只有逐字稿有 .srt（字幕要對時間軸）。文章和上傳的文件沒有，
+   但下載鈕本來三個一律都畫，按下去就是 404。索引裡有 srt 旗標就照它，
+   舊的索引還沒有這個欄位時就照舊都顯示，免得反而少東西可下載。 */
+function hasSrt(file){
+  for(var i=0;i<items.length;i++) if(items[i].file===file)
+    return ('srt' in items[i]) ? !!items[i].srt : true;
+  return true;
+}
 /* 閱讀區只有一個，用搬的：點哪一篇就把它移到那一篇底下。
    本來固定放在整個清單最後面，點第 5 篇要滑過 100 多篇才看得到內容。 */
 var openFile='';
@@ -1682,8 +1801,8 @@ function show(file,title,li){
       if(openFile!==file) return;                // 中途換了一篇就不要蓋掉
       p.innerHTML='<div class="ph"><b>'+esc(title)+'</b><br>下載：'+
         '<a href="'+enc(s.txt)+'" download>.txt</a> · '+
-        '<a href="'+enc(s.md)+'" download>.md</a> · '+
-        '<a href="'+enc(s.srt)+'" download>.srt</a>'+
+        '<a href="'+enc(s.md)+'" download>.md</a>'+
+        (hasSrt(file) ? ' · <a href="'+enc(s.srt)+'" download>.srt</a>' : '')+
         '<br><a href="#" id="paperClose">✕ 收起</a></div>'+
         '<div id="sumBox"></div>'+esc(stripSum(t));
       p.scrollTop=0;
@@ -1879,7 +1998,8 @@ function draw(list){
     top.appendChild(cb); top.appendChild(h);
     var d=document.createElement('div'); d.className='dl';
     d.innerHTML='<a href="'+enc(s.txt)+'" download>⬇ .txt</a>'+
-      '<a href="'+enc(s.md)+'" download>.md</a><a href="'+enc(s.srt)+'" download>.srt</a>';
+      '<a href="'+enc(s.md)+'" download>.md</a>'+
+      (hasSrt(it.file) ? '<a href="'+enc(s.srt)+'" download>.srt</a>' : '');
     li.appendChild(top); li.appendChild(d);
     if(it._snip){var sn=document.createElement('div');sn.className='snip';sn.innerHTML=it._snip;li.appendChild(sn);}
     if(it.file===openFile) reopen=li;          // 這篇本來是展開的，等等放回去
@@ -2017,7 +2137,8 @@ function showPane(name){
   all('section[data-pane]').forEach(function(s){
     s.classList.toggle('on', s.getAttribute('data-pane')===name);
   });
-  all('.tabs button').forEach(function(b){
+  // 右上角的 ⚙ 不在 .tabs 裡，但它也是一個分頁按鈕，狀態要一起換
+  all('.tabs button, #cfgBtn').forEach(function(b){
     b.classList.toggle('on', b.getAttribute('data-pane')===name);
   });
   window.scrollTo(0,0);
@@ -2026,7 +2147,7 @@ function showPane(name){
   if(name==='sub'){ if(!subsLoaded) loadSubs(); }
   else stopPoll();                 // 離開分頁就別再背景輪詢了
 }
-all('.tabs button').forEach(function(b){
+all('.tabs button, #cfgBtn').forEach(function(b){
   b.onclick=function(){ showPane(b.getAttribute('data-pane')); };
 });
 /* 轉錄進行中時，在「逐字稿」分頁上點一個小圓點，人在別的分頁也知道有進度 */
