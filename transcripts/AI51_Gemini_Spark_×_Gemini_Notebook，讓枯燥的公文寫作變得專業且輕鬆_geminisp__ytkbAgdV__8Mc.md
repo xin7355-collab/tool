@@ -1,7 +1,6 @@
 # AI51_Gemini_Spark_×_Gemini_Notebook，讓枯燥的公文寫作變得專業且輕鬆_geminisp
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=kbAgdV__8Mc)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：AI51 Gemini Spark × Gemini Notebook，讓枯燥的公文寫作變得專業且輕鬆 geminisp
 
+- 日期：2026-08-23
 
 
 ## 摘要
-
 
 
 **一句話**：Gemini Spark 讓公文寫作自動化，Pro 用戶可連結筆記本創建寫作技能，免費用戶則可用 Gemini 聊天室結合筆記本產生草稿。
@@ -28,8 +27,6 @@
 4. 草稿可下載 Word 檔並自行修訂，Spark 產出的排版較佳；免費用戶可在 Gemini 即時通訊中加筆記本、貼上需求並選擇 Canvas 產生草稿，但格式較不精確。  
 5. Google AI 為大專院校提供一年免費方案，學生可申請 Plus 方案免費一年；若需 Pro 方案，每月約 100 元以上。  
 6. GEM 功能預計於 10 月左右停止，Spark 技能將僅提供給 Pro 用戶，建議儘早嘗試並留意未來變更。
-
-
 
 ---
 
