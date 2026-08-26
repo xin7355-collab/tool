@@ -1,7 +1,7 @@
 {
  "run": "32930577862",
  "state": "running",
- "updated": "2026-08-26T04:38:58Z",
+ "updated": "2026-08-26T04:39:16Z",
  "files": [
   {
    "name": "20260826-122954_公文撰寫秘訣大公開｜國考公文應該如何寫得好？林嵩老師直接批改給你看！__yt-6DG7skoHR8.m4a",
@@ -42,8 +42,8 @@
    "name": "20260826-123139_AI51_Gemini_Spark_×_Gemini_Notebook，讓枯燥的公文寫作變得專業且輕鬆_geminisp__ytkbAgdV__8Mc.webm",
    "title": "AI51_Gemini_Spark_×_Gemini_Notebook，讓枯燥的公文寫作變得專業且輕鬆_geminisp",
    "state": "running",
-   "step": "分類中…",
-   "pct": 96
+   "step": "AI 校對錯字…",
+   "pct": 97
   }
  ]
 }
