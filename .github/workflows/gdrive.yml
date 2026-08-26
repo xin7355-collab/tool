@@ -1,0 +1,57 @@
+name: Google 雲端硬碟同步
+
+# 「📡 追蹤」分頁加進來的雲端硬碟資料夾，這裡定期去看有沒有新檔案，
+# 有就下載並丟進既有的收件匣 —— 影音進 audio-inbox/、文件進 doc-inbox/ ——
+# 剩下的交給 audio.yml / docs.yml，不重複做一套。
+#
+# 一次最多收 10 個檔案，剩下的下一輪繼續，避免一口氣把大檔全塞進 repo。
+
+on:
+  schedule:
+    - cron: '25 * * * *'      # 每小時
+  push:
+    branches: [main]
+    paths:
+      - gdrive.json           # 剛加入資料夾就馬上收一次，不用等下個整點
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# 跟產線分開：這裡只是下載＋放進收件匣，不該排在長長的轉錄後面等
+concurrency:
+  group: gdrive
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      # 服務帳號要用 RS256 簽 JWT，PyJWT 的 crypto 附加元件就夠了，
+      # 不用整包 google-api-python-client（那會拖進一堆用不到的東西）。
+      - run: pip install --no-cache-dir "pyjwt[crypto]"
+      - name: 讀雲端硬碟
+        env:
+          GDRIVE_KEY: ${{ secrets.GDRIVE_KEY }}
+        run: python scripts/gdrive_sync.py
+      - name: 放進收件匣
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && { echo "沒有新檔案"; exit 0; }
+          # 訊息不加 [skip ci]：這一推要觸發 audio.yml / docs.yml 去處理收到的檔案
+          git commit -m "Sync from Google Drive"
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:main && exit 0
+            echo "push race, retry $k"; sleep 3
+            git pull --rebase origin main || true
+          done
+          exit 1
