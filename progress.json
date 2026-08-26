@@ -1,14 +1,14 @@
 {
  "run": "32942914198",
  "state": "running",
- "updated": "2026-08-26T07:28:38Z",
+ "updated": "2026-08-26T07:28:41Z",
  "files": [
   {
    "name": "20260826-000001_TEST-PDF文字層.pdf",
    "title": "TEST-PDF文字層",
-   "state": "running",
-   "step": "讀取中…",
-   "pct": 1
+   "state": "done",
+   "step": "完成（162 字）",
+   "pct": 100
   },
   {
    "name": "20260826-000002_TEST-圖片辨識.jpg",
