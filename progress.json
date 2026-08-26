@@ -1,14 +1,14 @@
 {
  "run": "32943113573",
  "state": "running",
- "updated": "2026-08-26T07:31:01Z",
+ "updated": "2026-08-26T07:31:06Z",
  "files": [
   {
    "name": "20260826-000003_TEST-圖片辨識2.jpg",
    "title": "TEST-圖片辨識2",
-   "state": "running",
-   "step": "讀取中…",
-   "pct": 1
+   "state": "done",
+   "step": "完成（191 字）",
+   "pct": 100
   }
  ]
 }
