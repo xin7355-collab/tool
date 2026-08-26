@@ -25,7 +25,10 @@ import classify as cls
 INBOX = os.environ.get("DOC_INBOX", "doc-inbox")
 PDF_EXT = (".pdf",)
 IMG_EXT = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tif", ".tiff", ".heic", ".heif")
-EXTS = PDF_EXT + IMG_EXT
+# 本來就是文字的檔案：直接讀進來，什麼辨識都不用。
+# Google 文件從雲端硬碟匯出就是這種，所以這條路一定要有。
+TXT_EXT = (".txt", ".md", ".markdown", ".csv")
+EXTS = PDF_EXT + IMG_EXT + TXT_EXT
 # 文字層抽出來少於這麼多字，就當作「這是掃描件」改走 OCR。
 # 掃描的 PDF 常常還是有零星幾個字（頁碼、浮水印），不能只看有沒有。
 MIN_TEXT = int(os.environ.get("DOC_MIN_TEXT", "120") or "120")
@@ -189,6 +192,18 @@ def ocr_page(path):
 def read_doc(path, on_page=None):
     """回傳 (文字, 怎麼讀到的)。讀不出來就回 ("", 原因)。"""
     ext = os.path.splitext(path)[1].lower()
+    if ext in TXT_EXT:
+        if on_page:
+            on_page(1, 1)
+        for enc in ("utf-8", "utf-8-sig", "big5", "cp950"):
+            try:
+                with open(path, encoding=enc) as f:
+                    t = f.read()
+                return t, "純文字檔" + ("" if enc.startswith("utf-8") else "（%s）" % enc)
+            except (UnicodeDecodeError, LookupError):
+                continue
+        with open(path, encoding="utf-8", errors="replace") as f:
+            return f.read(), "純文字檔（編碼有問題，可能有亂碼）"
     if ext in PDF_EXT:
         text = pdf_text(path)
         if len(re.sub(r"\s", "", text)) >= MIN_TEXT:
