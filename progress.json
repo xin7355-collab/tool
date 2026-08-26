@@ -1,14 +1,14 @@
 {
- "run": "32946663939",
- "state": "done",
- "updated": "2026-08-26T08:14:28Z",
+ "run": "33022752961",
+ "state": "running",
+ "updated": "2026-08-26T23:17:18Z",
  "files": [
   {
-   "name": "20260826-161322_测测你的性格_人际关系_优势弱点_MBTI性格测试__ythIB__ksuFlk.m4a",
-   "title": "测测你的性格_人际关系_优势弱点_MBTI性格测试",
-   "state": "done",
-   "step": "完成（7908 字）",
-   "pct": 100
+   "name": "20260826-000010_TEST-K線圖表.pdf",
+   "title": "TEST-K線圖表",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
