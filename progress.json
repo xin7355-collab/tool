@@ -1,14 +1,14 @@
 {
  "run": "33022866013",
  "state": "running",
- "updated": "2026-08-26T23:19:03Z",
+ "updated": "2026-08-26T23:19:08Z",
  "files": [
   {
    "name": "20260826-000011_TEST-K線圖表2.pdf",
    "title": "TEST-K線圖表2",
    "state": "running",
-   "step": "讀取中…",
-   "pct": 1
+   "step": "整理摘要…",
+   "pct": 90
   }
  ]
 }
