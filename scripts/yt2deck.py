@@ -15,7 +15,7 @@ yt-dlp 在這裡跑幾乎都會成功。下載完直接呼叫 GitHub API 上傳�
 """
 import os, re, sys, json, time, base64, urllib.request, urllib.parse, urllib.error
 
-VERSION = "8"
+VERSION = "9"
 OWNER, REPO = "xin7355-collab", "tool"
 API = "https://api.github.com/repos/%s/%s" % (OWNER, REPO)
 RAW = ("https://raw.githubusercontent.com/%s/%s/main/scripts/yt2deck.py"
@@ -313,11 +313,7 @@ def upload(path, title, token, vid=""):
         except urllib.error.HTTPError as e:
             detail = e.read().decode("utf-8", "replace")[:200]
             if e.code == 401:
-                sys.exit("Token 認證失敗（401 Bad credentials）——這代表 Token 字串本身不對，\n"
-                         "不是權限問題。多半是存進 deck_token.txt 時被截斷或多了字元。\n"
-                         "檢查：cat deck_token.txt   （應為單獨一行、以 github_pat_ 開頭）\n"
-                         "重存：到網站「⚙ 設定 → 📋 複製 Token」再執行\n"
-                         "      python3 yt2deck.py --set-token")
+                sys.exit(bad_token_msg(token))
             if e.code == 403:
                 # GitHub 也會用 403 回一些「跟權限無關」的暫時性狀況：
                 # 規則驗證逾時、次級速率限制。那些重試就會過，不該叫使用者去改 Token。
@@ -349,6 +345,56 @@ def upload(path, title, token, vid=""):
         time.sleep(wait)
     print("✅ 上傳成功！產線開始辨識，完成後會出現在："
           "\n   https://%s.github.io/%s/" % (OWNER, REPO), flush=True)
+
+
+def bad_token_msg(tok):
+    """401 的說明。要分辨兩種完全不同的原因，不然只會叫人去查錯的地方。
+
+    以前一律說「多半是被截斷或多了字元」。但 `ghp_` 開頭、長度剛好 40 的
+    classic token 格式明明是完整的，照那句話去 cat 檔案只會看到「看起來很正常」。
+    """
+    if tok.startswith(("ghp_", "gho_")):
+        why = ("這是舊式的 classic token（ghp_ 開頭），格式本身沒問題，是 GitHub 不認了。\n"
+               "   網站發的是 github_pat_ 開頭的 fine-grained token，所以手機上這把\n"
+               "   多半是搬家前那個帳號留下來的——那個帳號已經停權，token 跟著失效。\n")
+    else:
+        why = ("多半是存進 deck_token.txt 時被截斷或多了字元。\n"
+               "   檢查：cat deck_token.txt   （應為單獨一行、以 github_pat_ 開頭）\n")
+    return ("Token 認證失敗（401 Bad credentials）——GitHub 不認得這串字，不是權限問題。\n"
+            "   這把：長度 %d、開頭 %s…\n"
+            "   %s"
+            "   換一把：到網站「⚙ 設定 → 📋 複製 Token」，再執行\n"
+            "      python3 yt2deck.py --set-token" % (len(tok), tok[:10], why))
+
+
+def check_token(token):
+    """開跑前先確認 Token 還能用。
+
+    以前是抓完、傳到一半才發現 401——4G 上白傳三十幾 MB，一支影片試兩次就是六十幾。
+    這裡一個很小的請求就先擋下來了。連不到 GitHub 就別擋路，照原本流程走。
+    """
+    req = urllib.request.Request(
+        API, headers={"Authorization": "Bearer " + token,
+                      "Accept": "application/vnd.github+json",
+                      "User-Agent": "yt2deck/" + VERSION})
+    try:
+        with urllib.request.urlopen(req, timeout=30) as r:
+            info = json.loads(r.read().decode("utf-8", "replace"))
+    except urllib.error.HTTPError as e:
+        if e.code == 401:
+            sys.exit(bad_token_msg(token))
+        if e.code == 404:
+            sys.exit("這把 Token 看不到 %s/%s。\n"
+                     "   建立時 Repository access 要選 Only select repositories → %s，\n"
+                     "   Permissions 的 Contents 要給 Read and write。"
+                     % (OWNER, REPO, REPO))
+        return                                   # 其他錯誤不擋，讓後面照常報
+    except Exception:
+        return                                   # 沒網路／逾時：別在這裡卡住
+    if not (info.get("permissions") or {}).get("push"):
+        # 公開 repo 就算沒有寫入權也讀得到，所以這裡只能警告、不能擋
+        print("⚠️ 這把 Token 好像沒有寫入權（Contents 要 Read and write），"
+              "上傳可能會被擋在 403。", flush=True)
 
 
 def set_token():
@@ -588,11 +634,13 @@ def main():
     except Exception:
         sys.exit("找不到 yt-dlp。請先在 a-Shell 執行：pip install -U yt-dlp")
     token = get_token()
+    check_token(token)          # 先問一句，別讓壞掉的 Token 浪費一整批下載
     if args and args[0] in ("--queue", "-q"):
         args = fetch_queue(token)
     print("yt2deck v%s（yt-dlp %s，%s）— 這次收到 %d 支"
           % (VERSION, ydl_ver,
-             ("有 cookies" if COOKIEFILE else "沒有 cookies ← 大量失敗多半是這個"),
+             ("有 cookies" if COOKIEFILE
+              else "沒有 cookies ← 大量失敗多半是這個，設定：--set-cookies"),
              len(args)), flush=True)
 
     # 同一批裡重複勾到的先去掉（純 ID 和完整網址算同一支）
