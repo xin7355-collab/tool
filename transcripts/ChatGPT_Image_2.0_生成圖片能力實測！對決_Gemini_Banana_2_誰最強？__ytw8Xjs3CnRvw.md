@@ -1,7 +1,6 @@
 # ChatGPT_Image_2.0_生成圖片能力實測！對決_Gemini_Banana_2_誰最強？
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=w8Xjs3CnRvw)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：ChatGPT Image 2.0 生成圖片能力實測！
 
+- 日期：2026-04-29
 
 
 ## 摘要
-
 
 
 **一句話**：ChatGPT Image 2.0 在細節、文字理解與繁體中文支援上優於 Gemini Banana 2，錯字率低、畫面更精緻，適合設計與文字密集需求。
@@ -26,8 +25,6 @@
 - 兩者在多語言同時生成時均能保持品質，但 Image 2.0 在繁體中文文字與細節呈現更穩定。  
 - 影片結論指出，若需求為設計、網頁、圖片設計，Gemini 仍具優勢；若重視文字準確與細節，Image 2.0 更適合。  
 - 期待 Gemini 3.0 之後可能再次挑戰 Image 2.0，但目前 Image 2.0 在文字與細節處理上已佔優勢。
-
-
 
 ---
 

@@ -1,7 +1,6 @@
 # 簡易手沖咖啡法-手沖咖啡入門_ep1-元食咖啡-POUR_OVER_COFFEE_BASIC-STEAMING-YUAN
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=gV9zrwcbLKo)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：EP1｜簡易手沖咖啡法-手沖咖啡入門 -元食咖啡-POUR OVER COFFEE BASIC-STEAMING-YUAN
 
+- 日期：2020-06-09
 
 
 ## 摘要
-
 
 
 **一句話**：這段影片教初學者用最簡單的方式沖泡一杯手沖咖啡，重點在於選擇快速流速的濾杯、使用 15 g 咖啡粉與 200 g 水，並以 1 分 30 秒的總時間完成萃取。
@@ -28,8 +27,6 @@
 - 讓咖啡完全滴漏後移開濾杯，總沖煮時間約 1 分 30 秒。  
 - 完成後輕輕搖晃或攪拌，使咖啡味道均勻。  
 - 影片鼓勵觀眾自行調整比例與手法，尋找最適合自己的口味。
-
-
 
 ---
 

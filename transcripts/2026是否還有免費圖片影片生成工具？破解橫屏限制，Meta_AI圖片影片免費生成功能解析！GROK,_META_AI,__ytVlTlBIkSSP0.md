@@ -1,7 +1,6 @@
 # 2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta_AI圖片影片免費生成功能解析！GROK,_META_AI,
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=VlTlBIkSSP0)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta AI圖片影片免費生成功能解析！GROK, META AI
 
+- 日期：2026-03-21
 
 
 ## 摘要
-
 
 
 **一句話**：Meta AI 仍提供免費且功能完整的影片生成工具，使用者可透過「Create」選擇 16:9、生成四張橫向圖片後「Animate」製作影片，並利用 Extend、Restyle、Vibes、Canvas Edit 與 Custom Animate 等功能，突破 9:16 限制與 5-6 秒短片限制，直至平台開始收費前即可免費使用。  
@@ -24,8 +23,6 @@
 - Vibes 功能於 2025 年 9 月推出，提供 AI 短影音社群 Feed，使用者可直接存取並修改提示詞作為創作靈感。  
 - Canvas Edit 允許對已生成圖片進行細節微調，右側「Edit Image」可描述所需變化。  
 - Custom Animate 允許輸入具體鏡頭指令（如 Slow Cinematic Zoom In）以提升影片專業美感，亦可上傳自有照片進行 Animate。
-
-
 
 ---
 

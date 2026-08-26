@@ -1,7 +1,6 @@
 # Gemini_史詩級更新！Nano_Banana_Pro_毫無敵手！一口氣帶你看20種超狂生圖應用！效果堪稱最強！｜泛科
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=ik0Us3vBD_E)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：Gemini 史詩級更新！Nano Banana Pro 毫無敵手！一口氣帶你看20種超狂生圖應用！效果堪稱最強
 
+- 日期：2025-11-28
 
 
 ## 摘要
-
 
 
 **一句話**：Gemini Nano Banana Pro 兩個月內推出，展示20+創意圖像生成應用，功能多樣且可調整尺寸與風格，使用方式多元但商業使用尚未明確。  
@@ -28,8 +27,6 @@
 - 使用者可上傳參考照片或直接輸入提示語，模型能自動搜尋網路參考並生成高細節圖像，但對輸出控制不穩定，某些內容（如解剖標示）可能出錯。  
 - AI Studio 需綁定信用卡付費，每張圖片計費；Gemini 官方網站免費版有限額且有浮水印；Google Workspace 用戶可在 Slides 內免費使用。  
 - 影片中提到冠名夥伴 Transcribe App，並鼓勵觀眾訂閱、按讚、分享。
-
-
 
 ---
 

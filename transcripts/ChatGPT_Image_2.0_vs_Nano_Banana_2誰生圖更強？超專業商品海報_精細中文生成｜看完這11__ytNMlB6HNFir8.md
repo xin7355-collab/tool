@@ -1,7 +1,6 @@
 # ChatGPT_Image_2.0_vs_Nano_Banana_2誰生圖更強？超專業商品海報_精細中文生成｜看完這11
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=NMlB6HNFir8)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,16 @@
 
 - 短標題：ChatGPT Image 2.0 vs Nano Banana 2誰生圖更強？
 
+- 3D 風格圖像：Image 2.0 以電影感暗調、動物多樣化呈現；Nano Banana 亮調、動物重複且教師角色不明顯。
+
+- 文字與排版：在手寫筆記、Y2K 青少年自拍、YouTube 介面截圖等場景，Image 2.0 產生更真實、符合原始文字與排版，Nano Banana 常出現字體不自然或位置錯誤。
+
+- 故事板與縮圖：Image 2.0 能產生帶編號、色調說明的完整分鏡圖，並製作吸睛的 YouTube 縮圖；Nano Banana 產生的分鏡多為英文版，縮圖缺乏衝擊感。
+
+- 日期：2026-04-26
 
 
 ## 摘要
-
 
 
 **一句話**：ChatGPT Image 2.0 在 11 個不同生成情境中，普遍比 Nano Banana 更能精準呈現細節、符合提示，尤其在時間顯示、產品海報、3D 風格與文字排版上表現優於 Nano Banana。  
@@ -25,11 +30,6 @@
 - 影片以 11 個情境對比兩者，Image 2.0 能正確顯示時鐘時間（如 3:16）且時針位置精準，Nano Banana 位置不準。  
 - 在科技感辦公室手錶海報與 Y2K 音樂海報中，Image 2.0 的手錶放大與排版更符合需求，Nano Banana 產生的手錶較模糊。  
 - 生成睡眠噴霧產品海報時，Image 2.0 會顯示手部噴射動作與細緻字體，Nano Banana 則缺少手部動作，呈現較合成感。  
-- 3D 風格圖像：Image 2.0 以電影感暗調、動物多樣化呈現；Nano Banana 亮調、動物重複且教師角色不明顯。  
-- 文字與排版：在手寫筆記、Y2K 青少年自拍、YouTube 介面截圖等場景，Image 2.0 產生更真實、符合原始文字與排版，Nano Banana 常出現字體不自然或位置錯誤。  
-- 故事板與縮圖：Image 2.0 能產生帶編號、色調說明的完整分鏡圖，並製作吸睛的 YouTube 縮圖；Nano Banana 產生的分鏡多為英文版，縮圖缺乏衝擊感。
-
-
 
 ---
 

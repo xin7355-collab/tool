@@ -1,7 +1,6 @@
 # 我用一個_Claude_Skill_(技能)_省下了所有生成圖片和影片的訂閱費用！每個月現省上千元！
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=WyJJFzbdjuY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,16 @@
 
 - 短標題：我用一個 Claude Skill (技能) 省下了所有生成圖片和影片的訂閱費用！
 
+- 測試技能：請 Cloud 生成一張角鬥士圖片，並將生成結果自動儲存至「完成檔」；亦可將現有圖片（如獅子）放入「參考圖」並請 Cloud 以金色鎧甲重新生成。
+
+- 擴充提示詞功能：在生成圖片時讓 Cloud 先自動補充細節，經確認後再送出，提升畫面描述完整度。
+
+- 加入影片生成：在 Fold 選擇 Text to Video 模型（Stead Dance 2.0、MiniMax H3、Clean V3），將影片功能加入技能，並可透過 Cloud 以靜態圖作起始影格生成短片；最後可將整個技能打包成桌面 App，方便快速使用。
+
+- 日期：2026-08-10
 
 
 ## 摘要
-
 
 
 **一句話**：利用 Claude Skill 以低成本在自己的 AI 助理中生成圖片與影片，省下每月 10–15 美元訂閱費，實際節省上千元。
@@ -26,11 +31,6 @@
 - 在 Fold 平台註冊帳號並取得 API Key，該平台不收月費，費用按實際生成圖片數量計算，並需綁定信用卡。  
 - 透過 ChatGPT 分析 Fold 上的 Nano Banana 2 與 GPT Image Tool 價格，結論為 Nano Banana 2 更省錢，並取得其模型 ID。  
 - 在 Cloud 建立 Scale 技能，設定使用 Nano Banana 2 與 GPT Image Tool，並將 API Key 存於 .env 檔案以避免洩露；提示詞中指明使用「參考圖」資料夾與「完成檔」資料夾。  
-- 測試技能：請 Cloud 生成一張角鬥士圖片，並將生成結果自動儲存至「完成檔」；亦可將現有圖片（如獅子）放入「參考圖」並請 Cloud 以金色鎧甲重新生成。  
-- 擴充提示詞功能：在生成圖片時讓 Cloud 先自動補充細節，經確認後再送出，提升畫面描述完整度。  
-- 加入影片生成：在 Fold 選擇 Text to Video 模型（Stead Dance 2.0、MiniMax H3、Clean V3），將影片功能加入技能，並可透過 Cloud 以靜態圖作起始影格生成短片；最後可將整個技能打包成桌面 App，方便快速使用。
-
-
 
 ---
 

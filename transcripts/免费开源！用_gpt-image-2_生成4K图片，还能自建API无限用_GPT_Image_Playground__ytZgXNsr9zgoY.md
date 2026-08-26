@@ -1,7 +1,6 @@
 # 免费开源！用_gpt-image-2_生成4K图片，还能自建API无限用_GPT_Image_Playground
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=ZgXNsr9zgoY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：免费开源！用 gpt-image-2 生成4K图片，还能自建API无限用 GPT Image Playground
 
+- 日期：2026-04-30
 
 
 ## 摘要
-
 
 
 **一句話**：本影片介紹如何利用 GPT Image 2 接口搭建自建 API，並透過 GPT Image Playground 產生 4K 影像，涵蓋設定、部署、HTTPS 迴避與本地儲存等完整流程。
@@ -24,8 +23,6 @@
 - 一鍵部署至 GitHub，生成 GPT Image Playground，並可自訂 URL 前綴；部署後可直接在瀏覽器輸入提示詞生成影像。
 - HTTPS 連線被瀏覽器拦截時，可於瀏覽器設定中加入自訂域名至「不安全內容」白名單，或自行配置域名以使用 HTTP。
 - 生成的影像僅存於本地瀏覽器 localStorage，使用者可隨時刪除，確保資料不會被上傳至後端。
-
-
 
 ---
 

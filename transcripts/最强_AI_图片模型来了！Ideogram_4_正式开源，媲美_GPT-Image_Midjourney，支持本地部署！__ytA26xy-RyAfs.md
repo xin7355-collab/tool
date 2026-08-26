@@ -1,7 +1,6 @@
 # 最强_AI_图片模型来了！Ideogram_4_正式开源，媲美_GPT-Image_Midjourney，支持本地部署！
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=A26xy-RyAfs)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,22 +13,21 @@
 
 - 短標題：最强 AI 图片模型来了！Ideogram 4 正式开源，媲美 GPT-Image Midjourney，支持本地部署
 
+- 本地部署流程：下載 5 個模型檔、安裝 ConfiUI V0.26.2、選擇本地模式、設定 GPU（NVIDIA）並導入工作流，無需翻牆即可完成安裝。
+
+- 日期：2026-06-26
 
 
 ## 摘要
-
 
 
 **一句話**：Ideogram 4（Eden Ground 4）正式開源，提供 9.3B 參數的高效圖像生成模型，可本地部署並在 24GB GPU 上 5 秒內產生逼真圖像，優於同類 200B 參數模型。
 
 - Ideogram 4 以 NF4（NVIDIA）和 FP8（通用）兩種精度版本提供，均為 9.3B 參數，並附帶完整模型權重。  
 - 相較於 200B 參數的 LightImage、321B Flash 2 以及 800B ReSource Image，Ideogram 4 在文版渲染效果上領先，速度更快且更自然。  
-- 本地部署流程：下載 5 個模型檔、安裝 ConfiUI V0.26.2、選擇本地模式、設定 GPU（NVIDIA）並導入工作流，無需翻牆即可完成安裝。  
 - 在 24GB GPU 上，生成一張圖片平均耗時約 5 秒，支持多種比例（9:16、16:9、21:9）並能處理複雜中文/英文提示詞。  
 - 英文提示詞效果較佳，中文提示詞在文字生成上偶有錯字；但整體圖像質量高，適用於插畫、動畫與產品設計。  
 - 影片提供完整下載鏈接，觀眾可自行下載模型與工作流進行實驗。
-
-
 
 ---
 

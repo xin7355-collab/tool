@@ -1,7 +1,6 @@
 # 鵲Kasasagi_Coffee_Roasters_手沖咖啡教學
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=dmXKOnOpPyA)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：鵲Kasasagi Coffee Roasters 手沖咖啡教學
 
+- 日期：2021-07-07
 
 
 ## 摘要
-
 
 
 **一句話**：影片主要重複請求觀眾點贊、訂閱、轉發及支持，並提及「明鏡與點點」節目與「YoYo Television Series Exclusive」。
@@ -26,8 +25,6 @@
 - 影片同時提到「明鏡與點點」節目，並再次請求觀眾支持。
 - 影片中出現「i know you」字樣，可能為片尾或旁白。
 - 影片最後提及「優優獨播劇場——YoYo Television Series Exclusive」，暗示此影片屬於該系列的獨播內容。
-
-
 
 ---
 

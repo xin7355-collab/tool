@@ -1,7 +1,6 @@
 # 【生成式AI】淺談圖像生成模型_Diffusion_Model_原理
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=azBugJzmz-o)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,12 @@
 
 - 短標題：生成式AI｜淺談圖像生成模型 Diffusion Model 原理
 
+- 訓練 Noise Predictor 需要圖像加噪的前向過程資料：將真實圖像逐步加入 Gaussian 噪聲，記錄每一步的噪聲量與真實噪聲，作為輸入–輸出對。
+
+- 日期：2023-03-25
 
 
 ## 摘要
-
 
 
 **一句話**：Diffusion Model 透過從高噪聲圖像逐步去噪，結合文字提示，利用大量圖文對資料訓練噪聲預測器，實現高品質影像生成。
@@ -25,11 +26,8 @@
 - Diffusion Model 以 Denoising Diffusion Probabilistic Model（DDPM）為核心，廣泛應用於 DALL·E、Imagen 與 Stable Diffusion 等系統。  
 - 生成流程先從符合圖像尺寸（如 256×256）的高斯噪聲向量開始，經過預設步數（如 1999→1）逐步去噪，最終得到清晰圖像。  
 - 去噪模型為單一模型，輸入為噪聲圖像與步數 ID；其內部的 Noise Predictor 預測該步驟的噪聲，並將其減去以產生去噪結果。  
-- 訓練 Noise Predictor 需要圖像加噪的前向過程資料：將真實圖像逐步加入 Gaussian 噪聲，記錄每一步的噪聲量與真實噪聲，作為輸入–輸出對。  
 - 為實現文字到圖像的生成，需使用圖文對資料；大型資料集如 LAION‑5B 擁有 5.85 billion 張圖像，並包含多語言文字描述。  
 - 在文字提示的情況下，Noise Predictor 會額外接收文字輸入，並在每一步根據圖像、步數與文字共同預測噪聲，完成文本驅動的去噪與生成。
-
-
 
 ---
 
