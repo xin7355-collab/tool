@@ -55,8 +55,9 @@ def build(site_dir="site/transcripts"):
         it["added"] = seen.get(it["file"], today)
         # 只有逐字稿有 .srt（字幕要對時間軸）。文章和上傳的文件沒有，
         # 但前端本來每張卡都畫三個下載鈕，那個 .srt 按下去就是 404。
-        if os.path.exists(p[:-3] + ".srt"):
-            it["srt"] = True
+        # 一定要連 False 也寫出來：前端把「沒有這個欄位」當成舊版索引、
+        # 照舊三個都顯示，只寫 True 的話就永遠走那條相容路徑，等於沒修。
+        it["srt"] = os.path.exists(p[:-3] + ".srt")
         items.append(it)
     with open(out, "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
