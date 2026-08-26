@@ -1,14 +1,14 @@
 {
  "run": "32933523274",
  "state": "running",
- "updated": "2026-08-26T05:19:00Z",
+ "updated": "2026-08-26T05:19:07Z",
  "files": [
   {
    "name": "20260826-131742_01公文製作__ytK4r_EeeWkEs.m4a",
    "title": "01公文製作",
-   "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "state": "done",
+   "step": "完成（3818 字）",
+   "pct": 100
   }
  ]
 }
