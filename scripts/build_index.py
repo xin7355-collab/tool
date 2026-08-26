@@ -53,6 +53,10 @@ def build(site_dir="site/transcripts"):
                     v = m.group(2).strip()
                     it[k] = [x for x in re.split(r"[、,]", v) if x] if k == "tags" else v
         it["added"] = seen.get(it["file"], today)
+        # 只有逐字稿有 .srt（字幕要對時間軸）。文章和上傳的文件沒有，
+        # 但前端本來每張卡都畫三個下載鈕，那個 .srt 按下去就是 404。
+        if os.path.exists(p[:-3] + ".srt"):
+            it["srt"] = True
         items.append(it)
     with open(out, "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
