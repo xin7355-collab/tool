@@ -1,7 +1,7 @@
 {
  "run": "32930577862",
  "state": "running",
- "updated": "2026-08-26T04:38:02Z",
+ "updated": "2026-08-26T04:38:03Z",
  "files": [
   {
    "name": "20260826-122954_公文撰寫秘訣大公開｜國考公文應該如何寫得好？林嵩老師直接批改給你看！__yt-6DG7skoHR8.m4a",
@@ -34,9 +34,9 @@
   {
    "name": "20260826-123133_政院「生成式AI」指引！_可寫公文.「機密文件禁用」｜華視新聞_20230901__ytdcUzbrOw0og.m4a",
    "title": "政院「生成式AI」指引！_可寫公文.「機密文件禁用」｜華視新聞_20230901",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20260826-123139_AI51_Gemini_Spark_×_Gemini_Notebook，讓枯燥的公文寫作變得專業且輕鬆_geminisp__ytkbAgdV__8Mc.webm",
