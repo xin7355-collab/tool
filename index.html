@@ -554,7 +554,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.5.1';
+var APP_VER='1.5.2';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -2009,6 +2009,49 @@ function putFile(path,text,note){
 /* ---------- 逐字稿 ---------- */
 var items=[], cache={};
 function sib(f){return {md:f,txt:f.replace(/\.md$/i,'.txt'),srt:f.replace(/\.md$/i,'.srt')};}
+/* iPhone 把這個網站「加入主畫面」之後就沒有瀏覽器工具列了，
+   而 <a download> 在 iOS 上不是存檔、是直接「打開」那個檔——整個畫面被預覽蓋掉，
+   沒有上一頁可以按，只能把 App 關掉重開。
+   改成先抓成檔案再叫系統分享單：分享單是浮在 App 上面的，關掉就回到原本的位置，
+   要存到「檔案」App、傳到別的地方都在那張單子上。
+   桌機和不支援分享的瀏覽器維持原本的直接存檔。 */
+function dlLink(path,label){
+  return '<a href="'+enc(path)+'" download data-dl="'+esc(path)+'">'+label+'</a>';
+}
+function drop(b,name){                       // 老路：直接存檔
+  var u=URL.createObjectURL(b),a=document.createElement('a');
+  a.href=u;a.download=name;document.body.appendChild(a);a.click();
+  setTimeout(function(){URL.revokeObjectURL(u);a.remove();},1500);
+  toast('已下載 ✓');
+}
+function save(path){
+  var name=decodeURIComponent(path.split('/').pop());
+  toast('準備中…');
+  fetch(enc(path),{cache:'no-store'}).then(function(r){
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    return r.blob();
+  }).then(function(b){ return saveBlob(b,name); })
+    .catch(function(e){ toast('下載失敗：'+(e.message||e)); });
+}
+function saveBlob(b,name,type){
+  var f=null;
+  try{ f=new File([b],name,{type:type||b.type||'text/plain'}); }catch(e){}
+  if(f && navigator.canShare && navigator.canShare({files:[f]}))
+    return navigator.share({files:[f],title:name}).then(function(){
+      toast('已送出 ✓');
+    },function(e){
+      if(e && (e.name==='AbortError'||e.name==='NotAllowedError')) return;  // 自己取消的不算失敗
+      drop(b,name);
+    });
+  drop(b,name);
+}
+document.addEventListener('click',function(e){
+  var a=e.target;
+  while(a && a!==document && !(a.getAttribute && a.getAttribute('data-dl'))) a=a.parentNode;
+  if(!a || a===document) return;
+  e.preventDefault();
+  save(a.getAttribute('data-dl'));
+});
 /* 只有逐字稿有 .srt（字幕要對時間軸）。文章和上傳的文件沒有，
    但下載鈕本來三個一律都畫，按下去就是 404。索引裡有 srt 旗標就照它，
    舊的索引還沒有這個欄位時就照舊都顯示，免得反而少東西可下載。 */
@@ -2036,9 +2079,8 @@ function show(file,title,li){
     .then(function(t){
       if(openFile!==file) return;                // 中途換了一篇就不要蓋掉
       p.innerHTML='<div class="ph"><b>'+esc(title)+'</b><br>下載：'+
-        '<a href="'+enc(s.txt)+'" download>.txt</a> · '+
-        '<a href="'+enc(s.md)+'" download>.md</a>'+
-        (hasSrt(file) ? ' · <a href="'+enc(s.srt)+'" download>.srt</a>' : '')+
+        dlLink(s.txt,'.txt')+' · '+dlLink(s.md,'.md')+
+        (hasSrt(file) ? ' · '+dlLink(s.srt,'.srt') : '')+
         '<br><a href="#" id="paperClose">✕ 收起</a></div>'+
         '<div id="sumBox"></div>'+esc(stripSum(t));
       p.scrollTop=0;
@@ -2233,9 +2275,8 @@ function draw(list){
     h.onclick=function(){show(it.file,nameOf(it),li);};
     top.appendChild(cb); top.appendChild(h);
     var d=document.createElement('div'); d.className='dl';
-    d.innerHTML='<a href="'+enc(s.txt)+'" download>⬇ .txt</a>'+
-      '<a href="'+enc(s.md)+'" download>.md</a>'+
-      (hasSrt(it.file) ? '<a href="'+enc(s.srt)+'" download>.srt</a>' : '');
+    d.innerHTML=dlLink(s.txt,'⬇ .txt')+dlLink(s.md,'.md')+
+      (hasSrt(it.file) ? dlLink(s.srt,'.srt') : '');
     li.appendChild(top); li.appendChild(d);
     if(it._snip){var sn=document.createElement('div');sn.className='snip';sn.innerHTML=it._snip;li.appendChild(sn);}
     if(it.file===openFile) reopen=li;          // 這篇本來是展開的，等等放回去
@@ -2602,12 +2643,7 @@ $('#zipBtn').onclick=function(){
       });
     });
     Promise.all(jobs).then(function(){return zip.generateAsync({type:'blob'});})
-      .then(function(b){
-        var u=URL.createObjectURL(b),a=document.createElement('a');
-        a.href=u;a.download='transcripts-'+fmt+'.zip';document.body.appendChild(a);a.click();
-        setTimeout(function(){URL.revokeObjectURL(u);a.remove();},1500);
-        toast('已下載 ZIP ✓');
-      });
+      .then(function(b){ saveBlob(b,'transcripts-'+fmt+'.zip','application/zip'); });
   };
   s.onerror=function(){toast('打包元件載入失敗');};
   document.head.appendChild(s);
