@@ -1,14 +1,14 @@
 {
  "run": "33030772957",
  "state": "running",
- "updated": "2026-08-27T01:39:34Z",
+ "updated": "2026-08-27T01:39:35Z",
  "files": [
   {
    "name": "20260827-093300_TEST-數字方塊.pdf",
    "title": "TEST-數字方塊",
-   "state": "running",
-   "step": "讀取中…",
-   "pct": 1
+   "state": "failed",
+   "step": "失敗：name 'read_doc' is not defined",
+   "pct": 0
   }
  ]
 }
