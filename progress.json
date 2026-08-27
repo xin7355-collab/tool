@@ -1,14 +1,14 @@
 {
  "run": "33030888773",
  "state": "running",
- "updated": "2026-08-27T01:41:50Z",
+ "updated": "2026-08-27T01:41:52Z",
  "files": [
   {
    "name": "20260827-093300_TEST-數字方塊.pdf",
    "title": "TEST-數字方塊",
-   "state": "running",
-   "step": "整理摘要…",
-   "pct": 90
+   "state": "done",
+   "step": "完成（698 字）",
+   "pct": 100
   }
  ]
 }
