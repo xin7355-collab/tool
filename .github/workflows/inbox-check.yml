@@ -1,0 +1,27 @@
+name: 檢查附件暫存區
+
+# 上傳的音檔與文件是放在 Release 附件（不進 git 歷史）。這條路一旦不通，
+# 網站會安靜地退回「直接寫進 repo」，repo 又開始變胖，好幾天都不會發現。
+# 手動跑這個就能一分鐘內確認：建立、上傳、列出、下載比對、刪除，全走一遍。
+# 順便列出暫存區裡還有哪些待處理的檔案。
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/inbox.py selftest
