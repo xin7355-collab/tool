@@ -1,13 +1,13 @@
 {
- "run": "33026913144",
- "state": "done",
- "updated": "2026-08-27T00:28:42Z",
+ "run": "33027053476",
+ "state": "running",
+ "updated": "2026-08-27T00:30:40Z",
  "files": [
   {
    "name": "20260827-010101_TEST-退路流程.pdf",
    "title": "TEST-退路流程",
-   "state": "failed",
-   "step": "失敗：PDF 既沒有文字層也沒有圖片",
+   "state": "waiting",
+   "step": "排隊中",
    "pct": 0
   }
  ]
