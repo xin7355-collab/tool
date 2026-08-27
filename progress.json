@@ -1,14 +1,14 @@
 {
  "run": "33035959606",
  "state": "running",
- "updated": "2026-08-27T03:18:40Z",
+ "updated": "2026-08-27T03:18:41Z",
  "files": [
   {
    "name": "20260827-111809_1-1_轉折波與股票的3大走向.pdf",
    "title": "1-1_轉折波與股票的3大走向",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "讀取中…",
+   "pct": 1
   }
  ]
 }
