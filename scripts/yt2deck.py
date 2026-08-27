@@ -15,12 +15,13 @@ yt-dlp 在這裡跑幾乎都會成功。下載完直接呼叫 GitHub API 上傳�
 """
 import os, re, sys, json, time, base64, urllib.request, urllib.parse, urllib.error
 
-VERSION = "9"
+VERSION = "10"
 OWNER, REPO = "xin7355-collab", "tool"
 API = "https://api.github.com/repos/%s/%s" % (OWNER, REPO)
 RAW = ("https://raw.githubusercontent.com/%s/%s/main/scripts/yt2deck.py"
        % (OWNER, REPO))
 MAX_MB = 45
+INBOX_TAG = "inbox"          # 當暫存區用的 Release 標籤
 TOKEN_FILES = ["deck_token.txt", os.path.expanduser("~/Documents/deck_token.txt")]
 COOKIE_FILES = ["deck_cookies.txt", os.path.expanduser("~/Documents/deck_cookies.txt")]
 
@@ -280,31 +281,65 @@ def download(url):
            ver, first))
 
 
+def release_id(token):
+    """拿到（必要時建立）當暫存區用的那個 Release。音檔放這裡，不進 git。"""
+    def call(url, method="GET", obj=None):
+        data = json.dumps(obj).encode() if obj is not None else None
+        h = {"Authorization": "Bearer " + token,
+             "Accept": "application/vnd.github+json",
+             "User-Agent": "yt2deck/" + VERSION}
+        if obj is not None:
+            h["Content-Type"] = "application/json"
+        r = urllib.request.Request(url, data=data, method=method, headers=h)
+        with urllib.request.urlopen(r, timeout=60) as resp:
+            return json.loads(resp.read().decode())
+    try:
+        return call("%s/releases/tags/%s" % (API, INBOX_TAG))["id"]
+    except urllib.error.HTTPError as e:
+        if e.code != 404:
+            raise
+    return call(API + "/releases", "POST",
+                {"tag_name": INBOX_TAG, "name": "待處理檔案暫存區",
+                 "prerelease": True, "make_latest": "false",
+                 "body": "系統暫存待處理檔案的地方，處理完會自動刪掉。請不要手動改。"})["id"]
+
+
 def upload(path, title, token, vid=""):
+    """音檔上傳成 Release 附件，再推一個很小的標記檔去觸發產線。
+
+    為什麼不直接 commit 進 repo：git 會永久保留每個版本，「處理完刪掉」只是
+    在最新版本裡看不到而已。173 個音檔就把 repo 撐到 1.2GB。
+    Release 附件不算進 git 歷史，刪掉就是真的沒了。
+    """
     size_mb = os.path.getsize(path) / 1048576.0
     print("音檔 %.1fMB：%s" % (size_mb, title), flush=True)
     if size_mb > MAX_MB:
         sys.exit("檔案太大（上限 %dMB）。請改用較短的影片。" % MAX_MB)
     with open(path, "rb") as f:
-        content = base64.b64encode(f.read()).decode()
-    ext = os.path.splitext(path)[1] or ".m4a"
+        blob = f.read()
+    ext = (os.path.splitext(path)[1] or ".m4a").lower()
     # 把影片 ID 用 __yt 標記夾在檔名裡：產線會原封不動帶到逐字稿檔名，
     # 網站就能靠它認出「這支已經抓過了」。safe_name 只作用在標題上，標記不會被吃掉。
     tag = ("__yt" + vid) if vid else ""
-    remote = "audio-inbox/%s_%s%s%s" % (time.strftime("%Y%m%d-%H%M%S"),
-                                        safe_name(title), tag, ext)
+    stamp = time.strftime("%Y%m%d-%H%M%S")
+    filename = "%s_%s%s%s" % (stamp, safe_name(title), tag, ext)
+    # 附件名稱一律純 ASCII：中文檔名在附件網址上會被轉義得很難認。
+    # 真正給人看的檔名放在標記檔裡，產線抓下來時會還原。
+    # 影片 ID 也留在附件名稱裡（它本來就是 ASCII）：這樣「已經在排隊的」
+    # 只要列一下 inbox/ 的檔名就比對得出來，不用把每個標記檔都下載下來。
+    asset = "%s-%03d%s%s" % (stamp, 1, tag, ext)
 
-    body = json.dumps({"message": "Upload audio (a-Shell)",
-                       "content": content, "branch": "main"}).encode()
+    rid = release_id(token)
+    url = ("https://uploads.github.com/repos/%s/%s/releases/%s/assets?name=%s"
+           % (OWNER, REPO, rid, urllib.parse.quote(asset)))
     print("上傳中…", flush=True)
     # 手機網路（尤其 4G）傳十幾 MB 常會斷在半路（Broken pipe），重試幾次就過了
     for attempt in range(1, 5):
         req = urllib.request.Request(
-            API + "/contents/" + urllib.parse.quote(remote),
-            data=body, method="PUT",
+            url, data=blob, method="POST",
             headers={"Authorization": "Bearer " + token,
                      "Accept": "application/vnd.github+json",
-                     "Content-Type": "application/json",
+                     "Content-Type": "application/octet-stream",
                      "User-Agent": "yt2deck/" + VERSION})
         try:
             with urllib.request.urlopen(req, timeout=600) as r:
@@ -330,9 +365,13 @@ def upload(path, title, token, vid=""):
                                        "   這不是權限問題，稍後再送一次通常就好。\n   %s" % detail)
                 sys.exit("權限不足（403）。這把 Token 需要 Contents: Read and write，\n"
                          "且 Repository access 要包含 %s/%s。\n%s" % (OWNER, REPO, detail))
-            if e.code == 422 and "sha" in detail:
-                print("   這個檔名已經在排隊了，跳過。", flush=True)
-                return
+            if e.code == 422:
+                # 附件名稱撞到了（同一秒傳了兩個）。換個編號再送，不要放棄這個檔案。
+                asset = "%s-%03d%s%s" % (stamp, attempt + 1, tag, ext)
+                url = ("https://uploads.github.com/repos/%s/%s/releases/%s/assets?name=%s"
+                       % (OWNER, REPO, rid, urllib.parse.quote(asset)))
+                print("   附件名稱重複，換成 %s 再試…" % asset, flush=True)
+                continue
             if e.code < 500 or attempt == 4:
                 raise RuntimeError("上傳失敗 HTTP %s：%s" % (e.code, detail))
             why = "HTTP %s" % e.code
@@ -343,8 +382,40 @@ def upload(path, title, token, vid=""):
         wait = 5 * attempt
         print("   上傳中斷（%s），%d 秒後重試（第 %d/4 次）…" % (why, wait, attempt), flush=True)
         time.sleep(wait)
+    # 附件本身不會觸發工作流，要推一個標記檔才會。內容只有幾十位元組。
+    put_mark(asset, filename, token)
     print("✅ 上傳成功！產線開始辨識，完成後會出現在："
           "\n   https://%s.github.io/%s/" % (OWNER, REPO), flush=True)
+
+
+def put_mark(asset, filename, token):
+    """在 repo 裡寫一個小標記檔，產線靠它知道有東西要處理、以及原本的檔名。"""
+    body = json.dumps({
+        "message": "Upload audio (a-Shell)",
+        "branch": "main",
+        "content": base64.b64encode(json.dumps(
+            {"asset": asset, "file": filename, "kind": "audio"},
+            ensure_ascii=False).encode()).decode(),
+    }).encode()
+    path = "inbox/" + os.path.splitext(asset)[0] + ".json"
+    for attempt in range(1, 4):
+        req = urllib.request.Request(
+            API + "/contents/" + urllib.parse.quote(path),
+            data=body, method="PUT",
+            headers={"Authorization": "Bearer " + token,
+                     "Accept": "application/vnd.github+json",
+                     "Content-Type": "application/json",
+                     "User-Agent": "yt2deck/" + VERSION})
+        try:
+            with urllib.request.urlopen(req, timeout=120) as r:
+                r.read()
+            return
+        except Exception as e:
+            if attempt == 3:
+                raise RuntimeError(
+                    "音檔上傳好了，但觸發用的標記檔沒推上去（%s）。\n"
+                    "   檔案還在，稍後產線的定時重試會撿到它。" % str(e)[:80])
+            time.sleep(3 * attempt)
 
 
 def bad_token_msg(tok):
@@ -552,7 +623,7 @@ def already_have(token):
     只有連不上 GitHub 時才退而用手機上的備援名單。
     """
     ids, reachable = set(), True
-    for path, ref in (("transcripts", "gh-pages"), ("audio-inbox", "main")):
+    for path, ref in (("transcripts", "gh-pages"), ("inbox", "main")):
         names, ok = _list_names(path, ref, token)
         reachable = reachable and ok
         for name in names:

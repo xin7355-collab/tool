@@ -17,6 +17,9 @@ Google 文件／試算表／簡報會先匯出成 PDF 或純文字再丟進去�
 import os, re, io, sys, json, time, base64, mimetypes
 import urllib.request, urllib.parse, urllib.error
 
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import inbox
+
 CONF = os.environ.get("GDRIVE_CONF", "gdrive.json")
 STATE = os.environ.get("GDRIVE_STATE", ".gdrive-state.json")
 AUDIO_DIR = os.environ.get("AUDIO_INBOX", "audio-inbox")
@@ -170,8 +173,11 @@ def main():
         save(STATE, st)
         print("還沒加入任何資料夾。"); return 0
 
-    os.makedirs(AUDIO_DIR, exist_ok=True)
-    os.makedirs(DOC_DIR, exist_ok=True)
+    try:
+        rel = inbox.release()
+    except Exception as e:
+        print("::error::拿不到暫存用的 Release：%s" % str(e)[:120], flush=True)
+        return 1
     took, skipped, errs = 0, [], {}
     stamp = time.strftime("%Y%m%d-%H%M%S", time.gmtime())
 
@@ -211,14 +217,30 @@ def main():
                 skipped.append("%s（%.1fMB，超過 %.0fMB）" % (f["name"], mb, cap))
                 continue
             base = os.path.splitext(f["name"])[0]
-            out = os.path.join(folder, "%s-%03d_%s%s" % (stamp, took + 1, safe_name(base), ext))
+            filename = "%s-%03d_%s%s" % (stamp, took + 1, safe_name(base), ext)
             try:
                 data = fetch(tok, f)
             except Exception as e:
                 print("    下載失敗 %s：%s" % (f["name"], str(e)[:80]), flush=True)
                 continue                              # 這次不記，下一輪再試
-            with open(out, "wb") as fh:
+            # 檔案本體上傳成 Release 附件，repo 裡只留一個很小的標記檔。
+            # 直接 commit 進 repo 的話，每個檔案都會永遠留在 git 歷史裡。
+            tmp = os.path.join("out", filename)
+            os.makedirs("out", exist_ok=True)
+            with open(tmp, "wb") as fh:
                 fh.write(data)
+            try:
+                asset = inbox.safe_id(stamp, took + 1, ext)
+                inbox.put_asset(tmp, asset, rel=rel)
+                inbox.mark(asset, filename, "audio" if folder == AUDIO_DIR else "doc")
+            except Exception as e:
+                print("    上傳附件失敗 %s：%s" % (f["name"], str(e)[:80]), flush=True)
+                continue                              # 這次不記，下一輪再試
+            finally:
+                try:
+                    os.remove(tmp)
+                except OSError:
+                    pass
             seen[f["id"]] = f["name"]
             took += 1
             print("    ⬇ %s → %s（%.1fMB）" % (f["name"], folder, len(data) / 1048576.0), flush=True)

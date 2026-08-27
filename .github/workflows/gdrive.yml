@@ -1,8 +1,8 @@
 name: Google 雲端硬碟同步
 
 # 「📡 追蹤」分頁加進來的雲端硬碟資料夾，這裡定期去看有沒有新檔案，
-# 有就下載並丟進既有的收件匣 —— 影音進 audio-inbox/、文件進 doc-inbox/ ——
-# 剩下的交給 audio.yml / docs.yml，不重複做一套。
+# 有就下載、上傳成 Release 附件（不進 git 歷史），並推一個小標記檔觸發
+# audio.yml / docs.yml 去處理，不重複做一套。
 #
 # 一次最多收 10 個檔案，剩下的下一輪繼續，避免一口氣把大檔全塞進 repo。
 
@@ -40,6 +40,7 @@ jobs:
       - name: 讀雲端硬碟
         env:
           GDRIVE_KEY: ${{ secrets.GDRIVE_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # 上傳 Release 附件要用
         run: python scripts/gdrive_sync.py
       - name: 放進收件匣
         run: |

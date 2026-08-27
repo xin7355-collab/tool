@@ -554,7 +554,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.4.0';
+var APP_VER='1.5.0';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1681,6 +1681,76 @@ function safeBase(s,dflt){
 /* opts: dir 收件匣、msgSel 訊息欄、btn 按鈕、label 按鈕原本的字、
          maxMB 單檔上限、note 提交訊息、prepare(檔案)→Promise<Blob>、
          nameOf(檔案, 索引, blob)→檔名 */
+/* 檔案本體上傳成 Release 附件（不算進 git 歷史），再推一個很小的標記檔觸發產線。
+   以前是把檔案 commit 進 repo，處理完 git rm——但 git 永遠留著每個版本，
+   173 個音檔就把 repo 撐到 1.2GB。
+   uploads.github.com 不保證允許瀏覽器跨網域上傳，擋掉時就退回原本的做法：
+   寧可 repo 胖一點，也不能讓「上傳」這件事整個壞掉。 */
+var inboxRel=null;
+function ghHead(tok,extra){
+  var h={'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json'};
+  if(extra) for(var k in extra) h[k]=extra[k];
+  return h;
+}
+function inboxRelease(tok){
+  if(inboxRel) return Promise.resolve(inboxRel);
+  return fetch(API+'/releases/tags/inbox',{headers:ghHead(tok)})
+    .then(function(r){
+      if(r.ok) return r.json();
+      if(r.status!==404) throw new Error('HTTP '+r.status);
+      return fetch(API+'/releases',{method:'POST',
+        headers:ghHead(tok,{'Content-Type':'application/json'}),
+        body:JSON.stringify({tag_name:'inbox',name:'待處理檔案暫存區',
+          prerelease:true,make_latest:'false',
+          body:'系統暫存待處理檔案的地方，處理完會自動刪掉。請不要手動改。'})})
+        .then(function(x){ if(!x.ok) throw new Error('建立暫存區失敗 HTTP '+x.status); return x.json(); });
+    }).then(function(j){ inboxRel=j.id; return inboxRel; });
+}
+function putMark(obj,id,tok,note){
+  return b64(new Blob([JSON.stringify(obj)],{type:'application/json'})).then(function(c){
+    return fetch(API+'/contents/'+encodeURIComponent('inbox/'+id+'.json').replace(/%2F/g,'/'),{
+      method:'PUT',headers:ghHead(tok,{'Content-Type':'application/json'}),
+      body:JSON.stringify({message:note,content:c,branch:'main'})});
+  }).then(function(r){
+    if(r.status===201||r.status===200) return;
+    return r.json().catch(function(){return{};}).then(function(j){
+      throw new Error('標記檔沒推上去 HTTP '+r.status+'：'+(j.message||''));
+    });
+  });
+}
+function store(blob, filename, opts, tok, show){
+  var kind=(opts.dir==='audio-inbox')?'audio':'doc';
+  var ext=(filename.match(/\.[A-Za-z0-9]+$/)||[''])[0].toLowerCase();
+  var id=(filename.match(/^[0-9]{8}-[0-9]{6}(-[0-9]+)?/)||['file'])[0]
+         +(filename.match(/__yt[A-Za-z0-9_-]{11}/)||[''])[0];
+  return inboxRelease(tok).then(function(rid){
+    return fetch('https://uploads.github.com/repos/'+OWNER+'/'+REPO+
+                 '/releases/'+rid+'/assets?name='+encodeURIComponent(id+ext),{
+      method:'POST',headers:ghHead(tok,{'Content-Type':'application/octet-stream'}),
+      body:blob});
+  }).then(function(r){
+    if(!r.ok) throw new Error('asset HTTP '+r.status);
+    return putMark({asset:id+ext,file:filename,kind:kind},id,tok,opts.note);
+  }).catch(function(e){
+    if(/標記檔/.test(e&&e.message||'')) throw e;      // 附件傳成功、只是標記沒推：別重傳一次
+    // 附件這條路走不通（多半是瀏覽器跨網域被擋）→ 退回把檔案直接寫進 repo
+    if(show) show('附件通道不通，改用備用方式上傳…');
+    return b64(blob).then(function(c){
+      var path=opts.dir+'/'+filename;
+      return fetch(API+'/contents/'+encodeURIComponent(path).replace(/%2F/g,'/'),{
+        method:'PUT',headers:ghHead(tok,{'Content-Type':'application/json'}),
+        body:JSON.stringify({message:opts.note,content:c,branch:'main'})});
+    }).then(function(r){
+      if(r.status===201||r.status===200)
+        return putMark({path:opts.dir+'/'+filename,file:filename,kind:kind},id,tok,opts.note);
+      return r.json().catch(function(){return{};}).then(function(j){
+        throw new Error(r.status===401?'Token 無效，請按右上角 ⚙ 重新填'
+                       :r.status===403?'Token 缺少 Contents: Read and write 權限'
+                       :('HTTP '+r.status+'：'+(j.message||'')));
+      });
+    });
+  });
+}
 function sendFiles(files, opts){
   var tok=getTok();
   if(!tok){ msg(opts.msgSel,'❌ 請先按右上角 ⚙ 填 GitHub Token',1); return; }
@@ -1694,22 +1764,9 @@ function sendFiles(files, opts){
       var mb=blob.size/1048576;
       if(mb>opts.maxMB) throw new Error('檔案 '+mb.toFixed(1)+'MB，超過 '+opts.maxMB+'MB');
       show('上傳中（'+mb.toFixed(1)+'MB）…');
-      return b64(blob).then(function(c){
-        var path=opts.dir+'/'+opts.nameOf(f,i,blob);
-        return fetch(API+'/contents/'+encodeURIComponent(path).replace(/%2F/g,'/'),{
-          method:'PUT',
-          headers:{'Authorization':'Bearer '+tok,'Accept':'application/vnd.github+json',
-                   'Content-Type':'application/json'},
-          body:JSON.stringify({message:opts.note,content:c,branch:'main'})});
-      });
-    }).then(function(r){
-      return r.json().catch(function(){return{};}).then(function(j){
-        if(r.status===201||r.status===200){ ok++; return; }
-        throw new Error(r.status===401?'Token 無效，請按右上角 ⚙ 重新填'
-                       :r.status===403?'Token 缺少 Contents: Read and write 權限'
-                       :('HTTP '+r.status+'：'+(j.message||'')));
-      });
-    }).catch(function(e){
+      return store(blob, opts.nameOf(f,i,blob), opts, tok, show);
+    }).then(function(){ ok++; })
+    .catch(function(e){
       // 一個壞掉不該讓其他的也不傳——十個檔案裡有一個太大是常有的事
       bad.push((f.name||'錄音')+'：'+(e&&e.message||'失敗'));
     });
