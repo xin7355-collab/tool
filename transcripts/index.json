@@ -385,6 +385,20 @@
     "srt": true
   },
   {
+    "file": "transcripts/TEST-數字方塊__doc.md",
+    "title": "TEST-數字方塊",
+    "src": "上傳文件（20260827-093300_TEST-數字方塊.pdf）",
+    "cat": "新手教學",
+    "tags": [
+      "趨勢",
+      "K線",
+      "均線"
+    ],
+    "clean": "TEST-數字方塊",
+    "added": "2026-08-27",
+    "srt": false
+  },
+  {
     "file": "transcripts/⚠️主力倒貨的暗號：學會辨識「紅黑節奏」與主力動向！_權證小哥_股票市場_投資_shorts__ytcmCj9o7ij_U.md",
     "title": "⚠️主力倒貨的暗號：學會辨識「紅黑節奏」與主力動向！_權證小哥_股票市場_投資_shorts",
     "src": "[YouTube 影片](https://www.youtube.com/watch?v=cmCj9o7ij_U)",
