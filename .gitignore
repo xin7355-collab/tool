@@ -1,5 +1,10 @@
+# 收件匣是「還沒處理完」的工作目錄，實際檔案放在 GitHub Release 附件裡。
+# 以前這兩個目錄是 commit 進 repo 的，處理完 git rm——但 git 會永久保留歷史，
+# 173 個音檔就把 repo 撐到 1.2GB。現在一律不進版控。
+audio-inbox/
+doc-inbox/
 out/
+recordings/
+site/
 __pycache__/
 *.pyc
-.DS_Store
-transcript-deck-config.json

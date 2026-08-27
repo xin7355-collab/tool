@@ -1,7 +1,7 @@
 name: 上傳文件讀成文字
 
-# 前端「📑 文件」分頁會把 PDF／圖片放進 doc-inbox/，這裡讀成文字並發佈，
-# 處理完把原始檔刪掉（文字留在 gh-pages，原檔不佔 repo）。
+# 上傳的 PDF／圖片放在 Release 附件（不進 git 歷史），repo 裡只有一個很小的
+# 標記檔負責觸發。這裡把附件抓下來讀成文字、發佈，然後把附件刪掉。
 #
 # 有文字層的 PDF 直接抽，不必辨識也不會有錯字；掃描件和照片才送去辨識。
 # PDF 裡的走勢圖會另外送去視覺模型描述，插回它在文章裡原本的位置——
@@ -11,8 +11,8 @@ on:
   push:
     branches: [main]
     paths:
-      - 'doc-inbox/**'
-  # 上次沒讀成功的留在 inbox；每 2 小時自動再試一次，不用手動重傳。
+      - 'inbox/**'          # 標記檔；真正的檔案在 Release 附件裡，不進 git
+  # 上次沒讀成功的附件會留著；每 2 小時自動再試一次，不用手動重傳。
   schedule:
     - cron: '5 */2 * * *'
   workflow_dispatch:
@@ -55,6 +55,10 @@ jobs:
             printf '<!doctype html><meta charset=utf-8><title>transcripts</title>' > index.html && cd ..
           fi
           mkdir -p site/transcripts
+      - name: 取回待處理的文件（從 Release 附件）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/inbox.py pull doc
       - name: 讀取文件
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # 進度條要靠它寫 gh-pages
@@ -130,16 +134,6 @@ jobs:
           [ -n "$NUM" ] && gh issue close "$NUM" --repo "$GITHUB_REPOSITORY" || true
       - name: 清掉已讀好的原始檔（失敗的留著等重試）
         if: always()
-        run: |
-          [ -s out/_processed.txt ] || { echo "沒有成功讀取的文件，全部保留待重試"; exit 0; }
-          while IFS= read -r f; do
-            [ -n "$f" ] && git rm -q --ignore-unmatch -- "$f"
-          done < out/_processed.txt
-          git diff --cached --quiet && exit 0
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Clear processed documents [skip ci]" || exit 0
-          for k in 1 2 3; do
-            git push origin HEAD:main && break
-            git pull --rebase origin main || true; sleep 3
-          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/inbox.py clear

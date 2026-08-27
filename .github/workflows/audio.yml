@@ -1,15 +1,17 @@
 name: 上傳音檔轉逐字稿
 
-# 前端「上傳音檔」會把檔案放進 audio-inbox/，這裡自動轉成逐字稿並發佈，
-# 處理完把音檔刪掉（逐字稿留在 gh-pages，音檔不佔 repo）。
+# 上傳的音檔放在 Release 附件（不進 git 歷史），repo 裡只有一個幾十位元組的
+# 標記檔負責觸發這條產線。這裡把附件抓下來轉成逐字稿、發佈，然後把附件刪掉。
+# 以前是把音檔 commit 進 audio-inbox/，處理完 git rm——但歷史會永久留著，
+# 173 個音檔就把 repo 撐到 1.2GB。
 # 音檔不經過 YouTube，所以完全沒有機器人驗證/封鎖問題。
 
 on:
   push:
     branches: [main]
     paths:
-      - 'audio-inbox/**'
-  # 上次沒轉成功的音檔會留在 inbox；每 2 小時自動再試一次，不用手動重傳。
+      - 'inbox/**'          # 標記檔；真正的音檔在 Release 附件裡，不進 git
+  # 上次沒轉成功的附件會留著；每 2 小時自動再試一次，不用手動重傳。
   schedule:
     - cron: '35 */2 * * *'
   workflow_dispatch:
@@ -58,6 +60,10 @@ jobs:
             printf '<!doctype html><meta charset=utf-8><title>transcripts</title>' > index.html && cd ..
           fi
           mkdir -p site/transcripts
+      - name: 取回待處理的音檔（從 Release 附件）
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/inbox.py pull audio
       - name: 轉錄音檔
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # 進度條要靠它寫 gh-pages
@@ -146,16 +152,6 @@ jobs:
           [ -n "$NUM" ] && gh issue close "$NUM" --repo "$GITHUB_REPOSITORY" || true
       - name: 清掉已轉好的音檔（失敗的留著等重試）
         if: always()
-        run: |
-          [ -s out/_processed.txt ] || { echo "沒有成功轉錄的音檔，全部保留待重試"; exit 0; }
-          while IFS= read -r f; do
-            [ -n "$f" ] && git rm -q --ignore-unmatch -- "$f"
-          done < out/_processed.txt
-          git diff --cached --quiet && exit 0
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Clear processed audio [skip ci]" || exit 0
-          for k in 1 2 3; do
-            git push origin HEAD:main && break
-            git pull --rebase origin main || true; sleep 3
-          done
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/inbox.py clear
