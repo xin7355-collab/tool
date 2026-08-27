@@ -303,9 +303,13 @@ def read_pdf(path, on_page=None):
     chars = sum(len(re.sub(r"\s", "", x[1])) for x in parts if x[0] == "text")
     imgs = [x for x in parts if x[0] == "image"]
 
-    # 完全沒有文字層＝掃描件，整頁重繪去辨識（原路）
-    if chars < MIN_TEXT and not imgs:
-        return "", "PDF 既沒有文字層也沒有圖片"
+    # 沒有圖可辨識時，文字層有多少就是多少——就算只有兩行也是內容。
+    # 之前這裡要求至少 MIN_TEXT 個字才算數，一份短備忘錄就會被判「讀不出來」。
+    if not imgs:
+        if not chars:
+            return "", "這份 PDF 既沒有文字也沒有圖片"
+        return "\n\n".join(x[1] for x in parts if x[0] == "text"), "PDF 文字層"
+    # 有圖、文字卻少得可疑＝掃描件，整頁重繪去辨識
     if chars < MIN_TEXT and all(x[4] for x in imgs):
         print("    沒有文字層，當成掃描件辨識…", flush=True)
         pages = pdf_page_images(path)
