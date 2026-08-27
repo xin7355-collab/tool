@@ -385,6 +385,35 @@ def read_pdf(path, on_page=None):
     return body, how
 
 
+# ---------- 整份文件 ----------
+
+def read_doc(path, on_page=None):
+    """回傳 (文字, 怎麼讀到的)。讀不出來就回 ("", 原因)。"""
+    ext = os.path.splitext(path)[1].lower()
+    if ext in TXT_EXT:
+        if on_page:
+            on_page(1, 1)
+        for enc in ("utf-8", "utf-8-sig", "big5", "cp950"):
+            try:
+                with open(path, encoding=enc) as f:
+                    t = f.read()
+                return t, "純文字檔" + ("" if enc.startswith("utf-8") else "（%s）" % enc)
+            except (UnicodeDecodeError, LookupError):
+                continue
+        with open(path, encoding="utf-8", errors="replace") as f:
+            return f.read(), "純文字檔（編碼有問題，可能有亂碼）"
+    if ext in PDF_EXT:
+        return read_pdf(path, on_page)
+    if on_page:
+        on_page(1, 1)
+    with open(path, "rb") as f:
+        t, how = ocr_page(f.read())
+    if not t:
+        return "", "圖片辨識不出文字"
+    return t, {"groq": "圖片辨識（Groq 視覺）",
+               "tesseract": "圖片辨識（Tesseract）"}.get(how, "圖片辨識")
+
+
 def clean_title(path):
     name = os.path.splitext(os.path.basename(path))[0]
     name = re.sub(r"^\d{8}-\d{6}[_-]", "", name)      # 前端加的時間戳前綴
