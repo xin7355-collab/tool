@@ -234,8 +234,53 @@ def clear():
     return 0
 
 
+def selftest():
+    """把整條附件路線走一遍：建 Release → 上傳 → 列出 → 下載比對 → 刪掉。
+
+    這條路一壞，所有上傳都會安靜地退回「直接寫進 repo」，repo 又開始變胖，
+    而且要好幾天才會發現。有這個指令就能一分鐘內確認它還通。
+    """
+    tok = token()
+    if not tok:
+        print("::error::沒有 GITHUB_TOKEN"); return 1
+    blob = b"inbox-selftest-" + str(int(time.time())).encode()
+    name = "selftest-%d.bin" % int(time.time())
+    tmp = os.path.join("out", name)
+    os.makedirs("out", exist_ok=True)
+    with open(tmp, "wb") as f:
+        f.write(blob)
+    try:
+        rel = release(tok=tok)
+        print("1. Release：#%s（tag=%s）" % (rel["id"], rel.get("tag_name")), flush=True)
+        a = put_asset(tmp, name, tok, rel)
+        print("2. 上傳附件：%s（%d bytes）" % (a["name"], a.get("size", 0)), flush=True)
+        names = [x["name"] for x in assets(rel, tok)]
+        print("3. 列出附件：共 %d 個%s" % (len(names), "，含這次上傳的" if name in names else "，⚠️ 沒看到這次的"), flush=True)
+        back = os.path.join("out", "back-" + name)
+        get_asset(a["id"], back, tok)
+        same = open(back, "rb").read() == blob
+        print("4. 下載回來比對：%s" % ("一致 ✅" if same else "不一致 ❌"), flush=True)
+        print("5. 刪掉：%s" % ("成功 ✅" if del_asset(a["id"], tok) else "失敗 ❌"), flush=True)
+        left = [x["name"] for x in assets(rel, tok)]
+        print("\n目前暫存區還有 %d 個附件（待處理的檔案）" % len(left), flush=True)
+        for n in left[:10]:
+            print("  ・" + n)
+        return 0 if same else 1
+    except Exception as e:
+        print("::error::附件路線不通：%s" % str(e).replace("\n", " ")[:200], flush=True)
+        return 1
+    finally:
+        for f in (tmp, os.path.join("out", "back-" + name)):
+            try:
+                os.remove(f)
+            except OSError:
+                pass
+
+
 if __name__ == "__main__":
     cmd = sys.argv[1] if len(sys.argv) > 1 else "pull"
+    if cmd == "selftest":
+        sys.exit(selftest())
     if cmd == "pull":
         sys.exit(pull(sys.argv[2] if len(sys.argv) > 2 else None))
     if cmd == "clear":
