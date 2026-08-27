@@ -1,13 +1,13 @@
 {
- "run": "33030772957",
- "state": "done",
- "updated": "2026-08-27T01:39:36Z",
+ "run": "33030888773",
+ "state": "running",
+ "updated": "2026-08-27T01:41:39Z",
  "files": [
   {
    "name": "20260827-093300_TEST-數字方塊.pdf",
    "title": "TEST-數字方塊",
-   "state": "failed",
-   "step": "失敗：name 'read_doc' is not defined",
+   "state": "waiting",
+   "step": "排隊中",
    "pct": 0
   }
  ]
