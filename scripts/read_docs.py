@@ -51,6 +51,13 @@ OCR_SYS = (
     "保留原本的段落與換行；表格請用 Markdown 表格；標題保留成一行。\n"
     "看不清楚的字用 □ 代替，不要猜。\n"
     "如果頁面上有走勢圖或圖表，抄完文字後另起一段，用「【圖表】」開頭描述它。\n"
+    "\n"
+    "走勢圖上有兩種數字，處理方式不一樣：\n"
+    "・座標軸刻度（右邊那一整排 240.0 230.0 220.0…、下面那排日期）**不要抄**。\n"
+    "  那是格線的刻度不是內容，抄出來只是一長串沒有意義的數字。\n"
+    "・圖上明確標註的價位（開高低收、均線值、頸線、支撐壓力）看得清楚才抄；\n"
+    "  只要有一點糊，**整段不要抄**，不要猜也不要湊一個看起來合理的數字。\n"
+    "  抄錯一個價格比少抄一個價格糟很多。\n"
     "整張圖沒有任何內容就只回一行：（沒有文字）"
 )
 # 走勢圖要的是另一種輸出：不是抄字，是把視覺資訊翻成文字。
@@ -234,12 +241,19 @@ def ocr_groq(data, sys_msg=OCR_SYS):
         return "", "圖片太大（%d KB）" % (len(b64) // 1024)
     body = json.dumps({
         "model": VISION_MODEL, "temperature": 0,
+        # 不給上限的話用模型預設，而 qwen3 會先花一大段 token 在 <think> 裡自言自語，
+        # 講義那種滿版的頁面就會在句子中間斷掉（實測讀到「股價在 20 日均線下方行進，當」
+        # 就沒了）。把額度開足，讓它想完還有位置把內容寫完。
+        "max_completion_tokens": 4096,
         "messages": [{"role": "user", "content": [
             {"type": "text", "text": sys_msg},
             {"type": "image_url",
              "image_url": {"url": "data:image/jpeg;base64," + b64}}]}],
     }).encode("utf-8")
-    for n in range(1, 4):
+    # 一份講義連著送十幾頁很容易撞到每分鐘額度。撞到就多等幾輪——
+    # 退到 Tesseract 的代價（整頁亂碼或整頁沒有）比多等三十秒大得多。
+    TRIES = 6
+    for n in range(1, TRIES + 1):
         req = urllib.request.Request(
             "https://api.groq.com/openai/v1/chat/completions", data=body,
             headers={"Authorization": "Bearer " + GROQ_API_KEY,
@@ -248,19 +262,24 @@ def ocr_groq(data, sys_msg=OCR_SYS):
         try:
             with urllib.request.urlopen(req, timeout=180) as r:
                 j = json.loads(r.read().decode("utf-8", "replace"))
-            msg = (j.get("choices") or [{}])[0].get("message", {}) or {}
-            return strip_think(msg.get("content") or ""), ""
+            ch = (j.get("choices") or [{}])[0]
+            txt = strip_think((ch.get("message") or {}).get("content") or "")
+            if ch.get("finish_reason") == "length" and txt:
+                print("      這一頁太長被截斷了", flush=True)
+                txt += "\n\n（這一頁後面被截斷，沒有讀完）"
+            return txt, ""
         except urllib.error.HTTPError as e:
             if e.code == 404:
                 return "", "Groq 找不到模型 %s（多半已停用）" % VISION_MODEL
-            if e.code not in (429, 500, 502, 503, 520, 524) or n == 3:
+            limit = TRIES if e.code == 429 else 3      # 額度多等，真的壞了就別耗
+            if e.code not in (429, 500, 502, 503, 520, 524) or n >= limit:
                 return "", "HTTP %s" % e.code
-            time.sleep(float(e.headers.get("Retry-After") or 0) or 3 * n)
+            time.sleep(min(float(e.headers.get("Retry-After") or 0) or 4 * n, 45))
         except Exception as e:
-            if n == 3:
+            if n >= 3:
                 return "", str(e).replace("\n", " ")[:80]
             time.sleep(3 * n)
-    return "", "重試三次都失敗"
+    return "", "重試 %d 次都失敗" % TRIES
 
 
 # ---------- 第 3 層：Tesseract ----------
@@ -286,6 +305,44 @@ def ocr_tesseract(data):
                 pass
 
 
+CJK = re.compile(r"[　-〿一-鿿＀-￯]")
+# 中文、英數、跟一般會出現在文件裡的標點與符號（▼ ↑ • 這些講義裡到處都是，
+# 不能算成雜訊）。這些以外的才算。
+SANE = re.compile(r"[\w\s　-〿一-鿿＀-￯"
+                  r"，。、；：？！（）「」『』〈〉《》【】—…·．,.:;?!()\[\]{}%+\-*/=<>#&@$~^|'\"’“”"
+                  r"▼▲△▽◀▶●○◎■□◆◇★☆→←↑↓↗↘↖↙•·§¶※　]")
+
+
+# 備用 OCR 讀出來的頁面要標記。逐字稿最後是拿去餵 AI 的，
+# 「哪幾頁不能全信」這件事必須寫在檔案裡，不能只印在 Actions 的 log 上——
+# 三個月後打開這個檔的人（或 AI）看不到那份 log。
+TESS_WARN = "> ⚠️ **這一頁是備用 OCR 讀的**（Groq 視覺模型當下讀不到），數字與排版可能不準。\n"
+
+
+def garbled(t):
+    """Tesseract 抄出來的是不是一頁廢話。
+
+    傳統 OCR 碰到 K 線圖會把格線、影線、色塊都當成字，抄回來像這樣：
+
+        7% 150.00 {£147.50 ／ ISMA10 192.50% ／ gs==- (ae = -一 sem SeeeBeasl
+
+    這種東西寫進逐字稿比空白還糟：人看了以為是內容，AI 讀了會拿去回答問題，
+    而且沒有任何跡象顯示它是假的。與其留著，不如老實說這頁讀不出來。
+
+    兩個指標，中一個就丟：雜訊符號太多、或中文文件裡幾乎沒有中文。
+    """
+    s = re.sub(r"\s+", "", t)
+    if len(s) < 40:                       # 太短就別猜了，寧可留著
+        return False
+    junk = len(s) - len(SANE.findall(s))
+    if junk / len(s) > 0.08:
+        return True
+    cjk = len(CJK.findall(s))
+    # 一頁只有零星幾個中文字、其餘全是英數＝抄到圖上的刻度和色塊了。
+    # 真的是英文文件的話中文會是 0，不會是「有一點點」，所以下限不設 0。
+    return 0 < cjk < 0.10 * len(s)
+
+
 def ocr_page(data, sys_msg=OCR_SYS):
     """一張圖 → (文字, 用了哪條路)。Groq 優先，失敗退 Tesseract。"""
     txt, why = ocr_groq(data, sys_msg)
@@ -299,6 +356,9 @@ def ocr_page(data, sys_msg=OCR_SYS):
     if sys_msg is CHART_SYS:
         return "", "none"
     txt, why2 = ocr_tesseract(data)
+    if txt and garbled(txt):
+        print("      Tesseract 抄回來的是亂碼，丟掉（%d 字）" % len(txt), flush=True)
+        return "", "none"
     if txt:
         return txt, "tesseract"
     print("      Tesseract 也讀不到（%s）" % why2, flush=True)
@@ -330,18 +390,19 @@ def read_pdf(path, on_page=None):
     if scanned or len(broken) == len(pages):
         why = "沒有文字層" if scanned else "文字層的字對應壞了（數字變方塊）"
         print("    %s，整份重繪辨識…" % why, flush=True)
-        got, ways = [], set()
+        got, ways = [], {}
         for i, p in enumerate(pages, 1):
             if on_page:
                 on_page(i, len(pages))
             txt, how = ocr_page(page_image(path, p["no"]))
-            ways.add(how)
+            ways[how] = ways.get(how, 0) + 1
             if txt:
-                got.append(txt)
+                got.append((TESS_WARN + txt) if how == "tesseract" else txt)
         if not got:
             return "", "每一頁都辨識不出文字"
-        ways.discard("none")
-        return "\n\n".join(got), "辨識 %d 頁（%s）" % (len(pages), "＋".join(sorted(ways)) or "?")
+        ways.pop("none", None)
+        return "\n\n".join(got), "辨識 %d 頁（%s）" % (
+            len(pages), "＋".join("%s %d 頁" % kv for kv in sorted(ways.items())) or "?")
 
     # 逐頁處理：好的頁用文字層，壞的頁重繪辨識，圖表就地翻成文字
     big = [x for x in imgs if min(x[2], x[3]) >= MIN_CHART_PX and x[1]]
@@ -354,7 +415,9 @@ def read_pdf(path, on_page=None):
             fixed += 1
             if on_page:
                 on_page(fixed, len(broken))
-            txt, _ = ocr_page(page_image(path, p["no"]))
+            txt, how = ocr_page(page_image(path, p["no"]))
+            if txt and how == "tesseract":
+                txt = TESS_WARN + txt
             out.append(txt or "（這一頁的文字讀不出來）")
             continue
         for part in p["parts"]:
