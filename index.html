@@ -554,7 +554,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.5.0';
+var APP_VER='1.5.1';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1660,11 +1660,25 @@ $('#subNow').onclick=function(){
     .catch(function(e){ msg('#subMsg','❌ '+(e&&e.message||'送出失敗'),1); })
     .then(function(){ btn.disabled=false; btn.textContent='⚡ 現在就找新片'; });
 };
-function b64(f){return new Promise(function(res,rej){
-  var r=new FileReader();
-  r.onload=function(){var s=String(r.result);res(s.slice(s.indexOf(',')+1));};
-  r.onerror=function(){rej(new Error('讀取失敗'));};
-  r.readAsDataURL(f);});}
+function b64(f){return readBytes(f).then(b64FromBuf);}
+/* 檔案只讀一次，之後兩條上傳路線都用記憶體裡這份位元組。
+   分開讀會出事：附件那條路把 File 當成上傳內容送出去、被擋掉之後，
+   退路再叫 FileReader 讀同一個 File，Safari 就會回 NotReadableError
+   ——畫面上只看到一句「讀取失敗」，完全看不出是這個原因。 */
+function readBytes(f){
+  if(f.arrayBuffer) return f.arrayBuffer();
+  return new Promise(function(res,rej){
+    var r=new FileReader();
+    r.onload=function(){ res(r.result); };
+    r.onerror=function(){ rej(new Error('讀不到這個檔案（'+((r.error&&r.error.name)||'未知')+'）')); };
+    r.readAsArrayBuffer(f);
+  });
+}
+function b64FromBuf(buf){
+  var b=new Uint8Array(buf), s='', CH=0x8000;      // 一次轉太多會爆 call stack
+  for(var i=0;i<b.length;i+=CH) s+=String.fromCharCode.apply(null,b.subarray(i,i+CH));
+  return btoa(s);
+}
 /* ---------- 批次上傳（音檔與文件共用） ---------- */
 /* 一次選十幾個檔案是常態（一整天的錄音、掃描一疊公文），所以上傳這件事
    本身要能成批做：逐一送、逐一回報，中間有一個壞掉不影響其他的。
@@ -1718,37 +1732,54 @@ function putMark(obj,id,tok,note){
     });
   });
 }
-function store(blob, filename, opts, tok, show){
+/* 附件那條路對瀏覽器是不是通的，記在這台裝置上。
+   實測 uploads.github.com 沒有給瀏覽器跨網域的許可，每個檔案都白試一次很浪費
+   （4G 上更明顯）。記住之後直接走退路，但隔一週再探一次——哪天 GitHub 開放了
+   就會自己切回去，不用改程式。 */
+function assetOK(){
+  try{
+    var v=localStorage.getItem('deck_asset_blocked');
+    return !v || (Date.now()-(+v) > 7*864e5);
+  }catch(e){ return true; }
+}
+function markAssetBlocked(){
+  try{ localStorage.setItem('deck_asset_blocked', String(Date.now())); }catch(e){}
+}
+function store(buf, filename, opts, tok, show){
   var kind=(opts.dir==='audio-inbox')?'audio':'doc';
   var ext=(filename.match(/\.[A-Za-z0-9]+$/)||[''])[0].toLowerCase();
   var id=(filename.match(/^[0-9]{8}-[0-9]{6}(-[0-9]+)?/)||['file'])[0]
          +(filename.match(/__yt[A-Za-z0-9_-]{11}/)||[''])[0];
-  return inboxRelease(tok).then(function(rid){
-    return fetch('https://uploads.github.com/repos/'+OWNER+'/'+REPO+
-                 '/releases/'+rid+'/assets?name='+encodeURIComponent(id+ext),{
-      method:'POST',headers:ghHead(tok,{'Content-Type':'application/octet-stream'}),
-      body:blob});
-  }).then(function(r){
-    if(!r.ok) throw new Error('asset HTTP '+r.status);
-    return putMark({asset:id+ext,file:filename,kind:kind},id,tok,opts.note);
-  }).catch(function(e){
-    if(/標記檔/.test(e&&e.message||'')) throw e;      // 附件傳成功、只是標記沒推：別重傳一次
-    // 附件這條路走不通（多半是瀏覽器跨網域被擋）→ 退回把檔案直接寫進 repo
-    if(show) show('附件通道不通，改用備用方式上傳…');
-    return b64(blob).then(function(c){
-      var path=opts.dir+'/'+filename;
-      return fetch(API+'/contents/'+encodeURIComponent(path).replace(/%2F/g,'/'),{
-        method:'PUT',headers:ghHead(tok,{'Content-Type':'application/json'}),
-        body:JSON.stringify({message:opts.note,content:c,branch:'main'})});
+  var viaRepo=function(){
+    // 退路：檔案直接寫進 repo（會留在 git 歷史裡，但至少傳得上去）
+    var path=opts.dir+'/'+filename;
+    return fetch(API+'/contents/'+encodeURIComponent(path).replace(/%2F/g,'/'),{
+      method:'PUT',headers:ghHead(tok,{'Content-Type':'application/json'}),
+      body:JSON.stringify({message:opts.note,content:b64FromBuf(buf),branch:'main'})
     }).then(function(r){
       if(r.status===201||r.status===200)
-        return putMark({path:opts.dir+'/'+filename,file:filename,kind:kind},id,tok,opts.note);
+        return putMark({path:path,file:filename,kind:kind},id,tok,opts.note);
       return r.json().catch(function(){return{};}).then(function(j){
         throw new Error(r.status===401?'Token 無效，請按右上角 ⚙ 重新填'
                        :r.status===403?'Token 缺少 Contents: Read and write 權限'
                        :('HTTP '+r.status+'：'+(j.message||'')));
       });
     });
+  };
+  if(!assetOK()) return viaRepo();
+  return inboxRelease(tok).then(function(rid){
+    return fetch('https://uploads.github.com/repos/'+OWNER+'/'+REPO+
+                 '/releases/'+rid+'/assets?name='+encodeURIComponent(id+ext),{
+      method:'POST',headers:ghHead(tok,{'Content-Type':'application/octet-stream'}),
+      body:buf});
+  }).then(function(r){
+    if(!r.ok) throw new Error('asset HTTP '+r.status);
+    return putMark({asset:id+ext,file:filename,kind:kind},id,tok,opts.note);
+  }).catch(function(e){
+    if(/標記檔/.test(e&&e.message||'')) throw e;      // 附件傳成功、只是標記沒推：別重傳一次
+    markAssetBlocked();
+    if(show) show('附件通道不通，改用備用方式上傳…');
+    return viaRepo();
   });
 }
 function sendFiles(files, opts){
@@ -1764,7 +1795,10 @@ function sendFiles(files, opts){
       var mb=blob.size/1048576;
       if(mb>opts.maxMB) throw new Error('檔案 '+mb.toFixed(1)+'MB，超過 '+opts.maxMB+'MB');
       show('上傳中（'+mb.toFixed(1)+'MB）…');
-      return store(blob, opts.nameOf(f,i,blob), opts, tok, show);
+      // 檔案只讀這一次，兩條上傳路線共用這份位元組
+      return readBytes(blob).then(function(buf){
+        return store(buf, opts.nameOf(f,i,blob), opts, tok, show);
+      });
     }).then(function(){ ok++; })
     .catch(function(e){
       // 一個壞掉不該讓其他的也不傳——十個檔案裡有一個太大是常有的事
