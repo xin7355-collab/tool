@@ -113,9 +113,10 @@ def pdf_parts(path):
                         sizes[k] = sizes.get(k, 0) + len(sp["text"].strip())
     body = max(sizes, key=sizes.get) if sizes else 0
 
-    parts = []
+    out = []
     for page in pages:
         parea = abs(page.rect) or 1
+        parts, txt = [], ""
         for blk in page.get_text("dict")["blocks"]:
             if blk.get("type") == 1:
                 w, h = blk.get("width") or 0, blk.get("height") or 0
@@ -125,16 +126,30 @@ def pdf_parts(path):
             # 同一個區塊裡的行合成一段；跨行斷掉的中文句子接回去
             top, lines = 0, []
             for ln in blk.get("lines") or []:
-                txt = "".join(sp["text"] for sp in ln["spans"]).strip()
-                if not txt:
+                s = "".join(sp["text"] for sp in ln["spans"]).strip()
+                if not s:
                     continue
                 top = max(top, max((sp["size"] for sp in ln["spans"]), default=0))
-                lines.append(txt)
+                lines.append(s)
             if not lines:
                 continue
             head = _heading(top, body)
-            parts.append(("text", head + (" ".join(lines) if head else "".join(lines))))
-    return _join_wraps(parts)
+            body_txt = head + (" ".join(lines) if head else "".join(lines))
+            txt += body_txt
+            parts.append(("text", body_txt))
+        out.append({"parts": _join_wraps(parts), "bad": len(PUA.findall(txt)),
+                    "chars": len(re.sub(r"\s", "", txt)), "no": page.number})
+    return out
+
+
+# 造字區（Private Use Area）與取代字元。字型子集化做壞時，數字和某些字會被
+# 對應到這個範圍——那是字型內部編號，不是 Unicode，任何程式都還原不回來。
+# 實際踩過：一本技術分析講義的每個數字都變成 U+F6BE~U+F6C3，
+# 「20 日均線」「60 日均線」全成了空白方塊，而數字正好是那份文件的重點。
+PUA = re.compile(r"[\ue000-\uf8ff\ufffd]")
+# 一頁裡壞掉的字超過這個數量，就別信文字層，整頁重繪去辨識。
+# 一兩個可能只是裝飾符號，不值得為它多打一次視覺模型。
+BAD_CHARS = int(os.environ.get("DOC_BAD_CHARS", "3") or "3")
 
 
 # 一句話被排版換行切斷時，前半段不會有句尾標點。有的話就是真的分段了。
@@ -159,14 +174,11 @@ def _join_wraps(parts):
     return out
 
 
-def pdf_page_images(path):
-    """整頁重繪成圖，給「完全沒有文字層」的掃描件用。"""
+def page_image(path, pno):
+    """把某一頁重繪成圖。掃描件、或文字層壞掉的頁，都靠這個。"""
     import pymupdf
     doc = pymupdf.open(path)
-    out = []
-    for page in list(doc)[:MAX_PAGES]:
-        out.append(page.get_pixmap(dpi=SCAN_DPI).tobytes("jpeg"))
-    return out
+    return doc[pno].get_pixmap(dpi=SCAN_DPI).tobytes("jpeg")
 
 
 # ---------- 第 2 層：Groq 視覺 ----------
@@ -298,26 +310,31 @@ def read_pdf(path, on_page=None):
 
     以前只抽文字層就收工。對一般公文沒問題，但技術分析講義的內容大半在圖上——
     「以下圖為例，頸線位置在 152.5 元」抽得到，那張圖抽不到，等於整章白讀。
-    """
-    parts = pdf_parts(path)
-    chars = sum(len(re.sub(r"\s", "", x[1])) for x in parts if x[0] == "text")
-    imgs = [x for x in parts if x[0] == "image"]
 
-    # 沒有圖可辨識時，文字層有多少就是多少——就算只有兩行也是內容。
-    # 之前這裡要求至少 MIN_TEXT 個字才算數，一份短備忘錄就會被判「讀不出來」。
-    if not imgs:
+    文字層也不是永遠可信：字型子集化做壞的 PDF 會把數字對應到造字區，
+    抽出來是一堆方塊。那種頁直接當掃描件重繪辨識，寧可慢一點也不要拿到假內容。
+    """
+    pages = pdf_parts(path)
+    chars = sum(p["chars"] for p in pages)
+    imgs = [x for p in pages for x in p["parts"] if x[0] == "image"]
+    broken = [p for p in pages if p["bad"] >= BAD_CHARS]
+
+    # 沒有圖可辨識、文字層也沒壞：文字有多少就是多少，就算只有兩行也是內容
+    if not imgs and not broken:
         if not chars:
             return "", "這份 PDF 既沒有文字也沒有圖片"
-        return "\n\n".join(x[1] for x in parts if x[0] == "text"), "PDF 文字層"
+        return ("\n\n".join(x[1] for p in pages for x in p["parts"] if x[0] == "text"),
+                "PDF 文字層")
     # 有圖、文字卻少得可疑＝掃描件，整頁重繪去辨識
-    if chars < MIN_TEXT and all(x[4] for x in imgs):
-        print("    沒有文字層，當成掃描件辨識…", flush=True)
-        pages = pdf_page_images(path)
+    scanned = chars < MIN_TEXT and imgs and all(x[4] for x in imgs)
+    if scanned or len(broken) == len(pages):
+        why = "沒有文字層" if scanned else "文字層的字對應壞了（數字變方塊）"
+        print("    %s，整份重繪辨識…" % why, flush=True)
         got, ways = [], set()
-        for i, data in enumerate(pages, 1):
+        for i, p in enumerate(pages, 1):
             if on_page:
                 on_page(i, len(pages))
-            txt, how = ocr_page(data)
+            txt, how = ocr_page(page_image(path, p["no"]))
             ways.add(how)
             if txt:
                 got.append(txt)
@@ -326,65 +343,46 @@ def read_pdf(path, on_page=None):
         ways.discard("none")
         return "\n\n".join(got), "辨識 %d 頁（%s）" % (len(pages), "＋".join(sorted(ways)) or "?")
 
-    # 有文字層：邊走邊把圖讀成文字，插在它原本的位置
+    # 逐頁處理：好的頁用文字層，壞的頁重繪辨識，圖表就地翻成文字
     big = [x for x in imgs if min(x[2], x[3]) >= MIN_CHART_PX and x[1]]
     todo = big[:MAX_CHARTS]
-    out, done, skipped = [], 0, 0
-    for part in parts:
-        if part[0] == "text":
-            out.append(part[1])
+    out, done, skipped, fixed = [], 0, 0, 0
+    for p in pages:
+        if p["bad"] >= BAD_CHARS:
+            # 這頁的文字層不可信。整頁重繪辨識——圖表也會一起被描述，
+            # 所以這頁的圖片就不用再單獨跑一次。
+            fixed += 1
+            if on_page:
+                on_page(fixed, len(broken))
+            txt, _ = ocr_page(page_image(path, p["no"]))
+            out.append(txt or "（這一頁的文字讀不出來）")
             continue
-        _, data, w, h, full = part
-        if part not in todo:
-            if data and min(w, h) >= MIN_CHART_PX:
-                skipped += 1
-                out.append("> **【圖表】**（這份文件圖表太多，這張沒有讀）")
-            continue
-        done += 1
-        if on_page:
-            on_page(done, len(todo))
-        # 整頁那麼大的圖多半是掃描頁，要抄字；小一點的才是插圖／走勢圖
-        txt, how = ocr_page(data, OCR_SYS if full else CHART_SYS)
-        if txt:
-            out.append("> **【圖表】** " + txt.replace("\n", "\n> "))
-        else:
-            out.append("> **【圖表】**（讀不出來）")
+        for part in p["parts"]:
+            if part[0] == "text":
+                out.append(part[1])
+                continue
+            _, data, w, h, full = part
+            if part not in todo:
+                if data and min(w, h) >= MIN_CHART_PX:
+                    skipped += 1
+                    out.append("> **【圖表】**（這份文件圖表太多，這張沒有讀）")
+                continue
+            done += 1
+            txt, how = ocr_page(data, OCR_SYS if full else CHART_SYS)
+            if txt:
+                out.append("> **【圖表】** " + txt.replace("\n", "\n> "))
+            else:
+                out.append("> **【圖表】**（讀不出來）")
 
-    body = "\n\n".join(x for x in out if x.strip())
+    body = "\n\n".join(x for x in out if x and x.strip())
     how = "PDF 文字層"
+    if fixed:
+        how += "＋%d 頁改用辨識（文字層壞了）" % fixed
     if done:
-        how += " ＋ 讀了 %d 張圖" % done
+        how += "＋讀了 %d 張圖" % done
     if skipped:
         how += "（另有 %d 張沒讀）" % skipped
     return body, how
-
-
-# ---------- 整份文件 ----------
-
-def read_doc(path, on_page=None):
-    """回傳 (文字, 怎麼讀到的)。讀不出來就回 ("", 原因)。"""
-    ext = os.path.splitext(path)[1].lower()
-    if ext in TXT_EXT:
-        if on_page:
-            on_page(1, 1)
-        for enc in ("utf-8", "utf-8-sig", "big5", "cp950"):
-            try:
-                with open(path, encoding=enc) as f:
-                    t = f.read()
-                return t, "純文字檔" + ("" if enc.startswith("utf-8") else "（%s）" % enc)
-            except (UnicodeDecodeError, LookupError):
-                continue
-        with open(path, encoding="utf-8", errors="replace") as f:
-            return f.read(), "純文字檔（編碼有問題，可能有亂碼）"
-    if ext in PDF_EXT:
-        return read_pdf(path, on_page)
-    if on_page:
-        on_page(1, 1)
-    with open(path, "rb") as f:
-        t, how = ocr_page(f.read())
-    if not t:
-        return "", "圖片辨識不出文字"
-    return t, {"groq": "圖片辨識（Groq 視覺）", "tesseract": "圖片辨識（Tesseract）"}.get(how, "圖片辨識")
 
 
 def clean_title(path):
