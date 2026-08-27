@@ -1,14 +1,14 @@
 {
- "run": "33022866013",
- "state": "done",
- "updated": "2026-08-26T23:19:12Z",
+ "run": "33026913144",
+ "state": "running",
+ "updated": "2026-08-27T00:28:39Z",
  "files": [
   {
-   "name": "20260826-000011_TEST-K線圖表2.pdf",
-   "title": "TEST-K線圖表2",
-   "state": "done",
-   "step": "完成（371 字）",
-   "pct": 100
+   "name": "20260827-010101_TEST-退路流程.pdf",
+   "title": "TEST-退路流程",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
