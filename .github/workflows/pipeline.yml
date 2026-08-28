@@ -94,7 +94,15 @@ jobs:
           echo "queue: $FROM_FILE  inputs: $IDS"
           # 不要無條件 || true：抽取全掛時要讓這一步變紅，否則工作流永遠是綠的，
           # 壞了幾天也沒人發現。腳本只有「一支都沒成功」才回非零，部分成功仍照常發佈。
-          python scripts/grab_transcripts.py $IDS $FROM_FILE 2>&1 | tee out/_run.log; RC=${PIPESTATUS[0]}
+          # out/ 要先建：tee 是在腳本開跑「之前」就開檔的，那時候還沒有這個目錄，
+          # 開檔失敗 + pipefail 會讓整步當場中斷，後面的結算一行都印不出來。
+          mkdir -p out
+          # 這段刻意關掉 -e：管線失敗（腳本回非零）本來就是要用 RC 判斷的事，
+          # 讓 -e 先把步驟砍掉的話，_index.csv 和結算就都看不到了。
+          set +e
+          python scripts/grab_transcripts.py $IDS $FROM_FILE 2>&1 | tee out/_run.log
+          RC=${PIPESTATUS[0]}
+          set -e
           echo "===== _index.csv ====="; cat out/_index.csv 2>/dev/null || echo "(none)"
           # 結算再印一次，放在最後面。_index.csv 展開來就有一百多行，一批三十支
           # 影片的日誌是一千三百行——「這次到底怎麼了」不該埋在中間，
