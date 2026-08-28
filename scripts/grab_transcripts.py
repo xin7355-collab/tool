@@ -118,6 +118,10 @@ def normalize_netscape(text):
 
 
 # cookies：YT_COOKIES（cookies.txt 內容）優先寫成暫存檔；或直接給 YT_COOKIES_FILE 路徑。
+# COOKIE_NOTE 記著「這次到底有沒有吃到 cookies」。這幾行印在最前面，可是一批
+# 三十支影片的日誌有一千多行，要往回捲很久才看得到——設完 cookies 最想知道的
+# 就是這一件事，所以最後的結算也再講一次。
+COOKIE_NOTE = ""
 COOKIEFILE = os.environ.get("YT_COOKIES_FILE", "").strip()
 if not COOKIEFILE and os.environ.get("YT_COOKIES", "").strip():
     _raw = os.environ["YT_COOKIES"]
@@ -127,6 +131,7 @@ if not COOKIEFILE and os.environ.get("YT_COOKIES", "").strip():
             print("ℹ️ YT_COOKIES 修正了 %d 行、略過 %d 行不合格的（多半是外掛匯出的小差異），"
                   "還有 %d 筆可用。" % (_fixed, _dropped, _kept), flush=True)
         if not _kept:
+            COOKIE_NOTE = "❌ 修完之後一筆都不剩，這次沒用它"
             print("⚠️ YT_COOKIES 修完之後一筆都不剩，這次不用它。", flush=True)
         else:
             _t = tempfile.NamedTemporaryFile("w", suffix=".txt", delete=False, encoding="utf-8")
@@ -138,12 +143,15 @@ if not COOKIEFILE and os.environ.get("YT_COOKIES", "").strip():
                 _cj = _cjmod.MozillaCookieJar()
                 _cj.load(_t.name, ignore_discard=True, ignore_expires=True)
                 COOKIEFILE = _t.name
+                COOKIE_NOTE = "✅ 讀進 %d 筆，有帶著跑" % len(_cj)
                 print("cookies：可用 %d 筆" % len(_cj), flush=True)
             except Exception as _e:
+                COOKIE_NOTE = "❌ 讀不進去（%s），這次沒用它" % str(_e).replace("\n"," ")[:60]
                 print("⚠️ YT_COOKIES 修完還是讀不進去（%s），這次不用它。\n"
                       "   請重新匯出一份 Netscape 格式的 cookies.txt。"
                       % str(_e).replace("\n", " ")[:140], flush=True)
     else:
+        COOKIE_NOTE = "❌ 不是 Netscape 格式（多半是 Cookie-Editor 匯出時選到 JSON），這次沒用它"
         print("⚠️ YT_COOKIES 不是 Netscape cookies.txt 格式（欄位要用 tab 分隔），這次忽略它。\n"
               "   公開影片不受影響；要抓會員／鎖區影片請重新匯出 cookies.txt，\n"
               "   或到 Settings → Secrets 把 YT_COOKIES 刪掉。", flush=True)
@@ -827,6 +835,13 @@ def main():
         w.writeheader(); w.writerows(index)
     skipped = sum(1 for x in index if x.get("status") == "skip")
     print(f"完成：成功 {ok}，失敗 {fail}，略過 {skipped}（先前已產出）", flush=True)
+    if COOKIE_NOTE:
+        note = COOKIE_NOTE
+    elif COOKIEFILE:
+        note = "✅ 用 YT_COOKIES_FILE：" + COOKIEFILE
+    else:
+        note = "沒有設定 YT_COOKIES（沒字幕的影片就會被擋）"
+    print("cookies：" + note, flush=True)
     # 一支都沒成功、卻有失敗的＝這批整個壞了（cookie 壞掉、被擋、網路不通…）。
     # 以前這裡永遠回 0，工作流就永遠是綠的，壞了幾天也沒人知道。
     # 部分成功仍回 0：那些成功的還是要發佈出去。
