@@ -25,3 +25,10 @@ jobs:
       - env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/inbox.py selftest
+      # 順手清掉沒有標記認領的孤兒附件（上傳到一半斷掉留下的）。
+      # 產線每次跑完也會掃一次，這裡只是手動想確認時的入口。
+      - name: 清掉孤兒附件
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python scripts/inbox.py sweep

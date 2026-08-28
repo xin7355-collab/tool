@@ -11,6 +11,7 @@ Release 附件是官方給大檔案用的地方，**不算進 repo 歷史**，�
 
     python scripts/inbox.py pull [audio|doc]   把待處理的附件抓下來放進本機收件匣
     python scripts/inbox.py clear              刪掉已處理好的附件與標記
+    python scripts/inbox.py sweep [小時]       刪掉沒有標記認領的孤兒附件
 """
 import os, re, sys, json, glob, time, subprocess
 import urllib.request, urllib.parse, urllib.error
@@ -196,7 +197,8 @@ def clear():
     except OSError:
         done = set()
     if not done:
-        print("沒有成功處理的檔案，附件全部保留待重試"); return 0
+        print("沒有成功處理的檔案，附件全部保留待重試")
+        return sweep()
 
     gone, rm = 0, 0
     for it in man:
@@ -231,6 +233,55 @@ def clear():
                 break
             subprocess.run(["git", "pull", "--rebase", "origin", "main"], check=False)
             time.sleep(3)
+    return sweep()
+
+
+def sweep(hours=6):
+    """刪掉沒有標記檔認領的孤兒附件。
+
+    上傳是兩步：先把檔案傳成附件，再推一個標記檔觸發產線。中間斷掉的話
+    （斷線、關掉分頁、或上傳其實成功但瀏覽器讀不到回應而被當成失敗），
+    附件就留在暫存區沒人認領——不會被處理，也不會被刪，只是一直佔空間。
+    實測有兩個 0.9MB 的 PDF 就是這樣卡著。
+
+    留幾個小時的緩衝再掃：附件先傳、標記後推，剛上傳的本來就還沒有標記。
+    """
+    import calendar
+    tok = token()
+    if not tok:
+        print("沒有 GITHUB_TOKEN，跳過孤兒附件掃描"); return 0
+    try:
+        aa = assets(tok=tok)
+    except Exception as e:
+        print("::warning::讀不到附件清單，這次不掃孤兒：%s" % str(e)[:120]); return 0
+    want = set()
+    for mp in glob.glob(os.path.join(MARK_DIR, "*.json")):
+        try:
+            with open(mp, encoding="utf-8") as f:
+                m = json.load(f)
+        except (OSError, ValueError):
+            continue
+        if m.get("asset"):
+            want.add(m["asset"])
+    cut, gone, mb = time.time() - hours * 3600, 0, 0.0
+    for a in aa:
+        if a["name"] in want:
+            continue
+        try:
+            born = calendar.timegm(time.strptime(a.get("created_at", ""),
+                                                 "%Y-%m-%dT%H:%M:%SZ"))
+        except (ValueError, TypeError):
+            continue                       # 讀不到上傳時間就別動它
+        if born > cut:
+            continue                       # 剛傳上來，標記可能還在路上
+        if del_asset(a["id"], tok):
+            gone += 1
+            mb += a.get("size", 0) / 1048576.0
+            print("  🗑 %s（%.1fMB，%s 傳的，沒有標記認領）"
+                  % (a["name"], a.get("size", 0) / 1048576.0, a.get("created_at", "")),
+                  flush=True)
+    if gone:
+        print("清掉 %d 個孤兒附件，省下 %.1fMB" % (gone, mb), flush=True)
     return 0
 
 
@@ -285,4 +336,6 @@ if __name__ == "__main__":
         sys.exit(pull(sys.argv[2] if len(sys.argv) > 2 else None))
     if cmd == "clear":
         sys.exit(clear())
-    sys.exit("用法：inbox.py pull [audio|doc] | inbox.py clear")
+    if cmd == "sweep":
+        sys.exit(sweep(float(sys.argv[2]) if len(sys.argv) > 2 else 6))
+    sys.exit("用法：inbox.py pull [audio|doc] | inbox.py clear | inbox.py sweep [幾小時前]")
