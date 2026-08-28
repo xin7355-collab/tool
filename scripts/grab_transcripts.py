@@ -56,6 +56,18 @@ if PROXY and not usable_proxy(PROXY):
     PROXY = ""
 PLAYER_CLIENTS = [s.strip() for s in os.environ.get(
     "YT_PLAYER_CLIENTS", "tv,web_safari,web").split(",") if s.strip()]
+# YouTube 給不同的「播放器客戶端」不同的串流。帶著有效 cookies 時，預設那組常常
+# 一個可用格式都不回——錯誤是 `Requested format is not available`，**不是**被機器人
+# 驗證擋下。也就是說 cookies 有過關，只是拿不到音訊網址。
+#
+# 這種時候要做的是換一個客戶端、**把 cookies 留著**。原本的退路是把 cookies 拿掉重試，
+# 那等於自己走回機器人驗證那道牆：實測 29 支全部第一次「格式不可用」、第二次「Sign in
+# to confirm you're not a bot」，看起來像被擋，其實第一次根本沒被擋。
+CLIENT_TRIES = [s.strip() for s in os.environ.get(
+    "YT_CLIENT_FALLBACKS",
+    "tv,web_safari,mweb,tv_embedded,web_embedded,android_vr,web").split(",") if s.strip()]
+# 連續掃這麼多支都找不到可用客戶端就放棄掃描（這批整個不行，不是個別影片的事）。
+MAX_SWEEPS = int(os.environ.get("YT_MAX_SWEEPS", "3") or "3")
 ID_RE = re.compile(r"(?:v=|/shorts/|/live/|/embed/|youtu\.be/)([A-Za-z0-9_-]{11})|([A-Za-z0-9_-]{11})")
 GAP, MAX_CHARS = 1.6, 180
 # 已發佈目錄：若某支影片的逐字稿已存在其中，本次就略過（不重抽、少打 YouTube）
@@ -760,13 +772,14 @@ def write_outputs(n, vid, title, lang, cues, up=""):
 
 
 def main():
-    global COOKIEFILE, PROXY
+    global COOKIEFILE, PROXY, PLAYER_CLIENTS
     args = sys.argv[1:]
     ids = parse_ids(" ".join(args) if args else os.environ.get("IDS", ""))
     print(f"待處理 {len(ids)} 支影片"
           + ("（有 cookies）" if COOKIEFILE else "")
           + ("（有代理）" if PROXY else ""), flush=True)
     index, ok, fail = [], 0, 0
+    sweeps = 0            # 已經整輪掃過幾支還是沒找到可用客戶端
     for n, vid in enumerate(ids, 1):
         print(f"[{n}/{len(ids)}] {vid}", flush=True)
         # 不要寫死分隔符：庫裡同時有 __yt<ID> 和 _<ID> 兩種舊檔名，
@@ -781,9 +794,37 @@ def main():
                 title, lang, cues, up = get_transcript(vid)
             except Exception as e1:   # YouTube 對機房 IP 偶發刁難（格式/5xx）→ 等一下重試一次
                 m1 = str(e1)
-                if ("format is not available" in m1 or "HTTP Error 5" in m1
+                if not ("format is not available" in m1 or "HTTP Error 5" in m1
                         or "Connection" in m1 or "cookie" in m1.lower()
                         or "label empty or too long" in m1 or "proxy" in m1.lower()):
+                    raise
+                got = False
+                # 先換播放器客戶端，cookies 留著。找到能用的就記下來，這一輪剩下的
+                # 影片直接用它——不然三十支各試七個客戶端，光試就跑掉十幾分鐘。
+                # 連續幾支都掃不出可用客戶端，就代表這批整個不行（cookie 過期、
+                # 這個 IP 被盯上），別再對剩下的每一支重掃一次。
+                if COOKIEFILE and "format is not available" in m1 and sweeps < MAX_SWEEPS:
+                    sweeps += 1
+                    for c in CLIENT_TRIES:
+                        if [c] == PLAYER_CLIENTS:
+                            continue
+                        print("  拿不到音訊格式，換客戶端 %s 再試（cookies 留著）…"
+                              % c, flush=True)
+                        was, PLAYER_CLIENTS = PLAYER_CLIENTS, [c]
+                        try:
+                            title, lang, cues, up = get_transcript(vid)
+                        except Exception as e2:
+                            PLAYER_CLIENTS = was
+                            if "not a bot" in str(e2) or "Sign in to confirm" in str(e2):
+                                break          # 被擋就別再換了，換幾次都一樣
+                            continue
+                        got = True             # PLAYER_CLIENTS 就留在 [c]，後面沿用
+                        sweeps = 0             # 找到了，額度歸零
+                        print("  ✅ 客戶端 %s 可以用，這一輪接下來都用它" % c, flush=True)
+                        break
+                    if not got and sweeps >= MAX_SWEEPS:
+                        print("  掃過所有客戶端都拿不到格式，這一批不再重掃", flush=True)
+                if not got:
                     # 半失效的 cookie（瀏覽器輪換後）會讓 YouTube 回空格式清單；
                     # 這支影片改走無 cookie + PO-token 重試，下一支恢復先用 cookie。
                     saved_cookie, saved_proxy = COOKIEFILE, PROXY
@@ -801,8 +842,6 @@ def main():
                         title, lang, cues, up = get_transcript(vid)
                     finally:
                         COOKIEFILE, PROXY = saved_cookie, saved_proxy
-                else:
-                    raise
             chars, npara = write_outputs(n, vid, title, lang, cues, up)
             print(f"  完成：{chars} 字 / {npara} 段 / {lang}", flush=True)
             index.append({"video_id": vid, "title": title, "lang": lang,
