@@ -94,8 +94,13 @@ jobs:
           echo "queue: $FROM_FILE  inputs: $IDS"
           # 不要無條件 || true：抽取全掛時要讓這一步變紅，否則工作流永遠是綠的，
           # 壞了幾天也沒人發現。腳本只有「一支都沒成功」才回非零，部分成功仍照常發佈。
-          python scripts/grab_transcripts.py $IDS $FROM_FILE; RC=$?
+          python scripts/grab_transcripts.py $IDS $FROM_FILE 2>&1 | tee out/_run.log; RC=${PIPESTATUS[0]}
           echo "===== _index.csv ====="; cat out/_index.csv 2>/dev/null || echo "(none)"
+          # 結算再印一次，放在最後面。_index.csv 展開來就有一百多行，一批三十支
+          # 影片的日誌是一千三百行——「這次到底怎麼了」不該埋在中間，
+          # 要一打開日誌捲到底就看得到。
+          echo "===== 這次的結果 ====="
+          grep -E "^完成：|^cookies：|客戶端 .+ 可以用|不再重掃" out/_run.log || true
           [ "$RC" = 0 ] || echo "::error::這批影片全部抽取失敗，原因見上面的 _index.csv"
           # 個別影片失敗（清單裡多半是直播或會員限定）不讓整條產線變紅——
           # 每 3 小時寄一封信只會讓人開始無視警報。留個黃色註記就夠了。
