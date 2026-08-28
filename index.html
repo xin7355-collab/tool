@@ -554,7 +554,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.5.2';
+var APP_VER='1.5.3';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1736,14 +1736,19 @@ function putMark(obj,id,tok,note){
    實測 uploads.github.com 沒有給瀏覽器跨網域的許可，每個檔案都白試一次很浪費
    （4G 上更明顯）。記住之後直接走退路，但隔一週再探一次——哪天 GitHub 開放了
    就會自己切回去，不用改程式。 */
+/* 換了 key（…_v2）：舊的那個是被誤判記下來的——當時把「讀不到回應」當成
+   「傳不上去」，所有裝置都會記著不再試。診斷更正後要讓它們重新試一次。 */
 function assetOK(){
   try{
-    var v=localStorage.getItem('deck_asset_blocked');
+    var v=localStorage.getItem('deck_asset_blocked_v2');
     return !v || (Date.now()-(+v) > 7*864e5);
   }catch(e){ return true; }
 }
 function markAssetBlocked(){
-  try{ localStorage.setItem('deck_asset_blocked', String(Date.now())); }catch(e){}
+  try{
+    localStorage.setItem('deck_asset_blocked_v2', String(Date.now()));
+    localStorage.removeItem('deck_asset_blocked');
+  }catch(e){}
 }
 function store(buf, filename, opts, tok, show){
   var kind=(opts.dir==='audio-inbox')?'audio':'doc';
@@ -1766,15 +1771,40 @@ function store(buf, filename, opts, tok, show){
       });
     });
   };
+  var markAsset=function(){
+    return putMark({asset:id+ext,file:filename,kind:kind},id,tok,opts.note);
+  };
+  /* 上傳到底成功了沒？uploads.github.com 的回應瀏覽器讀不到（跨網域），
+     所以 fetch 會拋錯——但 GitHub 那邊其實已經收下檔案了。實測 8/27 兩次上傳
+     就是這樣：附件明明在，程式卻判定失敗，又把同一份檔案寫進 repo 一次，
+     附件變成沒人認領的孤兒，repo 也白胖了 1.8MB。
+     api.github.com 的清單是讀得到的，直接去問它有沒有這個檔，不要用猜的。 */
+  var landed=function(rid){
+    return fetch(API+'/releases/'+rid+'/assets?per_page=100',
+                 {headers:ghHead(tok),cache:'no-store'})
+      .then(function(r){ return r.ok?r.json():[]; })
+      .then(function(a){
+        for(var i=0;i<a.length;i++)
+          if(a[i].name===id+ext && a[i].size===buf.byteLength) return true;
+        return false;
+      }).catch(function(){ return false; });
+  };
   if(!assetOK()) return viaRepo();
+  var relId=null;
   return inboxRelease(tok).then(function(rid){
+    relId=rid;
     return fetch('https://uploads.github.com/repos/'+OWNER+'/'+REPO+
                  '/releases/'+rid+'/assets?name='+encodeURIComponent(id+ext),{
       method:'POST',headers:ghHead(tok,{'Content-Type':'application/octet-stream'}),
-      body:buf});
-  }).then(function(r){
-    if(!r.ok) throw new Error('asset HTTP '+r.status);
-    return putMark({asset:id+ext,file:filename,kind:kind},id,tok,opts.note);
+      body:buf}).then(function(r){ return r.ok; }, function(){ return false; });
+  }).then(function(sent){
+    if(sent) return markAsset();
+    return landed(relId).then(function(there){
+      if(there) return markAsset();       // 回應讀不到而已，檔案有進去
+      markAssetBlocked();
+      if(show) show('附件通道不通，改用備用方式上傳…');
+      return viaRepo();
+    });
   }).catch(function(e){
     if(/標記檔/.test(e&&e.message||'')) throw e;      // 附件傳成功、只是標記沒推：別重傳一次
     markAssetBlocked();
