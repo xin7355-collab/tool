@@ -15,12 +15,15 @@ yt-dlp 在這裡跑幾乎都會成功。下載完直接呼叫 GitHub API 上傳�
 """
 import os, re, sys, json, time, base64, urllib.request, urllib.parse, urllib.error
 
-VERSION = "10"
+VERSION = "11"
 OWNER, REPO = "xin7355-collab", "tool"
 API = "https://api.github.com/repos/%s/%s" % (OWNER, REPO)
 RAW = ("https://raw.githubusercontent.com/%s/%s/main/scripts/yt2deck.py"
        % (OWNER, REPO))
-MAX_MB = 45
+# 上限本來是 45MB，那是「音檔要 commit 進 repo」時代的限制。現在檔案走 Release 附件
+# （上限 2GB），伺服器那端也會自己把長音檔切成 25MB 以內的段落逐段辨識，所以真正的
+# 限制只剩「手機要把它傳出去」。一小時的有聲書大約 50～70MB，兩小時的約 150MB。
+MAX_MB = int(os.environ.get("YT2DECK_MAX_MB", "300") or "300")
 INBOX_TAG = "inbox"          # 當暫存區用的 Release 標籤
 TOKEN_FILES = ["deck_token.txt", os.path.expanduser("~/Documents/deck_token.txt")]
 COOKIE_FILES = ["deck_cookies.txt", os.path.expanduser("~/Documents/deck_cookies.txt")]
@@ -311,12 +314,13 @@ def upload(path, title, token, vid=""):
     在最新版本裡看不到而已。173 個音檔就把 repo 撐到 1.2GB。
     Release 附件不算進 git 歷史，刪掉就是真的沒了。
     """
-    size_mb = os.path.getsize(path) / 1048576.0
+    size = os.path.getsize(path)
+    size_mb = size / 1048576.0
     print("音檔 %.1fMB：%s" % (size_mb, title), flush=True)
     if size_mb > MAX_MB:
         sys.exit("檔案太大（上限 %dMB）。請改用較短的影片。" % MAX_MB)
-    with open(path, "rb") as f:
-        blob = f.read()
+    if size_mb > 60:
+        print("   （比較大，4G 上可能要幾分鐘，中斷會自動重試）", flush=True)
     ext = (os.path.splitext(path)[1] or ".m4a").lower()
     # 把影片 ID 用 __yt 標記夾在檔名裡：產線會原封不動帶到逐字稿檔名，
     # 網站就能靠它認出「這支已經抓過了」。safe_name 只作用在標題上，標記不會被吃掉。
@@ -335,14 +339,20 @@ def upload(path, title, token, vid=""):
     print("上傳中…", flush=True)
     # 手機網路（尤其 4G）傳十幾 MB 常會斷在半路（Broken pipe），重試幾次就過了
     for attempt in range(1, 5):
+        # 邊讀邊送，不要先整份讀進記憶體：一小時的有聲書就是上百 MB，
+        # 在手機上 f.read() 一次吃掉那麼多，a-Shell 會直接被系統收掉。
+        # 給了 Content-Length，urllib 就會分塊把檔案送出去（不走 chunked，
+        # uploads.github.com 不收 chunked）。
+        body = open(path, "rb")
         req = urllib.request.Request(
-            url, data=blob, method="POST",
+            url, data=body, method="POST",
             headers={"Authorization": "Bearer " + token,
                      "Accept": "application/vnd.github+json",
                      "Content-Type": "application/octet-stream",
+                     "Content-Length": str(size),
                      "User-Agent": "yt2deck/" + VERSION})
         try:
-            with urllib.request.urlopen(req, timeout=600) as r:
+            with urllib.request.urlopen(req, timeout=1800) as r:
                 r.read()
             break
         except urllib.error.HTTPError as e:
@@ -379,6 +389,8 @@ def upload(path, title, token, vid=""):
             if attempt == 4:
                 raise RuntimeError("上傳失敗（網路中斷 4 次）：%s" % e)
             why = str(e)[:60]
+        finally:
+            body.close()                             # 重試時要重開，讀取位置才會回到開頭
         wait = 5 * attempt
         print("   上傳中斷（%s），%d 秒後重試（第 %d/4 次）…" % (why, wait, attempt), flush=True)
         time.sleep(wait)
