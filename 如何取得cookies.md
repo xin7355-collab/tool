@@ -2,10 +2,22 @@
 
 ## 為什麼需要
 
-GitHub 機房 IP 會被 YouTube 要求「登入確認不是機器人」，擋在很前面——連字幕清單都拿不到，
-所以每一支都失敗。給它一份已登入的 cookies，產線就能通過驗證、恢復全自動。
+GitHub 機房 IP 會被 YouTube 要求「登入確認不是機器人」。給它一份已登入的 cookies，
+**有字幕的影片**就能穩定抓到。
 
-沒有也能用，只是每次都要按追蹤分頁的「🚀 用手機補抓」（手機是住宅 IP，不會被擋）。
+> ### ⚠️ 但沒字幕的影片，cookies 救不了（2026-08-28 實測）
+>
+> 設了 22 筆有效 cookies，日誌確認 `cookies：✅ 讀進 22 筆，有帶著跑`，
+> 29 支沒字幕的影片**還是一支都下載不了**。而且失敗的原因不是機器人驗證——
+> 帶著 cookies 那次的錯誤是 `Requested format is not available`：
+> 登入態有過關，YouTube 就是不把音訊網址發給機房 IP。
+>
+> 七個播放器客戶端（tv／web_safari／mweb／tv_embedded／web_embedded／
+> android_vr／web）全部試過，一個都拿不到。
+>
+> **所以：沒字幕的影片一律用手機補抓**（追蹤分頁的「🚀 用手機補抓」，
+> 或 a-Shell 跑 `python3 yt2deck.py <影片ID>`）。cookies 仍然值得設——
+> 有字幕的影片靠它，手機端那份也靠它——但別指望它能解決下載音檔這件事。
 
 > **iPhone 也可以**，用 Safari 的 **Cookie-Editor** 擴充功能（App Store 裝，
 > 在 Safari 設定裡啟用）。電腦上則是 Chrome/Edge/Firefox 的同類擴充。
