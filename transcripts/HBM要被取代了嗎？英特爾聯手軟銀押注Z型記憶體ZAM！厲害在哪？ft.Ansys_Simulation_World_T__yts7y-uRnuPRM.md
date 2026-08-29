@@ -1,7 +1,6 @@
 # HBM要被取代了嗎？英特爾聯手軟銀押注Z型記憶體ZAM！厲害在哪？ft.Ansys_Simulation_World_T
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=s7y-uRnuPRM)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：HBM要被取代了嗎？英特爾聯手軟銀押注Z型記憶體ZAM！厲害在哪？Ansys Simulation World T
 
+- 日期：2026-07-15
 
 
 ## 摘要
-
 
 
 **一句話**：英特爾與軟銀聯手的 Sign Memory 正在研發 Z‑Angle Memory（ZAM），以取代受供應鏈、容量與功耗限制的 HBM，並於 2027 年原型、2029 年商業化。
@@ -28,8 +27,6 @@
 - Sign Memory（軟銀於 2024‑12 成立）計畫於 2027 年推出原型，並於 2029 年實現商業化，目標是為 AI 訓練與推論提供大容量高頻寬記憶體。
 - 英特爾專利展示垂直堆疊與水平晶片交叉連接的封裝方式，透過 90° 旋轉晶片與跨面導線重布，實現比 HBM 更高的 DRAM 容量與頻寬。
 - ZAM 被定位為記憶體架構整合平台，而非單純的記憶體產品，旨在打破對 HBM 的單一路徑依賴，提升 AI 伺服器的設計彈性與成本競爭力。
-
-
 
 ---
 
