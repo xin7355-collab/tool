@@ -1,7 +1,7 @@
 {
  "channels": {
   "UCKgQbeP5tNkg9rk2X6vJR7A": {
-   "checked": "2026-08-28T23:07:20+00:00",
+   "checked": "2026-08-29T03:16:54+00:00",
    "seen": [
     "zMmybzOgXyo",
     "z4BmcuvlSVg",
@@ -92,7 +92,7 @@
    ]
   },
   "UCQvsuaih5lE0n_Ne54nNezg": {
-   "checked": "2026-08-28T23:07:20+00:00",
+   "checked": "2026-08-29T03:16:55+00:00",
    "seen": [
     "VPGJnkMnBDk",
     "Vg3YF4OsA78",
@@ -183,7 +183,7 @@
    ]
   },
   "UCFeC_WM6JkH9AlpkEBAmEXg": {
-   "checked": "2026-08-28T23:07:20+00:00",
+   "checked": "2026-08-29T03:16:55+00:00",
    "seen": [
     "uVoviUmQAnE",
     "gnNjFhqXcJU",
@@ -245,6 +245,7 @@
     "AH73ykWcwqg",
     "tfHssHIO8Y8",
     "gVF5az3Wps8",
+    "uVoviUmQAnE",
     "gnNjFhqXcJU",
     "DbiwtUilN-k",
     "gG1z-jvf-gk",
@@ -259,12 +260,11 @@
     "AH73ykWcwqg",
     "tfHssHIO8Y8",
     "gVF5az3Wps8",
-    "QIsuETQy4tY",
+    "gnNjFhqXcJU",
+    "DbiwtUilN-k",
     "gG1z-jvf-gk",
     "qpRQKVvoBKg",
-    "odNf2gwSGjI",
-    "1YLnye8nhc8",
-    "BUz1A1yUNSk"
+    "odNf2gwSGjI"
    ],
    "last": [
     {
@@ -274,7 +274,7 @@
    ]
   },
   "UChfl3auNxAxOR3wy8a8ysQQ": {
-   "checked": "2026-08-28T23:07:20+00:00",
+   "checked": "2026-08-29T03:16:55+00:00",
    "seen": [
     "474JsPe2EXo",
     "4j444xpIu1E",
@@ -306,6 +306,21 @@
     "bWdKiMGXFOc",
     "0abEhYawUQY",
     "S-vi0-Dl3zE",
+    "474JsPe2EXo",
+    "4j444xpIu1E",
+    "O1cvWpuxN_I",
+    "T7hxJSa-tDA",
+    "s_J65Hfrarc",
+    "a5yjzNYaYC0",
+    "QgxU_rT6wDw",
+    "HaZl2aJyUDA",
+    "vnAG9INKxCQ",
+    "-XIYz25skvE",
+    "s0s0uxCqalE",
+    "t5MhuCL6so4",
+    "bWdKiMGXFOc",
+    "0abEhYawUQY",
+    "S-vi0-Dl3zE",
     "T7hxJSa-tDA",
     "s_J65Hfrarc",
     "a5yjzNYaYC0",
@@ -336,21 +351,6 @@
     "6Zlek2Po_cc",
     "qDc9oM_gcUI",
     "xUANEnJxTYk",
-    "QgxU_rT6wDw",
-    "HaZl2aJyUDA",
-    "vnAG9INKxCQ",
-    "-XIYz25skvE",
-    "s0s0uxCqalE",
-    "t5MhuCL6so4",
-    "bWdKiMGXFOc",
-    "0abEhYawUQY",
-    "S-vi0-Dl3zE",
-    "6Zlek2Po_cc",
-    "qDc9oM_gcUI",
-    "xUANEnJxTYk",
-    "rnxalEZNx7Q",
-    "Mv79TduY4nU",
-    "VW_0_YvJ1W4",
     "QgxU_rT6wDw",
     "HaZl2aJyUDA",
     "vnAG9INKxCQ",
@@ -369,7 +369,7 @@
    ]
   },
   "UCW5KC7p3B0zAs0OJHL3FAeg": {
-   "checked": "2026-08-28T23:07:20+00:00",
+   "checked": "2026-08-29T03:16:55+00:00",
    "seen": [
     "ACyIyePZUJU",
     "-C6mSEhCZcQ",
@@ -666,25 +666,13 @@
    "d": "2026-08-28"
   },
   {
-   "v": "O1cvWpuxN_I",
-   "t": "【成交量破兆 但台股回不去了】2026/8/28(直播)",
-   "c": "郭哲榮分析師-摩爾證券投顧",
-   "d": "2026-08-28"
-  },
-  {
-   "v": "4j444xpIu1E",
-   "t": "【成交量破兆 但台股回不去了】2026/8/28(字幕版)",
-   "c": "郭哲榮分析師-摩爾證券投顧",
-   "d": "2026-08-28"
-  },
-  {
    "v": "VPGJnkMnBDk",
    "t": "【理財達人秀】創反彈新高 被動能回血？MSCI換股大戲 誰有漲相｜李兆華、鍾國忠 2026.08.28 part1",
    "c": "理財達人秀 EBCmoneyshow",
    "d": "2026-08-28"
   }
  ],
- "checked": "2026-08-28T23:07:20+00:00",
+ "checked": "2026-08-29T03:16:55+00:00",
  "digest": {
   "reported": [
    "00981A何時賣？看到這訊號快逃！_權證小哥_主動式ETF_溢價__ytt24Whfqvxro.md",
