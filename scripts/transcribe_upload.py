@@ -8,7 +8,7 @@
 流程：audio-inbox/*.（m4a/mp3/wav…）→ ffmpeg 轉 16k 單聲道 →
       Groq 或本機 Whisper 辨識 → 分段 → Groq 摘要 → out/*.md/.txt/.srt
 """
-import os, re, sys, glob, pathlib, subprocess
+import os, re, sys, glob, time, pathlib, subprocess
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from grab_transcripts import (OUT, safe_name, hhmmss, srt_time, to_paragraphs,
@@ -63,19 +63,40 @@ def main():
     finally:
         pg.finish()          # 不管怎麼結束，都別讓進度條永遠停在「進行中」
     print("完成：成功 %d / 共 %d" % (ok, len(files)), flush=True)
-    # 只把「真的轉成功」的音檔列出來給工作流去刪；失敗的留在 inbox 等下次重試，
-    # 不然使用者辛苦從手機上傳的檔案會因為 Groq 暫時性錯誤就永遠消失。
-    (OUT / "_processed.txt").write_text("\n".join(done) + ("\n" if done else ""),
-                                        encoding="utf-8")
-    (OUT / "_status.txt").write_text("%d %d\n" % (len(files), ok), encoding="utf-8")
+    save_done(done, len(files), ok)
     # 一支都沒轉成功就回非零，讓工作流變紅並寄信。之前是永遠回 None＝綠燈，
     # inbox 卡了一整天、每兩小時重試一次全掛，畫面上還是一片綠。
     return 1 if ok == 0 else 0
 
 
+# 一輪最多花這麼久去「開新檔案」。工作流的上限是 120 分鐘，被砍掉就是整批白做，
+# 所以留 30 分鐘餘裕：時間到就收工，剩下的留給下一輪（每 2 小時自動跑）。
+BUDGET_MIN = float(os.environ.get("ASR_BUDGET_MIN", "85") or "85")
+
+
+def save_done(done, total, ok):
+    """寫下「哪些真的轉好了」。
+
+    每轉好一個就寫一次，不是整批跑完才寫——這是關鍵。整批才寫的話，工作流一旦
+    撞到 120 分鐘上限被砍掉，這個檔案根本沒被寫出來，兩小時的辨識成果全部作廢，
+    下一輪又從第一個檔案重來。實測 32 個音檔就是這樣卡死：每次跑滿兩小時、
+    每次都被砍、每次都從頭再來，佇列永遠不會變短。
+    """
+    (OUT / "_processed.txt").write_text("\n".join(done) + ("\n" if done else ""),
+                                        encoding="utf-8")
+    (OUT / "_status.txt").write_text("%d %d\n" % (total, ok), encoding="utf-8")
+
+
 def run_all(files, use_groq, pg):
     ok, done = 0, []
+    started = time.monotonic()
     for n, path in enumerate(files, 1):
+        # 第一個一定要跑（不然完全沒進度）；之後每開一個新檔案前先看還有沒有時間。
+        spent = (time.monotonic() - started) / 60.0
+        if n > 1 and spent >= BUDGET_MIN:
+            print("已用掉 %.0f 分鐘，剩下 %d 個留到下一輪（每 2 小時自動跑，不用重傳）"
+                  % (spent, len(files) - n + 1), flush=True)
+            break
         title, vid = clean_title(path)
         print("[%d/%d] %s" % (n, len(files), os.path.basename(path)), flush=True)
         i = n - 1
@@ -168,6 +189,7 @@ def run_all(files, use_groq, pg):
             pg.done(i, chars)
             ok += 1
             done.append(path)
+            save_done(done, len(files), ok)   # 每好一個就落地，被砍掉也不會白做
         except Exception as e:
             pg.fail(i, str(e).replace("\n", " ")[:60])
             print("  失敗：%s" % str(e).replace("\n", " ")[:200], flush=True)

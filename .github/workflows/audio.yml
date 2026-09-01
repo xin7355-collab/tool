@@ -84,7 +84,11 @@ jobs:
           # 部分成功仍回 0，照常往下發佈。
           python scripts/transcribe_upload.py || {
             echo "::error::這批音檔一支都沒轉成功，原因見上面的訊息"; exit 1; }
+      # always()：撞到 120 分鐘上限被砍掉時，這一步本來會整個跳過——
+      # 那一輪辨識出來的逐字稿就跟著蒸發，附件卻還留著，下一輪從頭再做一次。
+      # 已經做完的東西一定要發佈出去，不管這個 job 是怎麼結束的。
       - name: 發佈逐字稿到 gh-pages
+        if: always()
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
