@@ -1,14 +1,14 @@
 {
  "run": "33560251439",
  "state": "running",
- "updated": "2026-09-01T21:29:26Z",
+ "updated": "2026-09-01T21:29:27Z",
  "files": [
   {
    "name": "20260831-122401_旺矽跌停_營收弱？_AI達人：第四季是轉機！feat._AI達人_蔡明翰__ytuVoviUmQAnE.webm",
    "title": "旺矽跌停_營收弱？_AI達人：第四季是轉機！feat._AI達人_蔡明翰",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（455 字）",
+   "pct": 100
   },
   {
    "name": "20260831-122407_【理財達人秀】創高的路上_主流換誰當？_載板帶旺銅箔_軍工起飛？｜李兆華、陳威良_2026.08.27_part2__ytxuMyk0eLWMI.webm",
