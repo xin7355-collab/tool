@@ -69,9 +69,13 @@ def main():
     return 1 if ok == 0 else 0
 
 
-# 一輪最多花這麼久去「開新檔案」。工作流的上限是 120 分鐘，被砍掉就是整批白做，
-# 所以留 30 分鐘餘裕：時間到就收工，剩下的留給下一輪（每 2 小時自動跑）。
-BUDGET_MIN = float(os.environ.get("ASR_BUDGET_MIN", "85") or "85")
+# 一輪最多花這麼久。工作流上限 300 分鐘，這裡留 60 分鐘餘裕。
+# audio 和 pipeline 共用同一個 concurrency group（避免兩邊同時推 gh-pages），
+# 所以這一輪跑太久會擋住 YouTube 那條線——4 小時是「一次消化夠多」和
+# 「別佔著鎖不放」之間的折衷。
+# 實測一集財經節目要 35～40 分鐘，120 分鐘的上限一輪只做得完 3 個，29 個要跑十輪；
+# 公開 repo 的 Actions 時數不計費，拉長遠比讓佇列拖兩天划算。
+BUDGET_MIN = float(os.environ.get("ASR_BUDGET_MIN", "240") or "240")
 
 
 def save_done(done, total, ok):
@@ -91,12 +95,18 @@ def run_all(files, use_groq, pg):
     ok, done = 0, []
     started = time.monotonic()
     for n, path in enumerate(files, 1):
-        # 第一個一定要跑（不然完全沒進度）；之後每開一個新檔案前先看還有沒有時間。
+        # 第一個一定要跑（不然完全沒進度）；之後每開一個新檔案前先算「跑得完嗎」。
+        # 只看「現在還沒超時」不夠：一個檔案要 40 分鐘，在第 84 分鐘開下去就會
+        # 做到一半被砍——那個檔案整個白做。用已完成的平均值預估，估不下就收工。
         spent = (time.monotonic() - started) / 60.0
-        if n > 1 and spent >= BUDGET_MIN:
-            print("已用掉 %.0f 分鐘，剩下 %d 個留到下一輪（每 2 小時自動跑，不用重傳）"
-                  % (spent, len(files) - n + 1), flush=True)
-            break
+        if n > 1:
+            avg = spent / (n - 1)
+            if spent + avg > BUDGET_MIN:
+                print("已用掉 %.0f 分鐘（平均一個 %.0f 分），剩下 %d 個留到下一輪"
+                      "（每 2 小時自動跑，不用重傳）"
+                      % (spent, avg, len(files) - n + 1), flush=True)
+                break
+        t0 = time.monotonic()
         title, vid = clean_title(path)
         print("[%d/%d] %s" % (n, len(files), os.path.basename(path)), flush=True)
         i = n - 1
@@ -185,7 +195,8 @@ def run_all(files, use_groq, pg):
                            f"{srt_time(c['start'] + c.get('duration', 0))}\n{c['text']}\n")
             (OUT / f"{stem}.srt").write_text("\n".join(srt), encoding="utf-8")
 
-            print("  完成：%d 字 / %d 段" % (chars, len(paras)), flush=True)
+            print("  完成：%d 字 / %d 段（花了 %.1f 分）"
+                  % (chars, len(paras), (time.monotonic() - t0) / 60.0), flush=True)
             pg.done(i, chars)
             ok += 1
             done.append(path)
