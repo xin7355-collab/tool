@@ -1,18 +1,4 @@
 # 訂閱頻道的新片，由 watch_channels.py 自動維護，轉好會自動移除
-uVoviUmQAnE  # 兆華艾綸說｜旺矽跌停 營收弱？ AI達人：第四季是轉機！feat. AI達人 蔡明翰
-xuMyk0eLWMI  # 理財達人秀 EBCmoneyshow｜【理財達人秀】創高的路上 主流換誰當？ 載板帶旺銅箔 軍工起飛？｜李兆華、陳威良
-KplR-PL03JM  # 理財達人秀 EBCmoneyshow｜【理財達人秀】蘋果大秀、半導體展 接棒 蘋概、設備、特化 挖黑馬？｜李兆華、陳唯
-5hPPayRzlH4  # 理財達人秀 EBCmoneyshow｜股科大夫容逸燊親授！銅線要被淘汰了？！這檔「CPO妖股」暴漲秘密大公開！🚀 #理
-R0E42R9Dubk  # 理財達人秀 EBCmoneyshow｜型男股神陳威良教學 ！1200元平起平坐？這兩檔「載板雙雄」教你無痛配對賺翻天！
-GyObULJ_iyg  # 理財達人秀 EBCmoneyshow｜慘跌腰斬的心痛股！專家曝：這檔「2奈米黑馬」即將倒吃甘蔗！🩸#理財達人秀
-Vg3YF4OsA78  # 理財達人秀 EBCmoneyshow｜【理財達人秀】邁威爾跌 CPO還是旺？台股反彈新高 國巨能回血？欣興被搜索 若跌
-VPGJnkMnBDk  # 理財達人秀 EBCmoneyshow｜【理財達人秀】創反彈新高 被動能回血？MSCI換股大戲 誰有漲相｜李兆華、鍾國忠
-eddgH9VdWE0  # 理財達人秀 EBCmoneyshow｜【理財達人秀】邁威爾盤後跌 CPO還是旺 投信錯殺能買？ 撿探針？｜李兆華、黃豐
-mbupkJzrwXY  # 理財達人秀 EBCmoneyshow｜【理財達人秀】景氣連8紅 外資大掃貨 先搶營家股 大戶續買電｜李兆華、高憲容 2
-mIa1oXGnjW0  # 理財達人秀 EBCmoneyshow｜👑 鍾國忠獨家！AI 伺服器最香黑馬「這檔」本益比超合理，拉回就是黃金買點！🔥 
-O3FWAAjpYeI  # 理財達人秀 EBCmoneyshow｜👑 黃豐凱警告！欣興驚爆搜索、在劫難逃？投信沒跑掉完蛋了！資金緊急避難「這檔」6
-ZY03pacEB_c  # 理財達人秀 EBCmoneyshow｜👑 高憲容親授！台幣大升值＋外資暴買 3700 億！台股大多頭「藏寶圖」曝光，後
-LLKcSqDQgFY  # 李兆華River｜週報ep281公開版｜輝達好財報 華許又放鷹!外資.投信不同調 9月怎麼做 ft
 EGhPyJrwf7M  # 理財達人秀 EBCmoneyshow｜【理財達人秀】有欣興怎辦 PCB誰受益？記憶體MSCI利多再+1？大立光天價 光
 iffeMO69Epk  # 郭哲榮分析師-摩爾證券投顧｜【欣興被調查 國巨、環球晶這些慘了?】2026/8/31哲哲只有60秒
 SJIbDXEtixo  # 理財達人秀 EBCmoneyshow｜【理財達人秀】怕華許更鷹 守月線就穩？有欣興怎辦？ PCB誰受益｜李兆華、李永年
@@ -24,9 +10,15 @@ OIQdvS6laNc  # 理財達人秀 EBCmoneyshow｜👑 冠軍操盤手雲翔爆料�
 XHkb69qrhDk  # 理財達人秀 EBCmoneyshow｜【理財達人秀】輝達挺聯發科 台灣晶片10年大夢狂飆？欣興不再跌停 最甜籌資股？半
 QmmBQZNiHLk  # 理財達人秀 EBCmoneyshow｜【兆華艾綸說】輝達挺發哥 5000來了？台積電挺矽光子 3檔飆股基因？欣興最壞情
 rjozJ4RLCio  # 兆華艾綸說｜【兆華艾綸說】聯發科的左擁右抱，輝達谷歌都要！台積電挺矽光子，3檔飆股基因！為何
-5xHIEebCD80  # 郭哲榮分析師-摩爾證券投顧｜【我一億0050創新高 九月要賣嗎?】2026/9/1(字幕版)
-1YoyAiyKnvk  # 小王子高勝當沖×波段｜如何看懂台股大盤趨勢？用 MA5 匝道比喻與季線扣抵值，掌握 4 大波段進場訊號
 kJgByHd3rok  # 理財達人秀 EBCmoneyshow｜【理財達人秀】台灣晶片 10年大夢狂飆！ 9月光破魔咒 CPO買強｜李兆華、蔡明
 X-5t3ZuXCcc  # 理財達人秀 EBCmoneyshow｜【理財達人秀】最先進半導體展 設備嗨 ASIC迎爆單 IC設計猛將｜李兆華、紀緯
 v51gdjOT7Jc  # 兆華艾綸說｜【兆華艾綸說】輝達挺發哥 10年藍圖！ 台積挺矽光 3檔飆股基因｜李兆華、艾綸 
 k8XqD2KO_nw  # 兆華艾綸說｜【兆華艾綸說】欣興沒再跌停 落難股攻略 外資、大戶鎖右下 挖黑馬！｜李兆華、艾綸
+AxBsUyQb190  # 理財達人秀 EBCmoneyshow｜👑 AI達人蔡明翰爆料！輝達砸35億美金「暗黑盤算」曝光！散戶跟著「這指標」才不
+zROdtlK28Nk  # 理財達人秀 EBCmoneyshow｜👑 紀緯明親授！聽不懂「異質整合」？用積木拆解設備股賺到2029的逆天商機！🔥 
+_reNMdH_KNc  # 理財達人秀 EBCmoneyshow｜👑 型男股神陳威良警告！公司伸手借錢是利多還割韭菜？一招分辨「黃金買點」與「歷史
+oUUbOQpOy4E  # 理財達人秀 EBCmoneyshow｜👑 艾綸親授！🚀傳統銅線已死？台積電欽點「這技術」2027年直接橫掃50%市場，
+zFowEnG3H40  # 理財達人秀 EBCmoneyshow｜👑 陳唯泰警告！股市暴跌你慌了嗎？詠春拳「兩大真訣」曝光！教你在大盤大跌時穩穩撿
+10VAXNvvsgM  # 理財達人秀 EBCmoneyshow｜👑 陳唯泰親授！💸雙鴻、長興賺翻真相曝光！符合這「3個神條件」連大戶都偷偷在囤貨
+tq9wbXYH9U0  # 兆華艾綸說｜欣興跌、投信轉賣 該跑？黃金右下角：價值這邊浮現！feat.仲英財富投資長  陳
+9durIuGmx-o  # 郭哲榮分析師-摩爾證券投顧｜【債券海嘯 台股4萬點不保?】2026/9/2(直播)
