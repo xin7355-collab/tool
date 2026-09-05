@@ -1,7 +1,6 @@
 # 財經下酒菜｜第九十四集｜極短線操盤手轉型，自由人二徒弟訪談
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=0EsJCXsCXD8)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：極短線操盤手轉型，自由人二徒弟訪談
 
-
+- 日期：2025-12-14
 
 ---
 
