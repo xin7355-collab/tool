@@ -1,7 +1,7 @@
 {
  "run": "33935363458",
  "state": "running",
- "updated": "2026-09-05T01:18:01Z",
+ "updated": "2026-09-05T01:18:02Z",
  "files": [
   {
    "name": "20260905-090910_散戶短線操作務必要牢記的7個口訣！__yt0JevIqCs9dQ.webm",
@@ -76,9 +76,9 @@
   {
    "name": "20260905-091008_美股_OpenAI给半导体打鸡血！SOXX底部已成？ORCL、AMD、NVDA！TSLA遭行政狙击！__ytbdzWer7gNII.webm",
    "title": "美股_OpenAI给半导体打鸡血！SOXX底部已成？ORCL、AMD、NVDA！TSLA遭行政狙击！",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（5507 字）",
+   "pct": 100
   },
   {
    "name": "20260905-091017_新手最简易的1分钟短线交易法！（惊人精准度）__ytobtIXV2FT80.webm",
