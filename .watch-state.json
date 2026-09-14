@@ -1,7 +1,7 @@
 {
  "channels": {
   "UCKgQbeP5tNkg9rk2X6vJR7A": {
-   "checked": "2026-09-14T18:46:43+00:00",
+   "checked": "2026-09-14T23:57:22+00:00",
    "seen": [
     "5N45Bh6J81Y",
     "Q6ggUMg-BS4",
@@ -63,6 +63,7 @@
     "uc-JLUQDRP0",
     "4qP4NnT2AXw",
     "ZrP3qn7zIyc",
+    "5N45Bh6J81Y",
     "Q6ggUMg-BS4",
     "LLKcSqDQgFY",
     "zMmybzOgXyo",
@@ -77,7 +78,6 @@
     "uc-JLUQDRP0",
     "4qP4NnT2AXw",
     "ZrP3qn7zIyc",
-    "O1N3iR4nryI",
     "Q6ggUMg-BS4",
     "LLKcSqDQgFY",
     "zMmybzOgXyo",
@@ -92,8 +92,23 @@
    ]
   },
   "UCQvsuaih5lE0n_Ne54nNezg": {
-   "checked": "2026-09-14T18:46:43+00:00",
+   "checked": "2026-09-14T23:57:22+00:00",
    "seen": [
+    "ViLqnLtyVk0",
+    "MmmG8hbXt6k",
+    "fHvJVEMnxmQ",
+    "CzeedNQ76Z4",
+    "kr42tKfyG-I",
+    "3qfneLwnYU4",
+    "aTEtXVRtpdI",
+    "RIeKGb1N2A8",
+    "9ebygejtZdI",
+    "NQwsH-b6ScQ",
+    "hLXuVHHin1w",
+    "iw5yJL061oM",
+    "9HCMIgixSwY",
+    "dRW-_V4YjgE",
+    "Sd45rgXi8uA",
     "CzeedNQ76Z4",
     "kr42tKfyG-I",
     "3qfneLwnYU4",
@@ -158,32 +173,25 @@
     "3qfneLwnYU4",
     "aTEtXVRtpdI",
     "RIeKGb1N2A8",
-    "9ebygejtZdI",
-    "NQwsH-b6ScQ",
-    "hLXuVHHin1w",
-    "iw5yJL061oM",
-    "9HCMIgixSwY",
-    "dRW-_V4YjgE",
-    "Sd45rgXi8uA",
-    "sxSKbhzgJH4",
-    "3uivb50Zxcw",
-    "yeUkGlwv1ZA",
-    "4iroaHg3nm4",
-    "kr42tKfyG-I",
-    "3qfneLwnYU4",
-    "aTEtXVRtpdI",
-    "RIeKGb1N2A8",
     "9ebygejtZdI"
    ],
    "last": [
     {
-     "v": "CzeedNQ76Z4",
-     "t": "【理財達人秀】升息過3關 5萬海闊天空?Anthropic.OpenAI毀滅論 記憶體.散熱.ASIC搶誰？大立光又降評 危機是轉機？【電視完整版】"
+     "v": "fHvJVEMnxmQ",
+     "t": "【理財達人秀】台股過3關 5萬海闊天空？PCB續漲價 未創高先買｜李兆華、李永年 2026.09.14 part1"
+    },
+    {
+     "v": "MmmG8hbXt6k",
+     "t": "【理財達人秀】AI升級雜音 跌點將討回 戰火蔓紅海 航海王搶誰｜李兆華、林漢偉 2026.09.14 part2"
+    },
+    {
+     "v": "ViLqnLtyVk0",
+     "t": "【理財達人秀】大立光又傷 危機是轉機？賺台積擴產 廠務低本益比｜李兆華、楊雲翔 2026.09.14 part3"
     }
    ]
   },
   "UCFeC_WM6JkH9AlpkEBAmEXg": {
-   "checked": "2026-09-14T18:46:43+00:00",
+   "checked": "2026-09-14T23:57:23+00:00",
    "seen": [
     "5atohSGtjK0",
     "Ly9oIzYtXY0",
@@ -274,8 +282,23 @@
    ]
   },
   "UChfl3auNxAxOR3wy8a8ysQQ": {
-   "checked": "2026-09-14T18:46:43+00:00",
+   "checked": "2026-09-14T23:57:23+00:00",
    "seen": [
+    "hr7gU5_Y1wM",
+    "hgm6ncNOisk",
+    "7hdIch1oPjE",
+    "w94-mvWsBTM",
+    "j-y16Fv3rRY",
+    "CRZGgo5PGh8",
+    "GFFpxXwt-p0",
+    "jYRlnceC7F0",
+    "a6890sZej8k",
+    "5CFKcjVN1vc",
+    "LGZLJtO7opk",
+    "r_4IZcVVpC4",
+    "Rz8Vx_OLrz4",
+    "6YVdmyses44",
+    "EAsprn8__ws",
     "hr7gU5_Y1wM",
     "hgm6ncNOisk",
     "7hdIch1oPjE",
@@ -340,21 +363,6 @@
     "j-y16Fv3rRY",
     "CRZGgo5PGh8",
     "GFFpxXwt-p0",
-    "jYRlnceC7F0",
-    "a6890sZej8k",
-    "5CFKcjVN1vc",
-    "LGZLJtO7opk",
-    "r_4IZcVVpC4",
-    "Rz8Vx_OLrz4",
-    "6YVdmyses44",
-    "EAsprn8__ws",
-    "PpNF8G8RBqk",
-    "9_npaOarzeo",
-    "Tcfu79H2oQo",
-    "w94-mvWsBTM",
-    "j-y16Fv3rRY",
-    "CRZGgo5PGh8",
-    "GFFpxXwt-p0",
     "jYRlnceC7F0"
    ],
    "last": [
@@ -365,7 +373,7 @@
    ]
   },
   "UCW5KC7p3B0zAs0OJHL3FAeg": {
-   "checked": "2026-09-14T18:46:44+00:00",
+   "checked": "2026-09-14T23:57:23+00:00",
    "seen": [
     "cew8Uxiae_c",
     "wlUSSa6wOG8",
@@ -427,6 +435,7 @@
     "-C6mSEhCZcQ",
     "4umeV1vgfqE",
     "pKdODUEvywM",
+    "cew8Uxiae_c",
     "wlUSSa6wOG8",
     "55luy5b1Kp8",
     "Eb3oHrc1Um0",
@@ -441,7 +450,6 @@
     "-C6mSEhCZcQ",
     "4umeV1vgfqE",
     "pKdODUEvywM",
-    "FujBHz_j2S0",
     "wlUSSa6wOG8",
     "55luy5b1Kp8",
     "Eb3oHrc1Um0",
@@ -788,13 +796,25 @@
    "d": "2026-09-14"
   },
   {
-   "v": "hr7gU5_Y1wM",
-   "t": "【AI滅人類 台股崩盤主因? 】2026/9/14(字幕版)",
-   "c": "郭哲榮分析師-摩爾證券投顧",
+   "v": "fHvJVEMnxmQ",
+   "t": "【理財達人秀】台股過3關 5萬海闊天空？PCB續漲價 未創高先買｜李兆華、李永年 2026.09.14 part1",
+   "c": "理財達人秀 EBCmoneyshow",
+   "d": "2026-09-14"
+  },
+  {
+   "v": "MmmG8hbXt6k",
+   "t": "【理財達人秀】AI升級雜音 跌點將討回 戰火蔓紅海 航海王搶誰｜李兆華、林漢偉 2026.09.14 part2",
+   "c": "理財達人秀 EBCmoneyshow",
+   "d": "2026-09-14"
+  },
+  {
+   "v": "ViLqnLtyVk0",
+   "t": "【理財達人秀】大立光又傷 危機是轉機？賺台積擴產 廠務低本益比｜李兆華、楊雲翔 2026.09.14 part3",
+   "c": "理財達人秀 EBCmoneyshow",
    "d": "2026-09-14"
   }
  ],
- "checked": "2026-09-14T18:46:44+00:00",
+ "checked": "2026-09-14T23:57:23+00:00",
  "digest": {
   "reported": [
    "00981A何時賣？看到這訊號快逃！_權證小哥_主動式ETF_溢價__ytt24Whfqvxro.md",
