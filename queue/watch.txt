@@ -1,14 +1,4 @@
 # 訂閱頻道的新片，由 watch_channels.py 自動維護，轉好會自動移除
-o5NnzfUZuNM  # 理財達人秀 EBCmoneyshow｜【兆華艾綸說】百萬股息達陣 Q4做價差 存股抗通膨 3檔勝金融｜李兆華、艾綸、謝
-N07JIr4etWw  # 理財達人秀 EBCmoneyshow｜趨勢專家艾綸親授！追高友達留長上影線被套牢？教你抓緊「壓力轉支撐」暴賺買點🚀！#
-GDQNfJ6KDI0  # 理財達人秀 EBCmoneyshow｜存股總編謝富旭親授！追高飆股慘被斷頭？靠「3大神奇KPI」提早達標百萬退休金💰！
-dvgOsEPdDu4  # 理財達人秀 EBCmoneyshow｜👑K神朱家泓親授！亂摸底慘接飛刀？教你用「高勝率打底法」買在安全爆發點 ! #理
-B3Y0reKrAhs  # 理財達人秀 EBCmoneyshow｜👑王博獨家拆解！公司發 GDR 是甩賣還是大補丸💸？別再腦補利空把飆股賣在最低點
-4iroaHg3nm4  # 理財達人秀 EBCmoneyshow｜👑籌碼專家權證小哥警告！股票被關監獄千萬別拋售🩸！教你用「布林位階」跟大戶在監獄
-5atohSGtjK0  # 兆華艾綸說｜公債無風險就有5% 存股難題 選老AI還是金融？feat. 存股總編 謝富旭
-yeUkGlwv1ZA  # 理財達人秀 EBCmoneyshow｜【理財達人秀】台積營收5148億 大戶搶設備.封測！CPO發動 先買一線軍？蘋果
-3uivb50Zxcw  # 理財達人秀 EBCmoneyshow｜【理財達人秀】台積創紀錄 被動迎轉單？ CPO全發動 先買一線軍！｜李兆華、容逸
-sxSKbhzgJH4  # 理財達人秀 EBCmoneyshow｜【理財達人秀】業績爆 設備、封測大戶掃貨 缺料搶 PCB好股外資狂搶｜李兆華、高
 Sd45rgXi8uA  # 理財達人秀 EBCmoneyshow｜【理財達人秀】蘋果摺出招 蘋概彎腰撿！ 營收年月雙增 遇跌就是買｜李兆華、陳唯泰
 dRW-_V4YjgE  # 理財達人秀 EBCmoneyshow｜👑 股科大夫Eason親授！飆股狂噴真相🔥高本益比免驚？卡位「光進銅退」轉折點！
 9HCMIgixSwY  # 理財達人秀 EBCmoneyshow｜👑 黃金右下角陳唯泰爆料！新日興重挫是假摔？😭營收創新高遇倒楣事？這時機彎腰撿寶
@@ -65,3 +55,8 @@ QSI8SIefmyM  # 兆華艾綸說｜廖總欽點：大封測時代！明年爆發�
 c6NpDx5BC5Y  # 理財達人秀 EBCmoneyshow｜【理財達人秀】台光電.聯茂崩跌 CPO害降規？美國升息央行連10凍 好到AI出口
 OHUouezCsyo  # 理財達人秀 EBCmoneyshow｜【理財達人秀】上影線攻一半 選舉接棒？ 華邦記憶拼圖 CPO看上游｜李兆華、林信
 9QvxrDTZYoQ  # 理財達人秀 EBCmoneyshow｜【理財達人秀】M9要降級？ CCL三雄錯殺了 2奈米旺 設備、封測迎主場｜李兆華
+7DCLxFqG-hg  # 理財達人秀 EBCmoneyshow｜👑 報價天王信富爆料！台積電本益比竟不到20倍？這數字算出台股下半年的發財密碼！
+MCubIuJfLpk  # 理財達人秀 EBCmoneyshow｜👑 選股教練唯泰警告！別被鬼故事騙去割肉！慘跌跌停的熱門股竟藏著大戶偷撿的買點？
+S2ceMYccQ0E  # 理財達人秀 EBCmoneyshow｜👑 存股教父股魚親授！買同款股票報酬卻差一大截？曝光主動ETF被黑手「偷狙擊」的
+yWakly7VRCc  # 理財達人秀 EBCmoneyshow｜【理財達人秀】升息不怕！ 台灣賺強美元 主動基金 比ETF績效更好？｜李兆華、股
+gAk40gZuZgA  # 郭哲榮分析師-摩爾證券投顧｜【又四萬七 這次狼來了?】2026/9/18(直播)
