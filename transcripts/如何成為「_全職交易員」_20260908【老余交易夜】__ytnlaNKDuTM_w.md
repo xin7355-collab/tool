@@ -1,7 +1,6 @@
 # 如何成為「_全職交易員」_20260908【老余交易夜】
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=nlaNKDuTM_w)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：如何成為「 全職交易員」 20260908【老余交易夜】
 
-
+- 日期：2026-09-08
 
 ---
 
