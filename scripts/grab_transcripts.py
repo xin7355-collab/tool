@@ -181,11 +181,15 @@ def parse_ids(raw):
     return ids
 
 
-def to_paragraphs(cues):
-    """把數千條字幕合成可讀段落——長片的可用性全看這一步。"""
+def to_paragraphs(cues, key="text"):
+    """把數千條字幕合成可讀段落——長片的可用性全看這一步。
+
+    key 指定讀哪個欄位。台語稿同一批 cues 會被切兩次（text 華語、nan 台文），
+    因為切段只看時間軸，兩版的段落邊界會完全對齊，並排對照才看得下去。
+    """
     out, cur = [], None
     for c in cues:
-        s, dur, txt = c["start"], c.get("duration", 0), c["text"].replace("\n", " ").strip()
+        s, dur, txt = c["start"], c.get("duration", 0), (c.get(key) or "").replace("\n", " ").strip()
         if not txt:
             continue
         if cur is None:
@@ -763,12 +767,56 @@ def write_outputs(n, vid, title, lang, cues, up=""):
     txt += "\n\n".join(p["t"] for p in paras) + "\n"
     (OUT / f"{stem}.txt").write_text(txt, encoding="utf-8")
 
+    write_srt(stem, cues)
+    write_taigi(stem, title, link, cues, paras)
+    return chars, len(paras)
+
+
+def write_srt(stem, cues, key="text", suffix=""):
     srt = []
     for i, c in enumerate(cues, 1):
-        srt.append(f"{i}\n{srt_time(c['start'])} --> "
-                   f"{srt_time(c['start'] + c.get('duration', 0))}\n{c['text']}\n")
-    (OUT / f"{stem}.srt").write_text("\n".join(srt), encoding="utf-8")
-    return chars, len(paras)
+        t = (c.get(key) or "").strip()
+        if not t:
+            continue
+        srt.append(f"{len(srt) + 1}\n{srt_time(c['start'])} --> "
+                   f"{srt_time(c['start'] + c.get('duration', 0))}\n{t}\n")
+    (OUT / f"{stem}{suffix}.srt").write_text("\n".join(srt), encoding="utf-8")
+
+
+def write_taigi(stem, title, link, cues, zh_paras):
+    """台語稿才有的三個檔：純台文、台文字幕、台文／華語對照。
+
+    只有 cues 帶得出台文才寫（也就是走過 taigi.py 那條路的），
+    一般國語稿完全不受影響，下載清單也不會多出空檔案。
+    """
+    if not any((c.get("nan") or "").strip() for c in cues):
+        return
+    nan_paras = to_paragraphs(cues, key="nan")
+    if not nan_paras:
+        return
+
+    # 1. 純台文全文
+    txt = title + "\n" + link + "\n\n【台文逐字稿】\n\n"
+    txt += "\n\n".join(p["t"] for p in nan_paras) + "\n"
+    (OUT / f"{stem}.nan.txt").write_text(txt, encoding="utf-8")
+
+    # 2. 台文字幕（配著影片看的時候用）
+    write_srt(stem, cues, key="nan", suffix=".nan")
+
+    # 3. 對照版：一段台文、一段華語。翻得對不對只有這樣才看得出來，
+    #    所以兩邊的段落邊界必須一致——靠 to_paragraphs 只看時間軸來保證。
+    md = [f"# {title}（台文／華語對照）", "", f"- 影片：{link}",
+          "- 台文用教育部臺灣台語推薦用字；華語是同一句的翻譯，不是逐字硬翻。",
+          "- 台羅拼音模型沒把握時會留白——寧可沒有，也不要給錯的。", "", "---", ""]
+    for a, b in zip(nan_paras, zh_paras):
+        md.append(f"**[{hhmmss(a['s'])}]({link}?t={int(a['s'])})**")
+        md.append(f"台文　{a['t']}")
+        md.append(f"華語　{b['t']}")
+    (OUT / f"{stem}.tw.md").write_text("\n\n".join(md), encoding="utf-8")
+
+    tailo = [c for c in cues if (c.get("tailo") or "").strip()]
+    print("    台文版已產出（%d 段；台羅 %d/%d 句）"
+          % (len(nan_paras), len(tailo), len(cues)), flush=True)
 
 
 def main():

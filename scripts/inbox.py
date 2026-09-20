@@ -84,12 +84,27 @@ def put_asset(local_path, name, tok=None, rel=None):
 
 
 def get_asset(asset_id, dest, tok=None):
-    data = req(API + "/releases/assets/%s" % asset_id, "GET", None,
-               {"Accept": "application/octet-stream"}, tok)
+    """邊下載邊寫檔，不要整份讀進記憶體。
+
+    影片附件可以到 2GB（GitHub 附件的單檔上限）。原本是 req() 把整個 body
+    讀成一個 bytes 再寫出去，等於同時佔掉 2GB 記憶體，而且中途失敗連一個位元組
+    都沒留下。分塊寫出去之後，記憶體只佔一個緩衝區。
+    """
+    h = {"Accept": "application/octet-stream",
+         "User-Agent": "transcript-tool/1.0"}
+    t = tok or token()
+    if t:
+        h["Authorization"] = "Bearer " + t
+    r = urllib.request.Request(API + "/releases/assets/%s" % asset_id, headers=h)
     os.makedirs(os.path.dirname(dest) or ".", exist_ok=True)
-    with open(dest, "wb") as f:
-        f.write(data)
-    return len(data)
+    n = 0
+    with urllib.request.urlopen(r, timeout=1800) as resp, open(dest, "wb") as f:
+        while True:
+            buf = resp.read(1 << 20)
+            if not buf:
+                break
+            f.write(buf); n += len(buf)
+    return n
 
 
 def del_asset(asset_id, tok=None):

@@ -13,26 +13,36 @@ import os, re, sys, glob, time, pathlib, subprocess
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from grab_transcripts import (OUT, safe_name, hhmmss, srt_time, to_paragraphs,
                               groq_summary, groq_polish, groq_asr_cues, asr_cues,
+                              write_srt, write_taigi,
                               ASR_BACKEND, GROQ_API_KEY, WHISPER_MODEL, GROQ_MODEL)
 import progress as progress_mod
 import classify as cls
+import taigi
 
 INBOX = os.environ.get("AUDIO_INBOX", "audio-inbox")
 EXTS = (".m4a", ".mp3", ".wav", ".flac", ".ogg", ".opus", ".aac", ".mp4", ".webm", ".m4b")
 
 
 def clean_title(path):
-    """檔名 → (標題, 影片ID)：去掉時間戳前綴與 yt2deck 夾帶的 __yt 影片 ID 標記。
+    """檔名 → (標題, 影片ID, 語言)：拆掉時間戳前綴與夾帶在檔名裡的標記。
 
     影片 ID 要留著寫進逐字稿檔名，網站才能標出「這支已經抓過了」。
+
+    語言標記 `__L<code>` 是手機上傳時選的（nan 台語／cmn 國語／auto 自動）。
+    為什麼藏在檔名裡而不是另外存一份設定：附件、標記檔、下載、glob 這一整條路
+    只保證檔名會原封不動傳到底，多開一個欄位就多四個地方要改、也多四個地方會漏。
     """
     name = os.path.splitext(os.path.basename(path))[0]
     name = re.sub(r"^\d{8}-\d{6}[_-]", "", name)    # 20260801-235959_
+    lang = ""
+    m = re.search(r"__L([A-Za-z]{2,6})$", name)
+    if m:
+        lang, name = m.group(1).lower(), name[:m.start()]
     vid = ""
     m = re.search(r"__yt([A-Za-z0-9_-]{11})$", name)
     if m:
         vid, name = m.group(1), name[:m.start()]
-    return (name.strip() or "上傳的音檔"), vid
+    return (name.strip() or "上傳的音檔"), vid, lang
 
 
 def main():
@@ -54,7 +64,7 @@ def main():
               % ASR_BACKEND, flush=True)
 
     # 進度發佈到 gh-pages，網站就能畫出每個檔案自己的讀取條
-    titles = [(p, clean_title(p)[0]) for p in files]
+    titles = [(p, clean_title(p)[0]) for p in files]   # clean_title 回三個值，只要標題
     pg = progress_mod.make(titles)
 
     ok, done = 0, []
@@ -91,6 +101,36 @@ def save_done(done, total, ok):
     (OUT / "_status.txt").write_text("%d %d\n" % (total, ok), encoding="utf-8")
 
 
+# 沒有指定語言的檔案要不要自動偵測。預設不要：偵測一次要花一次 Gemini 呼叫，
+# 而絕大多數上傳本來就是國語，整批去問等於把免費額度花在已知的答案上。
+TAIGI_AUTO = os.environ.get("TAIGI_AUTO", "0") == "1"
+
+
+def pick_engine(path, want, pg, i):
+    """決定這個檔案要用哪個引擎辨識。
+
+    台語**不會**默默退回 Whisper。Whisper 的語言清單裡沒有閩南語，餵台語進去
+    不會報錯，會產出一整篇文法通順、卻整句都不是講者原意的國語——逐字稿看起來
+    完全正常，只有對過音檔的人才知道是錯的。與其交出那種東西，不如讓這個檔案
+    失敗、把原因寫在進度條上：附件與標記都還在，補上金鑰後下一輪自己會跑起來。
+    """
+    if want in ("nan", "tw", "taigi", "hokkien"):
+        if not taigi.available():
+            raise RuntimeError("這個檔案指定了台語，但缺 GEMINI_API_KEY，"
+                               "不能用 Whisper 頂替（會產出通順但整篇錯的國語）")
+        return "taigi"
+    if want in ("cmn", "zh", "mandarin"):
+        return "groq"
+    if (want == "auto" or (not want and TAIGI_AUTO)) and taigi.available():
+        pg.step(i, "先聽開頭判斷語言…", 3)
+        got = taigi.detect(path)
+        print("  語言偵測：%s" % {"nan": "台語", "cmn": "國語"}.get(got, "判斷不出來，照國語跑"),
+              flush=True)
+        if got == "nan":
+            return "taigi"
+    return "groq"
+
+
 def run_all(files, use_groq, pg):
     ok, done = 0, []
     started = time.monotonic()
@@ -107,12 +147,19 @@ def run_all(files, use_groq, pg):
                       % (spent, avg, len(files) - n + 1), flush=True)
                 break
         t0 = time.monotonic()
-        title, vid = clean_title(path)
+        title, vid, want = clean_title(path)
         print("[%d/%d] %s" % (n, len(files), os.path.basename(path)), flush=True)
         i = n - 1
         try:
             pg.start(i, "準備音訊…")
-            if use_groq:
+            engine = pick_engine(path, want, pg, i)
+            if engine == "taigi":
+                def report(cur, total, _i=i):
+                    label = ("台語轉錄中…" if total == 1
+                             else "台語轉錄中 %d/%d 段完成" % (cur, total))
+                    pg.step(_i, label, 5 + 85.0 * cur / max(1, total))
+                cues = taigi.taigi_cues(path, on_progress=report, hint=title)
+            elif use_groq:
                 def report(cur, total, _i=i):
                     # cur 是「已完成」的段數（多段是平行跑的，沒有「正在第幾段」）
                     # 辨識佔進度條的 5~90%，剩下留給摘要與寫檔
@@ -150,7 +197,8 @@ def run_all(files, use_groq, pg):
             pg.step(i, "分類中…", 96)
             meta = cls.classify(title, body)          # 主題分類要看內容，光看標題判斷不出來
             tidy = cls.tidy(title)                    # 短標題純靠規則，離線也算得出來
-            lang = ("Groq:" + GROQ_MODEL) if use_groq else ("ASR:" + WHISPER_MODEL)
+            lang = ("台語 Gemini" if engine == "taigi"
+                    else ("Groq:" + GROQ_MODEL) if use_groq else ("ASR:" + WHISPER_MODEL))
 
             src = (f"[YouTube 影片](https://www.youtube.com/watch?v={vid})" if vid
                    else f"上傳音檔（{os.path.basename(path)}）")
@@ -165,6 +213,11 @@ def run_all(files, use_groq, pg):
                 md.append(f"- 短標題：{tidy['clean']}")
             if tidy.get("date"):
                 md.append(f"- 日期：{tidy['date']}")
+            if engine == "taigi":
+                # 沒有這兩行，使用者不會知道下載清單裡多出來的 .nan.txt 是什麼
+                md.append(f"- 台文版：{stem}.nan.txt（逐字的台語原話）")
+                md.append(f"- 對照版：{stem}.tw.md（台文／華語一段對一段）")
+                md.append("- 這份 .md 與 .txt 是**華語翻譯**，摘要與分類都讀這一版。")
             md.append("")
             if summary:
                 md += ["## 摘要", "", summary, ""]
@@ -189,11 +242,11 @@ def run_all(files, use_groq, pg):
             txt += "\n\n".join(read) + "\n"
             (OUT / f"{stem}.txt").write_text(txt, encoding="utf-8")
 
-            srt = []
-            for k, c in enumerate(cues, 1):        # 不能用 i，那是這一輪的檔案編號
-                srt.append(f"{k}\n{srt_time(c['start'])} --> "
-                           f"{srt_time(c['start'] + c.get('duration', 0))}\n{c['text']}\n")
-            (OUT / f"{stem}.srt").write_text("\n".join(srt), encoding="utf-8")
+            write_srt(stem, cues)
+            # 台語稿才會多出 .nan.txt／.nan.srt／.tw.md；國語稿這行什麼都不做
+            src_link = (f"https://www.youtube.com/watch?v={vid}" if vid
+                        else os.path.basename(path))
+            write_taigi(stem, title, src_link, cues, paras)
 
             print("  完成：%d 字 / %d 段（花了 %.1f 分）"
                   % (chars, len(paras), (time.monotonic() - t0) / 60.0), flush=True)

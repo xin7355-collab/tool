@@ -78,6 +78,14 @@ jobs:
           # 同上，刻意不讀 vars.GROQ_LLM_MODEL：llama-3.1-8b-instant 已於
           # 2026-08-16 停用，設定裡若留著舊值會蓋掉這裡，摘要又會整批 404。
           GROQ_LLM_MODEL: openai/gpt-oss-20b
+          # 台語專用。沒設就只是台語那條路不能用，國語照跑——所以不是必填。
+          # Whisper 的語言清單裡沒有閩南語，台語檔案缺這把金鑰時會明確失敗，
+          # 不會偷偷用 Whisper 產出一整篇通順但整句都錯的國語。
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_MODEL: ${{ vars.GEMINI_MODEL }}
+          # 沒指定語言的檔案要不要自動偵測。預設關：每偵測一次就花一次 Gemini
+          # 呼叫，而絕大多數上傳本來就是國語。想全自動就把這個 Variable 設成 1。
+          TAIGI_AUTO: ${{ vars.TAIGI_AUTO || '0' }}
         run: |
           ls -lh audio-inbox/ 2>/dev/null || echo "(inbox 是空的)"
           # 全掛時要變紅：之前腳本永遠回 None＝綠燈，inbox 卡了一整天沒人發現。
@@ -128,17 +136,25 @@ jobs:
             TOTAL=$(ls audio-inbox/ 2>/dev/null | wc -l | tr -d ' ')
           fi
           [ "${TOTAL:-0}" -gt 0 ] || { echo "這次沒有待處理音檔，不發通知"; exit 0; }
-          if ls out/*.md >/dev/null 2>&1; then
-            TITLES=$(head -qn 1 out/*.md | sed 's/^# /・/')
-            N=$(ls out/*.md | wc -l | tr -d ' ')
+          # 台文對照版 <stem>.tw.md 是附屬檔，不是另一篇。不濾掉的話一支台語影片
+          # 會被數成兩篇，通知裡也會出現兩行幾乎一樣的標題。
+          MD=$(ls out/*.md 2>/dev/null | grep -v '\.tw\.md$' || true)
+          if [ -n "$MD" ]; then
+            TITLES=$(echo "$MD" | xargs -d '\n' head -qn 1 | sed 's/^# /・/')
+            N=$(echo "$MD" | grep -c .)
+            NAN=$(ls out/*.nan.txt 2>/dev/null | grep -c . || true)
             {
               echo "### ✅ 逐字稿完成（$N 篇）"
               echo
               echo "$TITLES"
+              if [ "${NAN:-0}" -gt 0 ]; then
+                echo
+                echo "其中 $NAN 篇是台語，另外附了台文版與台文／華語對照版。"
+              fi
               echo
               echo "👉 [開啟逐字稿抽取台]($SITE)"
             } > /tmp/note.md
-            TITLE="✅ 逐字稿完成：$(head -qn 1 out/*.md | head -1 | sed 's/^# //' | cut -c1-40)"
+            TITLE="✅ 逐字稿完成：$(echo "$MD" | head -1 | xargs -d '\n' head -qn 1 | sed 's/^# //' | cut -c1-40)"
           else
             {
               echo "### ⏳ 這次沒轉成功，音檔已保留"

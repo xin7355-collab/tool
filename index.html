@@ -337,10 +337,20 @@
     <div class="step"><span>上傳音檔</span></div>
     <input type="file" class="in" id="file" multiple accept="audio/*,video/*,.m4a,.mp3,.wav,.flac,.ogg,.opus,.mp4,.webm">
     <input class="in" id="fileTitle" placeholder="標題（留空用檔名）" style="margin-top:10px">
+    <select class="in" id="upLang" style="margin-top:10px">
+      <option value="">國語（預設，最快）</option>
+      <option value="nan">台語／台語國語夾雜</option>
+      <option value="auto">自動判斷（先聽開頭 90 秒）</option>
+    </select>
     <button class="btn btn--go" id="upBtn">⬆️ 上傳並轉錄</button>
     <p class="msg" id="upMsg"></p>
-    <p class="hint">單檔 45MB 以內（約 1~2 小時），<b>可以一次選很多個</b>——會一個一個傳，
-      中間有一個失敗不影響其他的。</p>
+    <p class="hint">單檔 <b>2GB 以內</b>，影片也可以直接傳（系統會自己抽音軌）。
+      <b>可以一次選很多個</b>——會一個一個傳，中間有一個失敗不影響其他的。<br>
+      超過 200MB 請<b>接 Wi-Fi</b>，而且上傳中這一頁不要切走。</p>
+    <p class="hint" id="nanNote" hidden>台語會走另一個聽得懂台語的引擎，除了原本的
+      <b>華語版</b>，另外產出 <b>台文版</b>（.nan.txt）與 <b>台文／華語對照版</b>（.tw.md）。<br>
+      需要先在 GitHub 設定一次 <b>GEMINI_API_KEY</b>（Google AI Studio 免費申請）——
+      這把金鑰是給伺服器用的，不能存在手機上。做法看 <b>如何開啟台語.md</b>。</p>
   </div>
 </section>
 
@@ -554,7 +564,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.5.3';
+var APP_VER='1.6.0';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1750,17 +1760,49 @@ function markAssetBlocked(){
     localStorage.removeItem('deck_asset_blocked');
   }catch(e){}
 }
-function store(buf, filename, opts, tok, show){
+/* repo 那條退路要先把整個檔案轉成 base64 塞進 JSON，等於在手機記憶體裡
+   同時放著原檔＋位元組陣列＋1.33 倍的字串。幾十 MB 還行，幾百 MB 會讓
+   Safari 直接閃退——而閃退看起來就只是「App 自己關掉了」，查不出原因。
+   所以超過這個大小就不走退路，老實說「附件通道不通」。 */
+var REPO_MAX=25*1048576;
+/* 大檔案不能先 readBytes 再上傳：1GB 的 ArrayBuffer 在 iPhone 上是必當的。
+   XHR 直接把 File 當 body 送，WebKit 會邊讀磁碟邊傳，記憶體只佔緩衝區；
+   順便還能拿到 upload.onprogress——傳 1GB 沒有進度條，使用者會以為當掉了。 */
+function putAsset(url, blob, tok, onProg){
+  return new Promise(function(res){
+    var x=new XMLHttpRequest();
+    x.open('POST', url, true);
+    x.setRequestHeader('Authorization','Bearer '+tok);
+    x.setRequestHeader('Accept','application/vnd.github+json');
+    x.setRequestHeader('Content-Type','application/octet-stream');
+    if(x.upload && onProg) x.upload.onprogress=function(e){
+      if(e.lengthComputable) onProg(e.loaded, e.total);
+    };
+    // onerror 也包含「傳成功但回應被跨網域擋住」，所以 false 不等於失敗，
+    // 一律交給 landed() 去 api.github.com 問結果，不要用猜的。
+    x.onload=function(){ res(x.status>=200 && x.status<300); };
+    x.onerror=function(){ res(false); };
+    x.onabort=function(){ res(false); };
+    x.send(blob);
+  });
+}
+function fmtMB(n){ return (n/1048576).toFixed(n<10485760?1:0)+'MB'; }
+function store(blob, filename, opts, tok, show){
   var kind=(opts.dir==='audio-inbox')?'audio':'doc';
   var ext=(filename.match(/\.[A-Za-z0-9]+$/)||[''])[0].toLowerCase();
   var id=(filename.match(/^[0-9]{8}-[0-9]{6}(-[0-9]+)?/)||['file'])[0]
          +(filename.match(/__yt[A-Za-z0-9_-]{11}/)||[''])[0];
   var viaRepo=function(){
     // 退路：檔案直接寫進 repo（會留在 git 歷史裡，但至少傳得上去）
+    if(blob.size>REPO_MAX)
+      return Promise.reject(new Error('附件通道不通，而這個檔案 '+fmtMB(blob.size)+
+        ' 太大、沒辦法走備用方式（上限 '+fmtMB(REPO_MAX)+'）。請稍後再試一次。'));
     var path=opts.dir+'/'+filename;
-    return fetch(API+'/contents/'+encodeURIComponent(path).replace(/%2F/g,'/'),{
-      method:'PUT',headers:ghHead(tok,{'Content-Type':'application/json'}),
-      body:JSON.stringify({message:opts.note,content:b64FromBuf(buf),branch:'main'})
+    return readBytes(blob).then(function(buf){
+      return fetch(API+'/contents/'+encodeURIComponent(path).replace(/%2F/g,'/'),{
+        method:'PUT',headers:ghHead(tok,{'Content-Type':'application/json'}),
+        body:JSON.stringify({message:opts.note,content:b64FromBuf(buf),branch:'main'})
+      });
     }).then(function(r){
       if(r.status===201||r.status===200)
         return putMark({path:path,file:filename,kind:kind},id,tok,opts.note);
@@ -1785,32 +1827,43 @@ function store(buf, filename, opts, tok, show){
       .then(function(r){ return r.ok?r.json():[]; })
       .then(function(a){
         for(var i=0;i<a.length;i++)
-          if(a[i].name===id+ext && a[i].size===buf.byteLength) return true;
+          if(a[i].name===id+ext && a[i].size===blob.size) return true;
         return false;
       }).catch(function(){ return false; });
   };
-  if(!assetOK()) return viaRepo();
+  if(!assetOK() && blob.size<=REPO_MAX) return viaRepo();
   var relId=null;
   return inboxRelease(tok).then(function(rid){
     relId=rid;
-    return fetch('https://uploads.github.com/repos/'+OWNER+'/'+REPO+
-                 '/releases/'+rid+'/assets?name='+encodeURIComponent(id+ext),{
-      method:'POST',headers:ghHead(tok,{'Content-Type':'application/octet-stream'}),
-      body:buf}).then(function(r){ return r.ok; }, function(){ return false; });
+    var big=blob.size>8*1048576;
+    return putAsset('https://uploads.github.com/repos/'+OWNER+'/'+REPO+
+                    '/releases/'+rid+'/assets?name='+encodeURIComponent(id+ext),
+                    blob, tok, (big&&show)?function(sent,total){
+      show('上傳中 '+Math.floor(100*sent/total)+'%（'+fmtMB(sent)+' / '+fmtMB(total)+'）');
+    }:null);
   }).then(function(sent){
+    if(sent && show && blob.size>8*1048576) show('傳完了，正在確認…');
     if(sent) return markAsset();
     return landed(relId).then(function(there){
       if(there) return markAsset();       // 回應讀不到而已，檔案有進去
-      markAssetBlocked();
-      if(show) show('附件通道不通，改用備用方式上傳…');
-      return viaRepo();
+      return giveUp();
     });
   }).catch(function(e){
     if(/標記檔/.test(e&&e.message||'')) throw e;      // 附件傳成功、只是標記沒推：別重傳一次
+    if(/太大、沒辦法走備用方式/.test(e&&e.message||'')) throw e;
+    return giveUp();
+  });
+  /* 大檔案傳失敗多半是網路斷了（4G 傳 1GB 中途換基地台很常見），不是通道被擋。
+     把它記成「附件通道不通」的話，這台手機之後一週連 5MB 的錄音都會改走 repo，
+     一個網路小意外就換來一整週的 repo 肥大。只有小檔案失敗才算得上是通道問題。 */
+  function giveUp(){
+    if(blob.size>REPO_MAX)
+      return Promise.reject(new Error('上傳中斷了（'+fmtMB(blob.size)+
+        '）。多半是網路斷掉——接 Wi-Fi 再按一次，已經傳的部分不會重複計算。'));
     markAssetBlocked();
     if(show) show('附件通道不通，改用備用方式上傳…');
     return viaRepo();
-  });
+  }
 }
 function sendFiles(files, opts){
   var tok=getTok();
@@ -1822,13 +1875,12 @@ function sendFiles(files, opts){
     btn.textContent='上傳中 '+(i+1)+'/'+n+'…';
     show('處理中：'+(f.name||'錄音'));
     return (opts.prepare?opts.prepare(f):Promise.resolve(f)).then(function(blob){
-      var mb=blob.size/1048576;
-      if(mb>opts.maxMB) throw new Error('檔案 '+mb.toFixed(1)+'MB，超過 '+opts.maxMB+'MB');
-      show('上傳中（'+mb.toFixed(1)+'MB）…');
-      // 檔案只讀這一次，兩條上傳路線共用這份位元組
-      return readBytes(blob).then(function(buf){
-        return store(buf, opts.nameOf(f,i,blob), opts, tok, show);
-      });
+      var sz=blob.size/1048576;
+      if(sz>opts.maxMB) throw new Error('檔案 '+sz.toFixed(1)+'MB，超過 '+opts.maxMB+'MB');
+      show('上傳中（'+sz.toFixed(1)+'MB）…');
+      // 檔案本身不先讀進記憶體：直接把 File 交給 XHR 邊讀邊傳。
+      // 以前是 readBytes 成 ArrayBuffer 再送，45MB 還撐得住，1GB 必當。
+      return store(blob, opts.nameOf(f,i,blob), opts, tok, show);
     }).then(function(){ ok++; })
     .catch(function(e){
       // 一個壞掉不該讓其他的也不傳——十個檔案裡有一個太大是常有的事
@@ -1853,22 +1905,29 @@ function sendFiles(files, opts){
   });
 }
 
+$('#upLang').onchange=function(){ $('#nanNote').hidden = !this.value; };
 $('#upBtn').onclick=function(){
   // 剛錄好的優先，其次才是選檔案（現在可以一次選很多個）
   var picked=Array.prototype.slice.call(($('#file').files)||[]);
   var files=recBlob?[recBlob]:picked;
   if(!files.length){msg('#upMsg','⚠️ 先錄一段，或選音檔（可以一次選很多個）',1);return;}
   var fromRec=!!recBlob, ts=stamp();
+  /* 語言夾在檔名尾巴（__Lnan／__Lauto）而不是另外存一份設定：
+     附件 → 標記檔 → 下載 → 收件匣 glob 這一整條路，只有檔名保證原封不動傳到底。
+     多開一個欄位就多四個地方要改，也多四個地方會漏掉。 */
+  var lang=($('#upLang').value||'');
   sendFiles(files,{
+    // 2GB 是 GitHub Release 附件的單檔上限；留 100MB 餘裕免得剛好卡在邊界。
     dir:'audio-inbox', msgSel:'#upMsg', btn:this, label:'⬆️ 上傳並轉錄',
-    maxMB:45, note:'Upload audio',
+    maxMB:1900, note:'Upload audio',
     done:'轉錄中，完成後會出現在「📄 下載」分頁（不用手動刷新）。',
     nameOf:function(f,i){
       var ext=fromRec?(f.__ext||'.m4a'):(f.name.match(/\.[A-Za-z0-9]+$/)||['.mp3'])[0];
       // 標題欄只在單檔時有意義；一次傳很多個就各自用檔名
       var base=(files.length===1?($('#fileTitle').value||'').trim():'')||
                (fromRec?('錄音_'+ts):f.name.replace(/\.[A-Za-z0-9]+$/,''));
-      return ts+(files.length>1?'-'+(i+1):'')+'_'+safeBase(base,'audio')+ext;
+      return ts+(files.length>1?'-'+(i+1):'')+'_'+safeBase(base,'audio')+
+             (lang?'__L'+lang:'')+ext;
     },
     after:function(){
       $('#file').value=''; $('#fileTitle').value='';
@@ -2038,7 +2097,17 @@ function putFile(path,text,note){
 
 /* ---------- 逐字稿 ---------- */
 var items=[], cache={};
-function sib(f){return {md:f,txt:f.replace(/\.md$/i,'.txt'),srt:f.replace(/\.md$/i,'.srt')};}
+function sib(f){
+  var b=f.replace(/\.md$/i,'');
+  // nan＝台文逐字稿、tw＝台文／華語對照，只有台語稿才有（索引裡的旗標說了算）
+  return {md:f,txt:b+'.txt',srt:b+'.srt',nan:b+'.nan.txt',tw:b+'.tw.md'};
+}
+/* 索引旗標查詢。沒有這個欄位＝舊索引，一律當成沒有：畫出來按下去 404
+   比少一顆按鈕難受得多（.srt 那顆的預設相反，因為它以前就一直都在）。 */
+function flag(file,k){
+  for(var i=0;i<items.length;i++) if(items[i].file===file) return !!items[i][k];
+  return false;
+}
 /* iPhone 把這個網站「加入主畫面」之後就沒有瀏覽器工具列了，
    而 <a download> 在 iOS 上不是存檔、是直接「打開」那個檔——整個畫面被預覽蓋掉，
    沒有上一頁可以按，只能把 App 關掉重開。
@@ -2111,6 +2180,8 @@ function show(file,title,li){
       p.innerHTML='<div class="ph"><b>'+esc(title)+'</b><br>下載：'+
         dlLink(s.txt,'.txt')+' · '+dlLink(s.md,'.md')+
         (hasSrt(file) ? ' · '+dlLink(s.srt,'.srt') : '')+
+        (flag(file,'nan') ? ' · '+dlLink(s.nan,'台文') : '')+
+        (flag(file,'tw') ? ' · '+dlLink(s.tw,'台華對照') : '')+
         '<br><a href="#" id="paperClose">✕ 收起</a></div>'+
         '<div id="sumBox"></div>'+esc(stripSum(t));
       p.scrollTop=0;
@@ -2306,7 +2377,9 @@ function draw(list){
     top.appendChild(cb); top.appendChild(h);
     var d=document.createElement('div'); d.className='dl';
     d.innerHTML=dlLink(s.txt,'⬇ .txt')+dlLink(s.md,'.md')+
-      (hasSrt(it.file) ? dlLink(s.srt,'.srt') : '');
+      (hasSrt(it.file) ? dlLink(s.srt,'.srt') : '')+
+      (it.nan ? dlLink(s.nan,'台文') : '')+
+      (it.tw ? dlLink(s.tw,'台華對照') : '');
     li.appendChild(top); li.appendChild(d);
     if(it._snip){var sn=document.createElement('div');sn.className='snip';sn.innerHTML=it._snip;li.appendChild(sn);}
     if(it.file===openFile) reopen=li;          // 這篇本來是展開的，等等放回去

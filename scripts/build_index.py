@@ -38,6 +38,10 @@ def build(site_dir="site/transcripts"):
     items = []
     for p in sorted(glob.glob(os.path.join(site_dir, "*.md"))):
         name = os.path.basename(p)
+        # 台文對照版 <stem>.tw.md 是同一篇的附屬檔，不是另一篇逐字稿。
+        # 不擋掉的話清單上會出現一張標題幾乎一樣的重複卡片，而且點進去沒有摘要。
+        if name.endswith(".tw.md"):
+            continue
         it = {"file": "transcripts/" + name, "title": name}
         with open(p, encoding="utf-8") as f:
             for n, line in enumerate(f):
@@ -58,6 +62,10 @@ def build(site_dir="site/transcripts"):
         # 一定要連 False 也寫出來：前端把「沒有這個欄位」當成舊版索引、
         # 照舊三個都顯示，只寫 True 的話就永遠走那條相容路徑，等於沒修。
         it["srt"] = os.path.exists(p[:-3] + ".srt")
+        # 台語稿才有的兩個附屬檔。前端靠這個決定要不要畫「台文」那顆下載鈕，
+        # 沒有的就不要畫——按下去 404 比沒有那顆鈕更糟。
+        it["nan"] = os.path.exists(p[:-3] + ".nan.txt")
+        it["tw"] = os.path.exists(p[:-3] + ".tw.md")
         items.append(it)
     with open(out, "w", encoding="utf-8") as f:
         json.dump(items, f, ensure_ascii=False, indent=2)
