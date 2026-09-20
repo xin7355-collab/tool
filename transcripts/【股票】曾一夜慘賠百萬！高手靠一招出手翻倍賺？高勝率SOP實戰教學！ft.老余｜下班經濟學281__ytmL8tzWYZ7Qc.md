@@ -1,7 +1,6 @@
 # 【股票】曾一夜慘賠百萬！高手靠一招出手翻倍賺？高勝率SOP實戰教學！ft.老余｜下班經濟學281
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=mL8tzWYZ7Qc)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：股票｜曾一夜慘賠百萬！高手靠一招出手翻倍賺？高勝率SOP實戰教學！老余
 
-
+- 日期：2022-08-19
 
 ---
 
