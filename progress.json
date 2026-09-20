@@ -1,14 +1,14 @@
 {
  "run": "35504144074",
  "state": "running",
- "updated": "2026-09-20T10:07:52Z",
+ "updated": "2026-09-20T10:07:53Z",
  "files": [
   {
    "name": "20260920-175358_20260919_頂晡第2節__Lnan.mp4",
    "title": "20260919_頂晡第2節",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   }
  ]
 }
