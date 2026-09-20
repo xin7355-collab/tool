@@ -160,14 +160,36 @@ jobs:
             TITLE="✅ 逐字稿完成：$(echo "$MD" | head -1 | xargs -d '\n' head -qn 1 | sed 's/^# //' | cut -c1-40)"
           else
             {
+              if [ -s out/_needs_setup.txt ]; then
+                # 「還沒設定」跟「壞掉」要寫不一樣的話。寫成「服務忙線、會自己好」
+                # 的話，使用者就會一直等一個永遠不會自己好的東西。
+                echo "### ⚙️ 有台語檔案在等你設定金鑰"
+                echo
+                echo "這幾個檔案指定了台語，但 repo 還沒設 \`GEMINI_API_KEY\`："
+                echo
+                sed 's/^/・/' out/_needs_setup.txt
+                echo
+                echo "台語不能用原本的 Whisper 頂替——它沒有閩南語，會產出一整篇"
+                echo "通順但整句都錯的國語，而且從逐字稿上完全看不出來。"
+                echo
+                echo "設定方式：[如何開啟台語.md](https://github.com/${GITHUB_REPOSITORY}/blob/main/%E5%A6%82%E4%BD%95%E9%96%8B%E5%95%9F%E5%8F%B0%E8%AA%9E.md)"
+                echo
+                echo "**檔案會留著**，設好之後下一輪（每 2 小時）自己會跑，不用重傳。"
+                echo "不想做台語的話，把這幾個檔案重傳一次、語言選「國語」就好。"
+              else
               echo "### ⏳ 這次沒轉成功，音檔已保留"
               echo
               echo "常見原因是辨識服務暫時忙線。**音檔還留在系統裡，每 2 小時會自動再試一次**，"
               echo "你不用重新上傳；轉好了會再通知你。"
               echo
               echo "想看詳細原因：[這次的執行記錄](https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})"
+              fi
             } > /tmp/note.md
-            TITLE="⏳ 逐字稿還沒轉好，會自動重試"
+            if [ -s out/_needs_setup.txt ]; then
+              TITLE="⚙️ 台語檔案在等你設定金鑰"
+            else
+              TITLE="⏳ 逐字稿還沒轉好，會自動重試"
+            fi
           fi
           NUM=$(gh issue create --repo "$GITHUB_REPOSITORY" --title "$TITLE" \
                   --body-file /tmp/note.md 2>/dev/null | grep -oE '[0-9]+$') || true

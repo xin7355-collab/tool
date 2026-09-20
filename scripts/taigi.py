@@ -62,6 +62,15 @@ class TaigiError(RuntimeError):
     pass
 
 
+class NeedsKey(TaigiError):
+    """缺 GEMINI_API_KEY。這是「還沒設定」，不是「壞掉」。
+
+    分開一個型別是為了讓上層能區分：真的失敗（辨識錯、額度滿、網路斷）要變紅燈
+    發信叫人來看；還沒設定只要安靜地留著等，因為每 2 小時重試一次一定也是同樣的
+    結果，發一百封一模一樣的信只會讓人把通知關掉——然後真的壞掉時就沒人知道了。
+    """
+
+
 def available():
     """這台機器有沒有辦法跑台語辨識。"""
     return bool(GEMINI_KEY)

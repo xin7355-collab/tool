@@ -67,15 +67,27 @@ def main():
     titles = [(p, clean_title(p)[0]) for p in files]   # clean_title 回三個值，只要標題
     pg = progress_mod.make(titles)
 
-    ok, done = 0, []
+    ok, done, waiting = 0, [], []
     try:
-        ok, done = run_all(files, use_groq, pg)
+        ok, done, waiting = run_all(files, use_groq, pg)
     finally:
         pg.finish()          # 不管怎麼結束，都別讓進度條永遠停在「進行中」
-    print("完成：成功 %d / 共 %d" % (ok, len(files)), flush=True)
+    print("完成：成功 %d / 共 %d%s"
+          % (ok, len(files), ("（另有 %d 個在等設定）" % len(waiting)) if waiting else ""),
+          flush=True)
     save_done(done, len(files), ok)
+    if waiting:
+        # 留一張條子給工作流：通知那一步要寫「去設定」而不是「服務忙線，等它自己好」。
+        (OUT / "_needs_setup.txt").write_text(
+            "\n".join(waiting) + "\n", encoding="utf-8")
     # 一支都沒轉成功就回非零，讓工作流變紅並寄信。之前是永遠回 None＝綠燈，
     # inbox 卡了一整天、每兩小時重試一次全掛，畫面上還是一片綠。
+    #
+    # 但「在等你設定金鑰」不算壞掉：重試一百次也一定是同樣結果，發一百封一樣的信
+    # 只會讓人把通知整個關掉——然後真的壞掉時就沒人知道了。
+    if ok == 0 and waiting and len(waiting) == len(files):
+        print("這批全部在等台語金鑰設定，不算失敗", flush=True)
+        return 0
     return 1 if ok == 0 else 0
 
 
@@ -116,8 +128,10 @@ def pick_engine(path, want, pg, i):
     """
     if want in ("nan", "tw", "taigi", "hokkien"):
         if not taigi.available():
-            raise RuntimeError("這個檔案指定了台語，但缺 GEMINI_API_KEY，"
-                               "不能用 Whisper 頂替（會產出通順但整篇錯的國語）")
+            raise taigi.NeedsKey(
+                "這個檔案指定了台語，但還沒設定 GEMINI_API_KEY。"
+                "不能用 Whisper 頂替——Whisper 沒有閩南語，會產出通順但整篇錯的國語。"
+                "檔案留著，設好之後下一輪自己會跑（見 如何開啟台語.md）")
         return "taigi"
     if want in ("cmn", "zh", "mandarin"):
         return "groq"
@@ -132,7 +146,7 @@ def pick_engine(path, want, pg, i):
 
 
 def run_all(files, use_groq, pg):
-    ok, done = 0, []
+    ok, done, waiting = 0, [], []
     started = time.monotonic()
     for n, path in enumerate(files, 1):
         # 第一個一定要跑（不然完全沒進度）；之後每開一個新檔案前先算「跑得完嗎」。
@@ -254,10 +268,15 @@ def run_all(files, use_groq, pg):
             ok += 1
             done.append(path)
             save_done(done, len(files), ok)   # 每好一個就落地，被砍掉也不會白做
+        except taigi.NeedsKey as e:
+            # 還沒設定 ≠ 壞掉。安靜地留著等，不要每 2 小時發一次一模一樣的失敗信。
+            waiting.append(os.path.basename(path))
+            pg.fail(i, "等你設定台語金鑰")
+            print("  ⏸ 等設定：%s" % str(e).replace("\n", " ")[:200], flush=True)
         except Exception as e:
             pg.fail(i, str(e).replace("\n", " ")[:60])
             print("  失敗：%s" % str(e).replace("\n", " ")[:200], flush=True)
-    return ok, done
+    return ok, done, waiting
 
 
 if __name__ == "__main__":
