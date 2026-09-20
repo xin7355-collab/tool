@@ -12,7 +12,9 @@
     "cat": "籌碼分析",
     "date": "2026-04-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/01公文製作__ytK4r_EeeWkEs.md",
@@ -27,7 +29,9 @@
     "clean": "01公文製作",
     "date": "2023-07-28",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/03_手沖達人沖煮步驟不藏私【中焙男子Hardy】__ythh-l69T1wxE.md",
@@ -42,7 +46,9 @@
     "clean": "03 手沖達人沖煮步驟不藏私【中焙男子Hardy】",
     "date": "2019-05-09",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/1-1_轉折波與股票的3大走向__doc.md",
@@ -56,7 +62,9 @@
     ],
     "clean": "1-1 轉折波與的3大走向",
     "added": "2026-08-27",
-    "srt": false
+    "srt": false,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/100_～500元股價_是最被低估的潛力股_feat._富邦投顧董事長_陳奕光__yttfHssHIO8Y8.md",
@@ -72,7 +80,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/113國營-公文-林嵩-超級函授(志光公職‧函授權威)__ytBszawFoBznU.md",
@@ -87,7 +97,9 @@
     "clean": "113國營-公文-林嵩-超級函授(志光公職‧函授權威)",
     "date": "2023-07-31",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/115銀行考試-_國文公文-_林嵩-超級函授(志光公職‧函授權威)__ytTHW20j7HHfk.md",
@@ -102,7 +114,9 @@
     "clean": "115銀行考試- 國文公文- 林嵩-超級函授(志光公職‧函授權威)",
     "date": "2025-08-21",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/1分K極短線獲利_MACD順勢爆發段_短線剝頭皮策略_價格行為交易_SNR關鍵價位_聰明錢交易策略_smc_ict_sn__ytvoKWjQzfMYQ.md",
@@ -117,7 +131,9 @@
     "clean": "1分K極短線獲利 MACD順勢爆發段 短線剝頭皮策略 價格行為交易 SNR關鍵價位 聰明錢交易策略 smc ict sn",
     "date": "2025-06-30",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/1秒就能看出市場方向⁉️_內外盤：新手超好用的快速判斷指標_👍_內外盤_內盤_外盤_投資_股票新手_當沖_技術分析_股市__ytbiZBMtDI620.md",
@@ -133,7 +149,9 @@
     "clean": "1秒就能看出市場方向⁉️ 內外盤：新手超好用的快速判斷指標 👍 內外盤 內盤 外盤 新手 當沖 技術分析",
     "date": "2025-09-21",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/2023手沖再也不翻車_有手就會_看懂了誰都是專家_小白必看__ytx8ByBEY47Ag.md",
@@ -148,7 +166,9 @@
     "clean": "2023手沖再也不翻車 有手就會 看懂了誰都是專家 小白必看",
     "date": "2022-07-15",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/20251203_公文系統教育訓練(基礎篇)__ytg7u9T3XYVvo.md",
@@ -163,7 +183,25 @@
     "clean": "20251203 公文系統教育訓練(基礎篇)",
     "date": "2025-12-11",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/20260919_頂晡第2節_upload.md",
+    "title": "20260919_頂晡第2節",
+    "src": "上傳音檔（20260920-154909_20260919_頂晡第2節__Lnan.mp4）",
+    "cat": "其他",
+    "tags": [
+      "台語拼音",
+      "台羅",
+      "語音教學"
+    ],
+    "clean": "20260919 頂晡第2節",
+    "added": "2026-09-20",
+    "srt": true,
+    "nan": true,
+    "tw": true
   },
   {
     "file": "transcripts/2026_1_11_巨人傑_我是交易員_TICC__ytj_-dWZJBfuk.md",
@@ -179,7 +217,9 @@
     "clean": "2026 1 11 巨人傑 我是交易員 TICC",
     "date": "2026-01-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta_AI圖片影片免費生成功能解析！GROK,_META_AI,__ytVlTlBIkSSP0.md",
@@ -188,7 +228,9 @@
     "clean": "2026是否還有免費圖片影片生成工具？破解橫屏限制，Meta AI圖片影片免費生成功能解析！GROK, META AI",
     "date": "2026-03-21",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/26.08.05【財經起床號】曲建仲_(曲博)_談「成功突破美國封鎖？中國半導體逆襲的兩件大事！」__ytwwLVEK7jZis.md",
@@ -203,7 +245,9 @@
     "clean": "26.08.05【財經起床號】曲建仲 (曲博) 談「成功突破美國封鎖？中國半導體逆襲的兩件大事！」",
     "date": "2026-08-05",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/2_分鐘學會使用，最出色的_AI_文字生成圖片工具_文字轉圖片__ytKuF0QFpMhZ0.md",
@@ -219,7 +263,9 @@
     "clean": "2 分鐘學會使用，最出色的 AI 文字生成圖片工具 文字轉圖片",
     "date": "2024-06-03",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/2天前砸1億元買0050_分析師郭哲榮「賺千萬」爆紅_newsebc__ytHgapOHuv36k.md",
@@ -234,7 +280,9 @@
     "clean": "2天前砸1億元買0050 分析師郭哲榮「賺千萬」爆紅 newsebc",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/30秒告訴你，權證到底是什麼！feat.權證小哥_股票_投資_shorts_股市_台股__ytCnyQOku3HJ0.md",
@@ -250,7 +298,9 @@
     "cat": "權證",
     "date": "2025-05-01",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/4_6法，世界冠軍的手沖奧義__ytIZ6fTaX_VBQ.md",
@@ -266,7 +316,9 @@
     "clean": "4 6法，世界冠軍的手沖奧義",
     "date": "2023-11-24",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/8月續等跌深反彈！鍾大膽曝光「甜蜜點」這時機勝率更高！_李兆華_鍾大膽__ytQ6AGzXtNpxU.md",
@@ -281,7 +333,9 @@
     "clean": "8月續等跌深反彈！鍾大膽曝光「甜蜜點」這時機勝率更高！ 李兆華 鍾大膽",
     "date": "2026-08-05",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/AI51_Gemini_Spark_×_Gemini_Notebook，讓枯燥的公文寫作變得專業且輕鬆_geminisp__ytkbAgdV__8Mc.md",
@@ -296,7 +350,9 @@
     "clean": "AI51 Gemini Spark × Gemini Notebook，讓枯燥的公文寫作變得專業且輕鬆 geminisp",
     "date": "2026-08-23",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/AI股成長神話要破了？中國晶片自主突破！克服「這技術」連台積電都有壓力？｜曲博、王志郁｜【富足今周起】EP101__ytmaTemGMjBec.md",
@@ -311,7 +367,9 @@
     "clean": "EP101｜AI股成長神話要破了？中國晶片自主突破！克服「這技術」連台積電都有壓力",
     "date": "2026-05-06",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/A股：只做超短线，20万一年多做到150W！全靠一招“60分钟K线战法”，胜率高达90__ytkAjnsUwnfg0.md",
@@ -326,7 +384,9 @@
     "clean": "A股：只做超短线，20万一年多做到150W！全靠一招“60分钟K线战法”，胜率高达90",
     "date": "2025-07-07",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/ChatGPT_Image_2.0_vs_Nano_Banana_2誰生圖更強？超專業商品海報_精細中文生成｜看完這11__ytNMlB6HNFir8.md",
@@ -341,7 +401,9 @@
     "clean": "ChatGPT Image 2.0 vs Nano Banana 2誰生圖更強？",
     "date": "2026-04-26",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/ChatGPT_Image_2.0_生成圖片能力實測！對決_Gemini_Banana_2_誰最強？__ytw8Xjs3CnRvw.md",
@@ -350,7 +412,9 @@
     "clean": "ChatGPT Image 2.0 生成圖片能力實測！",
     "date": "2026-04-29",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/Chatgpt_images_2_0_最新8种生图玩法_一键解锁最强模型_太震撼了_...AI搞钱_AI工具_AI副业___ytl9jSL-ajlSI.md",
@@ -366,7 +430,9 @@
     "clean": "Chatgpt images 2 0 最新8种生图玩法 一键解锁最强模型 太震撼了 ...AI搞钱 AI工具 AI副业",
     "date": "2026-05-08",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/EP52._巨人傑，月成交量850億的背後，台下十年功（一)__ytRAq7bI7IwiI.md",
@@ -381,7 +447,9 @@
     "clean": "EP52｜. 巨人傑，月成交量850億的背後，台下十年功（一)",
     "date": "2021-10-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/EP53._巨人傑，月成交量850億的背後，台下十年功（二)__yt7GISypDTTMM.md",
@@ -397,7 +465,9 @@
     "clean": "EP53｜. 巨人傑，月成交量850億的背後，台下十年功（二)",
     "date": "2021-10-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/EP7.台股當沖之王_巨人傑_從1萬到年成交額3000億的交易之路__yt4wRr2KssKcU.md",
@@ -412,7 +482,9 @@
     "clean": "EP7｜.當沖之王 巨人傑 從1萬到年成交額3000億的交易之路",
     "date": "2023-12-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/Gemini_史詩級更新！Nano_Banana_Pro_毫無敵手！一口氣帶你看20種超狂生圖應用！效果堪稱最強！｜泛科__ytik0Us3vBD_E.md",
@@ -427,7 +499,9 @@
     "clean": "Gemini 史詩級更新！Nano Banana Pro 毫無敵手！一口氣帶你看20種超狂生圖應用！效果堪稱最強",
     "date": "2025-11-28",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/Google_免費生圖！Nano_Banana_9大應用教學｜超強繪圖AI工具學起來｜生成多人一致性__ytGRvLNhpT0I8.md",
@@ -442,7 +516,9 @@
     "clean": "Google 免費生圖！",
     "date": "2025-09-16",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/HBM要被取代了嗎？英特爾聯手軟銀押注Z型記憶體ZAM！厲害在哪？ft.Ansys_Simulation_World_T__yts7y-uRnuPRM.md",
@@ -458,7 +534,9 @@
     "clean": "HBM要被取代了嗎？英特爾聯手軟銀押注Z型記憶體ZAM！厲害在哪？Ansys Simulation World T",
     "date": "2026-07-15",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/⚠️主力倒貨的暗號：學會辨識「紅黑節奏」與主力動向！_權證小哥_股票市場_投資_shorts__ytcmCj9o7ij_U.md",
@@ -473,7 +551,9 @@
     "cat": "盤勢解析",
     "date": "2025-08-07",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《兆華與股惑仔影片版》AI鬼故事_哪一條該怕？6月營收出爐_檢驗買還賣_ft.AI達人_蔡明翰__ytCogGe_rVfV8.md",
@@ -489,7 +569,9 @@
     "clean": "《兆華與股惑仔影片版》AI鬼故事 哪一條該怕？",
     "date": "2026-07-07",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《兆華與股惑仔影片版》Q2季報總體檢 哪種最好？輝達注資 明年趨勢超明朗 ft.AI達人 蔡明翰__ytoq9HKHOIlus.md",
@@ -503,7 +585,9 @@
     "clean": "《兆華與股惑仔影片版》Q2季報總體檢 哪種最好？",
     "date": "2026-08-18",
     "added": "2026-08-18",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《兆華與股惑仔影片版》亞馬遜創新高！訂單等台灣拿_受傷的信心和部位_如何重建？ft.AI達人_蔡明翰__ytp_-zDiVzgZ0.md",
@@ -519,7 +603,9 @@
     "clean": "《兆華與股惑仔影片版》亞馬遜創新高！訂單等台灣拿 受傷的信心和部位 如何重建？AI達人 蔡明翰",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《兆華與股惑仔影片版》別因為股價跌，就覺得有問題！市場雜音全解，好股票請抱住_，台積電法說不買單別介意！ft.AI達人___ytEsJw0gsyDEA.md",
@@ -535,7 +621,9 @@
     "clean": "《兆華與股惑仔影片版》別因為股價跌，就覺得有問題！市場雜音全解，好請抱住 ，台積電法說不買單別介意！AI達人",
     "date": "2026-07-16",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《兆華與股惑仔影片版》突然回跌不緊張_7月續強_PCB.設備可撿_被動.功率追強_ft.AI達人_蔡明翰__ytcF_UISQmMpU.md",
@@ -551,7 +639,9 @@
     "clean": "《兆華與股惑仔影片版》突然回跌不緊張 7月續強 PCB.設備可撿 被動.功率追強 AI達人 蔡明翰",
     "date": "2026-06-23",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《兆華與股惑仔影片版》美台韓打融資_蘋果漲價_跌4千點做白工_何時止穩_ft._操盤手_黃豐凱__ytxfSWp_dOKC0.md",
@@ -566,7 +656,9 @@
     "clean": "《兆華與股惑仔影片版》美台韓打融資 蘋果漲價 跌4千點做白工 何時止穩 操盤手 黃豐凱",
     "date": "2026-06-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《兆華與股惑仔影片版》韓國ETF殺招上路_油價破百利空測試_漲價產業會收成_(ABF.CCL.矽晶圓)_ft.國家級基金__ytUTebxHLq4oY.md",
@@ -582,7 +674,9 @@
     "clean": "《兆華與股惑仔影片版》韓國ETF殺招上路 油價破百利空測試 漲價產業會收成 (ABF.CCL.矽晶圓) 國家級基金",
     "date": "2026-07-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《兆華與股惑仔影片版》驗證！技術型態_避股災保獲利！反彈6千點休息_回後更好賺？Ft.朱家泓.林穎__yt3REjd22C6Og.md",
@@ -597,7 +691,9 @@
     "clean": "《兆華與股惑仔影片版》驗證！技術型態 避股災保獲利！反彈6千點休息 回後更好賺？朱家泓.林穎",
     "date": "2026-08-23",
     "added": "2026-08-24",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《巨人思維》：短線交易像賭博嗎？看完你會懂職業交易在做什麼__ytM_Uhxotglig.md",
@@ -613,7 +709,9 @@
     "clean": "《巨人思維》：短線交易像賭博嗎？看完你會懂職業交易在做什麼",
     "date": "2026-01-17",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/《短線交易》的終極指南｜拉里·威廉斯的秘訣！__ytUSP7k6YtPkw.md",
@@ -628,7 +726,9 @@
     "clean": "拉里·威廉斯的秘訣",
     "date": "2025-02-14",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/「億級散戶」曝光_31歲巨人傑_省餐費投資｜TVBS新聞_TVBSNEWS01__yttIS63SnBV9A.md",
@@ -643,7 +743,9 @@
     "clean": "「億級散戶」曝光 31歲巨人傑 省餐費",
     "date": "2024-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/「億級散戶」曝光_31歲巨人傑_省餐費投資｜TVBS新聞_TVBSNEWS02__ytangQT1tZEhM.md",
@@ -658,7 +760,9 @@
     "clean": "「億級散戶」曝光 31歲巨人傑 省餐費",
     "date": "2024-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/「老余你怎麼知道股市會上漲？」_我們用即時盤來揭露「該發生卻沒發生」的秘密！_20260915【老余交易夜】__ytbHgjGKAxXgk.md",
@@ -673,7 +777,9 @@
     "clean": "「老余你怎麼知道會上漲？」 我們用即時盤來揭露「該發生卻沒發生」的秘密！ 20260915【老余交易夜】",
     "date": "2026-09-15",
     "added": "2026-09-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【0713裸K交易夜影片精華_】老余翻身的關鍵？就是當你不再尋求捷徑！__yt90uVgg95PGg.md",
@@ -687,7 +793,9 @@
     ],
     "clean": "0713裸K交易夜影片精華｜老余翻身的關鍵？就是當你不再尋求捷徑",
     "added": "2026-09-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【2020.04.27精彩片段】土洋籌碼對決台灣郎大勝？_管他負油價5檔台味股出列__yt5KUiMij2EEk.md",
@@ -703,49 +811,63 @@
     "date": "2020-04-27",
     "cat": "籌碼分析",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【8000億 抽乾台股!】2026_9_15(字幕版)__ytHl5hs7hqX_g.md",
     "title": "【8000億 抽乾台股!】2026/9/15(字幕版)",
     "date": "2026-09-15",
     "added": "2026-09-15",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【8000億 抽乾台股!】2026_9_15(直播)__ytqy6l5idbg7A.md",
     "title": "【8000億 抽乾台股!】2026/9/15(直播)",
     "date": "2026-09-15",
     "added": "2026-09-15",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【9月最崩潰的事來了!】2026_9_8(字幕版)__yt6YVdmyses44.md",
     "title": "【9月最崩潰的事來了!】2026/9/8(字幕版)",
     "date": "2026-09-08",
     "added": "2026-09-08",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【9月最崩潰的事來了!】2026_9_8(直播)__ytEAsprn8__ws.md",
     "title": "【9月最崩潰的事來了!】2026/9/8(直播)",
     "date": "2026-09-08",
     "added": "2026-09-08",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【AI滅人類 台股崩盤主因_ 】2026_9_14(字幕版)__ythr7gU5_Y1wM.md",
     "title": "【AI滅人類 台股崩盤主因? 】2026/9/14(字幕版)",
     "date": "2026-09-14",
     "added": "2026-09-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【AI滅人類 台股崩盤主因_】2026_9_14(直播)__yt7hdIch1oPjE.md",
     "title": "【AI滅人類 台股崩盤主因?】2026/9/14(直播)",
     "date": "2026-09-14",
     "added": "2026-09-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【K線教學】勝率82_的紅三兵型態！3招抓到股票起漲點、停損停利完整實戰__ytpKdODUEvywM.md",
@@ -760,7 +882,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【_揭秘_】1.5萬賺到1.5億的致富策略！短線MACD_均線乖離率！最強散戶短線策略公開！（附中文字幕）投資腦袋の熊敖__ytkz6DplTdAU0.md",
@@ -775,7 +899,9 @@
     "clean": "揭秘｜1.5萬賺到1.5億的致富策略！短線MACD 均線乖離率！最強散戶短線策略公開！（附中文字幕）腦袋の熊敖",
     "date": "2025-03-01",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【【記憶體大廠示警】台股反彈見憂傷_七月能五萬二嗎_】2026_7_1(直播)__ytK-qEsV6cAAE.md",
@@ -791,7 +917,9 @@
     "clean": "【記憶體大廠示警｜反彈見憂傷 七月能五萬二嗎 】2026 7 1(直播)",
     "date": "2026-07-01",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【七月_再漲一萬點_】2026_6_30(直播)__ytcUOheuxHxmE.md",
@@ -806,7 +934,9 @@
     "clean": "七月 再漲一萬點｜2026 6 30(直播)",
     "date": "2026-06-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【不怕高油價_台股史上高_】2026_4_13(直播)__ytigu82NJSlA8.md",
@@ -821,7 +951,9 @@
     "clean": "不怕高油價 台股史上高｜2026 4 13(直播)",
     "date": "2026-04-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【二次崩盤】2026_7_24(直播)__ytd_dgmHFPtzw.md",
@@ -836,7 +968,9 @@
     "clean": "二次崩盤｜2026 7 24(直播)",
     "date": "2026-07-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【今天_我買了一億0050】2026_7_29(直播)__ytTzu5Yqt0GQc.md",
@@ -851,7 +985,9 @@
     "clean": "今天 我買了一億0050｜2026 7 29(直播)",
     "date": "2026-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【今天_我買了一億0050】2026_7_29哲哲只有60秒_shorts__yt7kNBMVVmw3g.md",
@@ -866,49 +1002,63 @@
     "clean": "今天 我買了一億0050｜2026 7 29哲哲只有60秒",
     "date": "2026-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【今晚CPI 九月台股定生死!】2026_9_11(首播)__ytCRZGgo5PGh8.md",
     "title": "【今晚CPI 九月台股定生死!】2026/9/11(首播)",
     "date": "2026-09-11",
     "added": "2026-09-11",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【今晚CPI九月台股定生死! 】2026_9_11(字幕版)__ytw94-mvWsBTM.md",
     "title": "【今晚CPI九月台股定生死! 】2026/9/11(字幕版)",
     "date": "2026-09-11",
     "added": "2026-09-11",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【今晚升息核彈 終結台股_】2026_9_16(字幕版)__ytMN9chUUQl8M.md",
     "title": "【今晚升息核彈 終結台股?】2026/9/16(字幕版)",
     "date": "2026-09-16",
     "added": "2026-09-16",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【今晚升息核彈 終結台股_】2026_9_16(直播)__ytzHZmDhNgHa4.md",
     "title": "【今晚升息核彈 終結台股?】2026/9/16(直播)",
     "date": "2026-09-16",
     "added": "2026-09-16",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【債券海嘯 台股4萬點不保_】2026_9_2(字幕版)__yt_tsuHmB-QWE.md",
     "title": "【債券海嘯 台股4萬點不保?】2026/9/2(字幕版)",
     "date": "2026-09-02",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【債券海嘯 台股4萬點不保_】2026_9_2(直播)__yt9durIuGmx-o.md",
     "title": "【債券海嘯 台股4萬點不保?】2026/9/2(直播)",
     "date": "2026-09-02",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】5萬正式起攻_賣飛再買回_型態抄答案_懂一線就賺｜李兆華、艾綸、朱家泓_2026.05.06_part3__ytkYCEhtd3PRI.md",
@@ -924,7 +1074,9 @@
     "clean": "兆華艾綸說｜5萬正式起攻 賣飛再買回 型態抄答案 懂一線就賺",
     "date": "2026-05-06",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】AI有信心_高持股不下車_挑基本面勝股價_2檔Q4香｜李兆華、艾綸、蔡明翰_2026.08.26_part__ytIfWRnGGR0So.md",
@@ -939,7 +1091,9 @@
     "clean": "兆華艾綸說｜AI有信心 高持股不下車 挑基本面勝股價 2檔Q4香",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】AI有信心_高持股不下車_挑基本面勝股價_2檔Q4香｜李兆華、艾綸、蔡明翰_2026.08.26_part__ytgnNjFhqXcJU.md",
@@ -954,7 +1108,9 @@
     "clean": "兆華艾綸說｜AI有信心 高持股不下車 挑基本面勝股價 2檔Q4香",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】AI訂單挺_Q4、明年更賺_攻5萬_百元、千金雙攻略｜李兆華、艾綸、陳奕光_2026.08.18_part__ytgVF5az3Wps8.md",
@@ -969,7 +1125,9 @@
       "資本支出"
     ],
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】K線之神教戰日誌_回後買搶反彈_能提早卡位｜李兆華、艾綸、朱家泓_2026.07.22_part2__ytduOaPxpVUtA.md",
@@ -985,7 +1143,9 @@
     "clean": "兆華艾綸說｜K線之神教戰日誌 回後買搶反彈 能提早卡位",
     "date": "2026-07-22",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】三大主力揭密_量縮照賺_看懂分點_波段短打雙有｜李兆華、艾綸、權證小哥_2026.08.25_part2__ytodNf2gwSGjI.md",
@@ -994,7 +1154,9 @@
     "clean": "兆華艾綸說｜三大主力揭密 量縮照賺 看懂分點 波段短打雙有",
     "date": "2026-08-25",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】光哥來了！2027會是AI最旺年，資金和基本面全到位，目前股價100到500元的最超值！載板缺貨外溢_三檔__ytLRmcqc36exc.md",
@@ -1010,7 +1172,9 @@
     ],
     "date": "2026-08-18",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】南亞科.欣興.台光電.國巨_龍頭體檢！主力量縮照樣賺_三多哥大立光轉戰川湖？分點極速獲利_隔日沖秘技？｜李__ytbAeanWku0rM.md",
@@ -1025,7 +1189,9 @@
     "clean": "兆華艾綸說｜南亞科.欣興.台光電.國巨 龍頭體檢！主力量縮照樣賺 三多哥大立光轉戰川湖？分點極速獲利 隔日沖秘技",
     "date": "2026-08-25",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】南亞科.欣興.台光電.國巨_龍頭體檢！小哥來聊主力的秘密故事！三多哥大立光轉戰川湖？分點極速獲利_隔日沖秘__ytBUz1A1yUNSk.md",
@@ -1040,7 +1206,9 @@
     "clean": "兆華艾綸說｜南亞科.欣興.台光電.國巨 龍頭體檢！小哥來聊主力的秘密故事！三多哥大立光轉戰川湖？分點極速獲利 隔日沖秘",
     "date": "2026-08-25",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】台積電讓空間，買積友友更賺！中小型股不設限，PCB、被動、機器人高低配｜李兆華、艾綸、楊雲翔｜_兆華艾綸說__yt_S8ziqD1Mj8.md",
@@ -1055,7 +1223,9 @@
     "clean": "兆華艾綸說｜台積電讓空間，買積友友更賺！中小型股不設限，PCB、被動、機器人高低配",
     "date": "2026-04-17",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】台股挑戰破切！流明光學喊缺_矽光子買誰？00981A.00980A.00985A大比拚_股災後輪誰漲？手上__ytf3Me3bl3aC0.md",
@@ -1071,7 +1241,9 @@
     "clean": "兆華艾綸說｜挑戰破切！流明光學喊缺 矽光子買誰？00981A.00980A.00985A大比拚 股災後輪誰漲？手上",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】台股止跌訊號？美債殖利率飆_AI又爆隱藏債！功率元件趁機上車？營收好股價卻跌怎辦_懂趨勢轉折就能撿？｜李兆__ytAH73ykWcwqg.md",
@@ -1086,7 +1258,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】台股止跌訊號？美債殖利率飆_AI又爆隱藏債！功率元件趁機上車？營收好股價卻跌怎辦_懂趨勢轉折就能撿？｜李兆__ytfQKUQ4fAoLo.md",
@@ -1101,7 +1275,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】外資買台股_不怕美伊？_矽光大時代_PCB鎖外溢｜李兆華、艾綸_2026.08.18_part1__ytQIsuETQy4tY.md",
@@ -1116,21 +1292,27 @@
       "半導體"
     ],
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】大立光被關 三檔光學更有肉？美伊轟不停升息更接近？台股邪惡第五波攻多高？聯發科.台達電後勢？｜李兆華、艾綸、李永年2026.09.02__ytTSjNsh0Klxc.md",
     "title": "【兆華艾綸說】大立光被關 三檔光學更有肉？美伊轟不停升息更接近？台股邪惡第五波攻多高？聯發科.台達電後勢？｜李兆華、艾綸、李永年2026.09.02",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】大立光被關 三檔光學更有肉？美伊轟不停升息更接近？台股邪惡第五波攻多高？聯發科.台達電後勢？｜李兆華、艾綸、李永年2026.09.02__ytk3z1IzX_gP4.md",
     "title": "【兆華艾綸說】大立光被關 三檔光學更有肉？美伊轟不停升息更接近？台股邪惡第五波攻多高？聯發科.台達電後勢？｜李兆華、艾綸、李永年2026.09.02",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】富邦45000_長跑變衝刺_AI新通膨_台股再上層樓｜李兆華、艾綸、陳奕光_2026.05.05_part__ytiYPrWuTznCY.md",
@@ -1145,14 +1327,18 @@
     "clean": "兆華艾綸說｜富邦45000 長跑變衝刺 AI新通膨 再上層樓",
     "date": "2026-05-05",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】欣興沒再跌停 落難股攻略 外資、大戶鎖右下 挖黑馬！｜李兆華、艾綸、陳唯泰 2026.09.01 part2__ytk8XqD2KO_nw.md",
     "title": "【兆華艾綸說】欣興沒再跌停 落難股攻略 外資、大戶鎖右下 挖黑馬！｜李兆華、艾綸、陳唯泰 2026.09.01 part2",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】殖利率飆_AI藏債危？_漲價又一波_功率元件衝｜李兆華、艾綸_2026.08.19_part1__ytuMBsMmXZujQ.md",
@@ -1168,7 +1354,9 @@
       "美債"
     ],
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】油價跌_輝達逆轉財報魔咒？規格升級_三檔PCB低轉強？台股還便宜_高持股免下車？台達電.旺矽_能勇敢？｜李__ytgG1z-jvf-gk.md",
@@ -1177,7 +1365,9 @@
     "clean": "兆華艾綸說｜油價跌 輝達逆轉財報魔咒？規格升級 三檔PCB低轉強？還便宜 高持股免下車？台達電.旺矽 能勇敢",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】油價跌_輝達逆轉財報魔咒？規格升級_三檔PCB低轉強？台股還便宜_高持股免下車？台達電.旺矽_能勇敢？｜李__yth3PIkrm0Zzc.md",
@@ -1192,7 +1382,9 @@
     "clean": "兆華艾綸說｜油價跌 輝達逆轉財報魔咒？規格升級 三檔PCB低轉強？還便宜 高持股免下車？台達電.旺矽 能勇敢",
     "date": "2026-08-26",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】油跌股漲_輝達這次逆轉？_新機搶板材_PCB鎖補漲｜李兆華、艾綸_2026.08.26_part1__ytDbiwtUilN-k.md",
@@ -1201,7 +1393,9 @@
     "clean": "兆華艾綸說｜油跌股漲 輝達這次逆轉？",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】油跌股漲_輝達這次逆轉？_新機搶板材_PCB鎖補漲｜李兆華、艾綸_2026.08.26_part1__ytl493l-7X1c8.md",
@@ -1210,7 +1404,9 @@
     "clean": "兆華艾綸說｜油跌股漲 輝達這次逆轉？",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】海力士財報失靈真股災？國安基金會進場？底部出量_止跌訊號現？半年賠光1800萬還負債_持股大縮水怎面對？如__ytH7ZTPL8II-c.md",
@@ -1226,7 +1422,9 @@
     "clean": "兆華艾綸說｜海力士財報失靈真股災？國安基金會進場？底部出量 止跌訊號現？半年賠光1800萬還負債 持股大縮水怎面對？如",
     "date": "2026-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】營收爆好_股價兩樣情？_懂趨勢轉折_贏在第一根｜李兆華、艾綸、朱家泓_2026.08.19_part2__ytEPsYlhX4C-M.md",
@@ -1241,7 +1439,9 @@
       "技術分析"
     ],
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】籌碼大神的對帳單_獨家2招_地板股、波段權證｜李兆華、艾綸、權證小哥_2026.07.08_part2__ytp_Wi2Ma8Wlg.md",
@@ -1256,7 +1456,9 @@
       "波段權證"
     ],
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】緯創.鴻海低轉強，老AI反攻先鋒？AMD超貴機櫃已售出，台灣供應鏈都賺！再教一次回後買上漲，進場絕佳位置？__yt_Icgk2BB3fg.md",
@@ -1272,14 +1474,18 @@
     "clean": "兆華艾綸說｜緯創.鴻海低轉強，老AI反攻先鋒？AMD超貴機櫃已售出，台灣供應鏈都賺！再教一次回後買上漲，進場絕佳位置",
     "date": "2026-07-22",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】聯發科的左擁右抱，輝達谷歌都要！台積電挺矽光子，3檔飆股基因！為何出事敢買？欣興最壞情況過？下檔雙鴻.光寶科.長興？｜李兆華、艾綸、陳唯泰2026__ytrjozJ4RLCio.md",
     "title": "【兆華艾綸說】聯發科的左擁右抱，輝達谷歌都要！台積電挺矽光子，3檔飆股基因！為何出事敢買？欣興最壞情況過？下檔雙鴻.光寶科.長興？｜李兆華、艾綸、陳唯泰2026.09.01",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】艦長獨解電腦展_仁勳投顧帶貨_續漲下一步｜李兆華、艾綸、程正樺_2026.06.03_part2__ytC6YU9ASBDmk.md",
@@ -1295,7 +1501,9 @@
     "clean": "兆華艾綸說｜艦長獨解電腦展 仁勳投顧帶貨 續漲下一步",
     "date": "2026-06-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】英特爾做記憶體_台廠受惠？_曲博認證_將擺脫景氣循環？｜李兆華、艾綸、曲建仲_2026.07.21_par__yt4YwYgWzqBKc.md",
@@ -1310,7 +1518,9 @@
     "clean": "兆華艾綸說｜英特爾做記憶體 台廠受惠？",
     "date": "2026-07-21",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】資產歸零過_這次不擔心？_投信越買越套_能回溫嗎｜李兆華、艾綸、陳威良_2026.07.28_part2__ytUzqSYyRksKs.md",
@@ -1326,7 +1536,9 @@
     "clean": "兆華艾綸說｜資產歸零過 這次不擔心？",
     "date": "2026-07-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】載板缺貨外溢_三檔PCB補漲？輝達籌資沒泡沫問題？5萬何時到？半年報公布_Q4策略？選500元以下跟千金股__ytEGpcgJtTEjc.md",
@@ -1342,7 +1554,9 @@
     ],
     "date": "2026-08-18",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】輝達.長鑫存儲利空出不盡_撈底又被套？四步驟處理！投信越買越跌_國巨.欣興.貿聯能回溫？5大心法找下一檔飆__ytwE8CPm4kXS8.md",
@@ -1357,21 +1571,27 @@
     "clean": "兆華艾綸說｜輝達.長鑫存儲利空出不盡 撈底又被套？四步驟處理！投信越買越跌 國巨.欣興.貿聯能回溫？5大心法找下一檔飆",
     "date": "2026-07-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】輝達挺發哥 10年藍圖！ 台積挺矽光 3檔飆股基因｜李兆華、艾綸 2026.09.01 part1__ytv51gdjOT7Jc.md",
     "title": "【兆華艾綸說】輝達挺發哥 10年藍圖！ 台積挺矽光 3檔飆股基因｜李兆華、艾綸 2026.09.01 part1",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】輝達挺發哥 5000來了？台積電挺矽光子 3檔飆股基因？欣興最壞情況過？選股教練精選 下檔雙鴻.長興？｜李兆華、艾綸、陳唯泰2026.09.01__ytQmmBQZNiHLk.md",
     "title": "【兆華艾綸說】輝達挺發哥 5000來了？台積電挺矽光子 3檔飆股基因？欣興最壞情況過？選股教練精選 下檔雙鴻.長興？｜李兆華、艾綸、陳唯泰2026.09.01",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】輝達財報美救債_關關過_五大龍頭體檢_持股守則｜李兆華、艾綸_2026.08.25_part1__yt1YLnye8nhc8.md",
@@ -1386,7 +1606,9 @@
     "clean": "兆華艾綸說｜輝達財報美救債 關關過 五大龍頭體檢 持股守則",
     "date": "2026-08-25",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】韓國要止跌了？台塑四寶避風港，資金本週能重回電子？個股期真好用，避險、短抄底，忠哥獨家5天獲利術！｜李兆華__ytBxcD406dPcE.md",
@@ -1402,7 +1624,9 @@
     "clean": "兆華艾綸說｜韓國要止跌了？台塑四寶避風港，資金本週能重回電子？個股期真好用，避險、短抄底，忠哥獨家5天獲利術",
     "date": "2026-07-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兆華艾綸說】高股息出頭天了！_半年賺700萬_總編翻身股｜李兆華、艾綸、謝富旭_2026.06.24_part2__ytCG0CNze3e-U.md",
@@ -1418,21 +1642,27 @@
     "clean": "兆華艾綸說｜高股息出頭天了！",
     "date": "2026-06-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兩天大漲1600點 明天輝達財報慘了_】2026_8_26(字幕版)__ytQgxU_rT6wDw.md",
     "title": "【兩天大漲1600點 明天輝達財報慘了?】2026/8/26(字幕版)",
     "date": "2026-08-26",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【兩天大漲1600點 明天輝達財報慘了_】2026_8_26(直播)__ytvnAG9INKxCQ.md",
     "title": "【兩天大漲1600點 明天輝達財報慘了?】2026/8/26(直播)",
     "date": "2026-08-26",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【八月_必五萬點_】2026_8_13(字幕版)__ytv_RbDkahHPg.md",
@@ -1448,21 +1678,27 @@
     "clean": "八月 必五萬點｜2026 8 13(字幕版)",
     "date": "2026-08-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【又四萬七 這次狼來了_】2026_9_18(字幕版)__yt40aO6Y0npf8.md",
     "title": "【又四萬七 這次狼來了?】2026/9/18(字幕版)",
     "date": "2026-09-18",
     "added": "2026-09-18",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【又四萬七 這次狼來了_】2026_9_18(直播)__ytgAk40gZuZgA.md",
     "title": "【又四萬七 這次狼來了?】2026/9/18(直播)",
     "date": "2026-09-18",
     "added": "2026-09-18",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台灣股市2025】巨人傑如何處理台玻的失誤？主力大戶的交易想法是什麼？散戶和主力的差別在哪裡？__ytXAtvh4gEjMM.md",
@@ -1477,7 +1713,9 @@
     "clean": "台灣股市2025｜巨人傑如何處理台玻的失誤？主力大戶的交易想法是什麼？散戶和主力的差別在哪裡",
     "date": "2025-11-20",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台積法說_明天定生死_】2026_7_15(直播)__ytXkQU49ylYnA.md",
@@ -1492,7 +1730,9 @@
     "clean": "台積法說 明天定生死｜2026 7 15(直播)",
     "date": "2026-07-15",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台積法說_爆炸了】2026_7_16(直播)__ytYm-quyAPDbs.md",
@@ -1507,49 +1747,63 @@
     "clean": "台積法說 爆炸了｜2026 7 16(直播)",
     "date": "2026-07-16",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台積鬼營收 台股五萬或四萬_ 】2026_9_10(字幕版)__ytjYRlnceC7F0.md",
     "title": "【台積鬼營收 台股五萬或四萬? 】2026/9/10(字幕版)",
     "date": "2026-09-10",
     "added": "2026-09-10",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台積鬼營收 台股五萬或四萬_】2026_9_10(直播)__yta6890sZej8k.md",
     "title": "【台積鬼營收 台股五萬或四萬?】2026/9/10(直播)",
     "date": "2026-09-10",
     "added": "2026-09-10",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股九月魔咒 今晚開殺！】2026_9_4(字幕版)__ytL9I2rBZsub0.md",
     "title": "【台股九月魔咒 今晚開殺！】2026/9/4(字幕版)",
     "date": "2026-09-04",
     "added": "2026-09-04",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股九月魔咒 今晚開殺！】2026_9_4(直播)__ytgIxpXY0YEBo.md",
     "title": "【台股九月魔咒 今晚開殺！】2026/9/4(直播)",
     "date": "2026-09-04",
     "added": "2026-09-04",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股二次崩盤 正式開始_】2026_9_3(字幕版)__ytPDbuVIM9aWk.md",
     "title": "【台股二次崩盤 正式開始?】2026/9/3(字幕版)",
     "date": "2026-09-03",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股二次崩盤 正式開始_】2026_9_3(直播)__ytFWM4URMqXW0.md",
     "title": "【台股二次崩盤 正式開始?】2026/9/3(直播)",
     "date": "2026-09-03",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股反彈1783點_最後掙扎_】2026_7_21(直播)__ytFXdbZ7tfIcA.md",
@@ -1564,7 +1818,9 @@
     "clean": "台股反彈1783點 最後掙扎｜2026 7 21(直播)",
     "date": "2026-07-21",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股反彈3356點_是笑話_】2026_7_22(直播)__ytC2CL7CeA0vg.md",
@@ -1579,7 +1835,9 @@
     "clean": "台股反彈3356點 是笑話｜2026 7 22(直播)",
     "date": "2026-07-22",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股大V轉_能破四萬再買一次_】2026_8_3(字幕版)__ytvpX1ylaapZk.md",
@@ -1594,7 +1852,9 @@
     "clean": "台股大V轉 能破四萬再買一次｜2026 8 3(字幕版)",
     "date": "2026-08-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股大V轉_能破四萬再買一次_】2026_8_3(直播)__ytJqbfkndnXMY.md",
@@ -1609,7 +1869,9 @@
     "clean": "台股大V轉 能破四萬再買一次｜2026 8 3(直播)",
     "date": "2026-08-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股大V轉_能破四萬再買一次_】2026_8_3哲哲只有60秒_shorts__ytG3mbt8HsfSs.md",
@@ -1625,7 +1887,9 @@
     "clean": "台股大V轉 能破四萬再買一次｜2026 8 3哲哲只有60秒",
     "date": "2026-08-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股這次_有救了_】2026_7_27(直播)__ytCZz1PMn7VPo.md",
@@ -1641,7 +1905,9 @@
     "clean": "台股這次 有救了｜2026 7 27(直播)",
     "date": "2026-07-27",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股這次_有救了_】2026_7_27哲哲只有60秒_shorts__ytOdnS8nGIKZQ.md",
@@ -1657,21 +1923,27 @@
     "clean": "台股這次 有救了｜2026 7 27哲哲只有60秒",
     "date": "2026-07-27",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股開高走低 年底升息還會崩_】2026_9_17(字幕版)__ytOh7Wjk5SPyA.md",
     "title": "【台股開高走低 年底升息還會崩?】2026/9/17(字幕版)",
     "date": "2026-09-17",
     "added": "2026-09-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股開高走低 年底升息還會崩_】2026_9_17(直播)__ytuEx0is7tXMk.md",
     "title": "【台股開高走低 年底升息還會崩?】2026/9/17(直播)",
     "date": "2026-09-17",
     "added": "2026-09-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【台股颱風假_你家少賺130萬！】2026_7_10(直播)__ytNaqIbiqt_uU.md",
@@ -1686,7 +1958,9 @@
     "clean": "台股颱風假 你家少賺130萬！｜2026 7 10(直播)",
     "date": "2026-07-10",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第10集！｜可轉債飆股發動5字訣！拉、灌、吹、爆、換？｜李兆華、權證小哥《理財達人秀》2022.09.__yt_ztaaVKiHTI.md",
@@ -1702,7 +1976,9 @@
     ],
     "date": "2022-09-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第11集！｜小錢拚反彈逆轉勝！最佛vs最坑權證條件5字訣公開！｜李兆華、權證小哥《理財達人秀》2022__yt_4JcCLWY_84.md",
@@ -1718,7 +1994,9 @@
     ],
     "date": "2022-10-15",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第17集！｜董娘賣股訊號_只能逃命？大股東申報轉讓_多空判讀｜李兆華、權證小哥《理財達人秀》2023.__ytWWeJx7XsMG8.md",
@@ -1733,7 +2011,9 @@
     ],
     "date": "2023-04-22",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第18集！｜怪_長紅K突破_一追就套牢_權證隔日沖現蹤_怎吃豆腐_｜李兆華、權證小哥《理財達人秀》20__ytOKedUg-g4kY.md",
@@ -1749,7 +2029,9 @@
     ],
     "date": "2023-05-20",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第19集！｜揭密_高週轉率動能股操作_跟主力進出_輕鬆換手爽賺_｜李兆華、權證小哥《理財達人秀》202__ytzmq2m0b47jc.md",
@@ -1764,7 +2046,9 @@
     ],
     "date": "2023-06-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第1集！｜如何遠離散戶？4大融資指標看透乾淨籌碼！小哥獨家融資看法_抓到起漲點？｜李兆華、權證小哥《理__ytKjh2s85eu5w.md",
@@ -1779,7 +2063,9 @@
     ],
     "date": "2021-10-17",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第20集！｜籌碼高手這樣玩除權息_3招吃主力豆腐賺快錢｜李兆華、權證小哥《理財達人秀》2023.07.__ytZFlVPJdJ_VA.md",
@@ -1794,7 +2080,9 @@
     ],
     "date": "2023-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第21集！｜韭菜自救！扭轉被倒貨_小心主力高檔出貨訊號｜李兆華、權證小哥《理財達人秀》2023.08.__ytAeiLpDJaoGE.md",
@@ -1810,7 +2098,9 @@
     ],
     "date": "2023-08-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第22集！｜爆量下跌能接_搶反彈SOP_極端負乖離率_搶進必賺_｜李兆華、權證小哥《理財達人秀》202__ytL2sDmHcoWvM.md",
@@ -1825,7 +2115,9 @@
     ],
     "date": "2023-09-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第23集！｜最終回特企_籌碼大掃描_2種再見股_起漲vs起跌｜李兆華、權證小哥《理財達人秀》2023.__yt9klD-SJx2qQ.md",
@@ -1841,7 +2133,9 @@
     ],
     "date": "2023-11-25",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第2集！｜公司拉股價終極武器「可轉債」是什麼？基礎第一課_炒作SOP首公開！發可轉債_拉股價？｜李兆華__yt15bTceIFEA8.md",
@@ -1856,7 +2150,9 @@
     ],
     "date": "2021-11-20",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第3集！｜多空雙賺_股票下跌也能賺大錢？融券大補帖_一次學到位！最強操作_4_1神技_融券勝率大躍進？__ytPdABDs2M8-M.md",
@@ -1871,7 +2167,9 @@
     ],
     "date": "2021-12-18",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第4集！｜董監宮鬥大戲開演_散戶得利？行情醞釀跟風3要點_豆腐吃好吃滿？｜李兆華、權證小哥《理財達人秀__ytQwY2Ft4X-RQ.md",
@@ -1886,7 +2184,9 @@
     ],
     "date": "2022-01-15",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第5集！｜小哥籌碼視覺選股！看圖形4指標_上上下下最舒服？｜李兆華、權證小哥《理財達人秀》2022.0__ytvgrei9UZzz8.md",
@@ -1902,7 +2202,9 @@
     ],
     "date": "2022-02-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第6集！｜融券強制回補行情賺2大波？主力籌碼露餡_跟單吃上又吃下｜李兆華、權證小哥《理財達人秀》202__ytHxyg9B5tdWA.md",
@@ -1917,7 +2219,9 @@
     ],
     "date": "2022-03-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第7集！｜小哥也愛存股Debug？期貨「類存股」更勝現貨？除權息工具大解析_期貨參與更加分｜李兆華、權__ytgkq3oEH6huM.md",
@@ -1933,7 +2237,9 @@
     ],
     "date": "2022-06-18",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第8集！｜T50反向ETF藏超神籌碼？神秘大戶進出抓轉折超準！｜李兆華、權證小哥《理財達人秀》2022__ytcZBI7VTM9sg.md",
@@ -1949,7 +2255,9 @@
     ],
     "date": "2022-07-16",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆S2】第9集！｜大小通吃術_通膨吃錢也不怕！微型期貨短中長獲利術_3招輕鬆布局｜李兆華、權證小哥《理財達人秀__ytpxVcrpKQ514.md",
@@ -1964,7 +2272,9 @@
     ],
     "date": "2022-08-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】番外篇！｜台股避險神器_端午變盤_白蛇股回跌現原形_2期貨護體低成本資金防身術｜李兆華、權證小哥、阮慕驊《__ytZfwW7N46-VM.md",
@@ -1979,7 +2289,9 @@
     ],
     "date": "2020-06-17",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第10集！｜土洋對作本土鋼砲狂勝？3檔「台味股」飄香！負油價藏投資密碼？｜李兆華、權證小哥、阮慕驊《理財達__ytFNXemzW0sqQ.md",
@@ -1995,7 +2307,9 @@
     ],
     "date": "2020-04-27",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第11集！｜投信認養散發母愛光輝？1指標揭密有人照顧_股價狂飆40_！｜李兆華、權證小哥《理財達人秀》20__yt-l57h4D2vOQ.md",
@@ -2010,7 +2324,9 @@
     ],
     "date": "2020-05-07",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第13集！｜國家隊還在！2條線抓15倍飆股！景氣回溫名店_勝過存口罩17年？｜李兆華、權證小哥、華倫《理財__ytEMwOKSb-vDw.md",
@@ -2026,7 +2342,9 @@
     ],
     "date": "2020-05-25",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第14集！｜短線賺除權息1分鐘領19萬？全台灣第一位領息淨賺4萬9！對帳單、心法全公開｜李兆華、權證小哥《__ytt7u6J2hH-xM.md",
@@ -2041,7 +2359,9 @@
     ],
     "date": "2020-06-08",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第16集！｜盤前知漲跌！試撮3訊號破解煙霧彈_開盤10_落袋！試撮漲停要小心？｜李兆華、權證小哥《理財達人__ythhVWPQ-bOjs.md",
@@ -2057,7 +2377,9 @@
     ],
     "date": "2020-07-20",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第17集！｜抓到了！中南部大戶狂買股票_關鍵地方分點進出露馬腳？_4步跟單大賺66_｜李兆華、權證小哥《理__ythokd9MjH9n8.md",
@@ -2072,7 +2394,9 @@
     ],
     "date": "2020-10-01",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第18集！｜搭上軋空火箭暴賺400_！最好賺軋空季節到了？3步驟獲利飛太遠_｜李兆華、權證小哥《理財達人秀__yteRsPUxFgG7g.md",
@@ -2088,7 +2412,9 @@
     ],
     "date": "2020-10-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第19集！｜權證小哥選股抓主力買點！325檔股票關鍵分點全都曝光？最強籌碼工具來了_｜李兆華、權證小哥《理__ytqFO-PBFcOa0.md",
@@ -2104,7 +2430,9 @@
     ],
     "date": "2020-12-21",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第19集！｜權證小哥選股抓主力買點！325檔股票關鍵分點全都曝光？最強籌碼工具來了_｜李兆華、權證小哥《理_upload.md",
@@ -2119,7 +2447,9 @@
       "波段操作"
     ],
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第1集！｜懂3根K棒就夠！抓到主力股_小哥教確認起漲點_狂賺175_｜李兆華、權證小哥《理財達人秀》202__ytSko5z0Fz6qc.md",
@@ -2134,7 +2464,9 @@
     ],
     "date": "2020-01-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第2集！｜3天跌千點能早知道？1招100_預測均線方向！抓到噴出點賺130_多空都能作｜李兆華、權證小哥《__ytaIqzor1M3Vg.md",
@@ -2149,7 +2481,9 @@
     ],
     "date": "2020-02-05",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第3集！｜選股_夾娃娃_布林通道一翹就賺！3爪夠力_低擋板！夾出800_飆股｜李兆華、權證小哥《理財達人秀__ytNF2Fwa99i0o.md",
@@ -2165,7 +2499,9 @@
     ],
     "date": "2020-02-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第4集！｜權證6天飆5倍！小哥最強3招權證壓箱寶！一夜狂賺400萬？｜李兆華、權證小哥《理財達人秀》202__yt00tYdl33a1M.md",
@@ -2180,7 +2516,9 @@
     ],
     "date": "2020-02-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第5集！｜這些時間點太好賺了！法說會隔天就飆60_的權證？小哥專愛大波股｜李兆華、權證小哥《理財達人秀》2__yt2DmsemHxTC0.md",
@@ -2195,7 +2533,9 @@
     ],
     "date": "2020-03-04",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第6集！｜股市下跌反而大賺？4時機點買認售權證！1天狂飆120_？｜李兆華、權證小哥《理財達人秀》2020__ytqbThJbZTckc.md",
@@ -2210,7 +2550,9 @@
     ],
     "date": "2020-03-11",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第7集！｜大盤反彈vs回升？小哥版葛蘭碧八法_2籌碼！抓買點超準｜李兆華、權證小哥《理財達人秀》2020.__ytO8mOzhGKqOM.md",
@@ -2225,7 +2567,9 @@
     ],
     "date": "2020-03-26",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第8集！｜跟著2籌碼明燈下單！小哥找10天狂飆75_好股！大戶持股全被看光！｜李兆華、權證小哥《理財達人秀__ytPzFh0EAEOUw.md",
@@ -2241,7 +2585,9 @@
     ],
     "date": "2020-04-15",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【哥有籌必爆】第9集！｜台股深Ｖ繼續反彈？200家庫藏股護盤能跟單嗎？小哥股魚首度合體！｜李兆華、權證小哥、股魚《理財達__ytMzLdaQb8qq0.md",
@@ -2256,7 +2602,9 @@
     ],
     "date": "2020-04-20",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【完整公開】LIVE_調整處置機制相關措施說明_證交所記者會__ytlOA1_xmNmqk.md",
@@ -2271,7 +2619,9 @@
     "clean": "完整公開｜LIVE 調整處置機制相關措施說明 證交所記者會",
     "date": "2026-08-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【完整公開】證交所調整處置機制_相關措施說明記者會_投資看非凡__ytIJGKEqrCiss.md",
@@ -2286,35 +2636,45 @@
     "clean": "完整公開｜證交所調整處置機制 相關措施說明記者會 看非凡",
     "date": "2026-08-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【尾盤拉千點 台股誰偷買_】2026_8_25(字幕版)__yts0s0uxCqalE.md",
     "title": "【尾盤拉千點 台股誰偷買?】2026/8/25(字幕版)",
     "date": "2026-08-25",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【尾盤拉千點 台股誰偷買_】2026_8_25(直播)__ytt5MhuCL6so4.md",
     "title": "【尾盤拉千點 台股誰偷買?】2026/8/25(直播)",
     "date": "2026-08-25",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【成交量破兆 但台股回不去了】2026_8_28(字幕版)__yt4j444xpIu1E.md",
     "title": "【成交量破兆 但台股回不去了】2026/8/28(字幕版)",
     "date": "2026-08-28",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【成交量破兆 但台股回不去了】2026_8_28(直播)__ytO1cvWpuxN_I.md",
     "title": "【成交量破兆 但台股回不去了】2026/8/28(直播)",
     "date": "2026-08-28",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【我一億0050一天賺千萬_台股這次漲真的_】2026_7_31(直播)__ytrSKIaESItQ4.md",
@@ -2329,21 +2689,27 @@
     "clean": "【我一億0050一天賺千萬 這次漲真的 】2026 7 31(直播)",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【我一億0050創新高 九月要賣嗎_】2026_9_1(字幕版)__yt5xHIEebCD80.md",
     "title": "【我一億0050創新高 九月要賣嗎?】2026/9/1(字幕版)",
     "date": "2026-09-01",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【我一億0050創新高 九月要賣嗎_】2026_9_1(直播)__ytjWxU7-r9EUc.md",
     "title": "【我一億0050創新高 九月要賣嗎?】2026/9/1(直播)",
     "date": "2026-09-01",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【我一億買台股_沒用嗎_】2026_7_30(字幕版)__ytj58_BZKvbDU.md",
@@ -2358,7 +2724,9 @@
     "clean": "我一億買台股 沒用嗎｜2026 7 30(字幕版)",
     "date": "2026-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【我一億買台股_沒用嗎_】2026_7_30哲哲只有60秒_shorts__yt2Q8gveJv3vw.md",
@@ -2373,21 +2741,43 @@
     "clean": "我一億買台股 沒用嗎｜2026 7 30哲哲只有60秒",
     "date": "2026-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【散戶退潮 台股沒救了_】2026_8_24(字幕版)__ytbWdKiMGXFOc.md",
     "title": "【散戶退潮 台股沒救了?】2026/8/24(字幕版)",
     "date": "2026-08-24",
     "added": "2026-08-24",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【散戶退潮 台股沒救了_】2026_8_24(直播)__ytS-vi0-Dl3zE.md",
     "title": "【散戶退潮 台股沒救了?】2026/8/24(直播)",
     "date": "2026-08-24",
     "added": "2026-08-24",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/【新手必看】如何把「兩條線」「翻亞當」「標準圖」拿來綜合應用？實際看盤，組合給大家看！_20240201【老余交易夜】__ytpCJd1ZTrx9U.md",
+    "title": "【新手必看】如何把「兩條線」「翻亞當」「標準圖」拿來綜合應用？實際看盤，組合給大家看！_20240201【老余交易夜】",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=pCJd1ZTrx9U)",
+    "cat": "新手教學",
+    "tags": [
+      "兩條線",
+      "翻亞當",
+      "標準圖"
+    ],
+    "clean": "新手必看｜如何把「兩條線」「翻亞當」「標準圖」拿來綜合應用？實際看盤，組合給大家看！ 20240201【老余交易夜】",
+    "added": "2026-09-20",
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【日內交易】5分鐘讓你學會日內交易！短線交易一天賺百萬！盤口交易勝率100_！支撐壓力交易策略__yth2GCpy3yFzs.md",
@@ -2402,7 +2792,9 @@
     "clean": "日內交易｜5分鐘讓你學會日內交易！短線交易一天賺百萬！盤口交易勝率100 ！支撐壓力交易策略",
     "date": "2025-05-28",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【明天結算日 台股定生死!  】2026_8_18(字幕版)__ytrhHw2cOe0Vs.md",
@@ -2416,7 +2808,9 @@
     "clean": "明天結算日 台股定生死!｜(字幕版)",
     "date": "2026-08-18",
     "added": "2026-08-18",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【明天結算日 台股定生死!】2026_8_18(直播)__yt2otjx6McZ6M.md",
@@ -2430,21 +2824,27 @@
     "clean": "明天結算日 台股定生死!｜(直播)",
     "date": "2026-08-18",
     "added": "2026-08-18",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【明天蘋果摺疊機 能救台股_】2026_9_9(字幕版)__ytLGZLJtO7opk.md",
     "title": "【明天蘋果摺疊機 能救台股?】2026/9/9(字幕版)",
     "date": "2026-09-09",
     "added": "2026-09-09",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【明天蘋果摺疊機 能救台股_】2026_9_9(直播)__ytr_4IZcVVpC4.md",
     "title": "【明天蘋果摺疊機 能救台股?】2026/9/9(直播)",
     "date": "2026-09-09",
     "added": "2026-09-09",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【明天颱風不放假_台股腥風血雨】2026_7_9(直播)__ytrpB1CB1AYZc.md",
@@ -2460,7 +2860,9 @@
     "clean": "明天颱風不放假 台股腥風血雨｜2026 7 9(直播)",
     "date": "2026-07-09",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【曲博科技教室_EP319】三星、輝達、亞培烯、衛星化學、華為、中國移動、百度、京東雲、中國電研院、螞蟻靈波、無界動力、__yt2mIUIL2lGzo.md",
@@ -2475,7 +2877,9 @@
     "clean": "曲博科技教室 EP319｜三星、輝達、亞培烯、衛星化學、華為、中國移動、百度、京東雲、中國電研院、螞蟻靈波、無界動力",
     "date": "2026-07-10",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【曲博科技教室_EP321】先發電光、聯亞、一詮、健策、群聯、榮科、聯瑞、雅都瑪、聯瑞新材、元太、力積電、印能、詮欣、群__yttE0SEVqLyas.md",
@@ -2490,7 +2894,9 @@
     "clean": "曲博科技教室 EP321｜先發電光、聯亞、一詮、健策、群聯、榮科、聯瑞、雅都瑪、聯瑞新材、元太、力積電、印能、詮欣、群",
     "date": "2026-08-14",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【最強EPS都大跌 反彈結束了_ 】2026_8_14(字幕版)__ytM02axsYw2Fs.md",
@@ -2504,7 +2910,9 @@
     "clean": "最強EPS都大跌 反彈結束了?｜(字幕版)",
     "date": "2026-08-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【最強EPS都大跌 反彈結束了_】2026_8_14(直播)__ythirszdkaeXQ.md",
@@ -2518,7 +2926,9 @@
     "clean": "最強EPS都大跌 反彈結束了?｜(直播)",
     "date": "2026-08-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【有聲書系列】巨人思維(無BGM版)EP01-沒有捷徑只有努力，從零開始的股市交易員_投資_讀書_有聲書_聽書__yt-crB8Ufmg8Y.md",
@@ -2533,7 +2943,9 @@
     "clean": "有聲書系列 EP01｜巨人思維(無BGM版) -沒有捷徑只有努力，從零開始的交易員 讀書 有聲書 聽書",
     "date": "2024-07-25",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【有聲書系列】巨人思維(無BGM版)EP02-沒有捷徑只有努力，從零開始的股市交易員_投資_讀書_有聲書_聽書__ytrBJWMxjcgC0.md",
@@ -2548,7 +2960,9 @@
     "clean": "有聲書系列 EP02｜巨人思維(無BGM版) -沒有捷徑只有努力，從零開始的交易員 讀書 有聲書 聽書",
     "date": "2024-07-23",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【有聲書系列】巨人思維EP01-沒有捷徑只有努力，從零開始的股市交易員_投資_讀書_有聲書_聽書__ytL7Gyuo2kjiY.md",
@@ -2563,7 +2977,9 @@
     "clean": "有聲書系列｜巨人思維EP01-沒有捷徑只有努力，從零開始的交易員 讀書 有聲書 聽書",
     "date": "2024-06-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240429_關鍵主力_現行蹤！__ytooTrMU1NFj0.md",
@@ -2579,7 +2995,9 @@
     "cat": "籌碼分析",
     "date": "2024-04-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240430_關鍵主力_現行蹤！__ytw6cgeHcMx1w.md",
@@ -2595,7 +3013,9 @@
     "cat": "籌碼分析",
     "date": "2024-04-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240502_關鍵主力_現行蹤！__ytjda_0TFBGIA.md",
@@ -2611,7 +3031,9 @@
     ],
     "date": "2024-05-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240517_關鍵主力_現行蹤！__ytBHSaspMEtrs.md",
@@ -2627,7 +3049,9 @@
     "cat": "籌碼分析",
     "date": "2024-05-17",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240625_關鍵主力_現行蹤！__ytESZucp4EJvE.md",
@@ -2642,7 +3066,9 @@
     ],
     "date": "2024-06-25",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240626_關鍵主力_現行蹤！__yt2NbN5_l8XfE.md",
@@ -2658,7 +3084,9 @@
     ],
     "date": "2024-06-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240628_關鍵主力_現行蹤！__yt4KChupr17DE.md",
@@ -2674,7 +3102,9 @@
     ],
     "date": "2024-06-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240701_關鍵主力_現行蹤！__yt373EtIH2CBo.md",
@@ -2690,7 +3120,9 @@
     ],
     "date": "2024-07-01",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20240702_關鍵主力_現行蹤！__ytxacCs695sfE.md",
@@ -2705,7 +3137,9 @@
     ],
     "date": "2024-07-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20250707_主力籌碼_全追蹤！_昇銳_IET-KY__ytmPitvdxH67w.md",
@@ -2721,7 +3155,9 @@
     ],
     "date": "2025-07-07",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【權證小哥🔍籌碼1分鐘】20250716_主力籌碼_全追蹤！_南電_鑫科_智通__ytIL65glp6ABI.md",
@@ -2736,28 +3172,36 @@
     ],
     "date": "2025-07-16",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【欣興被調查 國巨、環球晶這些慘了_】2026_8_31(字幕版)__yt0qHY3utUy9c.md",
     "title": "【欣興被調查 國巨、環球晶這些慘了?】2026/8/31(字幕版)",
     "date": "2026-08-31",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【欣興被調查 國巨、環球晶這些慘了_】2026_8_31(直播)__ytQYdj9ea8PKc.md",
     "title": "【欣興被調查 國巨、環球晶這些慘了?】2026/8/31(直播)",
     "date": "2026-08-31",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【欣興被調查 國巨、環球晶這些慘了_】2026_8_31哲哲只有60秒__ytiffeMO69Epk.md",
     "title": "【欣興被調查 國巨、環球晶這些慘了?】2026/8/31哲哲只有60秒",
     "date": "2026-08-31",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【深度訪談】權證小哥從10萬翻到數千萬，才7個月而已...小錢開槓桿、大錢做配置。0050好，自組ETF更好？_老手必學__yttH2RvnwY99g.md",
@@ -2773,7 +3217,9 @@
     ],
     "date": "2025-04-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【無力反彈 先走一趟_  】2026_8_17(字幕版)__yt3ZFaD9tKVW8.md",
@@ -2787,7 +3233,9 @@
     "clean": "無力反彈 先走一趟?｜(字幕版)",
     "date": "2026-08-17",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【無力反彈 先走一趟】2026_8_17(直播)__yt1J1DLnW8aSc.md",
@@ -2801,7 +3249,9 @@
     "clean": "無力反彈 先走一趟｜(直播)",
     "date": "2026-08-17",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】1兆美元救債_台股拉千點要攻？輝達財報三情境_先跌後漲？PCB.設備_第一梯隊出列！記憶體.航運KD金叉股__ytgeEDrE0IWJc.md",
@@ -2816,7 +3266,9 @@
     "clean": "理財達人秀｜1兆美元救債 拉千點要攻？輝達財報三情境 先跌後漲？PCB.設備 第一梯隊出列！記憶體.航運KD金叉股",
     "date": "2026-08-25",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】9月半導體展_看先進封裝_爆單_升級_鎖3檔小台積｜李兆華、張捷_2026.08.20_part3__ytRZ_VsqsRXfg.md",
@@ -2831,7 +3283,9 @@
       "半導體展"
     ],
     "added": "2026-08-22",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】MSCI三升_21檔AI兆元軍_低檔智動投_報酬再加20_｜李兆華、股魚_2026.08.13_part3__ytYSJ6Uz_4PLA.md",
@@ -2846,7 +3300,9 @@
       "AI兆元軍"
     ],
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】Q2財報體檢_PCB.記憶體挑強？買補漲？輝達點火_CPO.設備台鏈補！旺矽.世芯落難錯殺_散熱.航海王撿__ytk6Ya3ibu-9k.md",
@@ -2861,7 +3317,9 @@
     ],
     "date": "2026-08-18",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】Vera_Rubin出貨！_輝達止跌？_PCB規格拉滿_全系列漲誰？｜李兆華、陳於晨_2026.08.26__ytP8KkUqT_k7g.md",
@@ -2870,7 +3328,9 @@
     "clean": "理財達人秀｜Vera Rubin出貨！",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】一夜暴增11兆_記憶體落底？被動漲停潮_估值殺完了？｜李兆華、林信富_2026.07.31_part3__ytQIXLu4v7Sds.md",
@@ -2886,7 +3346,9 @@
     "clean": "理財達人秀｜一夜暴增11兆 記憶體落底？",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】三大法人齊買超_台股攻5萬穩了？MSCI給力_南亞科刷新高？被動直接買_CPO拉回搶？財報神救援老AI.P__ytrNk6qgrvcAA.md",
@@ -2902,7 +3364,9 @@
     "clean": "理財達人秀｜三大法人齊買超 攻5萬穩了？MSCI給力 南亞科刷新高？被動直接買 CPO拉回搶？財報神救援老AI.P",
     "date": "2026-08-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】創反彈新高_被動能回血？MSCI換股大戲_誰有漲相｜李兆華、鍾國忠_2026.08.28_part1__ytVPGJnkMnBDk.md",
@@ -2911,7 +3375,9 @@
     "clean": "理財達人秀｜創反彈新高 被動能回血？",
     "date": "2026-08-28",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】創高的路上_主流換誰當？_載板帶旺銅箔_軍工起飛？｜李兆華、陳威良_2026.08.27_part2__ytxuMyk0eLWMI.md",
@@ -2920,14 +3386,18 @@
     "clean": "理財達人秀｜創高的路上 主流換誰當？",
     "date": "2026-08-27",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】半導體展登場 特化有黑馬 大摩讚SpaceX 挖低PE星鏈｜李兆華、楊雲翔 2026.08.31 part3__ytwOOqefXuo5o.md",
     "title": "【理財達人秀】半導體展登場 特化有黑馬 大摩讚SpaceX 挖低PE星鏈｜李兆華、楊雲翔 2026.08.31 part3",
     "date": "2026-08-31",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】台幣強升外資回_等投信_主流換人當_IPC大膽買？｜李兆華、鍾國忠_2026.08.14_part1__ytz6C6KG-zdY8.md",
@@ -2943,7 +3413,9 @@
       "CPI"
     ],
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】台幣強外資回_等投信？投信錯殺PCB_撿？跟單外資買被動？群聯.大立光信心_上車？CPO大咖被關_拉回給上__yt4DqlvumrTtI.md",
@@ -2958,14 +3430,18 @@
     ],
     "date": "2026-08-14",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】台灣晶片 10年大夢狂飆！ 9月光破魔咒 CPO買強｜李兆華、蔡明翰 2026.09.01 part1__ytkJgByHd3rok.md",
     "title": "【理財達人秀】台灣晶片 10年大夢狂飆！ 9月光破魔咒 CPO買強｜李兆華、蔡明翰 2026.09.01 part1",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】台股不打第二隻腳？等台積攻5萬_老AI換誰漲？所羅門波段高_機器人.光學挑誰？磷化銦缺爆_光通訊迎漲？｜李__yto7ibM-MJCEY.md",
@@ -2980,7 +3456,9 @@
     ],
     "date": "2026-08-17",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】台股反應利多_套牢股怎處理？記憶體鎖籌碼_載板獲利罩！CPO.被動.廠務_反彈搶誰？晶圓雙雄鎖利_4檔KD__yt0ZoIdbCQg8A.md",
@@ -2996,7 +3474,9 @@
     "clean": "理財達人秀｜反應利多 套牢股怎處理？記憶體鎖籌碼 載板獲利罩！CPO.被動.廠務 反彈搶誰？晶圓雙雄鎖利 4檔KD",
     "date": "2026-08-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】台股拉尾盤_邁威爾搶單聯發科？味之素砍單_載板好加碼？航運.記憶體.CPO主力還在_高溢價可轉債大魚？｜李__ytQOr-HP4wZUM.md",
@@ -3012,7 +3492,9 @@
     ],
     "date": "2026-08-21",
     "added": "2026-08-22",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】大立光漲停_CPO看高做低！_800V衝量產_BBU下檔光寶？｜李兆華、王建文_2026.08.26_pa__ytBC-6IyfjcxA.md",
@@ -3021,14 +3503,18 @@
     "clean": "理財達人秀｜大立光漲停 CPO看高做低！",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】怕華許更鷹 守月線就穩？有欣興怎辦？ PCB誰受益｜李兆華、李永年 2026.08.31 part1__ytSJIbDXEtixo.md",
     "title": "【理財達人秀】怕華許更鷹 守月線就穩？有欣興怎辦？ PCB誰受益｜李兆華、李永年 2026.08.31 part1",
     "date": "2026-08-31",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】投信急下車_錯殺股挖寶_外資看上被動_回檔撿誰？｜李兆華、黃豐凱_2026.08.14_part2__ytX4tTUuPGoJ4.md",
@@ -3044,7 +3530,9 @@
       "連電"
     ],
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】拉尾盤守季線_補量就攻？模組先發動_資金找高顏殖｜李兆華、鍾國忠_2026.08.21_part1__ytJpMw-3bC8Uo.md",
@@ -3059,7 +3547,9 @@
       "模組"
     ],
     "added": "2026-08-23",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】景氣連8紅_外資大掃貨_先搶營家股_大戶續買電｜李兆華、高憲容_2026.08.28_part3__ytmbupkJzrwXY.md",
@@ -3068,21 +3558,27 @@
     "clean": "理財達人秀｜景氣連8紅 外資大掃貨 先搶營家股 大戶續買電",
     "date": "2026-08-28",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】最先進半導體展 設備嗨 ASIC迎爆單 IC設計猛將｜李兆華、紀緯明 2026.09.01 part2__ytX-5t3ZuXCcc.md",
     "title": "【理財達人秀】最先進半導體展 設備嗨 ASIC迎爆單 IC設計猛將｜李兆華、紀緯明 2026.09.01 part2",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】有欣興怎辦 PCB誰受益？記憶體MSCI利多再+1？大立光天價 光學.散熱亮蘋果光？半導體展 特化有黑馬？｜李兆華、李永年、林漢偉、楊雲翔2026__ytEGhPyJrwf7M.md",
     "title": "【理財達人秀】有欣興怎辦 PCB誰受益？記憶體MSCI利多再+1？大立光天價 光學.散熱亮蘋果光？半導體展 特化有黑馬？｜李兆華、李永年、林漢偉、楊雲翔2026.08.31【電視完整版】",
     "date": "2026-08-31",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】法說神助_老AI低檔噴？_PCB、封測_好財報救援賽｜李兆華、陳唯泰_2026.08.13_part2__yt8Q6bo158bW0.md",
@@ -3097,7 +3593,9 @@
       "PCB"
     ],
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】海力士庫藏護盤_台股月線強？機器人新利多_CPO挖低檔？大戶教學_都在買電力？半導體展_鎖3檔小台積？｜李__ytFy9pwEd9SMQ.md",
@@ -3112,7 +3610,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】海力士護盤_記憶買顆粒_大戶買賣教學_都在買電力？｜李兆華、高憲容_2026.08.20_part2__ytM9-WJpBIgIU.md",
@@ -3128,7 +3628,9 @@
       "大戶"
     ],
     "added": "2026-08-22",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】漲定了_矽晶圓擴散功率_衛星飛_挖SpaceX隱藏版｜李兆華、楊雲翔_2026.08.24_part3__ytzgyAEJWGibg.md",
@@ -3144,7 +3646,9 @@
     "clean": "理財達人秀｜漲定了 矽晶圓擴散功率 衛星飛 挖SpaceX隱藏版",
     "date": "2026-08-24",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】第2腳打完_台股新目標價_中低價底部起漲_大掃描！｜李兆華、朱家泓_2026.08.26_part1__ytURdaQFD-EO4.md",
@@ -3153,7 +3657,9 @@
     "clean": "理財達人秀｜第2腳打完 新目標價 中低價底部起漲 大掃描",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】第2腳打完_台股新目標價！大立光漲停_CPO看高做低_光學平價起漲_BBU下檔光寶？輝達PCB規格拉滿_漲__ytcwraKQ8cfsY.md",
@@ -3169,14 +3675,18 @@
     "clean": "理財達人秀｜第2腳打完 新目標價！大立光漲停 CPO看高做低 光學平價起漲 BBU下檔光寶？輝達PCB規格拉滿 漲",
     "date": "2026-08-26",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】美伊火爆等台積攻5萬？甩套牢心魔 光學.機器人剛點火？半導體展 大戶買CPO.封測？戴爾伺服器吃補？｜李兆華、朱家泓、王建文、林信富2026.09__ytYafjQkOcI78.md",
     "title": "【理財達人秀】美伊火爆等台積攻5萬？甩套牢心魔 光學.機器人剛點火？半導體展 大戶買CPO.封測？戴爾伺服器吃補？｜李兆華、朱家泓、王建文、林信富2026.09.02【電視完整版】",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】美債殖利率飆_第二隻腳打好就買？底部3型態_被動回後買？功率撿便宜_低軌要升空？光通缺爆_5檔吃香？｜李兆__ytvlTK1AVli3w.md",
@@ -3191,7 +3701,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】群聯、大立光有信心_上車？波段權證指路_AI打訊號？｜李兆華、權證小哥_2026.08.14_part3__ytXOlAkjlDOls.md",
@@ -3207,7 +3719,9 @@
       "波段"
     ],
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】航運、記憶、CPO_主力還在_可轉債高溢價_放長釣大魚｜李兆華、權證小哥_2026.08.21_part3__ytW-g5-a0VtP8.md",
@@ -3222,7 +3736,9 @@
       "主力連買"
     ],
     "added": "2026-08-23",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】蘋果大秀、半導體展_接棒_蘋概、設備、特化_挖黑馬？｜李兆華、陳唯泰_2026.08.27_part3__ytKplR-PL03JM.md",
@@ -3231,7 +3747,9 @@
     "clean": "理財達人秀｜蘋果大秀、半導體展 接棒 蘋概、設備、特化 挖黑馬",
     "date": "2026-08-27",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】被動再跌停_打4折優先_0050、台達電、頎邦_地板股｜李兆華、權證小哥_2026.07.29_part3__ytafZOpX37wjI.md",
@@ -3247,14 +3765,18 @@
       "被動元件"
     ],
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】記憶營收護 MSCI利多再+1 享受蘋果光 3類蘋概攻略｜李兆華、林漢偉 2026.08.31 part2__ytV6cayGzJcOI.md",
     "title": "【理財達人秀】記憶營收護 MSCI利多再+1 享受蘋果光 3類蘋概攻略｜李兆華、林漢偉 2026.08.31 part2",
     "date": "2026-08-31",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】資本支出就是訂單_亞馬遜創高！台股AI搶鋒頭_撿上半年賺爆跌深股？光通訊大反撲_封測續攻？被動ETF重返榮__ytYfp7Wa70Fo8.md",
@@ -3269,14 +3791,18 @@
     "clean": "理財達人秀｜資本支出就是訂單 亞馬遜創高！AI搶鋒頭 撿上半年賺爆跌深股？光通訊大反撲 封測續攻？被動ETF重返榮",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】輝達挺聯發科 台灣晶片10年大夢狂飆？欣興不再跌停 最甜籌資股？半導體展 CPO.設備.IC設計猛將！｜李兆華、蔡明翰、紀緯明、陳威良2026.0__ytXHkb69qrhDk.md",
     "title": "【理財達人秀】輝達挺聯發科 台灣晶片10年大夢狂飆？欣興不再跌停 最甜籌資股？半導體展 CPO.設備.IC設計猛將！｜李兆華、蔡明翰、紀緯明、陳威良2026.09.01【電視完整版】",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】輝達救全村_CPO.老AI.機器人買補漲？載板帶旺銅箔_戰前高？蘋果大秀接棒_設備.特化黑馬？無人機起飛？__ytYVxUddhgfSs.md",
@@ -3285,7 +3811,9 @@
     "clean": "理財達人秀｜輝達救全村 CPO.老AI.機器人買補漲？載板帶旺銅箔 戰前高？蘋果大秀接棒 設備.特化黑馬？無人機起飛",
     "date": "2026-08-27",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】輝達秀藍圖_電力股挖黑馬？_磷化銦缺爆_光通訊迎漲價？｜李兆華、楊雲翔_2026.08.17_part3__ytdUggxTWDTp0.md",
@@ -3300,7 +3828,9 @@
       "台達電"
     ],
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】輝達財報驚喜多？台積設備卡位補漲？記憶體.航運_高息成主流？矽晶圓.功率漲定了？挖SpaceX隱藏版！｜李__ytKoqPKbb_3Js.md",
@@ -3315,7 +3845,9 @@
     "clean": "理財達人秀｜輝達財報驚喜多？台積設備卡位補漲？記憶體.航運 高息成主流？矽晶圓.功率漲定了？挖SpaceX隱藏版",
     "date": "2026-08-24",
     "added": "2026-08-24",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】邁威爾盤後跌_CPO還是旺_投信錯殺能買？_撿探針？｜李兆華、黃豐凱_2026.08.28_part2__yteddgH9VdWE0.md",
@@ -3324,7 +3856,9 @@
     "clean": "理財達人秀｜邁威爾盤後跌 CPO還是旺 投信錯殺能買？",
     "date": "2026-08-28",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】邁威爾跌_CPO還是旺？台股反彈新高_國巨能回血？欣興被搜索_若跌停可以撿？MSCI換股大戲_誰最有漲相？__ytVg3YF4OsA78.md",
@@ -3333,7 +3867,9 @@
     "clean": "理財達人秀｜邁威爾跌 CPO還是旺？反彈新高 國巨能回血？欣興被搜索 若跌停可以撿？MSCI換股大戲 誰最有漲相",
     "date": "2026-08-28",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】邁威爾非搶單_還發哥公道_載板憂砍單？_PCB好加碼｜李兆華、黃豐凱_2026.08.21_part2__ytL6NGfwBjJ4M.md",
@@ -3348,7 +3884,9 @@
       "聯發科"
     ],
     "added": "2026-08-23",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【理財達人秀】雙槍比除息！小哥2天97萬股息入袋！老王2條線抓飆股_除息後買更低｜李兆華、權證小哥、老王《理財達人秀》2__ytNrscdF8PPEA.md",
@@ -3363,7 +3901,9 @@
     ],
     "date": "2020-06-22",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【生成式AI】淺談圖像生成模型_Diffusion_Model_原理__ytazBugJzmz-o.md",
@@ -3379,7 +3919,9 @@
     "clean": "生成式AI｜淺談圖像生成模型 Diffusion Model 原理",
     "date": "2023-03-25",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖心法】主力騙術大破解！權證小哥教你當沖_用連次量抓轉折，空在爆量漲不動、買在爆量跌不動_《雅筑會客室》EP30_‪__ytdU8-acPjIgg.md",
@@ -3395,7 +3937,9 @@
     ],
     "date": "2026-05-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖教學2025】2種「神速選股法」5分鐘找到今日當沖標的！新手也能馬上用__ytgVyfO97KHzg.md",
@@ -3411,7 +3955,9 @@
     "clean": "當沖教學2025｜2種「神速選股法」5分鐘找到今日當沖標的！",
     "date": "2025-10-25",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖教學2025】一個步驟當沖勝率80_？只需要在下單前看一眼？所有股票當沖都應該學會！__ytvpkzY0Nvwyg.md",
@@ -3427,7 +3973,9 @@
     "clean": "當沖教學2025｜一個步驟當沖勝率80 ？只需要在下單前看一眼？所有當沖都應該學會",
     "date": "2025-10-04",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖教學2025】全職當沖客教你如何練盤感！極短線也能看懂多空節奏__ytW9zYi_tLTys.md",
@@ -3442,7 +3990,9 @@
     "clean": "當沖教學2025｜全職當沖客教你如何練盤感！極短線也能看懂多空節奏",
     "date": "2025-11-08",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖教學2025】玩股票也能勝率100_？極短線當沖才是高勝率王道？風險報酬比高就是好？__ytUGvaA6LJJDY.md",
@@ -3457,7 +4007,9 @@
     "clean": "當沖教學2025｜玩也能勝率100 ？極短線當沖才是高勝率王道？風險報酬比高就是好",
     "date": "2025-10-11",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖教學2026】主力動作其實藏在盤中細節｜五檔掛單與成交明細實戰教學__ytA_Y2ci_nRr8.md",
@@ -3473,7 +4025,9 @@
     "clean": "當沖教學2026｜五檔掛單與成交明細實戰教學",
     "date": "2026-01-03",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖教學2026】當沖不可能賺錢_答案跟你想的不一樣｜學吧，股票入門教學__ytUG90wOetRQI.md",
@@ -3488,7 +4042,9 @@
     "clean": "當沖教學2026｜當沖不可能賺錢 答案跟你想的不一樣",
     "date": "2026-08-05",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖教學2026】禁現沖？先買沖？容易搞混的當沖下單介面，5分鐘馬上懂｜學吧，新手股票入門教學__yt7UB42f9Qgzw.md",
@@ -3504,7 +4060,9 @@
     "clean": "當沖教學2026｜禁現沖？先買沖？容易搞混的當沖下單介面，5分鐘馬上懂",
     "date": "2024-05-04",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【當沖教學2026】🔥100_股票新手必看🔥禁現沖，獲利邏輯⁉️7分鐘快速了解：股票當沖、當沖是什麼、禁現沖、當沖資格條__yt2bJ8gemAxvI.md",
@@ -3519,7 +4077,9 @@
     "clean": "當沖教學2026｜🔥100 新手必看🔥禁現沖，獲利邏輯⁉️7分鐘快速了解：當沖、當沖是什麼、禁現沖、當沖資格條",
     "date": "2026-07-08",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【盤中告訴我的事】EP71｜最大漲點後Ｖ轉？匯率空單均線沒過_被動元件_光通訊_InP_磷化銦_記憶體_南亞科_台指期___ytpKLoC1WMW2s.md",
@@ -3535,7 +4095,9 @@
     "clean": "盤中告訴我的事 EP71｜最大漲點後Ｖ轉？",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【短线交易策略】超短线投资者的圣经，双60超短线战法_短线交易_短线交易技巧_短线交易策略__ytIazEHvXXvoA.md",
@@ -3551,7 +4113,9 @@
     "clean": "短线交易策略｜超短线投资者的圣经，双60超短线战法 短线交易 短线交易技巧 短线交易策略",
     "date": "2023-04-21",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【破四萬點_我砸一億進場_】2026_7_28(直播)__ytub6120rhnS8.md",
@@ -3566,7 +4130,9 @@
     "clean": "破四萬點 我砸一億進場｜2026 7 28(直播)",
     "date": "2026-07-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【破四萬點_我砸一億進場_】2026_7_28哲哲只有60秒_shorts__ytVX7ueg2EKj0.md",
@@ -3581,7 +4147,9 @@
     "clean": "破四萬點 我砸一億進場｜2026 7 28哲哲只有60秒",
     "date": "2026-07-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精彩預告】理財達人秀《哥有籌必爆》第6集！最強做空！4時機買認售權證_小資快速翻本1天狂賺120__ytjHPujxiOgQc.md",
@@ -3596,7 +4164,9 @@
     ],
     "date": "2020-03-09",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】00403A溢價5_還在衝？淨值大揭密，如何利用「申購套利」痛宰散戶｜權證小哥｜直播精華｜_00403a_ETF__ytPROmYMg3mv0.md",
@@ -3611,7 +4181,9 @@
     ],
     "date": "2026-05-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】00981A規模過大反成毒藥？拆解ETF致命循環：人氣下滑將導致績效崩盤！｜權證小哥｜直播精華｜_00981a___ytwuV5RRymtxQ.md",
@@ -3627,7 +4199,9 @@
     ],
     "date": "2026-05-08",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】400元換10萬價值？揭秘250倍槓桿的神奇投資工具CBAS！｜權證小哥｜直播精華｜_可轉債_CBAS_動態避險__yt1u2OaKjH6rs.md",
@@ -3642,7 +4216,9 @@
     ],
     "date": "2026-04-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】4天狂賺2800萬！處置神器實戰：大跌後的逆轉換股術｜權證小哥｜直播精華｜_處置神器_處置股_換股術__yt2i0YYCj_k6k.md",
@@ -3657,7 +4233,9 @@
     ],
     "date": "2026-06-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】教你抓出盤中股價相對高低點！當沖飆股神手APP教學｜權證小哥｜直播精華｜_當沖飆股神手_當沖_隔日沖_飆股_權證__yt5zK0jSZlNL0.md",
@@ -3673,7 +4251,9 @@
     ],
     "date": "2022-06-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】無腦跟單聽明牌？實戰進出場邏輯大公開，教你如何應對聽牌股｜權證小哥｜直播精華｜_聽牌股_處置股_台股短線__ytzPAwaME0JwA.md",
@@ -3689,7 +4269,9 @@
     ],
     "date": "2026-06-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】當沖實戰解密：如何抓到空方轉折點？｜權證小哥｜直播精華｜_當沖_買盤竭盡_黑K訊號__ytXtEo60mTsVc.md",
@@ -3704,7 +4286,9 @@
     ],
     "date": "2025-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】當沖神器「買盤竭盡」詳細教學｜權證小哥｜直播精華｜_空方_放空_買盤竭盡_當沖神器_當沖飆股神手__ytf0TCoNlK0dU.md",
@@ -3719,7 +4303,9 @@
     ],
     "date": "2024-02-08",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】簡單明瞭！當沖必看的三大指標｜權證小哥｜直播精華｜_籌碼_連次量_周轉率_買盤竭盡_當沖神器__yt9vf1Z5J4D6A.md",
@@ -3734,7 +4320,9 @@
     ],
     "date": "2024-09-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】股市最強「雙刀流」！盤中實戰「環波配」大賺價差，這招處置戰法超好玩｜權證小哥｜直播精華｜_處置股_雙刀戰法_配對__ytlQia1e0E3dY.md",
@@ -3749,7 +4337,9 @@
     ],
     "date": "2026-04-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】股票期貨超詳解！股期入門必看，這集含金量超高！｜權證小哥｜直播精華｜_股票期貨_股期_股票__yt4imnnffNwfc.md",
@@ -3765,7 +4355,9 @@
     ],
     "date": "2024-03-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】被嘎漲停怎麼辦？從台勝科虧損學到的兩件事，這動作救回我的資產！｜權證小哥｜直播精華｜_權證小哥_台勝科_處置股__ytuZHzXAs9aWo.md",
@@ -3780,7 +4372,9 @@
     ],
     "date": "2026-06-18",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華】買債券只能領息？提早獲利、資金滾動，帶你搞懂可轉債的「套利與避險」策略｜權證小哥｜直播精華｜_可轉債_CBS_投__ytqdXLzAwmE4Y.md",
@@ -3795,7 +4389,9 @@
     ],
     "date": "2026-02-27",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精華版】投資股票基本功_內盤外盤一次搞清楚｜孫慶龍__ytmP6hG9RP5lw.md",
@@ -3810,7 +4406,9 @@
     "clean": "精華版｜基本功 內盤外盤一次搞清楚",
     "date": "2019-04-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精采預告】理財達人秀《哥有籌必爆》台股露出深V_繼續反彈_200檔公司護盤_跟單爽賺？__ytWy7Ww5eV09s.md",
@@ -3825,7 +4423,9 @@
     ],
     "date": "2020-04-17",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【精采預告】理財達人秀《哥有籌必爆》獲利飛太遠！軋空太危險_400_獲利火箭_別人含淚你大賺__ytc8HW1M5Uxgc.md",
@@ -3840,7 +4440,9 @@
     ],
     "date": "2020-10-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【美伊歹戲拖棚_記憶體大逃殺_台股反彈是真的_】2026.04.09(首播)__yte_Y0xboLJ2M.md",
@@ -3856,7 +4458,9 @@
     "clean": "【美伊歹戲拖棚 記憶體大逃殺 反彈是真的 】 (首播)",
     "date": "2026-04-09",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【美債殖利率20年高_戳破AI泡沫_】2026_8_19(字幕版)__ytbv984mVidR8.md",
@@ -3872,7 +4476,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【美債殖利率20年高_戳破AI泡沫】2026_8_19(直播)__ytHGPEXUn7AOQ.md",
@@ -3888,7 +4494,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【美國狠招救市_台股有救嗎_】2026_8_20(字幕版)__ytMv79TduY4nU.md",
@@ -3904,7 +4512,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【美國狠招救市_台股有救嗎_】2026_8_20(直播)__ytVW_0_YvJ1W4.md",
@@ -3920,7 +4530,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【股票當沖2025】TickTrade羨慕日內波？當沖交易習慣大不同？權證小哥真的有料？_股票當沖_當沖_股票_台股_股__ytXKKQAN4qo84.md",
@@ -3935,7 +4547,9 @@
     ],
     "date": "2025-06-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【處置股新規定_飆股無敵_】2026_8_4(直播)__ythwbOhiiydoE.md",
@@ -3951,7 +4565,9 @@
     "clean": "處置股新規定 飆股無敵｜2026 8 4(直播)",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【處置股新規定_飆股無敵_】2026_8_4哲哲只有60秒_shorts__yt7bLgM8VSpFY.md",
@@ -3967,7 +4583,9 @@
     "clean": "處置股新規定 飆股無敵｜2026 8 4哲哲只有60秒",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【處置股鬆綁_台股大利多？】_shorts__ytjMv1MWS4IdY.md",
@@ -3982,7 +4600,9 @@
     "clean": "處置股鬆綁 台股大利多？",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【記憶體狂漲_但黑天鵝來了_ChatGPT大減支出】2026.02.23(直播)__ytdKOXqB5-74k.md",
@@ -3998,7 +4618,9 @@
     "clean": "【記憶體狂漲 但黑天鵝來了 ChatGPT大減支出】 (直播)",
     "date": "2026-02-23",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【財經說書】_《巨人思維》交易沒有捷徑、只有努力，翻轉你『交易是賺取偏財』的想法_來看台股傳奇交易員”巨人傑“的投資思維__ytoG8-UHijSPM.md",
@@ -4013,35 +4635,45 @@
     "clean": "財經說書｜《巨人思維》交易沒有捷徑、只有努力，翻轉你『交易是賺取偏財』的想法 來看傳奇交易員”巨人傑“的思維",
     "date": "2024-09-10",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【超級AI來了 台股十萬點不是夢!】2026_9_7(字幕版)__ytPpNF8G8RBqk.md",
     "title": "【超級AI來了 台股十萬點不是夢!】2026/9/7(字幕版)",
     "date": "2026-09-07",
     "added": "2026-09-07",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【超級AI來了 台股十萬點不是夢!】2026_9_7(直播)__ytTcfu79H2oQo.md",
     "title": "【超級AI來了 台股十萬點不是夢!】2026/9/7(直播)",
     "date": "2026-09-07",
     "added": "2026-09-07",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【輝達財報喜中藏悲 五萬點卡關_】2026_8_27(字幕版)__ytT7hxJSa-tDA.md",
     "title": "【輝達財報喜中藏悲 五萬點卡關?】2026/8/27(字幕版)",
     "date": "2026-08-27",
     "added": "2026-08-28",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【輝達財報喜中藏悲 五萬點卡關_】2026_8_27(直播)__yta5yjzNYaYC0.md",
     "title": "【輝達財報喜中藏悲 五萬點卡關?】2026/8/27(直播)",
     "date": "2026-08-27",
     "added": "2026-08-28",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【這次綸到誰】融資槓桿完整拆解！__yt5LEtPt7-vAE.md",
@@ -4056,7 +4688,9 @@
     "clean": "這次綸到誰｜融資槓桿完整拆解",
     "date": "2026-08-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【這週_台股最後期末考_】2026_7_13(直播)__ytAC_UA_yTcB0.md",
@@ -4072,7 +4706,9 @@
     "clean": "這週 台股最後期末考｜2026 7 13(直播)",
     "date": "2026-07-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【通膨壓死台股_今年手機筆電_將調漲1萬元以上】2026_6_26(直播)__ytuZZfbj1vjV4.md",
@@ -4087,7 +4723,9 @@
     "clean": "【通膨壓死 今年手機筆電 將調漲1萬元以上】2026 6 26(直播)",
     "date": "2026-06-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【週一再崩千點_我一億0050沒救了_】2026_8_01(直播)__ytjtuS49Tvu0M.md",
@@ -4102,7 +4740,9 @@
     "clean": "週一再崩千點 我一億0050沒救了｜2026 8 01(直播)",
     "date": "2026-08-01",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【重塑交易！必看！】28_岁的Umar在交易中赚了1500万美元，他公开了超短线交易的秘诀和经常使他盈利的交易策略，值得__ytZ7BRl3W_DHc.md",
@@ -4118,7 +4758,9 @@
     "clean": "重塑交易！必看！｜28 岁的Umar在交易中赚了1500万美元，他公开了超短线交易的秘诀和经常使他盈利的交易策略，值得",
     "date": "2023-07-09",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【量能急凍_台股不行了】2026_8_21(字幕版)__yt6Zlek2Po_cc.md",
@@ -4134,7 +4776,9 @@
     ],
     "date": "2026-08-21",
     "added": "2026-08-22",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【量能急凍_台股不行了】2026_8_21(直播)__ytxUANEnJxTYk.md",
@@ -4149,7 +4793,9 @@
     ],
     "date": "2026-08-21",
     "added": "2026-08-22",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【開高走低殺千點_台幣惹的禍_】2026_7_6(直播)__ytuO4j9YE8qow.md",
@@ -4164,7 +4810,9 @@
     "clean": "開高走低殺千點 台幣惹的禍｜2026 7 6(直播)",
     "date": "2026-07-06",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【韓國大熔斷、台股這次跌真的】2026_7_7(直播)__ytp5vXKZmdDm0.md",
@@ -4179,7 +4827,9 @@
     "clean": "韓國大熔斷、台股這次跌真的｜2026 7 7(直播)",
     "date": "2026-07-07",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【韓股正式破底_台股受不了_】2026_7_8(直播)__ytdgL35HENLNA.md",
@@ -4195,7 +4845,9 @@
     "clean": "韓股正式破底 台股受不了｜2026 7 8(直播)",
     "date": "2026-07-08",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第10集！｜抓到了！跳空缺口揭主力暗號_4種缺口必漲_進場賺飽112_？｜李兆華、朱家泓《理財達人秀》20__ytclUA5tKayMY.md",
@@ -4210,7 +4862,9 @@
     ],
     "date": "2020-10-21",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第11集！｜技術分析型態學_朱家泓親授90_勝率N字底_算目標價不停損爽賺80_｜李兆華、朱家泓《理財達人__ytbYn_S9f5EX4.md",
@@ -4225,7 +4879,9 @@
     ],
     "date": "2020-10-28",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第12集！｜抄底型態頭肩底_買在起漲大賺目標價_朱家泓教戰_進場vs.加碼攻略_66_爽落袋？｜李兆華、朱__ytSjoAS02NyGw.md",
@@ -4240,7 +4896,9 @@
     ],
     "date": "2020-11-04",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第14集！｜95_獲利型態大勝頭肩底.N字底_圓弧底狂漲穩賺目標價_型態_趨勢雙賺攻略｜李兆華、朱家泓《理__ytrtRTYAYWGQU.md",
@@ -4255,7 +4913,9 @@
     ],
     "date": "2020-12-02",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第16集｜朱家泓最狂6字訣_畫一條切線辨趨勢多空雙賺！穩抱50_飆股？｜李兆華、朱家泓《理財達人秀》202__ytkWHAkjiqKLg.md",
@@ -4270,7 +4930,9 @@
     ],
     "date": "2021-01-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第17集！｜爆大量vs.量縮_成交量洩天機！朱家泓口訣秒懂4種量價關係_抓漲跌進場就賺170_｜李兆華、朱__yto29xQ-H9Gk0.md",
@@ -4285,7 +4947,9 @@
     ],
     "date": "2021-02-03",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第1集！｜KD黃金交叉買死亡賣？超簡單！正宗KD三招賺法_看圖秒懂_350_飆股買點｜李兆華、朱家泓《理財__ytnVU5anpiSc8.md",
@@ -4300,7 +4964,9 @@
     ],
     "date": "2020-07-29",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第20集！｜首發！朱家泓神級葛蘭碧戰法_抓起漲飆股vs.搶反彈_4個訊號突破均線_進場爽賺90_？｜李兆華__yt3mYaELR-wTQ.md",
@@ -4315,7 +4981,9 @@
     ],
     "date": "2021-03-26",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第22集！｜超長上下影線不用逃命_續抱關鍵曝光！避雷針vs吊人線進出攻略_揭穿假漲10_主力真出貨_抓3訊__ytbgCQubajCM8.md",
@@ -4330,7 +4998,9 @@
     ],
     "date": "2021-04-23",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第34集！｜台股狂殺300點超多地板股！3訊號找到落底股_勇敢進場賺大波段_神操作長短雙賺？｜李兆華、朱家__yt4T3rVdq5n1s.md",
@@ -4345,7 +5015,9 @@
     ],
     "date": "2022-01-22",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第48集！｜盤整超好抓轉折_買賣時機？_多頭vs空頭_K神完整攻略！｜李兆華、朱家泓《理財達人秀》2023__yt8ywWyZz6TYs.md",
@@ -4361,7 +5033,9 @@
     ],
     "date": "2023-04-01",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第49集！｜突破怎沒漲_主力騙進場_這種K棒組合_90_假突破_｜李兆華、朱家泓《理財達人秀》2023.0__ytKNIZUrdGD8s.md",
@@ -4377,7 +5051,9 @@
     ],
     "date": "2023-04-29",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第4集！｜均線完整教學_387_獲利密技_K神一條線買賣_短中長期通吃｜李兆華、朱家泓《理財達人秀》202__ytA6kNhPhxX7o.md",
@@ -4392,7 +5068,9 @@
     ],
     "date": "2020-08-26",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第52集！｜玩轉飆股_一招判超漲超跌！_看懂乖離率_低檔買高檔賣？｜李兆華、朱家泓《理財達人秀》2023.__yt1jC7NLZm6BI.md",
@@ -4407,7 +5085,9 @@
     ],
     "date": "2023-07-15",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第54集！｜多頭10大必勝買點(上)價量線訊號_80_高勝率｜李兆華、朱家泓《理財達人秀》2023.09.__ytD5QzBRuwNwk.md",
@@ -4423,7 +5103,9 @@
     ],
     "date": "2023-09-02",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第5集！｜獨家！K棒走圖班教戰知漲跌_4種變盤訊號_買最低大賺200_｜李兆華、朱家泓《理財達人秀》202__ytQrFS5VRb6AA.md",
@@ -4438,7 +5120,9 @@
     ],
     "date": "2020-08-31",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第60集！｜台股高檔_會賣才是高手！最強停利訊號_穩賺？(上)｜李兆華、朱家泓《理財達人秀》2024.04__ytp_TTBK-_sis.md",
@@ -4453,7 +5137,9 @@
     ],
     "date": "2024-04-13",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第6集！｜天天賺！朱家泓當沖教學來了_戶頭免放錢_半小時爽賺3萬｜李兆華、朱家泓《_EBCmoneysho__ytwCCq8D3Kur4.md",
@@ -4468,7 +5154,9 @@
     ],
     "date": "2020-09-09",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第7集！｜當沖選股！1700檔中抓漲停_5種圖進場30分鐘賺10_收工｜李兆華、朱家泓《理財達人秀》202__ytSMqALFKffQA.md",
@@ -4483,7 +5171,9 @@
     "clean": "飆股在線等 EP7｜當沖選股！1700檔中抓漲停 5種圖進場30分鐘賺10 收工",
     "date": "2020-09-16",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第8集！｜獨家！朱家泓操盤手稿揭密_盤前必做4功課_天天抓5_飆股｜李兆華、朱家泓《理財達人秀》2020.__ytI5ti7M3yGaY.md",
@@ -4499,7 +5189,9 @@
     ],
     "date": "2020-09-24",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【飆股在線等】第9集！｜最好懂技術分析_支撐vs.壓力_2條線抓漲跌！_K神畫線教進出_買低賣高賺20_｜李兆華、朱家泓__ytbEUUkXLnj6w.md",
@@ -4514,7 +5206,9 @@
     ],
     "date": "2020-10-14",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【鴻海都漲停了_下一檔是誰_】2026_5_29(字幕版)__ytmyoKm-YZiIo.md",
@@ -4529,7 +5223,9 @@
     "clean": "鴻海都漲停了 下一檔是誰｜2026 5 29(字幕版)",
     "date": "2026-05-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/【鼎文公職】公文_程頤__ytJulOgNQCCnE.md",
@@ -4544,7 +5240,9 @@
     "clean": "鼎文公職｜公文 程頤",
     "date": "2017-09-15",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/〖咖啡沖煮攻略〗6_個小技巧，讓你的手沖咖啡馬上更好喝__yt9QJjIMHSAsM.md",
@@ -4559,7 +5257,9 @@
     "clean": "〖咖啡沖煮攻略〗6 個小技巧，讓你的手沖咖啡馬上更好喝",
     "date": "2023-01-12",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/〖咖啡沖煮攻略〗VVcafe_小教室_-_手沖咖啡香氣、酸、甜的調整方式__ytTFy9NfUKwGQ.md",
@@ -4575,7 +5275,9 @@
     "clean": "〖咖啡沖煮攻略〗VVcafe 小教室 - 手沖咖啡香氣、酸、甜的調整方式",
     "date": "2025-02-24",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/〖咖啡沖煮攻略〗又是一個大咖！又是一集滿滿沖煮知識的一集！鵲咖啡跟大家分享他的獨家心法，每次必中好球帶！__ytws5HcTTJ86o.md",
@@ -4591,7 +5293,9 @@
     "clean": "〖咖啡沖煮攻略〗又是一個大咖！又是一集滿滿沖煮知識的一集！鵲咖啡跟大家分享他的獨家心法，每次必中好球帶",
     "date": "2023-06-01",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/一兆元_交易量悟出的真理_-_我是交易員-巨人傑分享會_奢華podcast_(巨人傑_Joeman_周湯豪)_小周_每周__yt2OSek9G306o.md",
@@ -4606,7 +5310,9 @@
     "clean": "一兆元 交易量悟出的真理 - 我是交易員-巨人傑分享會 奢華podcast (巨人傑 Joeman 周湯豪) 小周 每周",
     "date": "2026-01-15",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/一兆元交易心法：頂尖交易員的策略內幕__ytkAxqATSXR9k.md",
@@ -4621,7 +5327,9 @@
     "clean": "一兆元交易心法：頂尖交易員的策略內幕",
     "date": "2026-01-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/一分鐘看懂「爆量」：何時該跟單？何時該逃命？_權證小哥_爆量_主力出貨__ytyQd__1LPMTw.md",
@@ -4636,14 +5344,18 @@
     ],
     "date": "2026-05-21",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/上班族當沖實戰！教你用 60K、5K 快速尋找支撐壓力位｜當沖實戰模擬2026__yt4umeV1vgfqE.md",
     "title": "上班族當沖實戰！教你用 60K、5K 快速尋找支撐壓力位｜當沖實戰模擬2026",
     "date": "2026-08-23",
     "added": "2026-08-23",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/不只參考財報_巨人傑「全局觀」判斷標的好壞！__ytxoL6qxSVEkU.md",
@@ -4658,7 +5370,9 @@
     "clean": "不只參考財報 巨人傑「全局觀」判斷標的好壞",
     "date": "2024-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/不只吉卜力！ChatGPT_一分鐘做好Line貼圖、Logo_免費付費差異實測_解答商用__ytUgzHFZPwZHI.md",
@@ -4673,7 +5387,9 @@
     "clean": "不只吉卜力！ChatGPT 一分鐘做好Line貼圖、Logo 免費付費差異實測 解答商用",
     "date": "2025-04-02",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/不好的互換？不好的破底翻？形態什麼時候爛掉不能再碰？_20260901【老余交易夜】__yt5ofHs-lM_Sc.md",
@@ -4688,7 +5404,9 @@
     "clean": "不好的互換？不好的破底翻？形態什麼時候爛掉不能再碰？ 20260901【老余交易夜】",
     "date": "2026-09-01",
     "added": "2026-09-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/世界咖啡沖煮冠軍粕谷哲，史上最好用的手沖手法！__yt6Erv5Tc15YY.md",
@@ -4704,7 +5422,9 @@
     "clean": "世界咖啡沖煮冠軍粕谷哲，史上最好用的手沖手法",
     "date": "2023-03-01",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/世界沖煮冠軍粕谷哲首席咖啡師來台！現場傳授手沖秘訣！feat.粕谷哲首席咖啡師Rikuto__ytuvi02VtCwRo.md",
@@ -4720,7 +5440,9 @@
     "clean": "世界沖煮冠軍粕谷哲首席咖啡師來台！現場傳授手沖秘訣！粕谷哲首席咖啡師Rikuto",
     "date": "2026-06-17",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/世界首個_免費_無限制_AI_圖像生成器，幾秒鐘內創建令人驚嘆的_AI_生成圖像丨Raphael_AI_實用評測__ytc8RPcAIEAE0.md",
@@ -4735,7 +5457,9 @@
     "clean": "世界首個 免費 無限制 AI 圖像生成器，幾秒鐘內創建令人驚嘆的 AI 生成圖像丨Raphael AI 實用評測",
     "date": "2025-03-17",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/主力五檔掛單手法,看到的跟你想的不一樣_理周教育學苑_周鼎松課程精彩片段__yte0r4RXeN4zk.md",
@@ -4750,7 +5474,9 @@
     "clean": "主力五檔掛單手法,看到的跟你想的不一樣 理周教育學苑 周鼎松課程精彩片段",
     "date": "2022-11-01",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/五檔量價怎麼看？內外盤是什麼？__ytgHqGp4_3YnI.md",
@@ -4765,7 +5491,9 @@
     "clean": "五檔量價怎麼看？",
     "date": "2021-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/交易不是變魔術：巨人傑心法__ytKSINm9qZoeI.md",
@@ -4780,7 +5508,9 @@
     ],
     "clean": "交易不是變魔術：巨人傑心法",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/交易小那(NQ)期貨的極短線策略分享！突然獲得超額報酬要收還是要拼？__ytHIrZEqkXcfU.md",
@@ -4796,7 +5526,9 @@
     "clean": "交易小那(NQ)期貨的極短線策略分享！突然獲得超額報酬要收還是要拼",
     "date": "2025-11-16",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/交易陷阱：為什麼你的「勝率」無關緊要(巨人傑)__ytqGKeGyiYQt0.md",
@@ -4810,7 +5542,9 @@
     ],
     "clean": "交易陷阱：為什麼你的「勝率」無關緊要(巨人傑)",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/什麼手沖手法這麼危險？但真的很好喝！__ytK6dsgtuFbBM.md",
@@ -4826,7 +5560,9 @@
     "clean": "什麼手沖手法這麼危險？",
     "date": "2022-10-05",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/低軌道衛星_射頻積體電路(RFIC)將會比AI更火熱？如何顛訊通訊產業未來？__ytRL0SvbvkAao.md",
@@ -4841,7 +5577,9 @@
     "clean": "低軌道衛星 射頻積體電路(RFIC)將會比AI更火熱？如何顛訊通訊產業未來",
     "date": "2025-09-30",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/你真的了解咖啡么_咖啡高级常识__ytmotxyzLrf4Y.md",
@@ -4856,7 +5594,9 @@
     "clean": "你真的了解咖啡么 咖啡高级常识",
     "date": "2021-02-13",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/億級操盤手經驗集結！巨人傑_x_MGK_x_快樂操盤人揭密「不輸」的致富關鍵__ytzQTjads80tc.md",
@@ -4872,7 +5612,9 @@
     "clean": "億級操盤手經驗集結！巨人傑 x MGK x 快樂操盤人揭密「不輸」的致富關鍵",
     "date": "2025-12-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/免费开源！用_gpt-image-2_生成4K图片，还能自建API无限用_GPT_Image_Playground__ytZgXNsr9zgoY.md",
@@ -4881,7 +5623,9 @@
     "clean": "免费开源！用 gpt-image-2 生成4K图片，还能自建API无限用 GPT Image Playground",
     "date": "2026-04-30",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/內外盤成交比重抓飆股_理周教育學苑_管彥博_矩陣AI精算法(字幕)__ytc15-RDsva0k.md",
@@ -4897,7 +5641,9 @@
     "clean": "內外盤成交比重抓飆股 理周教育學苑 管彥博 矩陣AI精算法(字幕)",
     "date": "2024-07-25",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/內盤VS外盤！90_散戶還不懂怎麼看__ytbKbH9KRgmb8.md",
@@ -4913,7 +5659,9 @@
     "clean": "內盤VS外盤！",
     "date": "2021-04-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/內盤與外盤__yteoxiLPmh-18.md",
@@ -4929,7 +5677,9 @@
     "clean": "內盤與外盤",
     "date": "2017-08-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/兩人份手沖咖啡的好球帶教學，新手也可以，適用任何咖啡豆｜金萬與筱彤的經營者筆記_咖啡_coffee__yt7a-KdT5w39s.md",
@@ -4945,7 +5695,9 @@
     "clean": "兩人份手沖咖啡的好球帶教學，新手也可以，適用任何咖啡豆",
     "date": "2024-04-23",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/公文写作神器登场！AI助力，效率飙升！_ai_写作_职场必备__ytNEimx3ktToo.md",
@@ -4960,7 +5712,9 @@
     "clean": "公文写作神器登场！AI助力，效率飙升！ ai 写作 职场必备",
     "date": "2024-10-29",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/公文写作神器！手机电脑都能建ai公文库，体制内必备__yt8hXjRmrhoSg.md",
@@ -4975,7 +5729,9 @@
     "clean": "公文写作神器！手机电脑都能建ai公文库，体制内必备",
     "date": "2025-05-20",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/公文撰寫秘訣大公開｜國考公文應該如何寫得好？林嵩老師直接批改給你看！__yt-6DG7skoHR8.md",
@@ -4990,7 +5746,9 @@
     "clean": "國考公文應該如何寫得好？林嵩老師直接批改給你看",
     "date": "2021-08-22",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/別再買_AI_會員了！這_6_個_AI_工具其實可以無限免費使用（2026）__ytO3XWVi12hZg.md",
@@ -5006,7 +5764,9 @@
     "clean": "別再買 AI 會員了！這 6 個 AI 工具其實可以無限免費使用（2026）",
     "date": "2026-07-11",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/加密貨幣短線交易市場勝率極低_一周年直播精華__ytclyY6l7V344.md",
@@ -5021,7 +5781,9 @@
     "clean": "加密貨幣短線交易市場勝率極低 一周年直播精華",
     "date": "2026-02-26",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/即梦_｜图片生成·简单一致性｜零基础出图！__ytdBuehYGQD58.md",
@@ -5030,7 +5792,9 @@
     "clean": "图片生成·简单一致性",
     "date": "2025-10-11",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/反彈沒撿不急_還有回檔！鍾大膽佛心公開_本週關鍵點位！_李兆華_鍾大膽__ytEIATpQhnk_I.md",
@@ -5045,7 +5809,9 @@
     "clean": "反彈沒撿不急 還有回檔！",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股30年來首次大鬆綁！處置股「關禁閉」天數砍半_撮合通通改2分鐘【理財密碼】__ytU4B3Od59TEE.md",
@@ -5061,7 +5827,9 @@
     "clean": "30年來首次大鬆綁！處置股「關禁閉」天數砍半 撮合通通改2分鐘【理財密碼】",
     "date": "2026-08-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股傳奇交易員,巨人傑的當沖策略_天下文化_巨人思維__ytwwy2NhRYrPI.md",
@@ -5076,7 +5844,9 @@
     "clean": "傳奇交易員,巨人傑的當沖策略 天下文化 巨人思維",
     "date": "2024-05-06",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股傳奇交易員，從50萬本金玩起，才30歲年交易就達3000億，光證交稅就繳2億__ytpDwOAqKH0Fg.md",
@@ -5091,7 +5861,9 @@
     "clean": "傳奇交易員，從50萬本金玩起，才30歲年交易就達3000億，光證交稅就繳2億",
     "date": "2024-05-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股傳奇揭秘！巨人傑的獨門交易技巧_教父說書精華_聖唐教父__yt4Ym9F8tJB0U.md",
@@ -5106,7 +5878,9 @@
     "clean": "傳奇揭秘！巨人傑的獨門交易技巧 教父說書精華 聖唐教父",
     "date": "2025-12-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股億級傳奇_「巨人傑」首露面_【民生八方事】_2024072906_gtvnews27__ytwJxe_yIIw1c.md",
@@ -5121,7 +5895,9 @@
     "clean": "億級傳奇 「巨人傑」首露面 【民生八方事】 2024072906 gtvnews27",
     "date": "2024-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股創盤中最大漲點！_郭哲榮砸1億買0050秒賺8百萬｜_shorts_鏡新聞__ytnNDa0W38_KI.md",
@@ -5136,7 +5912,9 @@
     "clean": "創盤中最大漲點！ 郭哲榮砸1億買0050秒賺8百萬",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股創盤中最大漲點！_郭哲榮砸1億買0050秒賺8百萬｜_鏡新聞__ytiXLwqz5g1ls.md",
@@ -5151,7 +5929,9 @@
     "clean": "創盤中最大漲點！ 郭哲榮砸1億買0050秒賺8百萬",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股周一挫咧等？郭哲榮「1億還沒賣」：別過度恐慌_newsebc__ytAvXkS5WVkqs.md",
@@ -5166,7 +5946,9 @@
     "clean": "周一挫咧等？郭哲榮「1億還沒賣」：別過度恐慌 newsebc",
     "date": "2026-08-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股周一挫咧等？郭哲榮「1億還沒賣」：別過度恐慌【理財密碼】__ytJe_FdFHXgE4.md",
@@ -5181,7 +5963,9 @@
     "clean": "周一挫咧等？郭哲榮「1億還沒賣」：別過度恐慌【理財密碼】",
     "date": "2026-08-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股周一挫咧等？郭哲榮「1億還沒賣」：別過度恐慌【理財密碼】__ytbJ_6ZWxb3Tk.md",
@@ -5196,7 +5980,9 @@
     "clean": "周一挫咧等？郭哲榮「1億還沒賣」：別過度恐慌【理財密碼】",
     "date": "2026-08-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股巨獸_-_巨人傑_『我是交易員』_講座精華_台股_投資理財_巨人傑__ytng3qoIbojfU.md",
@@ -5211,7 +5997,9 @@
     "clean": "巨獸 - 巨人傑 『我是交易員』 講座精華 理財 巨人傑",
     "date": "2026-01-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股投資大論戰_周冠男麻將理論挑戰短線高手800億操作｜投資Ｇ觀點__ytGZhJBYE1rnw.md",
@@ -5227,7 +6015,9 @@
     "clean": "大論戰 周冠男麻將理論挑戰短線高手800億操作",
     "date": "2026-01-22",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股最神秘的年輕交易員_億級散戶-巨人傑_14年的交易思路紀實_天下文化_巨人思維__ytP2nOICAf5nY.md",
@@ -5242,7 +6032,9 @@
     "clean": "最神秘的年輕交易員 億級散戶-巨人傑 14年的交易思路紀實 天下文化 巨人思維",
     "date": "2024-03-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股瘋漲重返42K_0050「1億男」哲哲賺近千萬｜TVBS新聞_TVBSNEWS01__ytXwEAwWWwy5c.md",
@@ -5257,7 +6049,9 @@
     "clean": "瘋漲重返42K 0050「1億男」哲哲賺近千萬",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股頻創新高！獲利了結？_億級散戶_不急著賣_AI原物料新主流！巨人傑看好PCB、CCL｜非凡財經新聞｜20250923__ytdvqk4KKo7PA.md",
@@ -5273,7 +6067,9 @@
     "clean": "頻創新高！獲利了結？ 億級散戶 不急著賣 AI原物料新主流！巨人傑看好PCB、CCL",
     "date": "2025-09-23",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/台股頻創新高！獲利了結？_億級散戶_不急著賣_AI原物料新主流！巨人傑看好PCB、CCL｜非凡財經新聞｜20250923__ytjDe8eQshgRQ.md",
@@ -5289,7 +6085,9 @@
     "clean": "頻創新高！獲利了結？ 億級散戶 不急著賣 AI原物料新主流！巨人傑看好PCB、CCL",
     "date": "2025-09-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/史上最樂觀散戶_害慘台股？【台股報報爆】__ytZV6LqUEUE8Q.md",
@@ -5305,7 +6103,9 @@
     "clean": "史上最樂觀散戶 害慘？",
     "date": "2026-06-27",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/史詩暴漲後怕週一崩_郭哲榮_平常心看中長期｜TVBS新聞_TVBSNEWS01__ytj-KysANLdh4.md",
@@ -5320,7 +6120,9 @@
     "clean": "史詩暴漲後怕週一崩 郭哲榮 平常心看中長期",
     "date": "2026-08-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/史詩暴漲後怕週一崩_郭哲榮_平常心看中長期｜TVBS新聞_TVBSNEWS02__ytKUnxG5QsV_g.md",
@@ -5335,7 +6137,9 @@
     "clean": "史詩暴漲後怕週一崩 郭哲榮 平常心看中長期",
     "date": "2026-08-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/史詩暴漲後怕週一崩_郭哲榮_平常心看中長期｜TVBS新聞_TVBSShorts__yt5ni82_WnTOI.md",
@@ -5350,7 +6154,9 @@
     "clean": "史詩暴漲後怕週一崩 郭哲榮 平常心看中長期",
     "date": "2026-08-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/各種心態炸裂爆帳號的經歷！_那些年大賠的老余...._20251218【老余交易夜】__ytr-9cr7_LkQc.md",
@@ -5364,7 +6170,9 @@
     ],
     "clean": "各種心態炸裂爆帳號的經歷！ 那些年大賠的老余.... 20251218【老余交易夜】",
     "added": "2026-09-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/周冠男教授爆氣開噴台灣散戶，笑死XD哈哈哈哈_周冠男_0050_清流君_台積電_0056_主動投資_高股息_持續買進_E__yty9ohEaXVQ1w.md",
@@ -5379,7 +6187,9 @@
     "clean": "周冠男教授爆氣開噴台灣散戶，笑死XD哈哈哈哈 周冠男 0050 清流君 台積電 0056 主動 高股息 持續買進 E",
     "date": "2024-12-15",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/哲哲來了！郭哲榮受訪曝賺一千萬_台股盤中瘋漲最多3281點終場收43119－民視新聞__ytVkROQIyjeIU.md",
@@ -5394,7 +6204,9 @@
     "clean": "哲哲來了！郭哲榮受訪曝賺一千萬 盤中瘋漲最多3281點終場收43119－民視新聞",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/型男股神陳威良教學_！1200元平起平坐？這兩檔「載板雙雄」教你無痛配對賺翻天！🔥_理財達人秀__ytR0E42R9Dubk.md",
@@ -5403,7 +6215,9 @@
     "clean": "型男股神陳威良教學 ！1200元平起平坐？這兩檔「載板雙雄」教你無痛配對賺翻天！🔥 理財達人秀",
     "date": "2026-08-28",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/夏天必備！手沖冰咖啡手法！__ytDvlMzL8PAvY.md",
@@ -5419,7 +6233,9 @@
     "clean": "夏天必備！",
     "date": "2022-07-01",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/大盤4萬5_持股比重要降低！鍾大膽：下次進場點是這時候！__yt1gTPGp33eDk.md",
@@ -5434,7 +6250,9 @@
     "clean": "大盤4萬5 持股比重要降低！鍾大膽：下次進場點是這時候",
     "date": "2026-08-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/如何從籌碼看主力是極短線當沖_隔日沖_波段？_理周教育學苑_阿Sir.艾斯_阿Sir.艾斯實戰菁英操盤班(字幕)__yt5hizLwXPGkE.md",
@@ -5449,7 +6267,9 @@
     "clean": "如何從籌碼看主力是極短線當沖 隔日沖 波段？ 理周教育學苑 阿Sir.艾斯 阿Sir.艾斯實戰菁英操盤班(字幕)",
     "date": "2025-08-21",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/如何成為「_全職交易員」_20260908【老余交易夜】__ytnlaNKDuTM_w.md",
@@ -5464,14 +6284,18 @@
     "clean": "如何成為「 全職交易員」 20260908【老余交易夜】",
     "date": "2026-09-08",
     "added": "2026-09-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/如何看懂台股大盤趨勢？用 MA5 匝道比喻與季線扣抵值，掌握 4 大波段進場訊號｜台股行情2026__yt1YoyAiyKnvk.md",
     "title": "如何看懂台股大盤趨勢？用 MA5 匝道比喻與季線扣抵值，掌握 4 大波段進場訊號｜台股行情2026",
     "date": "2026-09-01",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/完全免費！這個_AI_圖片生成神器不用登入還能狂生圖__ytpdhu6WYBVis.md",
@@ -5486,7 +6310,9 @@
     "clean": "完全免費！這個 AI 圖片生成神器不用登入還能狂生圖",
     "date": "2025-04-17",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/完全免费！无需登录无限生成AI视频_图片！VEO_AI_Free_实测_Seedance_2.0_效果炸裂太震撼了__ytdfWJ-GjA7xA.md",
@@ -5501,7 +6327,9 @@
     "clean": "完全免费！无需登录无限生成AI视频 图片！VEO AI Free 实测 Seedance 2.0 效果炸裂太震撼了",
     "date": "2026-05-02",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/实测！搭建批量生成_合成图片工厂(20min).别再一张张生成图片啦~只需准备一份表格，AI_就能批量生成并上传无版权营__ytGxuvQvy6k7o.md",
@@ -5510,7 +6338,9 @@
     "clean": "实测！搭建批量生成 合成图片工厂(20min).别再一张张生成图片啦~只需准备一份表格，AI 就能批量生成并上传无版权营",
     "date": "2025-09-21",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/寰宇財經盤中即時技術分析-1｜20260804｜涂敏峰_分析師｜超越巔峰__ytp5JDE6QY2Vg.md",
@@ -5525,7 +6355,9 @@
     "clean": "寰宇財經盤中即時技術分析-1",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/專訪全台最強交易員「巨人傑」：從_400_到_4000_的抱單藝術與贏家心法__ytrNUgVJlWF4M.md",
@@ -5540,14 +6372,18 @@
     "clean": "專訪全台最強交易員「巨人傑」：從 400 到 4000 的抱單藝術與贏家心法",
     "date": "2026-01-27",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/小白新手也能看懂！緯創3231當沖實測：教你看懂「均價線」與進退場邏輯｜當沖實戰模擬2026__yt9woYsDWz4aM.md",
     "title": "小白新手也能看懂！緯創3231當沖實測：教你看懂「均價線」與進退場邏輯｜當沖實戰模擬2026",
     "date": "2026-09-08",
     "added": "2026-09-08",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/小資族沒有錢😰？只要1萬2就能開始存股_做好風險控管！_權證小哥_shorts_股票期貨_存股__ytwliqOSJH0XE.md",
@@ -5562,7 +6398,9 @@
     ],
     "date": "2025-08-06",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑_Joeman_『我是交易員』_訪談交易精華_投資理財_巨人傑_熱門__ytFAM4kHbdFZo.md",
@@ -5578,7 +6416,9 @@
     "clean": "巨人傑 Joeman 『我是交易員』 訪談交易精華 理財 巨人傑 熱門",
     "date": "2026-01-16",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑交易大師課：市場心法__yt6kuGdQVBJzY.md",
@@ -5593,7 +6433,9 @@
     ],
     "clean": "巨人傑交易大師課：市場心法",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑我們來啦！這場演講聽完收穫滿滿，還看到好多大咖，整個值回票價😆幸好有帶安靜神器，成功封印我們家那兩隻快_3_小時！__yta_gFuUMGz_s.md",
@@ -5608,7 +6450,9 @@
     "clean": "巨人傑我們來啦！這場演講聽完收穫滿滿，還看到好多大咖，整個值回票價😆幸好有帶安靜神器，成功封印我們家那兩隻快 3 小時",
     "date": "2026-01-15",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑的交易法：從心魔到邏輯__yt6b4sHUCAOsM.md",
@@ -5624,7 +6468,9 @@
     "clean": "巨人傑的交易法：從心魔到邏輯",
     "date": "2026-01-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑的交易經驗-如何擴大交易部位！_巨人傑_https_youtube.com_shorts_AGMpijCDnZE__ytAGMpijCDnZE.md",
@@ -5639,7 +6485,9 @@
     "clean": "巨人傑的交易經驗-如何擴大交易部位！ 巨人傑 https youtube.com AGMpijCDnZE",
     "date": "2026-02-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑眼中的當沖交易__ytBC_rGDkgXFw.md",
@@ -5654,7 +6502,9 @@
     "clean": "巨人傑眼中的當沖交易",
     "date": "2026-02-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑與周教授的論戰__ytLAKNATC85tE.md",
@@ -5669,7 +6519,9 @@
     "clean": "巨人傑與周教授的論戰",
     "date": "2026-01-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑震撼教育：為什麼你該戒掉「看_K_線」的壞習慣？__ytohozazENoNk.md",
@@ -5685,7 +6537,9 @@
     "clean": "巨人傑震撼教育：為什麼你該戒掉「看 K 線」的壞習慣",
     "date": "2026-01-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑：億萬交易員的秘密__yt9AoS4K_IrcY.md",
@@ -5700,7 +6554,9 @@
     ],
     "clean": "巨人傑：億萬交易員的秘密",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人傑：專業交易員的心態__ytpPLR5piV-rg.md",
@@ -5714,7 +6570,9 @@
     ],
     "clean": "巨人傑：專業交易員的心態",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/巨人思維_讀後感_無雷分享(Ai字幕_請打開)__ytD_WvbHhHmD4.md",
@@ -5729,7 +6587,9 @@
     "clean": "巨人思維 讀後感 無雷分享(Ai字幕 請打開)",
     "date": "2024-05-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/從10萬翻到1000萬、歷經歸零3次！權證小哥如何打造最強散戶投資系統？_｜權證小哥_cng07151_台股_股市_股票__yt4vy4w6rJxeM.md",
@@ -5744,7 +6604,9 @@
     ],
     "date": "2025-04-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/從小贏到大利潤：交易的結構(巨人傑)__ytHO9Cjky3VSM.md",
@@ -5758,7 +6620,9 @@
     ],
     "clean": "從小贏到大利潤：交易的結構(巨人傑)",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/恐慌中獲利：130_融資市場反彈策略(巨人傑)__ytgX5h7OaC_Ks.md",
@@ -5773,7 +6637,9 @@
     ],
     "clean": "恐慌中獲利：130 融資市場反彈策略(巨人傑)",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/慘跌腰斬的心痛股！專家曝：這檔「2奈米黑馬」即將倒吃甘蔗！🩸_理財達人秀__ytGyObULJ_iyg.md",
@@ -5788,7 +6654,9 @@
     "clean": "慘跌腰斬的心痛股！專家曝：這檔「2奈米黑馬」即將倒吃甘蔗！🩸 理財達人秀",
     "date": "2026-08-28",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/成交量為王_不要被內5盤、外5盤給唬弄_(以裕隆為例)_理周教育學苑_2022億級大師技術分析公益班_蕭明道(字幕)__ytkHE44MLftNI.md",
@@ -5804,7 +6672,9 @@
     "clean": "成交量為王 不要被內5盤、外5盤給唬弄 (以裕隆為例) 理周教育學苑 2022億級大師技術分析公益班 蕭明道(字幕)",
     "date": "2023-11-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/我明明知道极难，但为什么还是选择短线交易__ytm9sGK374udQ.md",
@@ -5819,7 +6689,9 @@
     "clean": "我明明知道极难，但为什么还是选择短线交易",
     "date": "2026-03-03",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/我用一個_Claude_Skill_(技能)_省下了所有生成圖片和影片的訂閱費用！每個月現省上千元！__ytWyJJFzbdjuY.md",
@@ -5834,7 +6706,9 @@
     "clean": "我用一個 Claude Skill (技能) 省下了所有生成圖片和影片的訂閱費用！",
     "date": "2026-08-10",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/我的簡單生活好物_手沖咖啡工具,_手沖需要準備什麼工具？最簡單的沖煮咖啡準備__ytJG9Gf53A_Mw.md",
@@ -5850,7 +6724,9 @@
     "clean": "我的簡單生活好物 手沖咖啡工具, 手沖需要準備什麼工具？最簡單的沖煮咖啡準備",
     "date": "2021-09-19",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/手沖一杯好咖啡教學分享(以300CC咖啡為例，洗紙及溫杯的水要倒掉喔！)__ytbVCSwXaIxbE.md",
@@ -5865,7 +6741,9 @@
     "clean": "手沖一杯好咖啡教學分享(以300CC咖啡為例，洗紙及溫杯的水要倒掉喔！",
     "date": "2018-12-16",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/手沖咖啡-咖啡粉該磨多粗_-元食咖啡-Coffee_powder_coarse-Coffee_beans_ground___yt3agylcAFZY8.md",
@@ -5880,7 +6758,9 @@
     "clean": "手沖咖啡-咖啡粉該磨多粗 -元食咖啡-Coffee powder coarse-Coffee beans ground",
     "date": "2020-09-04",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/手沖咖啡太酸怎麼辦！？｜居家手沖三大心法實作分享__ytCaqGZC-2BD8.md",
@@ -5896,7 +6776,9 @@
     "clean": "居家手沖三大心法實作分享",
     "date": "2022-06-17",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/把市場當做提款機的1分鐘超短線交易策略__yt-VZGKdDDtuM.md",
@@ -5911,7 +6793,9 @@
     "clean": "把市場當做提款機的1分鐘超短線交易策略",
     "date": "2023-07-09",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/拆解頂尖交易員的致勝系統(巨人傑)__ytDj0IwqnQPgs.md",
@@ -5925,7 +6809,9 @@
     ],
     "clean": "拆解頂尖交易員的致勝系統(巨人傑)",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/揭密！權證小哥誓死也要捍衛的投資紀律｜權證小哥的當沖新手全攻略__ytmrHz5amfE7c.md",
@@ -5940,7 +6826,9 @@
     ],
     "date": "2023-06-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/揭開0050正2持股真相，別再當冤大頭了！_權證小哥_0050正2_槓桿ETF_台股ETF__ytUUv1wE8gxLo.md",
@@ -5955,7 +6843,9 @@
     ],
     "date": "2026-06-20",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/政院「生成式AI」指引！_可寫公文.「機密文件禁用」｜華視新聞_20230901__ytdcUzbrOw0og.md",
@@ -5970,7 +6860,9 @@
     "clean": "政院「生成式AI」指引！ 可寫公文.「機密文件禁用」",
     "date": "2023-09-01",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/散戶短線操作務必要牢記的7個口訣！__yt0JevIqCs9dQ.md",
@@ -5986,7 +6878,9 @@
     "clean": "散戶短線操作務必要牢記的7個口訣",
     "date": "2024-10-15",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/新手最简易的1分钟短线交易法！（惊人精准度）__ytobtIXV2FT80.md",
@@ -6002,7 +6896,9 @@
     "clean": "新手最简易的1分钟短线交易法！",
     "date": "2025-12-25",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/旺矽跌停_營收弱？_AI達人：第四季是轉機！feat._AI達人_蔡明翰__ytuVoviUmQAnE.md",
@@ -6011,7 +6907,9 @@
     "clean": "旺矽跌停 營收弱？ AI達人：第四季是轉機！ AI達人 蔡明翰",
     "date": "2026-08-27",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/晶片小到「看不見」怎麼製造？一個微小缺陷就讓晶片報廢！蔡司如何替半導體找出真兇？__ytGXcaFp0RTXo.md",
@@ -6027,7 +6925,9 @@
     "clean": "晶片小到「看不見」怎麼製造？一個微小缺陷就讓晶片報廢！蔡司如何替半導體找出真兇",
     "date": "2026-08-21",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/最强_AI_图片模型来了！Ideogram_4_正式开源，媲美_GPT-Image_Midjourney，支持本地部署！__ytA26xy-RyAfs.md",
@@ -6042,7 +6942,9 @@
     "clean": "最强 AI 图片模型来了！Ideogram 4 正式开源，媲美 GPT-Image Midjourney，支持本地部署",
     "date": "2026-06-26",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/有人只做大跌搶反彈「地板股」養活一家_買2出3是什麼_shorts_股市錢滾錢_權證小哥_短線_投資_台股_抄底_鴻海__ytIFKKcnmHH-M.md",
@@ -6058,7 +6960,9 @@
     ],
     "date": "2025-04-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/有實戰經驗才看得懂這本書__yt7bnIFraO0oA.md",
@@ -6073,7 +6977,9 @@
     "clean": "有實戰經驗才看得懂這本書",
     "date": "2024-09-05",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/東森財經盤中即時技術分析-1｜20260804｜涂敏峰_分析師｜超越巔峰__ytwEsnhQA-kuA.md",
@@ -6089,7 +6995,9 @@
     "clean": "東森財經盤中即時技術分析-1",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/極短線-教你當沖_以小搏大，日賺3-6千__ytleaw5Vzkd0U.md",
@@ -6104,7 +7012,9 @@
     "clean": "極短線-教你當沖 以小搏大，日賺3-6千",
     "date": "2023-10-04",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥_新手必學_5_個籌碼指標，跟著關鍵分點最會飆！？__ytcDOMVHOvHkA.md",
@@ -6120,7 +7030,9 @@
     ],
     "date": "2021-08-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥_深度解析隔日沖__ytttarhnEBNjs.md",
@@ -6136,7 +7048,9 @@
     ],
     "date": "2023-11-08",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥教你如何在盤中「偷看」籌碼！仔細判讀，才有機會透過當沖長期賺錢｜Smart短影音_shorts__ytudLsAGXQ07c.md",
@@ -6152,7 +7066,9 @@
     ],
     "date": "2025-04-25",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥：當沖交易的個股數，不建議超過這數字！｜權證小哥的當沖新手全攻略__ytr9OdBohUnec.md",
@@ -6167,7 +7083,9 @@
     ],
     "date": "2023-06-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥：當沖選對股，關鍵是...｜獲利為王！權證小哥的當沖新手全攻略__ytbcXzf8gI1u4.md",
@@ -6182,7 +7100,9 @@
     "cat": "當沖短線",
     "date": "2023-05-23",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜你的股票是大戶的「聚寶盆」還是「垃圾桶」？籌碼大健檢即時連線！__ytA8EjEWoc7eg.md",
@@ -6197,7 +7117,9 @@
     ],
     "date": "2026-04-21",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜台股止跌了嗎？從外資、融資、關鍵分點看穿真反彈還是誘多！__ytKXa7F1KOfZg.md",
@@ -6212,7 +7134,9 @@
     ],
     "date": "2026-07-21",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜小哥處置股賺八千萬都沒賠？3個真實賠錢案例復盤__yt4TE0PthC4kY.md",
@@ -6227,7 +7151,9 @@
     ],
     "date": "2026-06-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜揭密「神祕分點」建倉清單！大戶撤資潮下的逆勢鎖碼股__ytLF1Rqoy5nqk.md",
@@ -6242,7 +7168,9 @@
     ],
     "date": "2026-04-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜日韓雙熔斷、台股連跌三週！是災難還是機會？用籌碼看穿「全球撤資潮」下的最後避風港！__ytT3Jf6jnGOaA.md",
@@ -6257,14 +7185,18 @@
     ],
     "date": "2026-03-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜熱門股大漲後誰在倒貨？關鍵分點一翻牌，主力動向全曝光！__ytP1NPqGFR4CE.md",
     "title": "權證小哥｜熱門股大漲後誰在倒貨？關鍵分點一翻牌，主力動向全曝光！",
     "date": "2026-07-15",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜看對股票卻賠錢？權證新手最容易踩的坑__ytt125pIMwwRw.md",
@@ -6279,7 +7211,9 @@
     ],
     "date": "2026-06-23",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜股市大盤創新高！浪子回頭強勢全面亮燈，瘋子盤要比他更瘋！__yt0ayuRHCiTKU.md",
@@ -6294,7 +7228,9 @@
     ],
     "date": "2026-05-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜處置下的獲利機會：如何用軟體抓出處置股的好買點__ythxzknku_tMo.md",
@@ -6309,7 +7245,9 @@
     ],
     "date": "2026-04-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜處置股不是不能買，是不能亂買！處置股、注意股、飆股風險一次看！__yt9g8CmmbSyY8.md",
@@ -6324,7 +7262,9 @@
     ],
     "date": "2026-05-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜處置股行情怎麼抓？新手也看得懂的【處置神器全攻略】__ytGXbYjtTCPy8.md",
@@ -6339,7 +7279,9 @@
     ],
     "date": "2026-05-05",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜跟著贏家分點走！揭密「神秘分點」大進場的口袋名單！__yt2fp0MP0tXQA.md",
@@ -6354,7 +7296,9 @@
     ],
     "date": "2026-03-17",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜開工發紅包！揭密『真大戶』掃貨清單，找出誰才是真財神？__ytLuyOoGiQwU4.md",
@@ -6369,7 +7313,9 @@
     ],
     "date": "2026-02-24",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/權證小哥｜除權息旺季！ETF吃豆腐行情怎麼抓？籌碼線索一次看__yt-d23BVk35rQ.md",
@@ -6384,21 +7330,27 @@
     ],
     "date": "2026-06-16",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/欣興跌、投信轉賣 該跑？黃金右下角：價值這邊浮現！feat.仲英財富投資長  陳唯泰__yttq9wbXYH9U0.md",
     "title": "欣興跌、投信轉賣 該跑？黃金右下角：價值這邊浮現！feat.仲英財富投資長  陳唯泰",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/正面回應課程質疑！台積電都漲四倍了，為什麼我的老方法依然好用？｜台股波段技術分析__ytACyIyePZUJU.md",
     "title": "正面回應課程質疑！台積電都漲四倍了，為什麼我的老方法依然好用？｜台股波段技術分析",
     "date": "2026-08-27",
     "added": "2026-08-28",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/每天只需_5_分鐘！上班族也能無痛上手的「開盤跳空法」，對照這套速查清單，條件不符就直接去上班！｜當沖教學2026__ytdwn97iA00HI.md",
@@ -6413,7 +7365,9 @@
     "clean": "每天只需 5 分鐘！上班族也能無痛上手的「開盤跳空法」，對照這套速查清單，條件不符就直接去上班",
     "date": "2026-08-09",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/沉迷當沖3天賠光積蓄？藝人香蕉勸世台灣年輕股神【新聞挖挖哇】__ytHwoAJNo7f_M.md",
@@ -6428,7 +7382,9 @@
     "clean": "沉迷當沖3天賠光積蓄？藝人香蕉勸世台灣年輕股神【新聞挖挖哇】",
     "date": "2026-02-08",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/注意看這個男人太狠了！夾娃娃也要算關鍵籌碼！_權證小哥_夾娃娃_出貨_股票市場_投資_shorts__yt3OqGVJ5pADY.md",
@@ -6444,7 +7400,9 @@
     ],
     "date": "2025-08-15",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/测测你的性格_人际关系_优势弱点_MBTI性格测试__ythIB__ksuFlk.md",
@@ -6459,7 +7417,9 @@
     "clean": "测测你的性格 人际关系 优势弱点 MBTI性格测试",
     "date": "2020-09-19",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/為什麼看MACD做當沖，還是一直賠？_權證小哥_當沖_MACD__ytE9J8skSPfrw.md",
@@ -6474,7 +7434,9 @@
     ],
     "date": "2026-07-25",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/為什麼虧損也是賺錢？_從21點的「基本策略」vs_股市面對虧損的心態_20260825【老余交易夜】__ytj4gYC8LcIq4.md",
@@ -6489,7 +7451,9 @@
     "clean": "為什麼虧損也是賺錢？ 從21點的「基本策略」vs 面對虧損的心態 20260825【老余交易夜】",
     "date": "2026-08-25",
     "added": "2026-09-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/為何買川湖就賣大立光_凱基-三多哥操作揭密_feat.籌碼專家_權證小哥__ytqpRQKVvoBKg.md",
@@ -6504,7 +7468,9 @@
     "clean": "為何買川湖就賣大立光 凱基-三多哥操作揭密 籌碼專家 權證小哥",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/爆火的_Z-Image_模型！8G_显存能跑，无内容审查、支持NFWS、超高速，本地部署教程！支持（Win_Mac）_零__ytnSiPsBA1q9U.md",
@@ -6520,7 +7486,9 @@
     "clean": "爆火的 Z-Image 模型！8G 显存能跑，无内容审查、支持NFWS、超高速，本地部署教程！支持（Win Mac） 零",
     "date": "2025-12-07",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/狂_真砸1億買0050_郭哲榮_不推槓桿型ETF｜TVBS新聞_TVBSNEWS01__ytKyjDYVgIUYg.md",
@@ -6535,7 +7503,9 @@
     "clean": "狂 真砸1億買0050 郭哲榮 不推槓桿型ETF",
     "date": "2026-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/狂_真砸1億買0050_郭哲榮_不推槓桿型ETF｜TVBS新聞_TVBSNEWS02__yt29vU7xCfXNU.md",
@@ -6550,7 +7520,9 @@
     "clean": "狂 真砸1億買0050 郭哲榮 不推槓桿型ETF",
     "date": "2026-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/狂_真砸1億買0050_郭哲榮_不推槓桿型ETF｜TVBS新聞__yten_D_7E2ns8.md",
@@ -6565,7 +7537,9 @@
     "clean": "狂 真砸1億買0050 郭哲榮 不推槓桿型ETF",
     "date": "2026-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/狂_真砸1億買0050_郭哲榮_不推槓桿型ETF｜TVBS新聞_tvbsnews24live__yt7UIRzMXFops.md",
@@ -6580,7 +7554,9 @@
     "clean": "狂 真砸1億買0050 郭哲榮 不推槓桿型ETF",
     "date": "2026-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/理財小時候讀書會《巨人思維》上集，交易員的終極思維！期望值_風險管理，打造穩定獲利模式__ytSL1M8AM9yRA.md",
@@ -6596,7 +7572,9 @@
     "clean": "理財小時候讀書會《巨人思維》上集，交易員的終極思維！期望值 風險管理，打造穩定獲利模式",
     "date": "2025-01-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/用布林通道_關鍵分點籌碼，一次賺到500萬元？ft._權證小哥【財經小學堂】__ytoqMtFqJDVVM.md",
@@ -6611,14 +7589,18 @@
     ],
     "date": "2020-11-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/當沖做空這樣操作！現股當沖 vs 資券當沖完整教學！避開「漲停鎖死」超大雷區__ytqktRGWssut8.md",
     "title": "當沖做空這樣操作！現股當沖 vs 資券當沖完整教學！避開「漲停鎖死」超大雷區",
     "date": "2026-08-30",
     "added": "2026-08-30",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/當沖大賺獲利眉角__ytJakAPveFfBg.md",
@@ -6633,7 +7615,9 @@
     ],
     "date": "2025-01-11",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/當沖學會這三件事！一天賺進400萬不是夢！全台前三大當沖客不藏私教你！新手也能玩當沖！｜_財經鈔能力_20250116___yt9EhetCfS1qM.md",
@@ -6648,7 +7632,9 @@
     ],
     "date": "2025-01-16",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/當沖學會這三件事！一天賺進400萬不是夢！全台前三大當沖客不藏私教你！新手也能玩當沖！｜_財經鈔能力_20250116__upload.md",
@@ -6663,7 +7649,9 @@
       "虧損控制"
     ],
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/當沖客必看！盤中出現這個訊號就是飆股發動點！_權證小哥_當沖神器_爆量__ytzxumyXKPM94.md",
@@ -6678,7 +7666,9 @@
     ],
     "date": "2025-09-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/當沖技巧，極短線獲利手法__ytLP2xFaRVp40.md",
@@ -6694,7 +7684,9 @@
     "clean": "當沖技巧，極短線獲利手法",
     "date": "2026-01-01",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/當沖新手開盤不知道該看什麼指標？教你「MACD零軸起飛當沖術」只要一分鐘新手也能學會！設定超簡單，看一眼就知道現在能不能__ytSltt0CcqGcc.md",
@@ -6710,7 +7702,9 @@
     "clean": "當沖新手開盤不知道該看什麼指標？教你「MACD零軸起飛當沖術」只要一分鐘新手也能學會！設定超簡單，看一眼就知道現在能不能",
     "date": "2026-08-16",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/當沖適合做多還是做空？權證小哥：做空更有優勢｜權證小哥的當沖新手全攻略__ytWKbAT9MWnXE.md",
@@ -6725,14 +7719,18 @@
     ],
     "date": "2023-05-13",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/看懂成交量，股票賺錢真的簡單很多｜4種量價關係一次搞懂！__ytv7PEsfZuzaI.md",
     "title": "看懂成交量，股票賺錢真的簡單很多｜4種量價關係一次搞懂！",
     "date": "2026-09-03",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/矽極限的下一步？台積電技術再突破！二硫化鉬MoS2攻克關鍵瓶頸，下一代晶片技術來了？__ytCbdZ8BlFL3s.md",
@@ -6747,7 +7745,9 @@
     "clean": "矽極限的下一步？台積電技術再突破！二硫化鉬MoS2攻克關鍵瓶頸，下一代晶片技術來了",
     "date": "2026-08-11",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/研究好籌碼，看到買盤竭盡就準備放空_shorts__yt0p_j-gYxMA4.md",
@@ -6763,7 +7763,9 @@
     ],
     "date": "2024-02-08",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/砸1億元買0050！分析師郭哲榮「賺千萬」暴紅_shorts__ytUaR-Pk84mpk.md",
@@ -6779,7 +7781,9 @@
     "clean": "砸1億元買0050！分析師郭哲榮「賺千萬」暴紅",
     "date": "2026-08-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/砸1億買0050封神_郭哲榮出面秀_大賺千萬｜TVBS新聞_TVBSNEWS01__yt0FWC8-546mo.md",
@@ -6794,7 +7798,9 @@
     "clean": "砸1億買0050封神 郭哲榮出面秀 大賺千萬",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/砸1億買0050封神_郭哲榮出面秀_大賺千萬｜TVBS新聞_TVBSNEWS01__ytFeUmeaogeU4.md",
@@ -6809,7 +7815,9 @@
     "clean": "砸1億買0050封神 郭哲榮出面秀 大賺千萬",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/砸1億買0050封神_郭哲榮出面秀_大賺千萬｜TVBS新聞_TVBSNEWS02__ytEna9u8gRJR4.md",
@@ -6824,7 +7832,9 @@
     "clean": "砸1億買0050封神 郭哲榮出面秀 大賺千萬",
     "date": "2026-07-31",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/神祕「億級散戶」曝光_31歲巨人傑_省餐費投資｜TVBS新聞_TVBSNEWS01__yt8Q5LqO-Yrtk.md",
@@ -6839,7 +7849,9 @@
     "clean": "神祕「億級散戶」曝光 31歲巨人傑 省餐費",
     "date": "2024-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/神秘當沖王_巨人傑_真面目首曝_31歲成億級交易員_逢低進場_時機到_當沖王巨人傑看波動更好操作│記者_劉至柔_張詠筌│__yt_fYF7axgMjM.md",
@@ -6854,7 +7866,9 @@
     "clean": "神秘當沖王 巨人傑 真面目首曝 31歲成億級交易員 逢低進場 時機到 當沖王巨人傑看波動更好操作│記者 劉至柔 張詠筌│",
     "date": "2024-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/神秘當沖王_巨人傑_真面目首曝_31歲成億級交易員│94看新聞__ytOXPOmnF_Dww.md",
@@ -6869,7 +7883,9 @@
     "clean": "神秘當沖王 巨人傑 真面目首曝 31歲成億級交易員│94看新聞",
     "date": "2024-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/簡易手沖咖啡法-手沖咖啡入門_ep1-元食咖啡-POUR_OVER_COFFEE_BASIC-STEAMING-YUAN__ytgV9zrwcbLKo.md",
@@ -6885,7 +7901,9 @@
     "clean": "EP1｜簡易手沖咖啡法-手沖咖啡入門 -元食咖啡-POUR OVER COFFEE BASIC-STEAMING-YUAN",
     "date": "2020-06-09",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/籌碼實戰策略：短線當沖升級法｜投資眉角系列影片｜兆豐證券__ytB6IGq7ADBM8.md",
@@ -6901,7 +7919,9 @@
     ],
     "date": "2026-02-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/美AI大廠負債_怕爆掉？台積電CoWos_喜爆單！_feat._艾綸__ytV9XsESl37dw.md",
@@ -6917,7 +7937,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/美股_OpenAI给半导体打鸡血！SOXX底部已成？ORCL、AMD、NVDA！TSLA遭行政狙击！__ytbdzWer7gNII.md",
@@ -6933,7 +7955,9 @@
     "clean": "美股 OpenAI给半导体打鸡血！SOXX底部已成？ORCL、AMD、NVDA！TSLA遭行政狙击",
     "date": "2026-09-05",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/老師動口不動手_當沖猜底又摸頭__yt-C6mSEhCZcQ.md",
@@ -6942,7 +7966,9 @@
     "clean": "老師動口不動手 當沖猜底又摸頭",
     "date": "2026-08-26",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/聊一下我長期持有台積電的根本邏輯_本影片非投資建議請謹慎理財__ytTl20LjQFUXE.md",
@@ -6957,7 +7983,9 @@
     "clean": "聊一下我長期持有台積電的根本邏輯 本影片非建議請謹慎理財",
     "date": "2024-03-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/股市新手必看！如果只能學一招，小哥選「這個」_權證小哥_主力買賣超_籌碼面__ytD3nVEZxV7ZI.md",
@@ -6972,14 +8000,18 @@
     ],
     "date": "2026-05-20",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/股市裡的錢到底從哪來？20年交易員拆解 3 種獲利底層邏輯！散戶翻身的核心王牌竟是「它」｜股票教學2026__yt5w2t6nK2qM8.md",
     "title": "股市裡的錢到底從哪來？20年交易員拆解 3 種獲利底層邏輯！散戶翻身的核心王牌竟是「它」｜股票教學2026",
     "date": "2026-09-06",
     "added": "2026-09-06",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/股海不沉最難是停損？年交易3000億！_巨人級_散戶公開心法｜非凡財經新聞｜20240729__ytCB0hU2Koxw4.md",
@@ -6994,28 +8026,36 @@
     "clean": "股海不沉最難是停損？年交易3000億！ 巨人級 散戶公開心法",
     "date": "2024-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/股票大漲前兆！跳空缺口最全攻略，4種缺口一次搞懂，抓到翻倍行情__ytEb3oHrc1Um0.md",
     "title": "股票大漲前兆！跳空缺口最全攻略，4種缺口一次搞懂，抓到翻倍行情",
     "date": "2026-09-10",
     "added": "2026-09-10",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/股票套牢怎麼辦？3步驟股票健檢，教你判斷哪些該留、哪些該賣__ytKcfvjLMqD3w.md",
     "title": "股票套牢怎麼辦？3步驟股票健檢，教你判斷哪些該留、哪些該賣",
     "date": "2026-09-17",
     "added": "2026-09-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/股票抄底必學！晨星型態完整教學，3根K線抓反轉買點【技術分析教學】__ytcew8Uxiae_c.md",
     "title": "股票抄底必學！晨星型態完整教學，3根K線抓反轉買點【技術分析教學】",
     "date": "2026-09-13",
     "added": "2026-09-13",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/股科大夫容逸燊親授！銅線要被淘汰了？！這檔「CPO妖股」暴漲秘密大公開！🚀_理財達人秀__yt5hPPayRzlH4.md",
@@ -7024,7 +8064,9 @@
     "clean": "股科大夫容逸燊親授！銅線要被淘汰了？！這檔「CPO妖股」暴漲秘密大公開！🚀 理財達人秀",
     "date": "2026-08-28",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/華為大逆襲，挑戰台積電的真正武器，不是EUV而是「韜(𝜏)定律」！台積電1.4奈米遇對手，美國封鎖也擋不住？__ytG424A7Oldkg.md",
@@ -7040,7 +8082,9 @@
     "clean": "華為大逆襲，挑戰台積電的真正武器，不是EUV而是「韜(𝜏)定律」！台積電1.4奈米遇對手，美國封鎖也擋不住",
     "date": "2026-06-10",
     "added": "2026-08-29",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/處置期減半為5天.撮合縮至2分鐘增流動性_證交所_不考慮他國熔斷機制_台股漲266點_外資又轉賣調節191億_淨空單逾9__ytiVytyQqJVrU.md",
@@ -7056,14 +8100,18 @@
     "clean": "處置期減半為5天.撮合縮至2分鐘增流動性 證交所 不考慮他國熔斷機制 漲266點 外資又轉賣調節191億 淨空單逾9",
     "date": "2026-08-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/觀察這2個跡象，提前預判股票暴跌！高勝率「紅包當沖法」全拆解（附真實實戰案例）｜當沖教學2026__yt9pztjqO3OGM.md",
     "title": "觀察這2個跡象，提前預判股票暴跌！高勝率「紅包當沖法」全拆解（附真實實戰案例）｜當沖教學2026",
     "date": "2026-09-15",
     "added": "2026-09-15",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/調整咖啡酸甜風味的關鍵方法-手沖咖啡慢慢來-元食咖啡__ytFSE_k60ooME.md",
@@ -7078,7 +8126,9 @@
     "clean": "調整咖啡酸甜風味的關鍵方法-手沖咖啡慢慢來-元食咖啡",
     "date": "2023-12-27",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/財經下酒菜｜第九十四集｜極短線操盤手轉型，自由人二徒弟訪談__yt0EsJCXsCXD8.md",
@@ -7093,7 +8143,9 @@
     "clean": "極短線操盤手轉型，自由人二徒弟訪談",
     "date": "2025-12-14",
     "added": "2026-09-05",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/買不到漲停的股票，可以試著掛權證！_shorts__ytAQdgVPv5Mu8.md",
@@ -7108,7 +8160,9 @@
     ],
     "date": "2024-04-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/買權證前一定要看！看對股票也可能賺不到的關鍵原因｜權證小哥｜直播精華｜_權證小哥_權證_權證教學_挑選權證小幫手__yt8JndNGutcDo.md",
@@ -7124,7 +8178,9 @@
     ],
     "date": "2026-07-03",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/買股票總賠錢_問題出在哪？權證小哥：學會這點，才能開始勝利｜權證小哥的當沖新手全攻略__ythDXsOW3VXtI.md",
@@ -7139,7 +8195,9 @@
     ],
     "date": "2023-05-06",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/跌20_是機會？這樣買處置股勝率完勝當沖！_權證小哥_處置神器_處置股_處置股教學__ytq8lFpm5MHS0.md",
@@ -7154,7 +8212,9 @@
     ],
     "date": "2026-05-06",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep235公開版｜精準！34000遇壓_何時勇敢？外資狂賣無懼_機會再來一次ft.盈利投資董事長_鍾國忠_2026___ytRb9YF0JXXaw.md",
@@ -7169,7 +8229,9 @@
     "clean": "精準！34000遇壓 何時勇敢？外資狂賣無懼 機會再來一次盈利董事長 鍾國忠 2026",
     "date": "2026-03-22",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep237公開版_戰事氣氛差_清明假前怎麼做？支撐32000？轉移資金到這裡_ft.盈利投資董事長_鍾國忠_2026__yt2kk0ingiYHI.md",
@@ -7185,7 +8247,9 @@
     "clean": "週報ep237公開版 戰事氣氛差 清明假前怎麼做？支撐32000？轉移資金到這裡 盈利董事長 鍾國忠 2026",
     "date": "2026-03-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep269公開版｜最大跌點_43000點真跌破！拉高持股_大膽仔細教作法ft.盈利投資董事長_鍾國忠_2026_07__ytyCqpHRsqbw0.md",
@@ -7200,7 +8264,9 @@
     "clean": "最大跌點 43000點真跌破！拉高持股 大膽仔細教作法盈利董事長 鍾國忠 2026 07",
     "date": "2026-07-19",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep271公開版｜洗到怕？高手支撐區已到！定心！46000謹慎_43000樂觀ft.盈利投資董事長_鍾國忠_2026__ytdroYvv8zhmE.md",
@@ -7216,7 +8282,9 @@
     "clean": "洗到怕？高手支撐區已到！定心！46000謹慎 43000樂觀盈利董事長 鍾國忠 2026",
     "date": "2026-07-26",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep273公開版｜反彈沒撿不急_還有回檔！8月盤較平順_如何區間做？ft.盈利投資董事長_鍾國忠_2026_08_0__ytzSeo2aDQN6E.md",
@@ -7232,7 +8300,9 @@
     "clean": "反彈沒撿不急 還有回檔！8月盤較平順 如何區間做？盈利董事長 鍾國忠 2026 08 0",
     "date": "2026-08-02",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep275公開版｜45000以上_降持股好時機！投信終結32買_下一次進場點？ft.盈利投資董事長_鍾國忠_2026__yt2DZxgB3xY2c.md",
@@ -7247,7 +8317,9 @@
     "clean": "45000以上 降持股好時機！投信終結32買 下一次進場點？盈利董事長 鍾國忠 2026",
     "date": "2026-08-09",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep277公開版｜超級積極區_什麼股都想買？不追高殺低_長期保戰果ft.盈利投資董事長_鍾國忠_2026_08_16__ytz4BmcuvlSVg.md",
@@ -7262,7 +8334,9 @@
     ],
     "date": "2026-08-16",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep279公開版｜投信大調節_等更好買點！美公債利率升_資金轉傳產！ft.盈利投資董事長_鍾國忠_2026_08_2__ytzMmybzOgXyo.md",
@@ -7278,7 +8352,9 @@
     "clean": "投信大調節 等更好買點！美公債利率升 資金轉傳產！盈利董事長 鍾國忠 2026 08 2",
     "date": "2026-08-23",
     "added": "2026-08-24",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/週報ep281公開版｜輝達好財報_華許又放鷹_外資.投信不同調_9月怎麼做_ft.盈利投資董事長_鍾國忠_2026_08__ytLLKcSqDQgFY.md",
@@ -7287,7 +8363,9 @@
     "clean": "輝達好財報 華許又放鷹 外資.投信不同調 9月怎麼做 盈利董事長 鍾國忠 2026 08",
     "date": "2026-08-30",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/那些年...權證小哥當沖也踩過的坑｜權證小哥的當沖新手全攻略__ytCWwm9ZzwgVQ.md",
@@ -7302,7 +8380,9 @@
     ],
     "date": "2023-05-20",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/重製版《巨人思維》：短線交易像賭博嗎？看完你會懂職業交易在做什麼__ytAhKhJqWgYqc.md",
@@ -7318,7 +8398,9 @@
     "clean": "重製版《巨人思維》：短線交易像賭博嗎？看完你會懂職業交易在做什麼",
     "date": "2026-02-14",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/量化解析『巨人傑』交易因子__ytKuTJYSlxciI.md",
@@ -7334,7 +8416,9 @@
     "clean": "量化解析『巨人傑』交易因子",
     "date": "2026-01-12",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/錄音_20260804-072636_upload.md",
@@ -7347,7 +8431,9 @@
     ],
     "clean": "錄音 20260804-072636",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/關禁閉時間大砍半！哪些處置股受惠？亞馬遜突破3兆美元｜口袋日報｜2026.08.04_處置股_新制_亞馬遜__ytMl6bHpmQypA.md",
@@ -7362,7 +8448,9 @@
     "clean": "關禁閉時間大砍半！哪些處置股受惠？亞馬遜突破3兆美元",
     "date": "2026-08-04",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/電子公文與簽核流程的比較__ytAMs0TQCfHCY.md",
@@ -7376,7 +8464,9 @@
     "clean": "電子公文與簽核流程的比較",
     "date": "2019-03-08",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/頂尖交易者的哲學：巨人傑的致勝之道(巨人傑)__yt8zCIXwzazVE.md",
@@ -7390,7 +8480,9 @@
     ],
     "clean": "頂尖交易者的哲學：巨人傑的致勝之道(巨人傑)",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/高低點真的能預測！可惜很多人看不懂這個理論__ytFujBHz_j2S0.md",
@@ -7405,7 +8497,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/高股息竟是地雷？除息後行情大跌真相，這幾類股票千萬別碰｜權證小哥｜直播精華｜_權證小哥_高股息_除權息_個股事件獲利王__yt8eB7d3RSbAE.md",
@@ -7420,7 +8514,9 @@
     ],
     "date": "2026-07-05",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/鵲Kasasagi_Coffee_Roasters_手沖咖啡教學__ytdmXKOnOpPyA.md",
@@ -7435,7 +8531,9 @@
     "clean": "鵲Kasasagi Coffee Roasters 手沖咖啡教學",
     "date": "2021-07-07",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/［居家手沖必看］兩人份咖啡要怎麼沖？_日本咖啡達人分享_絕對會變好喝的關鍵__ytgp1nA8ap804.md",
@@ -7450,7 +8548,9 @@
     "clean": "［居家手沖必看］兩人份咖啡要怎麼沖？ 日本咖啡達人分享 絕對會變好喝的關鍵",
     "date": "2023-04-11",
     "added": "2026-08-25",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/［１１／２８主力大免費教學第二十四期］策略選股清單＆有籌必爆選股邏輯＆同學即時個股QA健診_長榮_晶豪科_華航_聯電_矽__ytWjiQnQZcADw.md",
@@ -7466,70 +8566,90 @@
     ],
     "date": "2021-11-28",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 AI達人蔡明翰爆料！輝達砸35億美金「暗黑盤算」曝光！散戶跟著「這指標」才不會賠錢！🚀 feat.蔡明翰 #理財達人秀__ytAxBsUyQb190.md",
     "title": "👑 AI達人蔡明翰爆料！輝達砸35億美金「暗黑盤算」曝光！散戶跟著「這指標」才不會賠錢！🚀 feat.蔡明翰 #理財達人秀",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 冠軍操盤手雲翔爆料！獨家切入台積電 2 奈米！「這檔特化黑馬」產能暴增 3 倍，明年預期賺超過一個股本！🚀  feat.楊雲翔 #理財達人秀__ytOIQdvS6laNc.md",
     "title": "👑 冠軍操盤手雲翔爆料！獨家切入台積電 2 奈米！「這檔特化黑馬」產能暴增 3 倍，明年預期賺超過一個股本！🚀  feat.楊雲翔 #理財達人秀",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 型男股神陳威良警告！公司伸手借錢是利多還割韭菜？一招分辨「黃金買點」與「歷史高點」！🩸 feat.陳威良 #理財達人秀__yt_reNMdH_KNc.md",
     "title": "👑 型男股神陳威良警告！公司伸手借錢是利多還割韭菜？一招分辨「黃金買點」與「歷史高點」！🩸 feat.陳威良 #理財達人秀",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 紀緯明親授！聽不懂「異質整合」？用積木拆解設備股賺到2029的逆天商機！🔥 feat.紀緯明 #理財達人秀__ytzROdtlK28Nk.md",
     "title": "👑 紀緯明親授！聽不懂「異質整合」？用積木拆解設備股賺到2029的逆天商機！🔥 feat.紀緯明 #理財達人秀",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 股市獅公永年老師親授！欣興暴跌停要不要逃？「這信號」亮起就是大資金自救！🔥 feat.李永年 #理財達人秀__yteNCdPifhdFI.md",
     "title": "👑 股市獅公永年老師親授！欣興暴跌停要不要逃？「這信號」亮起就是大資金自救！🔥 feat.李永年 #理財達人秀",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 艾綸親授！🚀傳統銅線已死？台積電欽點「這技術」2027年直接橫掃50%市場，這才是真AI神股！ feat.艾綸 #兆華艾綸說__ytoUUbOQpOy4E.md",
     "title": "👑 艾綸親授！🚀傳統銅線已死？台積電欽點「這技術」2027年直接橫掃50%市場，這才是真AI神股！ feat.艾綸 #兆華艾綸說",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 陳唯泰親授！💸雙鴻、長興賺翻真相曝光！符合這「3個神條件」連大戶都偷偷在囤貨！ feat.陳唯泰 #兆華艾綸說__yt10VAXNvvsgM.md",
     "title": "👑 陳唯泰親授！💸雙鴻、長興賺翻真相曝光！符合這「3個神條件」連大戶都偷偷在囤貨！ feat.陳唯泰 #兆華艾綸說",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 陳唯泰警告！股市暴跌你慌了嗎？詠春拳「兩大真訣」曝光！教你在大盤大跌時穩穩撿起底部鑽石股💎 feat.陳唯泰 #兆華艾綸說__ytzFowEnG3H40.md",
     "title": "👑 陳唯泰警告！股市暴跌你慌了嗎？詠春拳「兩大真訣」曝光！教你在大盤大跌時穩穩撿起底部鑽石股💎 feat.陳唯泰 #兆華艾綸說",
     "date": "2026-09-02",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑 題材獵人漢偉警告！💸舊記憶體居然比新的貴？「這張牌」超級週期還沒走完，散戶撿便宜看這裡！ feat.林漢偉 #理財達人秀__ytMxfHocXIZvQ.md",
     "title": "👑 題材獵人漢偉警告！💸舊記憶體居然比新的貴？「這張牌」超級週期還沒走完，散戶撿便宜看這裡！ feat.林漢偉 #理財達人秀",
     "date": "2026-09-01",
     "added": "2026-09-03",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_AI達人親授！🔥天天進出狂賺三倍，最後竟是白忙一場？揭密「九成持股不動心法」，跟著科技巨頭穩穩賺！_feat.蔡明翰__ytLCCzwbjpf6Q.md",
@@ -7544,7 +8664,9 @@
     "clean": "👑 AI達人親授！🔥天天進出狂賺三倍，最後竟是白忙一場？揭密「九成持股不動心法」，跟著科技巨頭穩穩賺！ 蔡明翰",
     "date": "2026-08-27",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_K線之神朱家泓親授！跌到懷疑人生？教你用「N字底」神指標，精準買在主力發動起漲點！💸_feat.朱家泓_理財達人秀__ytaut8ld57sZI.md",
@@ -7559,7 +8681,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_K線之神親授！100_避開套牢的「十字口訣」！看懂這兩句，買在最低、賣在最高，從此告別韭菜命運！🚀_feat.朱家泓__yt-FQ7uok0rBA.md",
@@ -7574,7 +8698,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_冠軍操盤手楊雲翔警告！買不起千元飆股聯亞別哭！這檔百元隱藏黑馬切入「磷化銦」缺料源頭，本益比僅21倍等主力抬轎！💸___ytnK74fO7mv_g.md",
@@ -7590,7 +8716,9 @@
     ],
     "date": "2026-08-18",
     "added": "2026-08-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_冠軍操盤手雲翔哥爆料！輝達也比不上馬斯克？低軌衛星_90_元隱藏神股，底型打好準備衝天！🚀_feat.楊雲翔_理財達__ytXgdlASSaaek.md",
@@ -7605,7 +8733,9 @@
     "clean": "👑 冠軍操盤手雲翔哥爆料！輝達也比不上馬斯克？低軌衛星 90 元隱藏神股，底型打好準備衝天！🚀 楊雲翔 理財達",
     "date": "2026-08-25",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_朱家泓警告！營收創新高卻是致命陷阱？用一檔成熟製程指標股，教你如何用一根K線避開「腰斬地獄」！🔥_feat.朱家泓___ytHtYyb8aXkGU.md",
@@ -7620,7 +8750,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_權證小哥揭秘！為什麼你一買就跌、一賣就漲？揭秘波段大戶「山多哥」的富豪佈局，小白口袋淺別瞎跟！💸_feat.權證小哥__ytM_hHsSg1ZAQ.md",
@@ -7635,7 +8767,9 @@
     "clean": "👑 權證小哥揭秘！為什麼你一買就跌、一賣就漲？揭秘波段大戶「山多哥」的富豪佈局，小白口袋淺別瞎跟！💸 權證小哥",
     "date": "2026-08-26",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_權證小哥親授！做當沖變「慘戶」？教你「鎖漲停隔日沖秘技」，盤中看準這數字勝率狂噴！🔥_feat.權證小哥_兆華艾綸說__ytiYHJIVr3v4I.md",
@@ -7650,7 +8784,9 @@
     "clean": "👑 權證小哥親授！做當沖變「慘戶」？教你「鎖漲停隔日沖秘技」，盤中看準這數字勝率狂噴！🔥 權證小哥 兆華艾綸說",
     "date": "2026-08-26",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_獅公李永年警告！別再傻等台積電拉回！用超直覺本益比算給你聽：這張驚人底牌將直接帶領台股狂飆到5萬5千點！🚀_feat__ytGJ48KSiYL5k.md",
@@ -7665,7 +8801,9 @@
     ],
     "date": "2026-08-18",
     "added": "2026-08-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_獅公永年老師開示！營收衰退別慌！這檔「重電巨無霸」被美國板車卡住？大跌反而是天上掉下來的禮物！💸_feat.李永年___ytlHAqBpOmnHA.md",
@@ -7680,7 +8818,9 @@
     "clean": "👑 獅公永年老師開示！營收衰退別慌！這檔「重電巨無霸」被美國板車卡住？大跌反而是天上掉下來的禮物！💸 李永年",
     "date": "2026-08-25",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_王建文警告！跌到季線別急著哭！這兩檔「賺贏去年整年」的隱藏版_SpaceX_衛星飆股，好日子才剛要開始！🚀_feat__ytmgMXaAtpdGU.md",
@@ -7696,7 +8836,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_產業趨勢大師王博親授！輝達電力大戰火爆開打！光寶科狂飆300元，「這檔」隱藏飆股獲利更高、低估100元快上車！🔋_f__yt1zVFm3aXJO8.md",
@@ -7711,7 +8853,9 @@
     "clean": "👑 產業趨勢大師王博親授！輝達電力大戰火爆開打！光寶科狂飆300元，「這檔」隱藏飆股獲利更高、低估100元快上車！🔋 f",
     "date": "2026-08-27",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_產業隊長張捷終極武器！💸這檔「台積電_英特爾雙吃」的寡佔龍頭，跌到「這價格」是天上掉下來的禮物？_feat.張捷_理__yt1dSKk8Cd-8s.md",
@@ -7726,7 +8870,9 @@
     ],
     "date": "2026-08-21",
     "added": "2026-08-22",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_紀緯明指路！聯發科連跌別跟著割肉！複製大立光「跌無可跌」驚人劇本：曝光明年EPS飆上150_的撿便宜機密！🛒_fea__ytXpbe78e5Ivw.md",
@@ -7741,7 +8887,9 @@
     "clean": "👑 紀緯明指路！聯發科連跌別跟著割肉！複製大立光「跌無可跌」驚人劇本：曝光明年EPS飆上150 的撿便宜機密！🛒 fea",
     "date": "2026-08-26",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_股科大夫容逸燊親授！股票跌到骨折能買嗎？看懂「0.382黃金線」肉還多得很！🚀_feat.容逸燊_理財達人秀__ytOZgxQqlpU_c.md",
@@ -7756,7 +8904,9 @@
     ],
     "date": "2026-08-14",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_股科大夫親授！🔥股市小白必看！這檔機器人巨頭跌到「這價格」閉眼買？400元攻防戰全解析！🚀_feat.容逸燊_理財達__ytCcZOXVm1k6g.md",
@@ -7771,7 +8921,9 @@
     ],
     "date": "2026-08-21",
     "added": "2026-08-22",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_股魚爆料！富邦金最新EPS縮水？私房錢其實「賺超一個股本」_股息準備領到手軟！💰_feat.股魚_理財達人秀__ytnW9t2yu2cyo.md",
@@ -7786,7 +8938,9 @@
     ],
     "date": "2026-08-14",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_股魚秘笈！複製記憶體暴漲狂潮？AI_伺服器最缺的「發光神料」是它！🔥_feat.股魚_理財達人秀__yt-f97XGRWg9o.md",
@@ -7802,7 +8956,9 @@
     ],
     "date": "2026-08-20",
     "added": "2026-08-21",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_艾綸親授！台光電、聯茂、台耀夾在中間怎麼買？教你看懂「一條生命線」，低檔賺賠比香到爆！💸_feat.艾綸_兆華艾綸說__yttYbv0Na4keE.md",
@@ -7818,7 +8974,9 @@
     "clean": "👑 艾綸親授！台光電、聯茂、台耀夾在中間怎麼買？教你看懂「一條生命線」，低檔賺賠比香到爆！💸 艾綸 兆華艾綸說",
     "date": "2026-08-27",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_艾綸親授！營收暴增股價卻砍半？這檔「隱藏版黑馬」主力默默吃貨中！_🔥feat.艾綸_兆華艾綸說__ytJo6CinE5DTs.md",
@@ -7833,7 +8991,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_艾綸親授！股災後這檔強勢股要飛了？小白必學「無痛均線防守術」，跌破秒閃不賠錢！📈_feat.艾綸_兆華艾綸說__yteOBWz3GR_mE.md",
@@ -7848,7 +9008,9 @@
     "clean": "👑 艾綸親授！股災後這檔強勢股要飛了？小白必學「無痛均線防守術」，跌破秒閃不賠錢！📈 艾綸 兆華艾綸說",
     "date": "2026-08-26",
     "added": "2026-08-31",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_艾綸開示！💸抄底又被套？這招「三步驟試探法」救你一命！_兆華艾綸說__ytkz0nHTeZado.md",
@@ -7863,7 +9025,9 @@
     "clean": "👑 艾綸開示！💸抄底又被套？這招「三步驟試探法」救你一命！ 兆華艾綸說",
     "date": "2026-07-29",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_蔡明翰揭密！🚀股價大跌心慌慌？看懂龍頭股「不交疊營收線」，教你如何越跌越興奮、一招買在最低點！_feat.蔡明翰_兆__ytgeNN-_ZK4jM.md",
@@ -7878,7 +9042,9 @@
     "clean": "👑 蔡明翰揭密！🚀股價大跌心慌慌？看懂龍頭股「不交疊營收線」，教你如何越跌越興奮、一招買在最低點！ 蔡明翰 兆",
     "date": "2026-08-27",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_鍾國忠獨家！AI_伺服器最香黑馬「這檔」本益比超合理，拉回就是黃金買點！🔥_feat.鍾國忠_理財達人秀__ytmIa1oXGnjW0.md",
@@ -7893,7 +9059,9 @@
     "clean": "👑 鍾國忠獨家！AI 伺服器最香黑馬「這檔」本益比超合理，拉回就是黃金買點！🔥 鍾國忠 理財達人秀",
     "date": "2026-08-29",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_陳唯泰警告！廣達毛利率下滑被殺跌停？外行看熱鬧_內行驚呼「根本賺爛了」！💸_feat.陳唯泰_理財達人秀__ytquGie_kF4t0.md",
@@ -7908,7 +9076,9 @@
     ],
     "date": "2026-08-14",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_陳奕光獨家！還在買便宜垃圾股？快打開線圖！教你用「這公式」挖出下一檔_1000_元爆噴股！📈_feat.陳奕光_兆華__ytow38R5oa0tc.md",
@@ -7923,7 +9093,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_陳奕光警告！台股熱到發燙是假象？大戶只看這「三個數字」，有沒有泡沫一算就知道！_🔥feat.陳奕光_兆華艾綸說__yt5iOutMTDnRI.md",
@@ -7938,7 +9110,9 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_陳於晨親授！輝達Rubin_Ultra黑科技曝光！「不沾鍋材質」竟然要裝進晶片？法人瘋買這兩檔夢想股！🚀_feat.__ytp58zROz-HPg.md",
@@ -7953,7 +9127,9 @@
     "clean": "👑 陳於晨親授！輝達Rubin Ultra黑科技曝光！「不沾鍋材質」竟然要裝進晶片？法人瘋買這兩檔夢想股！🚀",
     "date": "2026-08-27",
     "added": "2026-09-01",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_題材獵人漢偉哥警告！萬海創高能上船嗎？無腦追高小心當冤大頭！用「這2條線」波段暴賺、安全下車！🚀_feat.林漢偉___ytq-n4XYNzoLo.md",
@@ -7969,7 +9145,9 @@
     "clean": "👑 題材獵人漢偉哥警告！萬海創高能上船嗎？無腦追高小心當冤大頭！用「這2條線」波段暴賺、安全下車！🚀 林漢偉",
     "date": "2026-08-25",
     "added": "2026-08-26",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_題材獵人漢偉親授！誰說機器人只是虛無空氣？所羅門掏出狂賺4.55元財報直接打臉，聯手輝達Thor第四季出貨準備賺爛！__yt6l9tQRgJjXQ.md",
@@ -7984,7 +9162,9 @@
     ],
     "date": "2026-08-18",
     "added": "2026-08-19",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_高憲容親授！台幣大升值＋外資暴買_3700_億！台股大多頭「藏寶圖」曝光，後面還要再漲_10_個月？🚀_feat.高__ytZY03pacEB_c.md",
@@ -7999,7 +9179,9 @@
     "clean": "👑 高憲容親授！台幣大升值＋外資暴買 3700 億！大多頭「藏寶圖」曝光，後面還要再漲 10 個月？🚀 高",
     "date": "2026-08-29",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_高憲容警告！散戶別再盲目追高AI！大戶默默連買三週的「這檔電力股」，台積電訂單已入袋！🚀_feat.高憲容_理財達人__yt5SBvgu-MIGQ.md",
@@ -8014,7 +9196,9 @@
     ],
     "date": "2026-08-21",
     "added": "2026-08-22",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑_黃豐凱警告！欣興驚爆搜索、在劫難逃？投信沒跑掉完蛋了！資金緊急避難「這檔」60分黑馬股！🩸_feat.黃豐凱_理財達__ytO3FWAAjpYeI.md",
@@ -8029,7 +9213,9 @@
     "clean": "👑 黃豐凱警告！欣興驚爆搜索、在劫難逃？投信沒跑掉完蛋了！資金緊急避難「這檔」60分黑馬股！🩸 黃豐凱 理財達",
     "date": "2026-08-29",
     "added": "2026-09-02",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑權證小哥爆料！航運股大行情再起？🚢最懂海運的男人預言到10月_再不跟就遲了！✨_feat._權證小哥_理財達人秀__ytwIDNvd_ruFw.md",
@@ -8045,7 +9231,9 @@
     ],
     "date": "2026-08-22",
     "added": "2026-08-23",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑權證小哥警告！🔥撿便宜別亂接刀！💸獨家「搶銀行式」地板股SOP_讓你看懂地板股的關鍵！🚀feat.權證小哥_理財達人秀__ytNkrMPoh5D9s.md",
@@ -8060,7 +9248,9 @@
     ],
     "date": "2026-07-30",
     "added": "2026-08-14",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑權證小哥開示！🛑群聯法說結果下跌9_？新手必懂的股市殘酷真相！⚠️_feat._權證小哥_理財達人秀__ytHex_80wyaJg.md",
@@ -8076,7 +9266,9 @@
     ],
     "date": "2026-08-15",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑鍾國忠警告！放銀行定存根本是送錢給人花？💰這檔「保底神股」用肉眼秒抓買點！💸_feat._鍾國忠_理財達人秀__ytmkJURLIaA-Q.md",
@@ -8092,7 +9284,9 @@
     ],
     "date": "2026-08-22",
     "added": "2026-08-23",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑鍾國忠警告！🔥樺漢財報超好卻跌停？被零組件成本錯殺！本益比不到20倍是黃金買點？💸_feat._鍾國忠_理財達人秀__yt3JNnYGW80zU.md",
@@ -8108,7 +9302,9 @@
     ],
     "date": "2026-08-15",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑黃豐凱爆料！🩸投信急下車？營收很好卻被錯殺_到底在玩什麼把戲？⚡_feat._黃豐凱_理財達人秀__ytWZ4EUKUp0L4.md",
@@ -8123,7 +9319,9 @@
     ],
     "date": "2026-08-15",
     "added": "2026-08-17",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/👑黃豐凱親授！大廠斷供中國_台灣PCB居然跌停？🔥這是老天送你的超跑買點！🚀_feat._黃豐凱_理財達人秀__ytUBaSHb_8lhM.md",
@@ -8139,7 +9337,9 @@
     ],
     "date": "2026-08-22",
     "added": "2026-08-23",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   },
   {
     "file": "transcripts/🚨_陳唯泰示警！世芯-KY慘殺跌停是買點？「毛利率砍半」真相：看懂這指標，別在阿呆谷被主力騙走100萬！💸_feat.陳__ytYvS5mk3ZFFo.md",
@@ -8155,6 +9355,8 @@
     ],
     "date": "2026-08-19",
     "added": "2026-08-20",
-    "srt": true
+    "srt": true,
+    "nan": false,
+    "tw": false
   }
 ]
