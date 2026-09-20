@@ -43,7 +43,11 @@ TRIES = int(os.environ.get("TAIGI_TRIES", "5") or "5")
 
 # 挑模型時的偏好順序（比對模型名稱的子字串，愈前面愈優先）。
 # 寫成清單而不是寫死一個：Google 換代很快，寫死的那天就會整批 404。
-PREFER = ("transcribe", "flash-preview", "flash-latest", "flash", "pro")
+#
+# 刻意不優先挑名字裡有 transcribe 的專用轉錄模型：那種模型是為「照著唸的逐字稿」
+# 設計的，不保證吃得下我們要的 responseSchema（同一次呼叫要它給台文＋華語＋台羅）。
+# 通用的 flash 是已知能同時做多模態與結構化輸出的那一條路，先走穩的。
+PREFER = ("flash-preview", "flash-latest", "flash", "pro")
 
 
 class TaigiError(RuntimeError):
