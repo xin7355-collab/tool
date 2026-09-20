@@ -807,15 +807,23 @@ def write_taigi(stem, title, link, cues, zh_paras):
     #    所以兩邊的段落邊界必須一致——靠 to_paragraphs 只看時間軸來保證。
     md = [f"# {title}（台文／華語對照）", "", f"- 影片：{link}",
           "- 台文用教育部臺灣台語推薦用字；華語是同一句的翻譯，不是逐字硬翻。",
-          "- 台羅拼音模型沒把握時會留白——寧可沒有，也不要給錯的。", "", "---", ""]
+          "- 羅馬字統一成同一套（預設教育部台羅），模型沒把握的句子會留白"
+          "——寧可沒有，也不要給錯的。", "", "---", ""]
     for a, b in zip(nan_paras, zh_paras):
         md.append(f"**[{hhmmss(a['s'])}]({link}?t={int(a['s'])})**")
         md.append(f"台文　{a['t']}")
+        # 羅馬字按時間軸撿回這一段裡的句子。模型常常只給得出幾句，
+        # 整段都沒有就不要留一行空的「羅馬字　」在那裡佔位子。
+        roman = " ".join((c.get("tailo") or "").strip() for c in cues
+                         if a["s"] <= c["start"] <= a["e"]
+                         and (c.get("tailo") or "").strip())
+        if roman:
+            md.append(f"羅馬字　{roman}")
         md.append(f"華語　{b['t']}")
     (OUT / f"{stem}.tw.md").write_text("\n\n".join(md), encoding="utf-8")
 
     tailo = [c for c in cues if (c.get("tailo") or "").strip()]
-    print("    台文版已產出（%d 段；台羅 %d/%d 句）"
+    print("    台文版已產出（%d 段；羅馬字 %d/%d 句）"
           % (len(nan_paras), len(tailo), len(cues)), flush=True)
 
 

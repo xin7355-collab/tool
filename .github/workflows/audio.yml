@@ -86,6 +86,9 @@ jobs:
           # 沒指定語言的檔案要不要自動偵測。預設關：每偵測一次就花一次 Gemini
           # 呼叫，而絕大多數上傳本來就是國語。想全自動就把這個 Variable 設成 1。
           TAIGI_AUTO: ${{ vars.TAIGI_AUTO || '0' }}
+          # 羅馬字要哪一套：tailo＝教育部台羅（預設）、poj＝教會白話字。
+          # 模型時好時壞地兩種混著回，統一之後同一份檔案才讀得下去。
+          TAIGI_ROMAN: ${{ vars.TAIGI_ROMAN || 'tailo' }}
         run: |
           ls -lh audio-inbox/ 2>/dev/null || echo "(inbox 是空的)"
           # 全掛時要變紅：之前腳本永遠回 None＝綠燈，inbox 卡了一整天沒人發現。

@@ -17,7 +17,8 @@
 
     text   華語版（跟原本的逐字稿同一個位置，摘要、分類、搜尋全都照舊能用）
     nan    台文版（教育部台灣台語推薦用字；國語的段落原樣保留）
-    tailo  台羅拼音（可能是空的，模型沒把握時寧可不給）
+    tailo  羅馬字（可能是空的，模型沒把握時寧可不給）。
+           不管模型回 POJ 還是台羅，都會用 tailo.py 統一成同一套。
     lang   這一段實際在講什麼：nan 台語／cmn 華語／mix 夾雜／en 英語
 
 為什麼華語版擺在 text：整條產線下游（摘要、分類、網站搜尋、分析師工具）讀的
@@ -25,10 +26,13 @@
 
     GEMINI_API_KEY   金鑰（Google AI Studio 免費申請）
     GEMINI_MODEL     指定模型；不設就自動挑（模型改名時不用改程式）
+    TAIGI_ROMAN      羅馬字要台羅（tailo，預設）還是白話字（poj）
 """
 import os, re, sys, json, time, base64, tempfile, subprocess, glob as _glob
 import urllib.request, urllib.error
 from concurrent.futures import ThreadPoolExecutor
+
+import tailo
 
 GEMINI_KEY = (os.environ.get("GEMINI_API_KEY")
               or os.environ.get("GOOGLE_API_KEY") or "").strip()
@@ -40,6 +44,10 @@ SEG = int(os.environ.get("TAIGI_SEG_SECONDS", "600") or "600")
 # 免費額度的每分鐘請求數不高，併發開太大只會整批撞 429 然後全部重試。
 CONCURRENCY = int(os.environ.get("TAIGI_CONCURRENCY", "2") or "2")
 TRIES = int(os.environ.get("TAIGI_TRIES", "5") or "5")
+# 羅馬字要統一成哪一套：tailo＝教育部台羅（預設）、poj＝教會白話字。
+# 模型這一段回 POJ、下一段回台羅是常有的事，不統一的話同一份檔案裡
+# 會同時出現 chia̍h 和 tsia̍h，看起來就像拼錯字。
+ROMAN = (os.environ.get("TAIGI_ROMAN", "tailo") or "tailo").strip().lower()
 
 # 挑模型時的偏好順序（比對模型名稱的子字串，愈前面愈優先）。
 # 寫成清單而不是寫死一個：Google 換代很快，寫死的那天就會整批 404。
@@ -327,7 +335,9 @@ def taigi_cues(audio_path, on_progress=None, hint=""):
                 # 寧可有字也不要整句消失。
                 "text": zh or nan,
                 "nan": nan or zh,
-                "tailo": (s.get("tailo") or "").strip(),
+                # 模型的羅馬字時好時壞：同一支影片這段回 POJ、下段回台羅。
+                # 統一成同一套，不然讀的人會以為是拼錯。
+                "tailo": tailo.to((s.get("tailo") or "").strip(), ROMAN),
                 "lang": (s.get("lang") or "nan").strip().lower(),
             })
     cues.sort(key=lambda c: c["start"])
@@ -402,6 +412,8 @@ def selftest():
     assert _mmss(None) == 0.0
     assert _mmss("7") == 7
     print("・時間戳解析 OK")
+    assert tailo.to("chia̍h-pá", "tailo") == "tsia̍h-pá"
+    print("・羅馬字統一 OK（%s）" % ROMAN)
     if not GEMINI_KEY:
         print("・沒有 GEMINI_API_KEY，跳過連線測試（台語功能會停用）")
         return 0
