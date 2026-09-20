@@ -1,0 +1,6 @@
+# GitHub Pages 的專案站放在 /tool/ 底下，而 robots.txt 只有放在網域根目錄
+# （xin7355-collab.github.io/robots.txt）才會被爬蟲讀到——那個位置屬於另一個 repo。
+# 所以這個檔案多數爬蟲根本不會看，真正擋住收錄的是 index.html 裡的 noindex meta。
+# 留著是因為有些工具會讀子目錄的 robots.txt，擋一個算一個，成本是零。
+User-agent: *
+Disallow: /

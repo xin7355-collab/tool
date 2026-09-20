@@ -131,7 +131,7 @@ def pick_engine(path, want, pg, i):
             raise taigi.NeedsKey(
                 "這個檔案指定了台語，但還沒設定 GEMINI_API_KEY。"
                 "不能用 Whisper 頂替——Whisper 沒有閩南語，會產出通順但整篇錯的國語。"
-                "檔案留著，設好之後下一輪自己會跑（見 如何開啟台語.md）")
+                "檔案留著，設好之後下一輪自己會跑（見 docs/如何開啟台語.md）")
         return "taigi"
     if want in ("cmn", "zh", "mandarin"):
         return "groq"

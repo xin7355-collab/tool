@@ -795,7 +795,7 @@ def main():
             if not COOKIEFILE:
                 print("\n  ⚠️ %s → 最可能是 YouTube 要求登入驗證（這台沒有帶 cookies）。\n"
                       "     把 cookies.txt 存成 ~/Documents/deck_cookies.txt 就會自動使用，\n"
-                      "     取法見 repo 裡的「如何取得cookies.md」。\n"
+                      "     取法見 repo 裡的「docs/如何取得cookies.md」。\n"
                       "     （yt-dlp %s；版本通常不是原因，真的要排除再跑 pip install -U yt-dlp）"
                       % (head, ydl_ver), flush=True)
             else:

@@ -10,6 +10,7 @@ on:
       - index.html
       - manifest.webmanifest
       - sw.js
+      - robots.txt
       - 'assets/**'
       - .github/workflows/pages.yml
   workflow_dispatch:
@@ -42,6 +43,7 @@ jobs:
           # 少搬任何一個，加到主畫面就會裝不起來或抓不到圖示。
           mkdir -p site/assets
           cp src/index.html src/manifest.webmanifest src/sw.js site/
+          cp src/robots.txt site/
           cp src/assets/*.png site/assets/
           cd site
           git config user.name "github-actions[bot]"

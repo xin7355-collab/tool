@@ -143,21 +143,20 @@ jobs:
           # 會被數成兩篇，通知裡也會出現兩行幾乎一樣的標題。
           MD=$(ls out/*.md 2>/dev/null | grep -v '\.tw\.md$' || true)
           if [ -n "$MD" ]; then
-            TITLES=$(echo "$MD" | xargs -d '\n' head -qn 1 | sed 's/^# /・/')
             N=$(echo "$MD" | grep -c .)
             NAN=$(ls out/*.nan.txt 2>/dev/null | grep -c . || true)
+            # 通知是開一個公開 Issue 送出去的，標題與內文會被搜尋引擎收錄。
+            # 所以只講數量，不列標題——要看是哪幾篇，點進網站。
             {
-              echo "### ✅ 逐字稿完成（$N 篇）"
-              echo
-              echo "$TITLES"
+              echo "### ✅ 完成 $N 篇"
               if [ "${NAN:-0}" -gt 0 ]; then
                 echo
-                echo "其中 $NAN 篇是台語，另外附了台文版與台文／華語對照版。"
+                echo "其中 $NAN 篇另外附了台文版與對照版。"
               fi
               echo
-              echo "👉 [開啟逐字稿抽取台]($SITE)"
+              echo "👉 [開啟]($SITE)"
             } > /tmp/note.md
-            TITLE="✅ 逐字稿完成：$(echo "$MD" | head -1 | xargs -d '\n' head -qn 1 | sed 's/^# //' | cut -c1-40)"
+            TITLE="✅ 完成 $N 篇"
           else
             {
               if [ -s out/_needs_setup.txt ]; then
@@ -165,14 +164,13 @@ jobs:
                 # 的話，使用者就會一直等一個永遠不會自己好的東西。
                 echo "### ⚙️ 有台語檔案在等你設定金鑰"
                 echo
-                echo "這幾個檔案指定了台語，但 repo 還沒設 \`GEMINI_API_KEY\`："
-                echo
-                sed 's/^/・/' out/_needs_setup.txt
+                WN=$(grep -c . out/_needs_setup.txt || true)
+                echo "有 $WN 個檔案指定了台語，但 repo 還沒設 \`GEMINI_API_KEY\`。"
                 echo
                 echo "台語不能用原本的 Whisper 頂替——它沒有閩南語，會產出一整篇"
                 echo "通順但整句都錯的國語，而且從逐字稿上完全看不出來。"
                 echo
-                echo "設定方式：[如何開啟台語.md](https://github.com/${GITHUB_REPOSITORY}/blob/main/%E5%A6%82%E4%BD%95%E9%96%8B%E5%95%9F%E5%8F%B0%E8%AA%9E.md)"
+                echo "設定方式：[如何開啟台語.md](https://github.com/${GITHUB_REPOSITORY}/blob/main/docs/%E5%A6%82%E4%BD%95%E9%96%8B%E5%95%9F%E5%8F%B0%E8%AA%9E.md)"
                 echo
                 echo "**檔案會留著**，設好之後下一輪（每 2 小時）自己會跑，不用重傳。"
                 echo "不想做台語的話，把這幾個檔案重傳一次、語言選「國語」就好。"

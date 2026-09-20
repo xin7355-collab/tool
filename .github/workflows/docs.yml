@@ -109,16 +109,14 @@ jobs:
           fi
           [ "${TOTAL:-0}" -gt 0 ] || { echo "這次沒有待處理文件，不發通知"; exit 0; }
           if ls out/*.md >/dev/null 2>&1; then
-            TITLES=$(head -qn 1 out/*.md | sed 's/^# /・/')
             N=$(ls out/*.md | wc -l | tr -d ' ')
+            # 公開 Issue 會被搜尋引擎收錄，所以只講數量不列標題
             {
               echo "### ✅ 文件讀好了（$N 份）"
               echo
-              echo "$TITLES"
-              echo
-              echo "👉 [開啟逐字稿抽取台]($SITE)"
+              echo "👉 [開啟]($SITE)"
             } > /tmp/note.md
-            TITLE="✅ 文件讀好了：$(head -qn 1 out/*.md | head -1 | sed 's/^# //' | cut -c1-40)"
+            TITLE="✅ 文件讀好了（$N 份）"
           else
             {
               echo "### ⏳ 這次沒讀成功，原始檔已保留"

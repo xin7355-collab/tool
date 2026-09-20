@@ -6,6 +6,13 @@
 <!-- 手機瀏覽器（尤其 iOS Safari）很愛留著舊頁面，改版後指令就對不上了 -->
 <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 <meta http-equiv="Pragma" content="no-cache">
+<!-- 不要被搜尋引擎收錄。這個站是公開的（GitHub Pages 免費方案沒有密碼保護），
+     但「公開」跟「搜得到」是兩回事——沒有這一行，Google 會把站裡的內容收進索引，
+     之後搜一個人名就可能翻出整篇逐字稿。
+     只能擋到這一頁：站裡的 .txt／.md 是靠 JS 抓的，靜態爬蟲列不出來；
+     真要完全擋住非 HTML 檔要送 X-Robots-Tag 標頭，GitHub Pages 不給設。 -->
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
 <title>逐字稿抽取台</title>
 
 <!-- PWA：加到主畫面後像 App 一樣全螢幕開啟 -->
@@ -350,7 +357,7 @@
     <p class="hint" id="nanNote" hidden>台語會走另一個聽得懂台語的引擎，除了原本的
       <b>華語版</b>，另外產出 <b>台文版</b>（.nan.txt）與 <b>台文／華語對照版</b>（.tw.md）。<br>
       需要先在 GitHub 設定一次 <b>GEMINI_API_KEY</b>（Google AI Studio 免費申請）——
-      這把金鑰是給伺服器用的，不能存在手機上。做法看 <b>如何開啟台語.md</b>。</p>
+      這把金鑰是給伺服器用的，不能存在手機上。做法看 repo 的 <b>docs/如何開啟台語.md</b>。</p>
   </div>
 </section>
 
@@ -418,7 +425,7 @@
         <p class="lbl">把資料夾分享給這個帳號（檢視者權限就夠）</p>
         <div class="cmd" id="gdAcct">（還沒設定服務帳號）</div>
         <p class="hint">看到「還沒設定」表示 <code>GDRIVE_KEY</code> 這個 Secret 還沒填，
-          做法見 repo 裡的 <b>如何接Google雲端硬碟.md</b>。</p>
+          做法見 repo 的 <b>docs/如何接Google雲端硬碟.md</b>。</p>
       </div>
     </details>
   </div>
@@ -564,7 +571,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.6.0';
+var APP_VER='1.6.1';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
