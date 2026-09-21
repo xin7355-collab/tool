@@ -1,14 +1,14 @@
 {
  "run": "35604625051",
  "state": "running",
- "updated": "2026-09-21T13:17:45Z",
+ "updated": "2026-09-21T13:17:52Z",
  "files": [
   {
    "name": "20260921-062637_【這次綸到誰】「央行殺手」索羅斯_為何敗在台灣？__ytIeztq75ccLQ.webm",
    "title": "【這次綸到誰】「央行殺手」索羅斯_為何敗在台灣？",
-   "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "state": "done",
+   "step": "完成（3045 字）",
+   "pct": 100
   },
   {
    "name": "20260921-062643_W底的正確判讀法__ytuG85Og7BAfs.webm",
