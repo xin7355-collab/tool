@@ -1,14 +1,14 @@
 {
  "run": "35785711518",
  "state": "running",
- "updated": "2026-09-22T21:25:26Z",
+ "updated": "2026-09-22T21:25:41Z",
  "files": [
   {
    "name": "20260923-050201_ScreenRecording_09-22-2026_21-07-26_1.mp4",
    "title": "ScreenRecording_09-22-2026_21-07-26_1",
    "state": "running",
-   "step": "分類中…",
-   "pct": 96
+   "step": "AI 校對錯字…",
+   "pct": 97
   }
  ]
 }
