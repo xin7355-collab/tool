@@ -298,14 +298,18 @@
 
 <section data-pane="doc">
   <div class="card">
-    <div class="step"><span>上傳 PDF、圖片或純文字</span></div>
+    <div class="step"><span>上傳 PDF、簡報、圖片或純文字</span></div>
     <input type="file" class="in" id="docFile" multiple
-      accept="application/pdf,.pdf,image/*,text/plain,.txt,.md,.csv">
+      accept="application/pdf,.pdf,.pptx,image/*,text/plain,.txt,.md,.csv">
     <input class="in" id="docTitle" placeholder="標題（留空用檔名）" style="margin-top:10px">
     <button class="btn btn--go" id="docBtn">📑 上傳並讀取文字</button>
     <p class="msg" id="docMsg"></p>
-    <p class="hint">讀出來的文字會跟逐字稿放在同一個「📄 下載」分頁，
-      一樣有<b>摘要、分類、關鍵字</b>，也能一起打包下載。</p>
+    <p class="hint"><b>可以一次選很多份</b>——會一份一份讀，中間有一份失敗不影響其他的。<br>
+      讀出來的文字會跟逐字稿放在同一個「📄 下載」分頁，一樣有<b>摘要、分類、關鍵字</b>，
+      每一份都會同時產出 <b>.md</b> 與 <b>.txt</b>，也能一起打包下載。</p>
+    <p class="hint"><b>簡報（.pptx）</b>：文字、條列、表格照讀；<b>原生圖表會直接讀出數字</b>
+      （不是用看的，所以不會把 55.20 看成 126.30）；貼成圖片的圖表走跟 PDF 同一套辨識。<br>
+      舊格式的 <b>.ppt／.odp</b> 讀不了，請先在簡報軟體裡另存成 .pptx。</p>
   </div>
 
   <div class="card">
@@ -471,8 +475,10 @@
     </div>
     <div class="row" style="margin-top:10px;align-items:center">
       <select class="in" id="sortBy" style="padding:11px">
-        <option value="new">最新在前</option>
-        <option value="old">最舊在前</option>
+        <option value="new">最新在前（進站）</option>
+        <option value="old">最舊在前（進站）</option>
+        <option value="dnew">節目日期 新→舊</option>
+        <option value="dold">節目日期 舊→新</option>
         <option value="title">依標題</option>
         <option value="cat">依分類</option>
       </select>
@@ -481,6 +487,7 @@
       </label>
     </div>
     <div class="hist" id="cats"></div>
+    <div class="hist" id="months"></div>
     <hr class="sep">
     <p class="lbl">下載格式</p>
     <div class="seg" id="zipFmt">
@@ -571,7 +578,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.6.2';
+var APP_VER='1.7.0';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -2317,8 +2324,31 @@ var catFilter='';
 /* 排序用的日期：先看進站日（build_index.py 記的），沒有才退回內容日期。
    進站日是唯一每篇都會有的時間，而且「最新在前」使用者要的就是最新進來的。 */
 function keyOf(it){ return it.added || dateOf(it) || ''; }
+/* 排序用的「節目日期」：優先用內容本身的日期（上片日／公文日期），
+   沒有才退回進站日。兩者差很多——一支 2024 年的舊影片今天才抓進來，
+   進站日是今天，但它是兩年前的節目。想照節目時序看的時候，用進站日會全錯。 */
+function dkeyOf(it){ return dateOf(it) || it.added || ''; }
+/* 節目日期取到「年-月」，拿來分組。到日的話 662 篇會切出幾百個籤，
+   手機上根本按不到；到月大約二十幾個，一眼看得完。 */
+function monthOf(it){ var d=dkeyOf(it); return d ? d.slice(0,7) : ''; }
 function sortItems(list){
   var how=$('#sortBy').value, a=list.slice();
+  if(how==='dnew'||how==='dold'){
+    var dpos={}; list.forEach(function(x,i){ dpos[x.file]=i; });
+    a.sort(function(x,y){
+      var dx=dkeyOf(x), dy=dkeyOf(y);
+      if(dx&&dy&&dx!==dy) return dx<dy ? 1 : -1;
+      if(dx&&!dy) return -1;                 // 沒日期的一律排最後，不要混在中間
+      if(!dx&&dy) return 1;
+      return dpos[x.file]-dpos[y.file];
+    });
+    if(how==='dold'){
+      // 只把「有日期」的那段倒過來，沒日期的維持在最後面
+      var withD=a.filter(function(x){return dkeyOf(x);}).reverse();
+      a=withD.concat(a.filter(function(x){return !dkeyOf(x);}));
+    }
+    return a;
+  }
   if(how==='title') a.sort(function(x,y){return nameOf(x).localeCompare(nameOf(y),'zh-Hant');});
   else if(how==='cat') a.sort(function(x,y){
     return ((x.cat||'zz')+nameOf(x)).localeCompare((y.cat||'zz')+nameOf(y),'zh-Hant');});
@@ -2354,11 +2384,37 @@ function drawCats(){
   mk('全部','',items.length);
   names.sort().forEach(function(c){ mk(c,c,counts[c]); });
 }
-/* 逐字稿清單的統一入口：分類篩選 → 排序 → 畫出來 */
+var monthFilter='';
+/* 依「年-月」分組的籤。跟分類籤是兩層獨立的篩選，可以同時用
+   （例如「籌碼分析」+「2026-09」）。 */
+function drawMonths(){
+  var box=$('#months'); box.innerHTML='';
+  var base=catFilter?items.filter(function(x){return x.cat===catFilter;}):items;
+  var counts={}, none=0;
+  base.forEach(function(x){ var m=monthOf(x); if(m) counts[m]=(counts[m]||0)+1; else none++; });
+  var keys=Object.keys(counts);
+  if(!keys.length) return;
+  var mk=function(label,val,n){
+    var b=document.createElement('button');
+    b.textContent=label+(n!=null?(' '+n):'');
+    if(monthFilter===val) b.style.cssText='border-color:var(--amber);color:var(--amber)';
+    b.onclick=function(){ monthFilter=(monthFilter===val?'':val); render3(); };
+    box.appendChild(b);
+  };
+  mk('全部日期','',base.length);
+  keys.sort().reverse().forEach(function(m){ mk(m,m,counts[m]); });   // 新的排前面
+  if(none) mk('沒有日期','__none',none);
+}
+/* 逐字稿清單的統一入口：分類與日期兩層篩選 → 排序 → 畫出來 */
 function render3(){
-  var use=catFilter?items.filter(function(x){return x.cat===catFilter;}):items;
-  drawCats(); draw(sortItems(use));
-  $('#note').textContent='共 '+use.length+' 篇'+(catFilter?('（'+catFilter+'）'):'')+
+  var use=items;
+  if(catFilter) use=use.filter(function(x){return x.cat===catFilter;});
+  if(monthFilter==='__none') use=use.filter(function(x){return !monthOf(x);});
+  else if(monthFilter) use=use.filter(function(x){return monthOf(x)===monthFilter;});
+  drawCats(); drawMonths(); draw(sortItems(use));
+  var tag=[catFilter, monthFilter==='__none'?'沒有日期':monthFilter]
+            .filter(Boolean).join(' · ');
+  $('#note').textContent='共 '+use.length+' 篇'+(tag?('（'+tag+'）'):'')+
                          '，點標題閱讀。'+(watching?'（等待新逐字稿中…）':'');
 }
 $('#sortBy').onchange=render3;

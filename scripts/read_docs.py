@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""把使用者上傳到 doc-inbox/ 的 PDF 或圖片讀成文字。
+"""把使用者上傳到 doc-inbox/ 的 PDF、簡報或圖片讀成文字。
 
 三層，由準到不準、由快到慢，能在前一層解決就不往下走：
 
@@ -24,11 +24,16 @@ import classify as cls
 
 INBOX = os.environ.get("DOC_INBOX", "doc-inbox")
 PDF_EXT = (".pdf",)
+PPT_EXT = (".pptx",)
+# 舊的二進位 .ppt 與 OpenDocument .odp 要靠 LibreOffice 才讀得動（裝起來 500MB 以上、
+# 每次工作流都要等），先不支援，但要認得出來並告訴使用者怎麼辦——
+# 只回「不支援的檔案類型」的話，使用者會以為是壞了而一直重傳。
+PPT_OLD = (".ppt", ".odp", ".key")
 IMG_EXT = (".jpg", ".jpeg", ".png", ".webp", ".gif", ".bmp", ".tif", ".tiff", ".heic", ".heif")
 # 本來就是文字的檔案：直接讀進來，什麼辨識都不用。
 # Google 文件從雲端硬碟匯出就是這種，所以這條路一定要有。
 TXT_EXT = (".txt", ".md", ".markdown", ".csv")
-EXTS = PDF_EXT + IMG_EXT + TXT_EXT
+EXTS = PDF_EXT + PPT_EXT + PPT_OLD + IMG_EXT + TXT_EXT
 # 文字層抽出來少於這麼多字，就當作「這是掃描件」改走 OCR。
 # 掃描的 PDF 常常還是有零星幾個字（頁碼、浮水印），不能只看有沒有。
 MIN_TEXT = int(os.environ.get("DOC_MIN_TEXT", "120") or "120")
@@ -450,6 +455,137 @@ def read_pdf(path, on_page=None):
 
 # ---------- 整份文件 ----------
 
+def _chart_table(chart):
+    """把簡報裡的原生圖表拆成數字。
+
+    這比對圖片做 OCR 好得多：數字是從檔案裡直接讀出來的，不是「看」出來的，
+    不會有 55.20 被讀成 126.30 那種事。只有貼成圖片的圖表才需要走辨識。
+    """
+    cats = []
+    try:
+        plots = list(chart.plots)
+        if plots:
+            cats = [str(c) for c in plots[0].categories]
+    except Exception:
+        cats = []
+    rows, names = [], []
+    try:
+        for ser in chart.series:
+            names.append(str(ser.name or ""))
+            rows.append(["" if v is None else ("%g" % v) for v in ser.values])
+    except Exception:
+        return ""
+    if not rows:
+        return ""
+    if not cats:
+        cats = ["" for _ in rows[0]]
+    out = ["| | " + " | ".join(names) + " |",
+           "|" + "---|" * (len(names) + 1)]
+    for i, c in enumerate(cats):
+        out.append("| " + c + " | " +
+                   " | ".join(r[i] if i < len(r) else "" for r in rows) + " |")
+    return "\n".join(out)
+
+
+def _shape_text(sh):
+    """一個形狀讀成 Markdown。條列的層級要留著——投影片的意思常常就藏在縮排裡。"""
+    if not getattr(sh, "has_text_frame", False):
+        return ""
+    lines = []
+    for para in sh.text_frame.paragraphs:
+        t = "".join(r.text for r in para.runs).strip() or (para.text or "").strip()
+        if not t:
+            continue
+        lvl = getattr(para, "level", 0) or 0
+        lines.append(("  " * lvl + "- " + t) if lvl else t)
+    return "\n".join(lines)
+
+
+def read_pptx(path, on_page=None):
+    """簡報：文字、表格、原生圖表的數字照讀；貼成圖片的圖表走既有的辨識。
+
+    財經簡報的內容大半不在文字框裡，而在圖表。只抓文字的話會產出一份看起來
+    「有讀到東西」、實際上把重點全漏掉的檔案——那比讀不出來更糟，因為沒人
+    會發現。所以圖片一律送進 ocr_page()，跟 PDF 走同一條路。
+    """
+    try:
+        from pptx import Presentation
+        from pptx.enum.shapes import MSO_SHAPE_TYPE
+    except ImportError:
+        return "", "要讀簡報需要 python-pptx（工作流裡應該會自動安裝）"
+    try:
+        prs = Presentation(path)
+    except Exception as e:
+        return "", "這個簡報打不開（%s）" % str(e)[:60]
+
+    slides = list(prs.slides)
+    total = len(slides) or 1
+    out, pics, thin = [], 0, []
+    for n, slide in enumerate(slides, 1):
+        if on_page:
+            on_page(n - 1, total)
+        body, has_visual = [], False
+        # 照版面由上而下、由左而右排，不要用 XML 順序——XML 順序是編輯歷史
+        def pos(sh):
+            return (getattr(sh, "top", None) or 0, getattr(sh, "left", None) or 0)
+        for sh in sorted(slide.shapes, key=pos):
+            if getattr(sh, "has_table", False):
+                has_visual = True
+                rows = [[c.text.strip().replace("\n", " ") for c in r.cells]
+                        for r in sh.table.rows]
+                if rows:
+                    # 整張表要當成「一段」。拆成多段的話，最後 join 會在每一列
+                    # 中間插一個空行，Markdown 就不把它當表格了——畫面上會變成
+                    # 一堆帶豎線的散句，而且看起來還「有內容」，很難發現是壞的。
+                    tb = ["| " + " | ".join(rows[0]) + " |",
+                          "|" + "---|" * len(rows[0])]
+                    tb += ["| " + " | ".join(r) + " |" for r in rows[1:]]
+                    body.append("\n".join(tb))
+                continue
+            if getattr(sh, "has_chart", False):
+                has_visual = True
+                tb = _chart_table(sh.chart)
+                if tb:
+                    body.append("〔圖表〕\n" + tb)
+                continue
+            if getattr(sh, "shape_type", None) == MSO_SHAPE_TYPE.PICTURE:
+                has_visual = True
+                try:
+                    blob = sh.image.blob
+                except Exception:
+                    continue
+                t, how = ocr_page(blob)
+                if t:
+                    pics += 1
+                    body.append("〔圖片內容〕\n" + t)
+                continue
+            t = _shape_text(sh)
+            if t:
+                body.append(t)
+        note = ""
+        if getattr(slide, "has_notes_slide", False):
+            note = (slide.notes_slide.notes_text_frame.text or "").strip()
+        if not body and not note:
+            thin.append(n)
+            continue
+        out.append("## 第 %d 張" % n)
+        out += body
+        if note:
+            out.append("〔備註〕" + note.replace("\n", " "))
+    if on_page:
+        on_page(total, total)
+    if not out:
+        return "", "這份簡報裡讀不到文字或圖片（%d 張全空）" % total
+    if thin:
+        # 空白頁多半是過場頁，但也可能是「整張都是讀不出來的東西」。
+        # 講出來，看的人才知道少了什麼，不會把這份檔案當成完整的。
+        out.append("")
+        out.append("⚠️ 第 %s 張沒有讀到任何內容（可能是過場頁，或整張是無法辨識的圖）"
+                   % "、".join(map(str, thin)))
+    how = "簡報 %d 張" % total + ("（其中 %d 張圖走辨識）" % pics if pics else "")
+    return "\n\n".join(out), how
+
+
 def read_doc(path, on_page=None):
     """回傳 (文字, 怎麼讀到的)。讀不出來就回 ("", 原因)。"""
     ext = os.path.splitext(path)[1].lower()
@@ -467,6 +603,11 @@ def read_doc(path, on_page=None):
             return f.read(), "純文字檔（編碼有問題，可能有亂碼）"
     if ext in PDF_EXT:
         return read_pdf(path, on_page)
+    if ext in PPT_EXT:
+        return read_pptx(path, on_page)
+    if ext in PPT_OLD:
+        return "", ("這是舊格式的簡報（%s）。請在簡報軟體裡另存成 .pptx 再上傳"
+                    "——舊格式要靠 LibreOffice 才讀得動，裝進工作流太重。" % ext)
     if on_page:
         on_page(1, 1)
     with open(path, "rb") as f:

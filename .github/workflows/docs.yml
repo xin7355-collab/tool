@@ -42,7 +42,9 @@ jobs:
           # （poppler-utils 拿掉了：PyMuPDF 自己就會重繪頁面，少裝一個套件）
           sudo apt-get -qq update
           sudo apt-get -qq install -y tesseract-ocr tesseract-ocr-chi-tra
-          pip install --no-cache-dir pymupdf pillow
+          # python-pptx 純 Python，不用系統套件。舊的 .ppt／.odp 要 LibreOffice
+          # （500MB 以上、每次都要裝），刻意不支援，改成請使用者另存成 .pptx。
+          pip install --no-cache-dir pymupdf pillow python-pptx
       - name: 取回已發佈的逐字稿（累加用）
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
