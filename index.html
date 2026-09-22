@@ -571,7 +571,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.6.1';
+var APP_VER='1.6.2';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1793,7 +1793,10 @@ function putAsset(url, blob, tok, onProg){
     x.send(blob);
   });
 }
-function fmtMB(n){ return (n/1048576).toFixed(n<10485760?1:0)+'MB'; }
+function fmtMB(n){
+  if(n<1048576) return Math.max(1,Math.round(n/1024))+'KB';   // 33KB 比「0.0MB」有用
+  return (n/1048576).toFixed(n<10485760?1:0)+'MB';
+}
 function store(blob, filename, opts, tok, show){
   var kind=(opts.dir==='audio-inbox')?'audio':'doc';
   var ext=(filename.match(/\.[A-Za-z0-9]+$/)||[''])[0].toLowerCase();
@@ -2124,11 +2127,11 @@ function flag(file,k){
 function dlLink(path,label){
   return '<a href="'+enc(path)+'" download data-dl="'+esc(path)+'">'+label+'</a>';
 }
-function drop(b,name){                       // 老路：直接存檔
+function drop(b,name,okMsg){                 // 老路：直接存檔
   var u=URL.createObjectURL(b),a=document.createElement('a');
   a.href=u;a.download=name;document.body.appendChild(a);a.click();
   setTimeout(function(){URL.revokeObjectURL(u);a.remove();},1500);
-  toast('已下載 ✓');
+  toast(okMsg||'已下載 ✓');
 }
 function save(path){
   var name=decodeURIComponent(path.split('/').pop());
@@ -2139,17 +2142,25 @@ function save(path){
   }).then(function(b){ return saveBlob(b,name); })
     .catch(function(e){ toast('下載失敗：'+(e.message||e)); });
 }
-function saveBlob(b,name,type){
+/* okMsg：成功時要顯示的字。打包那邊要講「幾個檔案、多大」，
+   但 toast 一次只顯示一則，先 toast 再 saveBlob 會立刻被「已下載 ✓」蓋掉，
+   使用者根本來不及看到。所以訊息要交給真正最後顯示的那一步。 */
+function saveBlob(b,name,type,okMsg){
   var f=null;
   try{ f=new File([b],name,{type:type||b.type||'text/plain'}); }catch(e){}
+  /* 只帶 files，**絕對不要再帶 title**。
+     iOS 實測：share({files,title}) 會被當成「分享一段文字」，收到的 App 只拿到
+     title 那串字，檔案本身完全沒過去——打包下載收到的是一個內容為
+     「transcripts-all.zip」的文字檔，而畫面上看起來一切正常，最難查。
+     規格上 files 可以跟 title 併用，但 iOS 的實作不是這樣，以實測為準。 */
   if(f && navigator.canShare && navigator.canShare({files:[f]}))
-    return navigator.share({files:[f],title:name}).then(function(){
-      toast('已送出 ✓');
+    return navigator.share({files:[f]}).then(function(){
+      toast(okMsg||'已送出 ✓');
     },function(e){
       if(e && (e.name==='AbortError'||e.name==='NotAllowedError')) return;  // 自己取消的不算失敗
-      drop(b,name);
+      drop(b,name,okMsg);
     });
-  drop(b,name);
+  drop(b,name,okMsg);
 }
 document.addEventListener('click',function(e){
   var a=e.target;
@@ -2743,17 +2754,35 @@ $('#zipBtn').onclick=function(){
   var s=document.createElement('script');
   s.src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js';
   s.onload=function(){
-    var zip=new JSZip(), jobs=[];
+    var zip=new JSZip(), jobs=[], got=0, bad=0;
     use.forEach(function(it){
       var sb=sib(it.file);
       kinds.forEach(function(k){
         var f=sb[k], nm=f.split('/').pop();
         jobs.push(fetch(enc(f),{cache:'no-store'}).then(function(r){return r.ok?r.text():'';})
-          .then(function(t){if(t)zip.file(kinds.length>1?(k+'/'+nm):nm,t);}).catch(function(){}));
+          .then(function(t){
+            // .srt 本來就不是每篇都有（文章、上傳的文件沒有時間軸），不算失敗
+            if(t){ zip.file(kinds.length>1?(k+'/'+nm):nm,t); got++; }
+            else if(k!=='srt'){ bad++; }
+          }).catch(function(){ if(k!=='srt') bad++; }));
       });
     });
-    Promise.all(jobs).then(function(){return zip.generateAsync({type:'blob'});})
-      .then(function(b){ saveBlob(b,'transcripts-'+fmt+'.zip','application/zip'); });
+    Promise.all(jobs).then(function(){
+      /* 以前這裡不管抓到幾個都照包照下載。全部抓失敗時會交出一個空的 zip，
+         而「空的 zip」跟「正常的 zip」在手機上長得一模一樣，使用者只會覺得
+         「打開沒東西」，查不出是下載壞了還是本來就沒內容。 */
+      if(!got){ toast('❌ 一個檔案都抓不到，沒有東西可以打包'); return null; }
+      if(bad) toast('⚠️ 有 '+bad+' 個檔案抓不到，其餘照包');
+      // JSZip 預設是 STORE（完全不壓縮）。這些全是純文字，壓下去通常剩三成，
+      // 662 篇在 4G 上差很多。
+      return zip.generateAsync({type:'blob',compression:'DEFLATE',
+                                compressionOptions:{level:6}});
+    }).then(function(b){
+      if(!b) return;
+      saveBlob(b,'transcripts-'+fmt+'.zip','application/zip',
+               '✅ '+got+' 個檔案 · '+fmtMB(b.size)
+               +(bad?('（'+bad+' 個抓不到）'):''));
+    }).catch(function(e){ toast('打包失敗：'+(e&&e.message||e)); });
   };
   s.onerror=function(){toast('打包元件載入失敗');};
   document.head.appendChild(s);
