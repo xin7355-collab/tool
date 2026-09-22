@@ -11,6 +11,7 @@ on:
     branches: [main]
     paths:
       - 'inbox/**'          # 標記檔；真正的音檔在 Release 附件裡，不進 git
+      - 'podcast.json'      # 手機上按「抓這個節目」就是改這個檔
   # 上次沒轉成功的附件會留著；每 2 小時自動再試一次，不用手動重傳。
   schedule:
     - cron: '35 */2 * * *'
@@ -64,6 +65,14 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: python scripts/inbox.py pull audio
+      # Podcast 抓下來直接落在 audio-inbox/，跟手機上傳的音檔混在一起，
+      # 下一步的轉錄完全不必知道它是從哪來的。
+      # 放在轉錄前面是刻意的：抓完馬上就能在同一輪轉掉，不用等下一個 2 小時。
+      - name: 抓 Podcast 新集數
+        id: pod
+        run: |
+          python scripts/podcast.py fetch || {
+            echo "::warning::Podcast 這輪沒抓成功，其餘照跑"; }
       - name: 轉錄音檔
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   # 進度條要靠它寫 gh-pages
@@ -95,6 +104,26 @@ jobs:
           # 部分成功仍回 0，照常往下發佈。
           python scripts/transcribe_upload.py || {
             echo "::error::這批音檔一支都沒轉成功，原因見上面的訊息"; exit 1; }
+      # 轉錄完才確認 Podcast 的進度。抓完就記「做完了」的話，轉錄失敗時
+      # 檔案隨容器消失、狀態卻寫著做完，那一集就永遠不會再抓，而且畫面上
+      # 什麼都看不到。mp3 在一般 CDN 上，重抓幾乎沒成本，寧可重抓。
+      - name: 確認 Podcast 哪幾集真的轉好了
+        if: always()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          python scripts/podcast.py commit || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .podcast-state.json podcast.json 2>/dev/null || true
+          git diff --cached --quiet && { echo "沒有變動"; exit 0; }
+          git commit -m "podcast: 記錄已抓過的集數 [skip ci]"
+          for k in 1 2 3 4 5; do
+            git push origin HEAD:main && exit 0
+            echo "push race, retry $k"; sleep 3
+            git pull --rebase origin main || true
+          done
+          exit 1
       # always()：撞到 120 分鐘上限被砍掉時，這一步本來會整個跳過——
       # 那一輪辨識出來的逐字稿就跟著蒸發，附件卻還留著，下一輪從頭再做一次。
       # 已經做完的東西一定要發佈出去，不管這個 job 是怎麼結束的。

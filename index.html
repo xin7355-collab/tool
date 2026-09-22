@@ -381,6 +381,33 @@
 
 <section data-pane="sub">
   <div class="card">
+    <div class="step"><span>🎧 Podcast</span></div>
+    <input class="in" id="podUrl" placeholder="貼 Podcast 連結（Apple Podcasts、RSS，或單集 mp3）">
+    <div class="row" style="margin-top:10px">
+      <select class="in" id="podN" style="padding:11px">
+        <option value="1">最新 1 集</option>
+        <option value="3">最新 3 集</option>
+        <option value="5">最新 5 集</option>
+        <option value="10">最新 10 集</option>
+      </select>
+      <select class="in" id="podLang" style="padding:11px">
+        <option value="">國語</option>
+        <option value="nan">台語</option>
+        <option value="auto">自動判斷</option>
+      </select>
+    </div>
+    <button class="btn btn--go" id="podOnce">⬇️ 抓這幾集轉逐字稿</button>
+    <button class="btn btn--sm" id="podSub">📌 以後有新的也自動抓</button>
+    <p class="msg" id="podMsg"></p>
+    <div id="podList"></div>
+    <p class="hint">Podcast 的音檔放在一般的 CDN 上，<b>不會被擋、不需要 cookies</b>，
+      比抓 YouTube 可靠得多。抓下來會跟上傳的音檔走同一條路，
+      完成後出現在「📄 下載」分頁。<br>
+      <b>Spotify 的連結沒辦法抓</b>——它不公開音檔網址。同一個節目通常在
+      Apple Podcasts 也有，改貼那個就可以。</p>
+  </div>
+
+  <div class="card">
     <div class="step"><span>追蹤頻道</span></div>
     <input class="in" id="subQ" placeholder="打頻道名字，例如：李兆華">
     <button class="btn btn--go" id="subAdd">🔍 搜尋頻道</button>
@@ -578,7 +605,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.7.0';
+var APP_VER='1.8.0';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1187,19 +1214,23 @@ function ago(iso){
 }
 /* 存檔用 sha 做樂觀鎖：伺服器那邊也會改這個檔（填頻道名稱），
    撞到就重讀一次再存，不要把對方寫的東西蓋掉。 */
-function saveSubs(note){
+/* 把一份 JSON 寫回 repo。追蹤頻道、Podcast 都走這裡。
+   sha 會過期（別台裝置也改過同一個檔），撞到 409／422 就重讀一次再寫，
+   不要直接報錯——使用者看到「HTTP 409」完全不知道那是什麼，而重讀就好了。
+   回傳新的 sha，呼叫端自己收著。 */
+function putRepoJson(path, obj, sha, note){
   var tok=getTok();
   if(!tok) return Promise.reject(new Error('請先到「⚙ 設定」填 GitHub Token'));
-  var put=function(sha){
-    var body={message:note||'Update subscriptions',branch:'main',
-              content:b64utf8(JSON.stringify(subs,null,1)+'\n')};
-    if(sha) body.sha=sha;
-    return fetch(API+'/contents/subs.json',
+  var put=function(sh){
+    var body={message:note||('Update '+path),branch:'main',
+              content:b64utf8(JSON.stringify(obj,null,1)+'\n')};
+    if(sh) body.sha=sh;
+    return fetch(API+'/contents/'+path,
                  {method:'PUT',headers:subsH(tok),body:JSON.stringify(body)});
   };
-  return put(subsSha).then(function(r){
+  return put(sha).then(function(r){
     if(r.status===409||r.status===422){
-      return fetch(API+'/contents/subs.json?ref=main&_='+Date.now(),
+      return fetch(API+'/contents/'+path+'?ref=main&_='+Date.now(),
                    {headers:subsH(tok),cache:'no-store'})
         .then(function(x){ return x.ok?x.json():null; })
         .then(function(j){ return put(j&&j.sha); });
@@ -1210,8 +1241,98 @@ function saveSubs(note){
     if(r.status===403) throw new Error('Token 缺少 Contents: Read and write 權限');
     if(!r.ok) throw new Error('HTTP '+r.status);
     return r.json();
-  }).then(function(j){ if(j&&j.content) subsSha=j.content.sha; });
+  }).then(function(j){ return (j&&j.content&&j.content.sha)||''; });
 }
+function saveSubs(note){
+  return putRepoJson('subs.json', subs, subsSha, note||'Update subscriptions')
+    .then(function(sh){ if(sh) subsSha=sh; });
+}
+/* ---------- Podcast ---------- */
+/* 跟追蹤頻道同一套：瀏覽器只負責「你想抓什麼」，真正去讀 RSS、下載 mp3
+   都在 GitHub 那邊做。不在手機上讀 RSS 是因為大部分 Podcast 主機不給跨網域，
+   在瀏覽器裡抓十次有八次被擋——而且被擋的錯誤訊息長得像網路不通，很難解釋。 */
+var pod={shows:[],once:[]}, podSha='', podLoaded=false;
+function loadPod(){
+  var tok=getTok();
+  if(!tok) return Promise.resolve();
+  return fetch(API+'/contents/podcast.json?ref=main&_='+Date.now(),
+               {headers:subsH(tok),cache:'no-store'})
+    .then(function(r){
+      if(r.status===404){ pod={shows:[],once:[]}; podSha=''; return null; }  // 還沒建立過
+      if(!r.ok) throw new Error('HTTP '+r.status);
+      return r.json();
+    }).then(function(j){
+      if(j){
+        podSha=j.sha;
+        try{ pod=JSON.parse(unb64utf8(j.content))||{}; }catch(e){ pod={}; }
+      }
+      if(!pod.shows) pod.shows=[];
+      if(!pod.once) pod.once=[];
+      podLoaded=true; renderPod();
+    }).catch(function(){});
+}
+function savePod(note){
+  return putRepoJson('podcast.json', pod, podSha, note||'Update podcasts')
+    .then(function(sh){ if(sh) podSha=sh; });
+}
+function renderPod(){
+  var box=$('#podList'); box.innerHTML='';
+  if(!(pod.shows||[]).length && !(pod.once||[]).length) return;
+  var line=function(txt,onDel){
+    var d=document.createElement('div');
+    d.style.cssText='display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px';
+    var t=document.createElement('span'); t.style.cssText='flex:1;color:var(--ink)';
+    t.textContent=txt; d.appendChild(t);
+    var b=document.createElement('button'); b.className='btn btn--sm';
+    b.style.cssText='margin:0;flex:0 0 auto;padding:6px 12px'; b.textContent='移除';
+    b.onclick=onDel; d.appendChild(b); box.appendChild(d);
+  };
+  (pod.once||[]).forEach(function(j,i){
+    line('⏳ 排隊中：'+((j&&(j.title||j.url))||j), function(){
+      pod.once.splice(i,1); savePod('Remove podcast job')
+        .then(renderPod, function(e){ msg('#podMsg','❌ '+(e.message||e),1); });
+    });
+  });
+  (pod.shows||[]).forEach(function(sh,i){
+    line('📌 追蹤中：'+(sh.name||sh.feed), function(){
+      pod.shows.splice(i,1); savePod('Unsubscribe podcast')
+        .then(renderPod, function(e){ msg('#podMsg','❌ '+(e.message||e),1); });
+    });
+  });
+}
+/* Spotify 在這裡就擋掉，不要讓使用者等一輪工作流才知道抓不到。 */
+function podCheck(u){
+  if(!u) return '先貼一個 Podcast 連結';
+  if(/open\.spotify\.com/i.test(u))
+    return 'Spotify 的連結沒辦法抓——它不公開音檔網址。同一個節目通常在 '
+         + 'Apple Podcasts 也有，改貼那個就可以。';
+  if(!/^https?:\/\//i.test(u)) return '這看起來不是網址';
+  return '';
+}
+function podAdd(sub){
+  var u=($('#podUrl').value||'').trim(), why=podCheck(u);
+  if(why){ msg('#podMsg','⚠️ '+why,1); return; }
+  var n=+($('#podN').value||1), lang=$('#podLang').value||'';
+  var btn=sub?$('#podSub'):$('#podOnce'), label=btn.textContent;
+  btn.disabled=true; btn.textContent='送出中…';
+  if(sub) pod.shows.push({feed:u, want:n, lang:lang});
+  else pod.once.push({url:u, n:n, lang:lang});
+  savePod(sub?'Subscribe podcast':'Queue podcast episodes').then(function(){
+    $('#podUrl').value='';
+    msg('#podMsg', sub
+      ? '✅ 加進追蹤了。先抓最新 '+n+' 集，之後有新的會自動抓。'
+      : '✅ 排進去了（最新 '+n+' 集）。系統每 2 小時會去抓，轉好後出現在「📄 下載」。');
+    renderPod();
+    if(window.__startWatch) window.__startWatch(n);
+  }).catch(function(e){
+    // 送不出去就把剛剛加的那筆拿掉，不然畫面上有、repo 裡沒有，下次會更亂
+    if(sub) pod.shows.pop(); else pod.once.pop();
+    msg('#podMsg','❌ '+(e.message||e),1);
+  }).then(function(){ btn.disabled=false; btn.textContent=label; });
+}
+$('#podOnce').onclick=function(){ podAdd(false); };
+$('#podSub').onclick=function(){ podAdd(true); };
+
 /* ---------- Google 雲端硬碟資料夾 ---------- */
 /* 跟追蹤頻道同一個道理：這裡只管「你想收哪個資料夾」，去讀、去下載、分派到
    哪個收件匣都在 GitHub 那邊做——瀏覽器沒有服務帳號的金鑰，也不該有。
@@ -2598,7 +2719,7 @@ function showPane(name){
   window.scrollTo(0,0);
   try{ sessionStorage.setItem('deck_pane',name); }catch(e){}
   // 訂閱清單第一次打開才去讀，不然每次開網站都多打一次 API
-  if(name==='sub'){ if(!subsLoaded){ loadSubs(); loadGDrive(); } }
+  if(name==='sub'){ if(!subsLoaded){ loadSubs(); loadGDrive(); } if(!podLoaded) loadPod(); }
   else stopPoll();                 // 離開分頁就別再背景輪詢了
 }
 all('.tabs button, #cfgBtn').forEach(function(b){
