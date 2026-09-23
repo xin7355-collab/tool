@@ -1,7 +1,7 @@
 {
  "run": "35903558785",
  "state": "running",
- "updated": "2026-09-23T20:10:38Z",
+ "updated": "2026-09-23T20:10:39Z",
  "files": [
   {
    "name": "20260923-155807_唐奇安通道_Donchian_Channel_-_Royal老师精辟语录__ytKQq5Thci8Q4.m4a",
@@ -34,9 +34,9 @@
   {
    "name": "20260923-155853_最古老的唐奇安通道_现在还有效吗？__yt-nbBev1tQlI.m4a",
    "title": "最古老的唐奇安通道_现在还有效吗？",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20260923-155932_2分钟快速学会，BIAS，WR威廉指标，唐奇安通道，PSY指标，都是什么原理，应该怎么看？__ytwikKmu9lU0w.webm",
