@@ -1,14 +1,6 @@
 {
  "channels": [
   {
-   "q": "https://www.youtube.com/channel/UChfl3auNxAxOR3wy8a8ysQQ",
-   "backfill": 0,
-   "skip_shorts": true,
-   "added": "2026-08-13",
-   "id": "UChfl3auNxAxOR3wy8a8ysQQ",
-   "name": "郭哲榮分析師-摩爾證券投顧"
-  },
-  {
    "q": "https://www.youtube.com/channel/UC23rnlQU_qE3cec9x709peA",
    "backfill": 0,
    "skip_shorts": true,
