@@ -1,14 +1,14 @@
 {
  "run": "35903558785",
  "state": "running",
- "updated": "2026-09-23T18:37:53Z",
+ "updated": "2026-09-23T18:37:54Z",
  "files": [
   {
    "name": "20260923-155807_唐奇安通道_Donchian_Channel_-_Royal老师精辟语录__ytKQq5Thci8Q4.m4a",
    "title": "唐奇安通道_Donchian_Channel_-_Royal老师精辟语录",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（3196 字）",
+   "pct": 100
   },
   {
    "name": "20260923-155817_传奇量化策略的新生「增强版唐奇安通道策略」__ytj6TLflsDZgc.m4a",
