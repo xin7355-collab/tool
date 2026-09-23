@@ -1,14 +1,14 @@
 {
  "run": "35869792475",
  "state": "running",
- "updated": "2026-09-23T14:25:49Z",
+ "updated": "2026-09-23T14:25:57Z",
  "files": [
   {
    "name": "20260923-130337_EP694_🥖__ytaOwBYre2B5k.webm",
    "title": "EP694_🥖",
-   "state": "running",
-   "step": "轉錄中 6/6 段完成",
-   "pct": 90
+   "state": "done",
+   "step": "完成（19167 字）",
+   "pct": 100
   },
   {
    "name": "20260923-130400_EP668_🦞__ytxgOQsb-MIGY.webm",
