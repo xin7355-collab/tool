@@ -1,5 +1,11 @@
 {
- "shows": [],
+ "shows": [
+  {
+   "feed": "https://player.soundon.fm/p/954689a5-3096-43a4-a80b-7810b219cef3",
+   "want": 10,
+   "lang": ""
+  }
+ ],
  "once": [
   {
    "url": "https://player.soundon.fm/p/954689a5-3096-43a4-a80b-7810b219cef3",
