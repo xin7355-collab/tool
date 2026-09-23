@@ -1,77 +1,14 @@
 {
- "run": "35834345042",
+ "run": "35869792475",
  "state": "running",
- "updated": "2026-09-23T10:56:26Z",
+ "updated": "2026-09-23T14:24:43Z",
  "files": [
-  {
-   "name": "20260923-125914_EP690_⛳️__yt4DuhZyepr08.webm",
-   "title": "EP690_⛳️",
-   "state": "done",
-   "step": "完成（15121 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130108_EP683_🚑__ytxsyVbqn_4N8.webm",
-   "title": "EP683_🚑",
-   "state": "done",
-   "step": "完成（19516 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130124_EP695_🍊__ytOcTI4yvvn2I.webm",
-   "title": "EP695_🍊",
-   "state": "done",
-   "step": "完成（15378 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130144_EP689_🏐__ytsI5DUiG42Q8.webm",
-   "title": "EP689_🏐",
-   "state": "done",
-   "step": "完成（18237 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130202_EP681_🦉__yt_LuWbgfk92w.webm",
-   "title": "EP681_🦉",
-   "state": "done",
-   "step": "完成（20090 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130221_EP692_🍺__ytohoIGtJ3Bwc.webm",
-   "title": "EP692_🍺",
-   "state": "done",
-   "step": "完成（15344 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130240_EP691_🎂__ytJ-e9oxqLzpc.webm",
-   "title": "EP691_🎂",
-   "state": "done",
-   "step": "完成（14422 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130301_EP682_🦕__yt5qjPyT428eM.webm",
-   "title": "EP682_🦕",
-   "state": "done",
-   "step": "完成（15398 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130320_EP677_🐎__ytOJ7HLygPhWE.webm",
-   "title": "EP677_🐎",
-   "state": "done",
-   "step": "完成（15939 字）",
-   "pct": 100
-  },
   {
    "name": "20260923-130337_EP694_🥖__ytaOwBYre2B5k.webm",
    "title": "EP694_🥖",
-   "state": "running",
-   "step": "轉錄中 6/6 段完成",
-   "pct": 90
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
    "name": "20260923-130400_EP668_🦞__ytxgOQsb-MIGY.webm",
@@ -83,6 +20,279 @@
   {
    "name": "20260923-130421_EP673_🥬__ytYS_nOUjrqAc.webm",
    "title": "EP673_🥬",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155714_趋势跟踪之父_唐奇安期货交易指南20条_唐奇安通道_趋势跟踪_交易经验_趋势交易_交易规则_技术分析_股票交易_商品交易__ytuks8OwxLhhE.m4a",
+   "title": "趋势跟踪之父_唐奇安期货交易指南20条_唐奇安通道_趋势跟踪_交易经验_趋势交易_交易规则_技术分析_股票交易_商品交易",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155723_Tradingview,聊聊过拟合，顺便公开一个实盘策略，唐奇安_macd！__ytLloV1Uv2fl8.m4a",
+   "title": "Tradingview,聊聊过拟合，顺便公开一个实盘策略，唐奇安_macd！",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155733_名滿天下的海龜交易法則的覈心——唐奇安通道線_GKFXPrime捷凱金融__yt8I1fKOi371s.m4a",
+   "title": "名滿天下的海龜交易法則的覈心——唐奇安通道線_GKFXPrime捷凱金融",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155744_揭密海龜法則賺上億，唐奇安通道加CCI指標實戰操作_海龜法則_唐奇安通道_CCI指標_期貨_海期_台指期_投資_理財_w__ytTFdHTVQrug0.webm",
+   "title": "揭密海龜法則賺上億，唐奇安通道加CCI指標實戰操作_海龜法則_唐奇安通道_CCI指標_期貨_海期_台指期_投資_理財_w",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155807_唐奇安通道_Donchian_Channel_-_Royal老师精辟语录__ytKQq5Thci8Q4.m4a",
+   "title": "唐奇安通道_Donchian_Channel_-_Royal老师精辟语录",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155817_传奇量化策略的新生「增强版唐奇安通道策略」__ytj6TLflsDZgc.m4a",
+   "title": "传奇量化策略的新生「增强版唐奇安通道策略」",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155826_(重新上架請先看置頂留言)1萬變91萬_海龜交易法做回調比做突破更厲害__ytvcC8JQDB0j4.m4a",
+   "title": "(重新上架請先看置頂留言)1萬變91萬_海龜交易法做回調比做突破更厲害",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155838_用「唐奇安通道」抓住趨勢，找出好的行情發動點_｜唐奇安通道｜Donchian_Channel｜技術分析｜期貨｜股票｜海期__ytZ83HadANyus.m4a",
+   "title": "用「唐奇安通道」抓住趨勢，找出好的行情發動點_｜唐奇安通道｜Donchian_Channel｜技術分析｜期貨｜股票｜海期",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155853_最古老的唐奇安通道_现在还有效吗？__yt-nbBev1tQlI.m4a",
+   "title": "最古老的唐奇安通道_现在还有效吗？",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155932_2分钟快速学会，BIAS，WR威廉指标，唐奇安通道，PSY指标，都是什么原理，应该怎么看？__ytwikKmu9lU0w.webm",
+   "title": "2分钟快速学会，BIAS，WR威廉指标，唐奇安通道，PSY指标，都是什么原理，应该怎么看？",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155938_这才是趋势交易的精髓：唐奇安通道锁定趋势，斐波那契精准加仓，把握了90_的主升浪行情！__ytodh7opMqWL4.m4a",
+   "title": "这才是趋势交易的精髓：唐奇安通道锁定趋势，斐波那契精准加仓，把握了90_的主升浪行情！",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155944_唐奇安(Donchian)的交易指南-1__ytz5wwaY0V2bI.m4a",
+   "title": "唐奇安(Donchian)的交易指南-1",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155953_【ACY证券】ACY_唐奇安通道指标_MT4_交易必备_适用所有商品_指标_唐奇安通道__ytzVYtr_XHM1Q.m4a",
+   "title": "【ACY证券】ACY_唐奇安通道指标_MT4_交易必备_适用所有商品_指标_唐奇安通道",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-155959_趋势跟踪15_第一部分第二章伟大的趋势交易者_理查德·唐奇安_2023_海龟交易法则_趨勢跟蹤策略_交易策略_交易系统___yt4ArFLpsQojQ.m4a",
+   "title": "趋势跟踪15_第一部分第二章伟大的趋势交易者_理查德·唐奇安_2023_海龟交易法则_趨勢跟蹤策略_交易策略_交易系统_",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160005_唐奇安通道突破信号公式_Donchian_Channels_Breakout__yt8vtAMF7gf9I.m4a",
+   "title": "唐奇安通道突破信号公式_Donchian_Channels_Breakout",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160014_經典交易系統，海龜交易法Turtle_Trading，從400美金到2億美金的傳奇_老貓與指標__ytCwbQh8kQc-o.m4a",
+   "title": "經典交易系統，海龜交易法Turtle_Trading，從400美金到2億美金的傳奇_老貓與指標",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160029_唐奇安通道(Donchian_channel)交易法_-_Royal老师晚间直播2021年4月5日__ytUWsvr-yUk48.webm",
+   "title": "唐奇安通道(Donchian_channel)交易法_-_Royal老师晚间直播2021年4月5日",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160047_美国交易员Vincent用美式突破策略，狂赚100万美金！！99_的人做突破都在亏就是漏看了SMT背离，交易赢在防守不在__ytPqveSaOuVXg.webm",
+   "title": "美国交易员Vincent用美式突破策略，狂赚100万美金！！99_的人做突破都在亏就是漏看了SMT背离，交易赢在防守不在",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160319_唐奇安通道，6K反转策略_-_Royal老师晚间直播2021年4月6日__ytyC23izhSyRM.m4a",
+   "title": "唐奇安通道，6K反转策略_-_Royal老师晚间直播2021年4月6日",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
+   "title": "What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO_",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160509_ATR_-_Average_True_Range_indicator_EXPLAINED_in_less_than_2___ytzMT1Fs2u9nY.webm",
+   "title": "ATR_-_Average_True_Range_indicator_EXPLAINED_in_less_than_2_",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160517_Why_ATR_is_the_ONLY_thing_I_put_on_my_charts__yt8KzwWYpZP3s.webm",
+   "title": "Why_ATR_is_the_ONLY_thing_I_put_on_my_charts",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160528_twinsmatic_-_A.T.R_(feat._Booba)__ytGQx3Mw6z5zg.webm",
+   "title": "twinsmatic_-_A.T.R_(feat._Booba)",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160542_The_World_s_First_All-Business_Class_ATR_Plane__yt4QBTSV9c9Tg.webm",
+   "title": "The_World_s_First_All-Business_Class_ATR_Plane",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160603_Why_Pilots_HATE_The_ATR__yt94KrRdT3OqQ.webm",
+   "title": "Why_Pilots_HATE_The_ATR",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160616_Best_ATR_Strategy_for_Day_trading_Forex_(ATR_indicator_Tutor__ytQy_5SVuHmYI.webm",
+   "title": "Best_ATR_Strategy_for_Day_trading_Forex_(ATR_indicator_Tutor",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160647_MEMO_ATR_-_CERBERO_🦴_-_BABYLOCC,_DEGRACIAO_70,_(Shot._By_‪_C__yt35GcsQrkrlE.webm",
+   "title": "MEMO_ATR_-_CERBERO_🦴_-_BABYLOCC,_DEGRACIAO_70,_(Shot._By_‪_C",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160702_Master_The_ATR_Indicator_(Most_Useful_Indicator_On_The_PLANE__ytFsrKOqRlXMo.webm",
+   "title": "Master_The_ATR_Indicator_(Most_Useful_Indicator_On_The_PLANE",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160732_Scandinavian_Airlines_ATR_72-600_Copenhagen_to_Gothenburg_SA__yt43CfVNcL20w.webm",
+   "title": "Scandinavian_Airlines_ATR_72-600_Copenhagen_to_Gothenburg_SA",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160805_ATR_Final_Assembly_Line_-_Guided_Tour__ytzJSjx-yiNVs.webm",
+   "title": "ATR_Final_Assembly_Line_-_Guided_Tour",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160822_Introducing_ATR_EVO__ytVfpf5fHb7_o.webm",
+   "title": "Introducing_ATR_EVO",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160831_Ultimate_ATR_Indicator_Strategy_For_Day_Trading_Scalping__ytHzkU6cbcI1o.m4a",
+   "title": "Ultimate_ATR_Indicator_Strategy_For_Day_Trading_Scalping",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160908_Understanding_ATR_-_How_Powerful_is_it_for_Traders__ytiHD86aZEsJA.webm",
+   "title": "Understanding_ATR_-_How_Powerful_is_it_for_Traders",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160932_The_ATR_Indicator_Is_The_Single_Best_Indicator_Forex_Traders__yt086ozcHDZPw.webm",
+   "title": "The_ATR_Indicator_Is_The_Single_Best_Indicator_Forex_Traders",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-160959_Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad__ytLA-ppgrPdC8.webm",
+   "title": "Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-161036_ATR_42_72_-_the_European_turboprop__ytRB_aXnhmVf0.webm",
+   "title": "ATR_42_72_-_the_European_turboprop",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-161057_ATR_Indicator_Trading_Strategy_(_Special_Settings)_TradingVi__yt7S-Bse4fwk8.webm",
+   "title": "ATR_Indicator_Trading_Strategy_(_Special_Settings)_TradingVi",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-163903_Learn_How_To_Trade_The_ATR_Strategy_In_Under_10_Minutes__yt2lvbxyOj_XI.m4a",
+   "title": "Learn_How_To_Trade_The_ATR_Strategy_In_Under_10_Minutes",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20260923-163918_ATR_electric_systems_-_an_introduction__ytdmFWFtgHDfo.m4a",
+   "title": "ATR_electric_systems_-_an_introduction",
    "state": "waiting",
    "step": "排隊中",
    "pct": 0
