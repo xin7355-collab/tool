@@ -1,14 +1,6 @@
 {
  "channels": [
   {
-   "q": "@riverstockshow",
-   "backfill": 3,
-   "skip_shorts": false,
-   "added": "2026-08-13",
-   "id": "UCKgQbeP5tNkg9rk2X6vJR7A",
-   "name": "李兆華River"
-  },
-  {
    "q": "https://www.youtube.com/channel/UCQvsuaih5lE0n_Ne54nNezg",
    "backfill": 0,
    "skip_shorts": true,
