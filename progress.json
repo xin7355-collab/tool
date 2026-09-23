@@ -1,7 +1,7 @@
 {
  "run": "35903558785",
  "state": "running",
- "updated": "2026-09-23T21:50:27Z",
+ "updated": "2026-09-23T21:50:28Z",
  "files": [
   {
    "name": "20260923-155807_唐奇安通道_Donchian_Channel_-_Royal老师精辟语录__ytKQq5Thci8Q4.m4a",
@@ -83,9 +83,9 @@
   {
    "name": "20260923-160014_經典交易系統，海龜交易法Turtle_Trading，從400美金到2億美金的傳奇_老貓與指標__ytCwbQh8kQc-o.m4a",
    "title": "經典交易系統，海龜交易法Turtle_Trading，從400美金到2億美金的傳奇_老貓與指標",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20260923-160029_唐奇安通道(Donchian_channel)交易法_-_Royal老师晚间直播2021年4月5日__ytUWsvr-yUk48.webm",
