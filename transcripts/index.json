@@ -505,6 +505,38 @@
     "tw": false
   },
   {
+    "file": "transcripts/EP177_半夜打牌__ytREpcOG_bJBY.md",
+    "title": "EP177_半夜打牌",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=REpcOG_bJBY)",
+    "cat": "其他",
+    "tags": [
+      "Kiehl's",
+      "Facebook Portal",
+      "美股"
+    ],
+    "clean": "EP177｜半夜打牌",
+    "added": "2026-09-23",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/EP180_走火入魔__yty9fOMQ3UNfc.md",
+    "title": "EP180_走火入魔",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=y9fOMQ3UNfc)",
+    "cat": "其他",
+    "tags": [
+      "立傑為",
+      "維生素D",
+      "營養補充"
+    ],
+    "clean": "EP180｜走火入魔",
+    "added": "2026-09-23",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
     "file": "transcripts/EP52._巨人傑，月成交量850億的背後，台下十年功（一)__ytRAq7bI7IwiI.md",
     "title": "EP52._巨人傑，月成交量850億的背後，台下十年功（一)",
     "src": "[YouTube 影片](https://www.youtube.com/watch?v=RAq7bI7IwiI)",
@@ -535,6 +567,71 @@
     "clean": "EP53｜. 巨人傑，月成交量850億的背後，台下十年功（二)",
     "date": "2021-10-28",
     "added": "2026-08-14",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/EP693_🍖__ytTsMMO08ub_Q.md",
+    "title": "EP693_🍖",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=TsMMO08ub_Q)",
+    "cat": "其他",
+    "tags": [
+      "烤肉",
+      "三生買",
+      "中秋節"
+    ],
+    "clean": "EP693｜🍖",
+    "added": "2026-09-23",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/EP696_🎖️__ytZ3zbWLhUS-w.md",
+    "title": "EP696_🎖️",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=Z3zbWLhUS-w)",
+    "cat": "其他",
+    "tags": [
+      "MagEasy",
+      "透明殼",
+      "防摔手機殼",
+      "手機配件"
+    ],
+    "clean": "EP696｜🎖️",
+    "added": "2026-09-23",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/EP697_🔥__ytSbKGDWhpGhY.md",
+    "title": "EP697_🔥",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=SbKGDWhpGhY)",
+    "cat": "其他",
+    "tags": [
+      "NordVPN",
+      "數位安全",
+      "VPN"
+    ],
+    "clean": "EP697｜🔥",
+    "added": "2026-09-23",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/EP698_🎮__yt0bYgYas0lc4.md",
+    "title": "EP698_🎮",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=0bYgYas0lc4)",
+    "cat": "其他",
+    "tags": [
+      "善存益生菌",
+      "三酵順暢",
+      "益生菌"
+    ],
+    "clean": "EP698｜🎮",
+    "added": "2026-09-23",
     "srt": true,
     "nan": false,
     "tw": false
