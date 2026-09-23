@@ -1,14 +1,14 @@
 {
  "run": "35834345042",
  "state": "running",
- "updated": "2026-09-23T07:57:39Z",
+ "updated": "2026-09-23T07:57:40Z",
  "files": [
   {
    "name": "20260923-125914_EP690_⛳️__yt4DuhZyepr08.webm",
    "title": "EP690_⛳️",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20260923-130108_EP683_🚑__ytxsyVbqn_4N8.webm",
