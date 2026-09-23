@@ -1,7 +1,7 @@
 {
  "run": "35834345042",
  "state": "running",
- "updated": "2026-09-23T08:00:45Z",
+ "updated": "2026-09-23T08:00:55Z",
  "files": [
   {
    "name": "20260923-125914_EP690_⛳️__yt4DuhZyepr08.webm",
@@ -28,8 +28,8 @@
    "name": "20260923-130144_EP689_🏐__ytsI5DUiG42Q8.webm",
    "title": "EP689_🏐",
    "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "step": "轉錄中 0/6 段完成",
+   "pct": 5
   },
   {
    "name": "20260923-130202_EP681_🦉__yt_LuWbgfk92w.webm",
