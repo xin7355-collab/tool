@@ -1,57 +1,8 @@
 {
- "run": "35869792475",
- "state": "done",
- "updated": "2026-09-23T17:58:03Z",
+ "run": "35903558785",
+ "state": "running",
+ "updated": "2026-09-23T18:36:39Z",
  "files": [
-  {
-   "name": "20260923-130337_EP694_🥖__ytaOwBYre2B5k.webm",
-   "title": "EP694_🥖",
-   "state": "done",
-   "step": "完成（19167 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130400_EP668_🦞__ytxgOQsb-MIGY.webm",
-   "title": "EP668_🦞",
-   "state": "done",
-   "step": "完成（19303 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-130421_EP673_🥬__ytYS_nOUjrqAc.webm",
-   "title": "EP673_🥬",
-   "state": "done",
-   "step": "完成（19102 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-155714_趋势跟踪之父_唐奇安期货交易指南20条_唐奇安通道_趋势跟踪_交易经验_趋势交易_交易规则_技术分析_股票交易_商品交易__ytuks8OwxLhhE.m4a",
-   "title": "趋势跟踪之父_唐奇安期货交易指南20条_唐奇安通道_趋势跟踪_交易经验_趋势交易_交易规则_技术分析_股票交易_商品交易",
-   "state": "done",
-   "step": "完成（2218 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-155723_Tradingview,聊聊过拟合，顺便公开一个实盘策略，唐奇安_macd！__ytLloV1Uv2fl8.m4a",
-   "title": "Tradingview,聊聊过拟合，顺便公开一个实盘策略，唐奇安_macd！",
-   "state": "done",
-   "step": "完成（1648 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-155733_名滿天下的海龜交易法則的覈心——唐奇安通道線_GKFXPrime捷凱金融__yt8I1fKOi371s.m4a",
-   "title": "名滿天下的海龜交易法則的覈心——唐奇安通道線_GKFXPrime捷凱金融",
-   "state": "done",
-   "step": "完成（2349 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-155744_揭密海龜法則賺上億，唐奇安通道加CCI指標實戰操作_海龜法則_唐奇安通道_CCI指標_期貨_海期_台指期_投資_理財_w__ytTFdHTVQrug0.webm",
-   "title": "揭密海龜法則賺上億，唐奇安通道加CCI指標實戰操作_海龜法則_唐奇安通道_CCI指標_期貨_海期_台指期_投資_理財_w",
-   "state": "done",
-   "step": "完成（8267 字）",
-   "pct": 100
-  },
   {
    "name": "20260923-155807_唐奇安通道_Donchian_Channel_-_Royal老师精辟语录__ytKQq5Thci8Q4.m4a",
    "title": "唐奇安通道_Donchian_Channel_-_Royal老师精辟语录",
