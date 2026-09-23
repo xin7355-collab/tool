@@ -1,7 +1,7 @@
 {
  "run": "35834345042",
  "state": "running",
- "updated": "2026-09-23T08:02:36Z",
+ "updated": "2026-09-23T08:02:37Z",
  "files": [
   {
    "name": "20260923-125914_EP690_⛳️__yt4DuhZyepr08.webm",
@@ -34,9 +34,9 @@
   {
    "name": "20260923-130202_EP681_🦉__yt_LuWbgfk92w.webm",
    "title": "EP681_🦉",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（20090 字）",
+   "pct": 100
   },
   {
    "name": "20260923-130221_EP692_🍺__ytohoIGtJ3Bwc.webm",
