@@ -1,14 +1,6 @@
 {
  "channels": [
   {
-   "q": "https://www.youtube.com/channel/UCQvsuaih5lE0n_Ne54nNezg",
-   "backfill": 0,
-   "skip_shorts": true,
-   "added": "2026-08-13",
-   "id": "UCQvsuaih5lE0n_Ne54nNezg",
-   "name": "理財達人秀 EBCmoneyshow"
-  },
-  {
    "q": "https://www.youtube.com/channel/UChfl3auNxAxOR3wy8a8ysQQ",
    "backfill": 0,
    "skip_shorts": true,
