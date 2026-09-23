@@ -281,11 +281,9 @@
     </div>
     <div class="target" id="target"></div>
     <div class="picks" id="picks"></div>
-  </div>
-
-  <!-- ② 一鍵指令 -->
-  <div class="card">
-    <div class="step"><span>複製指令去下載</span></div>
+    <!-- a-Shell 那條路是 YouTube 被擋時的備案，平常收起來 -->
+    <details style="margin-top:12px" id="shellBox">
+    <summary style="cursor:pointer;color:var(--dim);font-size:14px">用 a-Shell 在手機上抓（YouTube 被擋時用）</summary>
     <div class="cmd" id="cmd"></div>
     <button class="btn btn--go" id="runBtn">🚀 一鍵下載（開 a-Shell 直接執行）</button>
     <button class="btn" id="copyBtn">📋 只複製指令</button>
@@ -293,6 +291,7 @@
     <p class="hint"><b>一鍵下載</b>：會直接跳到 a-Shell 並自動執行，不用貼上。勾幾支就一次抓幾支。<br>
       若沒反應（App 未安裝或系統擋跳轉），改按「只複製指令」→ 開 a-Shell → 長按貼上 → Enter。</p>
     <p class="hint">指令前面那一長串是<b>自動抓最新版程式</b>用的 —— 有這段，手機上就永遠不用手動更新。</p>
+    </details>
   </div>
 </section>
 
@@ -310,23 +309,22 @@
     <p class="hint"><b>簡報（.pptx）</b>：文字、條列、表格照讀；<b>原生圖表會直接讀出數字</b>
       （不是用看的，所以不會把 55.20 看成 126.30）；貼成圖片的圖表走跟 PDF 同一套辨識。<br>
       舊格式的 <b>.ppt／.odp</b> 讀不了，請先在簡報軟體裡另存成 .pptx。</p>
-  </div>
-
-  <div class="card">
-    <div class="step"><span>會怎麼讀</span></div>
+    <details style="margin-top:12px">
+    <summary style="cursor:pointer;color:var(--dim);font-size:14px">會怎麼讀？（點開看）</summary>
     <p class="hint"><b>電腦產生的 PDF</b>（公文、報告、投影片匯出的那種）裡面本來就有文字，
       直接抽出來——<b>零錯字、幾秒就好</b>，不經過任何辨識。</p>
     <p class="hint"><b>掃描件和照片</b>才需要辨識，先用 AI 視覺模型讀（繁體中文最準，
       表格版面也讀得懂），它讀不到才退回傳統 OCR。</p>
     <p class="hint">照片會在你手機上先縮小再上傳，省流量也比較快。
       拍的時候<b>盡量拍正、光線平均</b>，準確度差很多。</p>
-    <p class="hint">單檔 20MB 以內，PDF 一次最多讀 40 頁，<b>可以一次選很多份</b>。</p>
+    <p class="hint">單檔 20MB 以內，PDF 一次最多讀 40 頁。</p>
+    </details>
   </div>
 </section>
 
 <section data-pane="up">
   <div class="card">
-    <div class="step"><span>錄音</span></div>
+    <div class="step"><span>錄音或上傳音檔</span></div>
     <button class="btn btn--go" id="recBtn">🔴 開始錄音</button>
     <button class="btn" id="pauseBtn" hidden>⏸ 暫停</button>
     <div class="rec" id="recBox" hidden>
@@ -342,10 +340,8 @@
       需要先到「⚙ 設定」填 <b>Groq API Key</b>；錄音本身不需要，沒填也照錄。</p>
     <div class="paper" id="liveTx" hidden style="max-height:32vh"></div>
     <p class="hint">錄音期間請讓畫面留在這一頁 —— iPhone 一切到其他 App 就會停止錄音。</p>
-  </div>
-
-  <div class="card">
-    <div class="step"><span>上傳音檔</span></div>
+    <hr class="sep">
+    <p class="lbl">或選現成的檔案</p>
     <input type="file" class="in" id="file" multiple accept="audio/*,video/*,.m4a,.mp3,.wav,.flac,.ogg,.opus,.mp4,.webm">
     <input class="in" id="fileTitle" placeholder="標題（留空用檔名）" style="margin-top:10px">
     <select class="in" id="upLang" style="margin-top:10px">
@@ -439,30 +435,8 @@
           加入之後還能在下面的頻道卡片上改，不用取消重加。</p>
       </div>
     </details>
-  </div>
-
-  <div class="card">
-    <div class="step"><span>雲端硬碟資料夾</span></div>
-    <input class="in" id="gdQ" placeholder="貼 Google 雲端硬碟的資料夾網址">
-    <button class="btn btn--go" id="gdAdd">☁️ 加入資料夾</button>
-    <p class="msg" id="gdMsg"></p>
-    <ul class="tx" id="gdList" style="margin-top:12px"></ul>
-    <p class="hint" id="gdNote">載入中…</p>
-    <details style="margin-top:12px">
-      <summary style="font-size:14.5px;padding:12px 0">第一次要設定（只做一次）</summary>
-      <div class="pad" style="padding:0 0 4px">
-        <p class="hint" style="margin-top:0">系統用一個「機器人 Google 帳號」去讀你的資料夾，
-          所以資料夾<b>維持私人</b>，不用改成公開連結。你只要把資料夾分享給它。</p>
-        <p class="lbl">把資料夾分享給這個帳號（檢視者權限就夠）</p>
-        <div class="cmd" id="gdAcct">（還沒設定服務帳號）</div>
-        <p class="hint">看到「還沒設定」表示 <code>GDRIVE_KEY</code> 這個 Secret 還沒填，
-          做法見 repo 的 <b>docs/如何接Google雲端硬碟.md</b>。</p>
-      </div>
-    </details>
-  </div>
-
-  <div class="card">
-    <div class="step"><span>追蹤中</span></div>
+    <hr class="sep">
+    <p class="lbl">追蹤中的頻道</p>
     <p class="hint" id="subNote" style="margin:-6px 0 0">載入中…</p>
     <div id="subStat" class="hist" hidden></div>
     <div id="subStuck" hidden></div>
@@ -488,6 +462,26 @@
       </div>
     </details>
   </div>
+  <div class="card">
+    <div class="step"><span>雲端硬碟資料夾</span></div>
+    <input class="in" id="gdQ" placeholder="貼 Google 雲端硬碟的資料夾網址">
+    <button class="btn btn--go" id="gdAdd">☁️ 加入資料夾</button>
+    <p class="msg" id="gdMsg"></p>
+    <ul class="tx" id="gdList" style="margin-top:12px"></ul>
+    <p class="hint" id="gdNote">載入中…</p>
+    <details style="margin-top:12px">
+      <summary style="font-size:14.5px;padding:12px 0">第一次要設定（只做一次）</summary>
+      <div class="pad" style="padding:0 0 4px">
+        <p class="hint" style="margin-top:0">系統用一個「機器人 Google 帳號」去讀你的資料夾，
+          所以資料夾<b>維持私人</b>，不用改成公開連結。你只要把資料夾分享給它。</p>
+        <p class="lbl">把資料夾分享給這個帳號（檢視者權限就夠）</p>
+        <div class="cmd" id="gdAcct">（還沒設定服務帳號）</div>
+        <p class="hint">看到「還沒設定」表示 <code>GDRIVE_KEY</code> 這個 Secret 還沒填，
+          做法見 repo 的 <b>docs/如何接Google雲端硬碟.md</b>。</p>
+      </div>
+    </details>
+  </div>
+
 </section>
 
 <section data-pane="tx">
@@ -513,8 +507,10 @@
         <input type="checkbox" id="cleanName" checked style="width:22px;height:22px">簡化名稱
       </label>
     </div>
-    <div class="hist" id="cats"></div>
-    <div class="hist" id="months"></div>
+    <div class="row" style="margin-top:10px">
+      <select class="in" id="catSel" style="padding:11px"></select>
+      <select class="in" id="monSel" style="padding:11px"></select>
+    </div>
     <hr class="sep">
     <p class="lbl">下載格式</p>
     <div class="seg" id="zipFmt">
@@ -605,7 +601,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.8.0';
+var APP_VER='1.9.0';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -787,6 +783,9 @@ function render(){
       s.appendChild(i); s.appendChild(b); p.appendChild(s);
     });
     c.textContent=cmdFor(ids()); c.style.color='var(--ink)';
+    // 指令那段收進 <details> 之後預設是關的。勾了影片卻什麼都沒出現，
+    // 使用者只會以為按了沒反應——有東西可抓就自己打開。
+    var sb=$('#shellBox'); if(sb) sb.open=true;
     bh.hidden=sel.length<2;
     bh.innerHTML='一次送 <b>'+sel.length+'</b> 支：a-Shell 會一支一支抓完再上傳，'+
                  '中途可以切去做別的事。有哪支抓不到，其餘照樣完成。';
@@ -2489,50 +2488,60 @@ function sortItems(list){
   }
   return a;
 }
+/* 分類與日期本來是兩排標籤按鈕，十幾個分類加上二十幾個月份，
+   在手機上佔掉大半個畫面，還要捲很久才看得到清單。改成兩個下拉，
+   資訊一樣（名稱＋篇數都在選項裡），但只佔一排。 */
+function fillSel(sel, opts, cur){
+  var keep=document.activeElement===sel;
+  sel.innerHTML='';
+  opts.forEach(function(o){
+    var e=document.createElement('option');
+    e.value=o.v; e.textContent=o.t;
+    if(o.v===cur) e.selected=true;
+    sel.appendChild(e);
+  });
+  if(keep) sel.focus();
+}
 function drawCats(){
-  var box=$('#cats'); box.innerHTML='';
   var counts={};
   items.forEach(function(x){ if(x.cat) counts[x.cat]=(counts[x.cat]||0)+1; });
-  var names=Object.keys(counts);
-  if(!names.length) return;                    // 還沒補分類就不佔版面
-  var mk=function(label,val,n){
-    var b=document.createElement('button');
-    b.textContent=label+(n!=null?(' '+n):'');
-    if(catFilter===val) b.style.cssText='border-color:var(--amber);color:var(--amber)';
-    b.onclick=function(){ catFilter=(catFilter===val?'':val); render3(); };
-    box.appendChild(b);
-  };
-  mk('全部','',items.length);
-  names.sort().forEach(function(c){ mk(c,c,counts[c]); });
+  var names=Object.keys(counts).sort();
+  var opts=[{v:'',t:'全部分類（'+items.length+'）'}];
+  names.forEach(function(c){ opts.push({v:c,t:c+'（'+counts[c]+'）'}); });
+  fillSel($('#catSel'), opts, catFilter);
+  $('#catSel').disabled = !names.length;
 }
 var monthFilter='';
 /* 依「年-月」分組的籤。跟分類籤是兩層獨立的篩選，可以同時用
    （例如「籌碼分析」+「2026-09」）。 */
 function drawMonths(){
-  var box=$('#months'); box.innerHTML='';
+  // 月份清單跟著分類走：選了「籌碼分析」就只列那一類有的月份，
+  // 不然會選到一個組合起來是零篇的月份，看起來像壞掉。
   var base=catFilter?items.filter(function(x){return x.cat===catFilter;}):items;
   var counts={}, none=0;
   base.forEach(function(x){ var m=monthOf(x); if(m) counts[m]=(counts[m]||0)+1; else none++; });
-  var keys=Object.keys(counts);
-  if(!keys.length) return;
-  var mk=function(label,val,n){
-    var b=document.createElement('button');
-    b.textContent=label+(n!=null?(' '+n):'');
-    if(monthFilter===val) b.style.cssText='border-color:var(--amber);color:var(--amber)';
-    b.onclick=function(){ monthFilter=(monthFilter===val?'':val); render3(); };
-    box.appendChild(b);
-  };
-  mk('全部日期','',base.length);
-  keys.sort().reverse().forEach(function(m){ mk(m,m,counts[m]); });   // 新的排前面
-  if(none) mk('沒有日期','__none',none);
+  var keys=Object.keys(counts).sort().reverse();         // 新的排前面
+  var opts=[{v:'',t:'全部日期（'+base.length+'）'}];
+  keys.forEach(function(m){ opts.push({v:m,t:m+'（'+counts[m]+'）'}); });
+  if(none) opts.push({v:'__none',t:'沒有日期（'+none+'）'});
+  // 換了分類之後原本選的月份可能不存在了，回到「全部日期」而不是留一個空選擇
+  if(monthFilter && monthFilter!=='__none' && keys.indexOf(monthFilter)<0) monthFilter='';
+  if(monthFilter==='__none' && !none) monthFilter='';
+  fillSel($('#monSel'), opts, monthFilter);
+  $('#monSel').disabled = !keys.length && !none;
 }
 /* 逐字稿清單的統一入口：分類與日期兩層篩選 → 排序 → 畫出來 */
 function render3(){
+  /* 順序很重要：drawMonths 會把「在新分類裡已經不存在的月份」歸零，
+     所以要先畫再篩。反過來的話，從「籌碼分析+2026-09」切到「盤勢解析」時，
+     會先用還沒歸零的 2026-09 篩出 0 篇畫上去，下一次重畫才恢復——
+     畫面上就是莫名其妙閃一下「共 0 篇」。 */
+  drawCats(); drawMonths();
   var use=items;
   if(catFilter) use=use.filter(function(x){return x.cat===catFilter;});
   if(monthFilter==='__none') use=use.filter(function(x){return !monthOf(x);});
   else if(monthFilter) use=use.filter(function(x){return monthOf(x)===monthFilter;});
-  drawCats(); drawMonths(); draw(sortItems(use));
+  draw(sortItems(use));
   var tag=[catFilter, monthFilter==='__none'?'沒有日期':monthFilter]
             .filter(Boolean).join(' · ');
   $('#note').textContent='共 '+use.length+' 篇'+(tag?('（'+tag+'）'):'')+
@@ -2540,6 +2549,8 @@ function render3(){
 }
 $('#sortBy').onchange=render3;
 $('#cleanName').onchange=render3;
+$('#catSel').onchange=function(){ catFilter=this.value; render3(); };
+$('#monSel').onchange=function(){ monthFilter=this.value; render3(); };
 
 function draw(list){
   var ul=$('#list'), keep=picked();   // 背景刷新時把使用者原本的勾選留住
@@ -2652,7 +2663,7 @@ $('#delBtn').onclick=function(){
       // 之前等 2.5 秒就重讀，讀回來的還是舊清單，看起來像「沒刪掉」。
       items=items.filter(function(x){return chk.indexOf(x.file)===-1;});
       if(items.length){ render3(); }
-      else { $('#note').textContent='還沒有逐字稿。照上面步驟做一次就會出現。'; $('#list').innerHTML=''; $('#cats').innerHTML=''; }
+      else { $('#note').textContent='還沒有逐字稿。照上面步驟做一次就會出現。'; $('#list').innerHTML=''; drawCats(); drawMonths(); }
       syncAfterDelete(items.length);
     })
     .catch(function(e){ toast('刪除失敗：'+(e&&e.message||'未知錯誤')); })
@@ -2688,7 +2699,7 @@ function load(quiet){
       if(SS.pages.length) drawPage(quiet);
       if(!items.length){
         $('#note').textContent='還沒有逐字稿。照上面步驟做一次就會出現。';
-        $('#list').innerHTML=''; $('#cats').innerHTML=''; drawnSig=sig; zipLabel(); return 0;
+        $('#list').innerHTML=''; drawCats(); drawMonths(); drawnSig=sig; zipLabel(); return 0;
       }
       render3(); drawnSig=sig;
       return items.length-before;

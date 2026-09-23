@@ -193,12 +193,55 @@ def episodes(xml_text, limit=50):
     return name, out
 
 
+FEED_LINK = re.compile(
+    r"""<link\b[^>]*?type=["']application/(?:rss|atom)\+xml["'][^>]*>""", re.I)
+HREF = re.compile(r"""href=["']([^"']+)["']""", re.I)
+FEEDISH = re.compile(r"""https?://[^\s"'<>\\]+""")
+
+
+def discover(page_url, page_html):
+    """從節目的網頁裡找出真正的 RSS 網址。
+
+    使用者手上拿到的幾乎都是**播放頁**，不是 RSS——SoundOn 給的是
+    player.soundon.fm/p/…、Firstory 給的是 open.firstory.me/user/…。
+    直接拿去當 RSS 抓只會拿到一頁 HTML。
+
+    網頁在 <head> 裡宣告自己的 feed 是行之有年的標準做法（<link rel="alternate"
+    type="application/rss+xml">），各家代管商幾乎都有。讀它比我去猜每一家的
+    網址規則可靠得多——猜錯的那天不會有人發現，只會變成「這個節目沒有集數」。
+    """
+    for tag in FEED_LINK.findall(page_html):
+        m = HREF.search(tag)
+        if m:
+            return urllib.parse.urljoin(page_url, html.unescape(m.group(1)))
+    # 沒有標準宣告的，退一步在整頁裡找長得像 feed 的網址
+    for u in FEEDISH.findall(page_html):
+        u = html.unescape(u)
+        if re.search(r"(^|[./])feeds?\.|/rss\b|/feed\b|\.xml($|\?)", u, re.I) \
+           and not re.search(r"\.(css|js|png|jpe?g|svg|gif|woff2?)($|\?)", u, re.I):
+            return u
+    return ""
+
+
 def feed_episodes(url, limit=50):
     try:
         raw = http(url, timeout=90)
     except Exception as e:
         raise PodcastError("抓不到這個 RSS（%s）" % str(e)[:80])
-    return episodes(raw, limit)
+    try:
+        return episodes(raw, limit)
+    except PodcastError as e:
+        if "不是 RSS" not in str(e):
+            raise
+        # 拿到的是網頁：找找看它有沒有宣告自己的 RSS
+        found = discover(url, raw)
+        if not found or found.rstrip("/") == url.rstrip("/"):
+            raise PodcastError(
+                "這個網址是節目的播放頁，不是 RSS，而且頁面裡也找不到 RSS 連結。"
+                "請改貼 Apple Podcasts 的連結，或到節目頁面找「RSS」那個圖示。")
+        print("    這是播放頁，找到它的 RSS：%s" % found, flush=True)
+        raw2 = http(found, timeout=90)
+        return episodes(raw2, limit)
 
 
 # ---------- 下載 ----------
@@ -499,6 +542,24 @@ def selftest():
         ck(True, "亂打的字串要報錯")
 
     ck(safe("a/b:c*d?e") == "a_b_c_d_e", "檔名清乾淨", safe("a/b:c*d?e"))
+
+    # 播放頁 → RSS
+    page = ('<html><head><title>某節目</title>'
+            '<link rel="alternate" type="application/rss+xml" '
+            'title="RSS" href="https://feeds.soundon.fm/podcasts/abc-123.xml">'
+            '</head><body>播放器</body></html>')
+    ck(discover("https://player.soundon.fm/p/abc-123", page)
+       == "https://feeds.soundon.fm/podcasts/abc-123.xml", "從播放頁找到 RSS")
+    rel = '<html><head><link rel="alternate" type="application/rss+xml" href="/rss/user/xyz">'
+    ck(discover("https://open.firstory.me/user/xyz", rel)
+       == "https://open.firstory.me/rss/user/xyz", "相對路徑要接成完整網址",
+       discover("https://open.firstory.me/user/xyz", rel))
+    plain = '<html><body>連結在這 https://feeds.example.com/show.xml 就這樣</body></html>'
+    ck(discover("https://x.test/p", plain) == "https://feeds.example.com/show.xml",
+       "沒有標準宣告就在內文裡找", discover("https://x.test/p", plain))
+    css = '<html><head><link rel="stylesheet" href="https://cdn.x/a.css"></head></html>'
+    ck(discover("https://x.test/p", css) == "", "不要把 css/js 當成 feed",
+       discover("https://x.test/p", css))
 
     print("\n%s（%d 個沒過）" % ("全部通過 ✅" if not bad[0] else "有問題 ❌", bad[0]))
     return 1 if bad[0] else 0
