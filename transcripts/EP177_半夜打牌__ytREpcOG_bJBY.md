@@ -1,7 +1,6 @@
 # EP177_半夜打牌
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=REpcOG_bJBY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：EP177｜半夜打牌
 
-
+- 日期：2021-09-22
 
 ---
 
