@@ -1,14 +1,14 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T05:19:33Z",
+ "updated": "2026-09-24T05:19:34Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
    "title": "What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO_",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20260923-160509_ATR_-_Average_True_Range_indicator_EXPLAINED_in_less_than_2___ytzMT1Fs2u9nY.webm",
