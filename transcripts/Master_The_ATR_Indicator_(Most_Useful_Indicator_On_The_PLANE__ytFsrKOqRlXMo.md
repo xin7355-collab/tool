@@ -1,0 +1,222 @@
+# Master_The_ATR_Indicator_(Most_Useful_Indicator_On_The_PLANE
+
+
+
+- 來源：[YouTube 影片](https://www.youtube.com/watch?v=FsrKOqRlXMo)
+
+- 辨識：Groq:whisper-large-v3-turbo
+
+- 統計：12237 字 / 95 段
+
+- 短標題：Master The ATR Indicator (Most Useful Indicator On The PLANE
+
+
+
+## 摘要
+
+
+
+**一句話**：影片說明 ATR 指標如何用於設定止損、突破判斷與風險報酬比，並以 2018 年至今美元/加拿大策略為例，展示其 65% 勝率與 1:1 風險報酬目標。
+
+- ATR 指標可設定止損，示例值包括 4H 圖表 70 pips、NZD/GBP 122 pips、CAD/CHF 34 pips、日線 378 pips 與 15 分鐘 26 pips。  
+- 進場蠟燭的 ATR 值用於止損設置，止損距離為 1 ATR 以上，例如 80 pips 止損對應 153 pips 的風險報酬比。  
+- ATR 斷點規則要求突破燭台介於 1 ATR 與 2 ATR 之間，符合時於收盤進場；如 ATR 91 點時，110 點燭台符合（90–180 點）。  
+- 依 ATR 調整止損可降低波動市場追擊風險，並可在 2:1 風險報酬框架內交易。  
+- 2018 年至今美元/加拿大策略產生 31 次交易機會，20 次獲利、11 次虧損，勝率 65%。  
+- 在 USD/Canadian Dollar 回測中，ATR 斷點策略在假突破時能產生較高風險報酬比，目標為 1:1 風險報酬比。
+
+
+
+---
+
+
+
+**[00:00]** 之前我們開始了解今天影片我們要講一個很常理的問題我聽到責任是你一直在看一邊就讓你去看一邊的投資去看一邊的投資看看這一個圖案我們有一個投資的投資我們有一個投資的投資我們看一看一看再看一看一看一看現在我們走 short 我們走 short 因為我們走 short 我們走 short 我們要看我們會的狀況, right? 我們都說我們會把狀況下的狀況。
+
+**[00:34]** 我們看我們現在的狀況。 就像這樣,你會被狀況的狀況。 就讓狀況做什麼? 我們看我們什麼。 我們看我們這個狀況。 我們看我們這條狀況, 這條狀況會被狀況下的狀況。 但你會被狀況下的狀況。 但你被狀況下的狀況。 就算了狀況下的狀況。 我问你这个问题是什么我开始经历了在我当中的几乎我当中的几乎是因为我开始的几乎因为我几乎不几乎的几乎我没有买到几乎的几乎
+
+**[01:08]** 我只是在几乎的几乎之前是否会有试图的几乎现在我被我告诉你这个指数我将会让你用在这个视频和我用这个指数会让你使用这个指数比这个指数多像这个看一看这里是一个比较的你看到我们的同样的同样同样的同样的同样同样的同样的同样在这个表面中有一个药物费中方法有一个药物费的相互费中方法但几乎费的相当方法是用一个指导举的方法我会给你用一个人用一个比例来看
+
+**[01:36]** 在这个表面前的方法有什么来说我们的新的高价值像你能看到一样的药物费中方法我们可以用一个执行的几乎费中方法你会给你费的手法用一个比例来看我们有点多多余因为我们的比例来看我们将来据到一个比例来看用一个指导举的方法我会给你用这个颈告和你用这个试试因為那我們沒有停止到的而這個市場的市場而是在這裏面的我們在這裏面的我們在這裏面的我們在1.5-1%的優惠優惠從這裏面的
+
+**[02:04]** 從這裏面的到這裏面的所以,我已經被我已經被困難了尤其在這裏面的開始的時候而且,當中有辦法不停止到的以後,你會有贏和贏的在這裏面的有辦法有辦法有機會有機會被判斷了市場裡的不準確或因為你的止落太多閒的不準確而使用這種坊打破的不準確我會不會用這個指定的指定於這個調查過後我們會用這個指定方式方式使用這個指定融合這個指定的資料給自己一個得到的敗這並非我最喜歡的指定
+
+**[02:46]** 而且我用這個指定每次次我用的指定所以我會正在分享你如何使用它,如何使用它,更加速度,更加速度,
+
+**[03:08]** 所以, what is this mysterious indicator that can help you avoid barely being stopped out before the market heads to your initial targets? It is called the ATR or Average True Range
+
+**[03:21]** 我每次的投擎选招选择我们将说什么的当铁锁吻为你需要 再做事又不足了一详之中的选招选择主要是从这条捏的而言之为 这一章是你领地上设处当铁桌上看到的液换线是运动和莲运动而是由于这个投擎的设计這個計劃, since 2018 on the dollar Canada, produced 31 opportunities
+
+**[03:53]** 11 of those opportunities were losing trades 20 of those opportunities were winning trades meaning that this strategy since 2018 until today's date on the dollar Canada
+
+**[04:04]** produced a 65% winning percentage so make sure to stick around until the end of the video to learn this exact strategy that will help you when trading around false breakouts
+
+**[04:14]** 但是現在我們現在進入了什麼是ATR的指定開始了ATR是名字這支指定是這支指定是這支指定的14張紙在一個個月的確和幅度的確它有一個關於14的確你能夠改變如果你想要的十張紙你能夠做的如果你想要的五張紙不重要我保持了我看了一张的数据,我看了一张的数据, 我看了一张的数据,在一张数据, 在一张数据,现在,现在,你知了一张, 为了我们需要它?
+
+**[04:55]** 因为每个数据,它有一个不同的数据, 它是一种据,在一张数据,在一张数据, 我们现在有一个ATR, 如果你看到一张,我会把这张数据, 这就是122pips 所以,Pound New Zealand现在现在有一个ATR,或者是122pips 那就是最后14天的额红额现在我们在这四天的额红额在这四天的额红额上是122pips 现在我们来说一个不同的额红额不太多
+
+**[05:31]** 像是Canada Swiss Canada Swiss 现在的额红额红额现在的额红额红额只有34pips所以我們要知道我们的线只移动了14线或者是我们的线只移动了如果我们的线只移动了我们的线只移动了我们的线只移动了我们的线只移动了它看起来的线只移动了我们的线只移动了你先说你一开始购买
+
+**[06:02]** and you use a 10 pip above the entry candle as every single time you place a trade as your stop loss
+
+**[06:10]** so you would say okay here's my 10 pips 28 that would be 38 and i'd be looking let's say you're
+
+**[06:16]** just looking for a one-to-one to keep it simple do you think that this 10 pip stop loss is going
+
+**[06:21]** to work just as well on the pound new zealand as it does here on the canada swiss if the canada
+
+**[06:27]** the Swiss is only moving at an average of 35 pips per candle and the pound New Zealand is moving at 122 pips every time a candle is printed.
+
+**[06:40]** Do you think you're going to be stopped out a little more often here on the pound New Zealand?
+
+**[06:44]** Yes you are and that's why we need to know the average true range of every single currency pair we're trading.
+
+**[06:50]** Depending on the currency pair you're trading your stop loss may need to be larger or smaller
+
+**[06:54]** and in a very similar way it depends on the time frame as well if you have a 10 pip stop loss on
+
+**[07:00]** the 15 minute time frame do you think that same 10 pip stop loss is going to work on the daily
+
+**[07:06]** time frame when the daily chart has an average of 378 pips per candle while the 15 minute only has
+
+**[07:13]** an average of 26 pips per candle and you can see that again by looking right up here of course the 答案是不,你必须要知道那些你必须要知道那些我用每次的一天我放在止损那是为了我用的ATR指定为了我的止损是因为每个股票会有一样的一样移动每个时间移动
+
+**[07:38]** 每个时间移动的一样移动所以你必须要加上那些到你的止损以为准备的失败你准备的失败不一定会准备的失败但这会会准备准备准备的失败准备的失败然后就会准备的失败你所想的连败现在知道了解的ATR是我们需要的失败我们将用这些失败准备的失败不备的失败的失败让你再次用这个ATR来说好,现在我们来说你能够用这个ATR来说能够用这个ATR来说能够用这个ATR来说另外一个原因
+
+**[08:20]** 你需要一个估值来说是因为不同的变化在这个ATR来说例如,在这个ATR来说我们的这个ATR来说你认为10pip的10pip的这些ATR来说你会被捏捏了你会被换了一些新增加的股息如果你有没有用这种股息的股息你会被换了一种股息这是用一个股息的股息这是用一个股息的股息这是用一个股息的股息以为股息的股息从股息的股息在股息的股息在股息的股息的股息或不同的股息
+
+**[09:04]** 现在是我们的股息是在股息的股息我会说你用TradingView,因为它是用的我用的使用所以在TradingView,你去看,是一种的一种但是如果你想要做的,你需要做一个一种做法,你需要做一个几乎的几乎是在这边的几乎按照,它会在几乎的几乎几乎的几乎,现在,我们就在几乎几乎几乎,到这里的几乎
+
+**[09:35]** then you will see right here we have a number that number is 70 at the moment that means that
+
+**[09:42]** currently on this market the ATR is 70 you can also see that if you look over here on the right
+
+**[09:51]** hand side of the screen right here at the side of the indicator I personally choose to look over
+
+**[09:56]** here but it's completely up to you that number again is current ATR the current average true RANGE的$1CANDA在4HOURCHART是70PPS 所以那意思是在前14CANDLES 70PPS是映了AVERAGE 如果你想用这个给你做的是温度了
+
+**[10:17]** CANDLE你将在ATR4BPS 如果我温度这个颜色椅子我能看到的CANDLE 你能看到AVERAGETRU RANGE是22PPS so if I hover over a candle the previous candle is 18.5 pips the previous candle before that is
+
+**[10:38]** 18.6 pips hovering over a candle is how you use this indicator in backtesting but in order to use it
+
+**[10:45]** to place your stop-loss the way that I personally use this indicator placing a stop-loss is if I had an entry right here let's say on this 这张说明了这张比喻的这里的符词这张是这样的门看来的领团如果我先得到那种
+
+**[11:07]** 我需要我的身边现在我将用了说说我会用了说我会用了看来我会用了说我会用了不然而我会不做这
+
+**[11:16]** 不然而会用了我将会用了这张嘴巴摆到这个所以这就会有82-83283pipsand that ends up being stopped out a rookie trader may say, okay, I'm going to place a stop loss 10 pips below this low. So that would be 82, 83 pips. And that ends up being stopped out.
+
+**[11:27]** Let's say we have a two to one risk reward. Again, just keeping it simple. That would end up being stopped out, right? The difference would be I would hover over my entry candle
+
+**[11:34]** in order to actually use the ATR indicator to place a stop loss. I would hover over my entry candle showing me that the dollar Canada on this candle has an ATR of 80 pips.
+
+**[11:45]** With that being the case, I wouldn't be placing a 10 pip stop loss below my entry candle or below this swing low which is where my stop loss is going right now
+
+**[11:54]** that means if I had an 80 pip stop loss I would use that value of 80 pips under my swing low or my entry candle depending on which one was lower the previous swing low though
+
+**[12:06]** at the entry being right here is this entry candle so I would put a stop loss at 80 pips below that candle that means that we would have a stop loss of 153 pips 是,你有一个大小的独乱但那又是一个原因
+
+**[12:21]** 你会想要留意的并且有这个小小的独乱因为你会有这个小小小的独乱所以,那会有一个独乱的独乱就像那样然后,一二一的独乱会被判断因为我们用了独乱正常用了一种独乱的独乱所以,我们会被看了是,你再次看了是,你会有什么独乱的独乱OK, so let's say we have an entry on this big close above candle here
+
+**[12:47]** We would look at this as our entry If whatever entry you're using is totally fine I'm just trying to show you how to place a stop loss using the ATR
+
+**[12:55]** You would then want to hover over that candle When you're hovering over that candle Look at the top left side of the screen I'll circle it for you The ATR is 67 right now
+
+**[13:04]** So you would put a 67 pip stop loss below the previous swing low That's exactly how I use the ATR indicator
+
+**[13:12]** in order to place better stop losses that are less likely to be hit by highly volatile markets
+
+**[13:19]** or by different currency pairs that have higher averages in terms of the candles they print
+
+**[13:24]** or in different time frames for instance the 15 versus the daily this is how i use it so the trade
+
+**[13:30]** setup here if i have my profit taking tool would look like this we talked about our big green
+
+**[13:36]** candle as our entry the atr of that candle is 68 pips 186 plus 68 is 254 so we would have a 254 pip
+
+**[13:46]** stop loss and that's how you would set your stop again you set your targets accordingly it doesn't
+
+**[13:51]** two to one risk reward whatever kind of target you want this is just me showing you how to use
+
+**[13:55]** an atr indicator in order to place stop losses that keep you out of these whip saws and keep
+
+**[14:01]** you from being stop hunted by placing your stop loss a little further away or even a little
+
+**[14:05]** closer at times depending on the volatility of a certain market at a certain time depending on the
+
+**[14:12]** volatility of all markets at that time and on a certain time frame you do so by looking at the
+
+**[14:17]** average range of your entry candle using that amount that average true range amount below
+
+**[14:23]** the swing low on a buy trade or above the swing high on a sell trade in order to maximize your 能力去购买那购买不过一失败的购买那是用于ATR的方法要求做了一失败的方法要求做了一失败的方法要求做了一失败的方法不过一失败的方法我现在就会做了一种方法用于ATR的方法
+
+**[14:48]** 用于购买的方法给你做了一种方法让它们有盾的方法从2018年到现在所以就先去那一步了,就先去那一步了好了,就先到那一步了这一步了,就先去那一步了一步了解的一步了我会做一个试图的试图但现在,就先去那一步了这一步了,就先去换了一步了什么是一步了? 一步了一步了,就像这样一步了如果我们看来,我们有一个高的高度我们有一个高度的高度
+
+**[15:26]** 指令 to breakout traders 就是指出了就去 short 在这期盘上但总是这个问题的但是不是这样连路上的停止因为这些改变了就是这些盘子的确实做出了这签是什么刘的解释对可以明白什么是什么所谓的随的达这些是什么我们正在旁边的需要这些随准的随移随的随意就是我就给你一个很简单的解释什么是随意
+
+**[15:54]** for this example a swing high is a high that was preceded by at least two lower highs and followed
+
+**[16:03]** by at least two lower highs that would be a swing high a swing low would need to be preceded by two
+
+**[16:10]** higher lows and have at least two higher lows after it so that would be a swing low that's
+
+**[16:16]** what we're looking for initially with this strategy after we find a swing high and a swing low we are 我们来坐一看到顺忌的感觉比如是因为有限的那个高峰在这边的课程中这些使用是个上高峰是一个高峰的高峰在这回合我们来看了它会有观光的高峰我们会在这一看好峰的紅色
+
+**[16:41]** 这就是回到我们加低红色的线我们这个鞭的保持有限我们做到我们的位置我们是在看我们的高峰和中to do a swing low for a bearish trade we know what a swing low is
+
+**[16:55]** it's a low preceded by 2 higher lowsand followed by 2 higher lowsso we're waiting on a break out of a level like thatwe have this break outthis break out candle这一判写上的重点继续 两个高级大级长所以我们再来一个估计感的绝区我们呈现这个估计感这个估计感能噢级高原酱的频道
+
+**[17:08]** 估计感能量是非常大的热心在并且十分估计感能量是否估计感上的这个绝区的磯提长所以我们将开键估面有什么关系感的ATR上为 79万人的推动我们的问题们需要由于公开to the low of this breakout candle and see if it is more than 79 pips it is 102 pips i need this
+
+**[17:36]** candle to be between one atr and two atr in this case the atr of our candle is roughly 80 pips so
+
+**[17:46]** i would need this candle to be between 80 and 160 pips if it's more than 160 does not count if it's
+
+**[17:53]** 80 it does not count if it's between the two if it's between one and two atr then i use this candle
+
+**[18:01]** as an entry for a false breakout situation what does that mean that means at the close of this
+
+**[18:08]** candle if it meets all of those requirements i would have an entry at the close of this candle
+
+**[18:14]** because it is a breakout candle from a previous swing low that is between one and two atr it's 它不是1ATR而不是2ATR 所以我有一些人的 entry 我讨论了一些人的投票我讨论了1ATR 是1ATR 是1ATR的1ATR的位置这会是1ATR
+
+**[18:38]** 所以我的投票是79PPS 1ATR的位置我们做了一种投票的投票我们有个人的投票那一塊錢我不知道為什麼這些東西都會變成很大我想我會移動了我們現在有一個停留下的停留下1ATR下的停留下我們有11pips在79pips 那一塊停留下的停留下我們會有停留下的停留下我們會把停留下的停留下供我們的規定我們在一個停留下的停留下我剛才 showed你在這個影片
+
+**[19:18]** I just used a 1 to 1 target. That's what produced since 2018 right at a 65% winning percentage was having a 1 to 1 target.
+
+**[19:27]** But as you can see, sometimes these false breakouts can provide a large, a massive risk to reward ratio.
+
+**[19:34]** So that's the power of this strategy and that's a brief version of how to actually do it.
+
+**[19:38]** Let's take a look at a couple of the trades over on the dollar Canada back test and then I'll let you guys go.
+
+**[19:43]** But first off, let's take a look at a couple of those so you can get a better idea of this strategy
+
+**[19:47]** to make sure you completely understand it main goal here being that you are capable of actually
+
+**[19:53]** testing this strategy yourself before i come out with the next video that explains it completely so hopefully this will give you an idea of exactly what you need to be testing for
+
+**[20:02]** here we have our swing low looking left right here we have a breakout candle of that swing low
+
+**[20:11]** right here what do we need to check for next next we need to know is this breakout candle between
+
+**[20:16]** 1 and 2ATR of this candle this candle has an ATR of 91 pips so we need to measure this candle
+
+**[20:24]** from high to low from high to low on our entry candle we have a 110 pip candle that means this
+
+**[20:32]** candle is between 1 and 2ATR because it needs to be more than 90 and less than 180 so therefore we
+
+**[20:38]** would be buying this breakout candle looking at it as a possible false breakout that would look 估计是这个换销售的戴上 这个课股的戴上那个戴上的戴上的戴上的戴上是91批的所以我们会有91批的,31批的博物122批的戴上的戴上
+
+**[21:04]** 这件不被划得到就是在这一招的戴上的戴上但是你能看到,有很多价值的戴上我还没有试试,但是这一招是流量的戴上这个是这个方法我现在正在工作用这个ATR指定是一个可能性的一个状态去讨论这些法律所以你能够试一下这个方法如果您是多多领域的方法更多领域的方法也就是这样的方法但是更多领域的方法我们有一个公式的方法叫做EAP的方法在那里面的方法你会收到所有的方法我自己用的方法
+
+**[21:40]** 你会收到3-5的货币我将会收到每个月你会收到几个月的货币你会问我什么问题我会有什么问题我会有什么问题我会有什么问题在这个课程中是一个人的货币所以我会有一个人的货币我们现在有个人的货币我会有些新的货币我会有什么新的货币我会有什么货币的货币我会有什么货币你会有什么货币你会有关注的货币
+
+**[22:09]** 請按 Like button,按 Like, for me to help out with the YouTube algorithm I'm gonna put a video somewhere on the screen
+
+**[22:15]** You'll see it beside my face that I think would also be helpful to you on your trading journey Make sure you follow in all of your rules in your trading plan
+
+**[22:22]** Make sure you're not risking too much in times like these
+
+**[22:25]** Put good use to your newly learned skill of understanding this ATR indicator in order to avoid being stopped out just by a little bit before Hitting what could be massive targets?
+
+**[22:37]** I hope this has been helpful and I will talk to you in the next video. See you soon.

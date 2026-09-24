@@ -1,0 +1,63 @@
+# What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO_
+
+
+
+- 來源：[YouTube 影片](https://www.youtube.com/watch?v=QW2uh1BQuGw)
+
+- 辨識：Groq:whisper-large-v3-turbo
+
+- 統計：1741 字 / 14 段
+
+- 分類：其他
+
+- 關鍵字：ATR、FTIR、光譜、樣品制備
+
+- 短標題：What is ATR (Attenuated Total Reflectance) - METTLER TOLEDO
+
+
+
+## 摘要
+
+
+
+**一句話**：ATR（衰減全反射）是FTIR中一種利用晶體與樣品相互作用產生的表面波，能快速、有效地獲取液體與固體的化學資訊。
+
+- ATR透過將光照射於晶體表面，並保持在或低於臨界角，使光在晶體內反射並產生表面波（evanescent wave）。  
+- 這股表面波與樣品相互作用，攜帶化學訊息傳遞至探測器，提供振動或化學資訊。  
+- 表面波的穿透深度決定光程長度，主要受晶體折射率與光波長兩個變數影響。  
+- ATR適用於液體與固體樣品，且取樣過程簡單、耗時短，能快速產生高品質光譜。  
+- 若需進一步了解，可參考 mt.com/ATR。
+
+
+
+---
+
+
+
+**[00:00]** FTIR FTIR has proven incredibly beneficial in the laboratory and is a well established technique However,SamplePrep can be arduous and time consuming
+
+**[00:13]** in order to obtain high quality spectra that can answer the users questions
+
+**[00:20]** ATR,or attenuated total reflectance is one such sampling technique used to obtain high quality dataof both liquids and solids
+
+**[00:28]** After a sample comes in contact with a crystal, light is sent into the crystal below a certain angle, known as the critical angle.
+
+**[00:37]** When the light is kept at or below this angle, it bounces through the crystal and is collected on the other side.
+
+**[00:44]** Information about the sample is gathered through the interaction of an evanescent wave and the sample.
+
+**[00:49]** This evanescent wave is a standing wave that occurs at inflection points of the propagating light.
+
+**[00:54]** After interaction with the sample, it carries the chemical information along with it to the detector.
+
+**[01:01]** This evanescent wave is key to how ATR is able to provide the user vibrational or chemical information about the sample of interest.
+
+**[01:09]** This wave penetrates into the sample a given amount and is dictated by several things. This depth of penetration is important because it is related to your path length.
+
+**[01:19]** There are two main variables that penetration depth are dependent on. 首先是用的温暖因為温暖的温暖因為温暖的温暖它是不積極的温暖的温暖温暖的离比温暗的,它是非非在整个層的全体移植的。如果地距离在超越并级的距离,这将会有更多比较高级级的距离比温暗的级级, 比较高级级的距离比温暗的。 第二个是,
+
+**[01:46]** 是这两个分次的距离的距离与激光颇的距离。 尤其是, 一种距离的距离与激光额的距离, Alt有很多能力的封印象 但不容易被遗憾的封印象有其他可能性的游盾是否有些游盾的封印象但不常性的游盾不会提到封印象以至于 敬意的游盾是重要的因此它是努力的封印象Bird的法 越是比书的通过,越是用游盾,越是越是通过TLNATR的担心有多游盾是
+
+**[02:17]** 在一次游盾中的游盾 上游盾是决定的游盾在这些情况下,实际上,实际是一种的变化,或者是一种变化。 在这些变化,更多的变化,更多的变化,更多的变化。 在这种变化,ATR会有非常非常有益的变化,因为这些变化是一种变化。 这使ATR会有更多的变化,更多的变化,并且充满的变化, 并且充满的变化,并且充满的变化,并且充满的变化。
+
+**[02:50]** for more information head to mt.com slash ATR

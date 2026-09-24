@@ -1,0 +1,623 @@
+1
+00:00:00,000 --> 00:00:10,000
+The average true range is one of the best indicators a day trader can use as it basically tells you how much the price of a market moves up and down.
+
+2
+00:00:10,000 --> 00:00:17,000
+The ATR indicator is always moving. It goes up when price movements get bigger and down when they get smaller.
+
+3
+00:00:17,000 --> 00:00:22,000
+Every time a new time candle forms, the ATR gets a new reading.
+
+4
+00:00:22,000 --> 00:00:27,000
+On a 1-minute chart, the ATR is figured out every single minute.
+
+5
+00:00:27,000 --> 00:00:32,200
+在一天的日期,一天的ATR是每天的一天,所以一天的ATR differs
+
+6
+00:00:32,200 --> 00:00:37,000
+從時間到時間到時間,一天的讀法是連結的一天,
+
+7
+00:00:37,000 --> 00:00:41,000
+而這讓你看 how the price swings have changed over time.
+
+8
+00:00:41,000 --> 00:00:43,640
+一天的ATR有一個重要的工作,
+
+9
+00:00:43,640 --> 00:00:47,800
+是告訴你多麼的價值是真的動作
+
+10
+00:00:47,800 --> 00:00:51,800
+當它是大量的,它就是有很多的 volatility
+
+11
+00:00:51,800 --> 00:00:55,800
+當它是小量的,它指出價值是很高的
+
+12
+00:00:55,800 --> 00:01:01,800
+The ATR is basically a special kind of moving average of the true range.
+
+13
+00:01:01,800 --> 00:01:08,140
+Most of the time traders use the 14-period ATR, but you can use shorter or longer ATR
+
+14
+00:01:08,140 --> 00:01:11,640
+values depending on the timeframe you're looking at.
+
+15
+00:01:11,640 --> 00:01:16,440
+A longer ATR will be slower and give fewer trading signals.
+
+16
+00:01:16,440 --> 00:01:22,680
+A shorter ATR will give more trading signals and make you trade more often.
+
+17
+00:01:22,680 --> 00:01:25,740
+Here's how to read the average true range indicator.
+
+18
+00:01:25,740 --> 00:01:32,220
+First, the ATR is a tool for filtering trades based on how much the price is moving.
+
+19
+00:01:32,220 --> 00:01:38,500
+If you like markets with big swings, the ATR can help you avoid markets that are too calm.
+
+20
+00:01:38,500 --> 00:01:43,900
+If you prefer quiet markets, the ATR can help you stay away from times that are too wild
+
+21
+00:01:43,900 --> 00:01:44,900
+for you.
+
+22
+00:01:44,900 --> 00:01:50,560
+But it's important to remember that the ATR doesn't tell you which way the price is going.
+
+23
+00:01:50,560 --> 00:01:55,640
+看一看,你不可以看到一種的標準,
+
+24
+00:01:55,640 --> 00:01:59,120
+一種的標準,一種分別的量,
+
+25
+00:01:59,120 --> 00:02:02,760
+一種不是最好的來做 trading的信息。
+
+26
+00:02:02,760 --> 00:02:06,320
+我有一些解釋,我會解釋一下這點。
+
+27
+00:02:07,200 --> 00:02:09,500
+現在,市場上的動作,
+
+28
+00:02:09,500 --> 00:02:11,600
+市場上的動作,
+
+29
+00:02:11,600 --> 00:02:13,520
+市場上的動作,
+
+30
+00:02:13,520 --> 00:02:15,720
+市場上的動作,
+
+31
+00:02:15,720 --> 00:02:19,800
+and the ATR is your key to understanding these cycles.
+
+32
+00:02:19,800 --> 00:02:24,960
+When the ATR is low, when it's at its lowest values, it's a sign that the market is in
+
+33
+00:02:24,960 --> 00:02:27,460
+a phase of consolidation.
+
+34
+00:02:27,460 --> 00:02:30,200
+This is the market's rest phase.
+
+35
+00:02:30,200 --> 00:02:33,940
+Volatility is low, and there's not a lot of action happening.
+
+36
+00:02:33,940 --> 00:02:39,940
+This phase of consolidation is often seen in chart patterns like rectangles, triangles
+
+37
+00:02:39,940 --> 00:02:41,240
+or flags.
+
+38
+00:02:41,240 --> 00:02:52,480
+所以,你看到ATR在最低的價值,
+
+39
+00:02:52,480 --> 00:02:53,960
+你開始準備,
+
+40
+00:02:53,960 --> 00:02:55,960
+你找出一些標準的方式,
+
+41
+00:02:55,960 --> 00:02:57,820
+你找出一些標準的方式,
+
+42
+00:02:57,820 --> 00:03:00,160
+你找出一些其他人的普通,
+
+43
+00:03:00,160 --> 00:03:02,300
+該市場和市場的方式,
+
+44
+00:03:02,300 --> 00:03:04,820
+價格和額,或是風格的方式。
+
+45
+00:03:04,820 --> 00:03:08,260
+你用這些去得到的觀點,
+
+46
+00:03:08,260 --> 00:03:17,800
+如果是市場提升,和市場提升,是跌市场提升,你可能会 anticipate
+
+47
+00:03:17,800 --> 00:03:27,720
+高坏的跌测,是跌测.
+
+48
+00:03:27,720 --> 00:03:33,060
+如果市場提升,市場提升,是跌市场提升,我们可能会期待
+
+49
+00:03:33,060 --> 00:03:35,520
+你也要遇到一個伏值的破壞。
+
+50
+00:03:35,520 --> 00:03:37,1000
+這就是用了一段時間的ATR
+
+51
+00:03:37,1000 --> 00:03:40,640
+要遇到增長的肌肉的肌肉
+
+52
+00:03:40,640 --> 00:03:42,480
+它會提供你一提到
+
+53
+00:03:42,480 --> 00:03:43,920
+大肌肉的肌肉會發出
+
+54
+00:03:43,920 --> 00:03:45,520
+而且它會提供你
+
+55
+00:03:45,520 --> 00:03:48,100
+要快要做的肌肉。
+
+56
+00:03:48,100 --> 00:03:50,1000
+再多大肌肉的肌肉
+
+57
+00:03:50,1000 --> 00:03:54,860
+更多的肌肉的肌肉會發出
+
+58
+00:03:54,860 --> 00:03:57,300
+所以如果你看到一段時間的肌肉
+
+59
+00:03:57,300 --> 00:03:59,220
+低肌肉的肌肉
+
+60
+00:03:59,220 --> 00:04:04,620
+a prolonged phase of consolidation,be ready for a potentially large move.
+
+61
+00:04:04,620 --> 00:04:07,620
+This is where the phase of expansion comes in.
+
+62
+00:04:07,620 --> 00:04:13,460
+Once the market breaks out of its consolidation phase,it enters a phase of expansion.
+
+63
+00:04:13,460 --> 00:04:20,220
+This is when the ATR starts to rise,indicating increasing volatility and larger price moves.
+
+64
+00:04:20,220 --> 00:04:25,660
+If you've anticipated the direction correctly,you can now look to enter trades in the direction
+
+65
+00:04:25,660 --> 00:04:29,680
+捉入改良因因素的硬幅
+
+66
+00:04:29,680 --> 00:04:31,880
+只能以为这一步的优移
+
+67
+00:04:31,880 --> 00:04:32,800
+提到自己的课题
+
+68
+00:04:32,800 --> 00:04:34,360
+根本就不会指出的方法
+
+69
+00:04:34,360 --> 00:04:39,240
+如果这条币的距離是买上升
+
+70
+00:04:39,240 --> 00:04:42,060
+那么这种反应的原因
+
+71
+00:04:42,060 --> 00:04:43,720
+所以就算其他人能用来的
+
+72
+00:04:43,720 --> 00:04:46,760
+再多种各种反应的放入
+
+73
+00:04:46,760 --> 00:04:49,940
+这张运动的投入
+
+74
+00:04:49,940 --> 00:04:52,100
+첫 第一是看起来的
+
+75
+00:04:52,100 --> 00:04:56,860
+在它的主要,它是一個一個標準的標準指標
+
+76
+00:04:56,860 --> 00:05:00,900
+它會幫你解決定 where to place你的 Stop Loss orders
+
+77
+00:05:00,900 --> 00:05:04,820
+它會使用了一個ATR和一個 Multiplier
+
+78
+00:05:04,820 --> 00:05:06,940
+這是一個一個標準指標,
+
+79
+00:05:06,940 --> 00:05:09,060
+意思是它測試它的標準指標
+
+80
+00:05:09,060 --> 00:05:12,500
+based on the recent price action and volatility
+
+81
+00:05:12,500 --> 00:05:14,340
+它是一個標準指標的標準指標
+
+82
+00:05:14,340 --> 00:05:16,980
+它會在它的標準指標上升
+
+83
+00:05:16,980 --> 00:05:21,220
+一直在它的標準指標標準指標
+
+84
+00:05:21,220 --> 00:05:28,120
+如果市场击开始击击击的账率,它是指定的股级伤的课程,
+
+85
+00:05:28,120 --> 00:05:38,280
+但它将会出售一切的账率,区别的账率排出,即是在一个面前排出的价格,即是在一个级市场中的位置。 And it's time to exit the trade. The Chandelier Exit plots a single line on your chart, either above or below the price action,
+
+86
+00:05:38,660 --> 00:05:42,280
+depending on whether you're looking at a long or short trade.
+
+87
+00:05:42,800 --> 00:05:47,920
+When the price hits or crosses this line, it's a signal to exit your trade.
+
+88
+00:05:48,400 --> 00:05:49,900
+The key is in the settings.
+
+89
+00:05:49,900 --> 00:05:52,200
+You get to decide two inputs.
+
+90
+00:05:52,200 --> 00:06:00,680
+the length of the ATR period , and the ATR multiplier .
+
+91
+00:06:00,680 --> 00:06:07,160
+A higher multiplier will place your chandelier further away from the price, giving your trade
+
+92
+00:06:07,160 --> 00:06:12,680
+more room to breathe, but also potentially leading to larger losses if the trade goes
+
+93
+00:06:12,680 --> 00:06:13,1000
+against you.
+
+94
+00:06:13,1000 --> 00:06:19,680
+A lower multiplier will keep your stop loss tighter, protecting your capital, but also
+
+95
+00:06:19,680 --> 00:06:26,160
+potentially leading to more frequent stops. For day trading, you could start with an ATR period
+
+96
+00:06:26,160 --> 00:06:33,040
+and a multiplier of 2. Then, you backtest. It's all about finding that sweet spot that aligns with
+
+97
+00:06:33,040 --> 00:06:39,920
+your strategy and risk tolerance. The beauty of this indicator is its simplicity. It can be used
+
+98
+00:06:39,920 --> 00:06:45,1000
+with any trading strategy. Here's a basic setup for a long trade. You identify a market that's
+
+99
+00:06:45,1000 --> 00:06:53,1000
+在一种更新的股市场上,你会等于一个股息,然后看一种股息,
+
+100
+00:06:54,960 --> 00:06:57,680
+像一个股息,或者股息,股息,股息。
+
+101
+00:06:58,400 --> 00:07:03,840
+Once you're in the trade, you place your stop loss at the current Chandelier Exit level.
+
+102
+00:07:04,560 --> 00:07:08,720
+As the price moves up, the Chandelier Exit will move up with it,
+
+103
+00:07:08,720 --> 00:07:12,320
+effectively trailing your stop loss to lock in profits.
+
+104
+00:07:12,320 --> 00:07:16,680
+如果它在一種企業的企業,你會出現的企業
+
+105
+00:07:16,680 --> 00:07:20,760
+是一個簡單的,但實際的方式,讓你的贏輸出,
+
+106
+00:07:20,760 --> 00:07:23,120
+並且保護你的企業
+
+107
+00:07:23,120 --> 00:07:26,160
+當然,像任何指標,
+
+108
+00:07:26,160 --> 00:07:28,560
+不太完美,
+
+109
+00:07:28,560 --> 00:07:30,560
+反正在調整的企業,
+
+110
+00:07:30,560 --> 00:07:33,360
+尤其是在調整或是否判斷的企業
+
+111
+00:07:33,360 --> 00:07:38,120
+所以,它是重要的使用它在其他方式的調整
+
+112
+00:07:38,120 --> 00:07:40,760
+像是指標的企業
+
+113
+00:07:40,760 --> 00:07:47,540
+AtrBands Indicator is another volatility-based tool, which creates bands around the price
+
+114
+00:07:47,540 --> 00:07:50,980
+action using the average true range.
+
+115
+00:07:50,980 --> 00:07:57,520
+This indicator contains two bands that sit a certain distance away from the price action.
+
+116
+00:07:57,520 --> 00:08:01,820
+This distance is determined by the ATR and a multiplier.
+
+117
+00:08:01,820 --> 00:08:04,560
+Think of it like a river with two banks.
+
+118
+00:08:04,560 --> 00:08:12,180
+The price action is the water, and the ATR bands are the riverbanks, containing and guiding the flow.
+
+119
+00:08:12,180 --> 00:08:30,240
+The width of the ATR bands is dynamic, it changes based on the price volatility.When the price is more volatile, the ATR will be higher and the bands will be wider. When the price is less volatile, the ATR will be lower and the bands will be narrower.
+
+120
+00:08:30,240 --> 00:08:36,180
+So based on how much the price has been moving, the indicator offers you a reasonable range
+
+121
+00:08:36,180 --> 00:08:39,300
+for where the price might go next.
+
+122
+00:08:39,300 --> 00:08:43,600
+It's all about watching the price action in relation to the bands.
+
+123
+00:08:43,600 --> 00:08:48,220
+When the price is trading close to the upper band, it suggests that the market is in a
+
+124
+00:08:48,220 --> 00:08:49,1000
+strong uptrend.
+
+125
+00:08:49,1000 --> 00:08:55,400
+If it touches the upper band, this could be a signal to consider taking profits or to
+
+126
+00:08:55,400 --> 00:08:58,640
+be cautious about new long positions.
+
+127
+00:08:58,640 --> 00:09:03,860
+On the flip side, when the price is trading close to the lower band, it suggests that
+
+128
+00:09:03,860 --> 00:09:06,580
+the market is in a strong downtrend.
+
+129
+00:09:06,580 --> 00:09:12,580
+When price touches the lower band, this could be a signal to consider exiting short positions
+
+130
+00:09:12,580 --> 00:09:15,520
+或是在看待了一種猜測的
+
+131
+00:09:15,520 --> 00:09:19,540
+當然,是有些限制的,是有些限制的
+
+132
+00:09:19,540 --> 00:09:21,540
+他們是一個限制的指定
+
+133
+00:09:21,540 --> 00:09:24,180
+是他們是在前期的指定
+
+134
+00:09:24,180 --> 00:09:27,940
+所以,你會想想如何這個指定
+
+135
+00:09:27,940 --> 00:09:30,340
+然後,你會想想和不同的設定
+
+136
+00:09:30,340 --> 00:09:33,140
+像是一種測量的測量
+
+137
+00:09:34,020 --> 00:09:36,980
+超Trend是另一種測量的指定
+
+138
+00:09:36,980 --> 00:09:39,780
+讓你來看待的指定
+
+139
+00:09:39,780 --> 00:09:43,040
+and potential buy or sell signals.
+
+140
+00:09:43,040 --> 00:09:49,160
+When reading Supertrend Indicator, it's all about watching for changes in color and position
+
+141
+00:09:49,160 --> 00:09:51,060
+relative to the price.
+
+142
+00:09:51,060 --> 00:09:57,120
+When the Supertrend line is green and below the price, it's pointing north, signaling
+
+143
+00:09:57,120 --> 00:09:59,380
+a buy or an uptrend.
+
+144
+00:09:59,380 --> 00:10:06,020
+When it's red and above the price, it's pointing south, signaling a sell or a downtrend.
+
+145
+00:10:06,020 --> 00:10:11,140
+我喜歡它因為它會給你一個明顯,觀光的表現
+
+146
+00:10:11,140 --> 00:10:15,220
+用一個分析的ATR和一個分析
+
+147
+00:10:15,220 --> 00:10:19,780
+這分析是一個方法的調整的感應
+
+148
+00:10:19,780 --> 00:10:26,020
+如果你的價值會保持在紅色或是紅色,
+
+149
+00:10:26,020 --> 00:10:28,500
+這個價值能保持在中間的中間
+
+150
+00:10:28,500 --> 00:10:31,300
+這可以幫你保持持續舊的價值
+
+151
+00:10:31,300 --> 00:10:33,460
+可能增加你的價值
+
+152
+00:10:33,460 --> 00:10:39,860
+如果你有任何方法,你会有任何方法,你会有任何方法,
+
+153
+00:10:39,860 --> 00:10:45,700
+所以你会有任何方法,如何能够认识,如何能够认识,
+
+154
+00:10:45,700 --> 00:10:48,900
+然后再次进入你的投资方法,
+
+155
+00:10:48,900 --> 00:10:56,100
+如果你有任何方法,你必须要注意这些视频.
+
+156
+00:11:03,460 --> 00:11:06,220
+优优独播剧场——YoYo Television Series Exclusive

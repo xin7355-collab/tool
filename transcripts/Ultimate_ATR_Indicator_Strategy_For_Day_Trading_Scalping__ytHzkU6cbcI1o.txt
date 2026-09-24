@@ -1,0 +1,87 @@
+Ultimate_ATR_Indicator_Strategy_For_Day_Trading_Scalping
+
+The average true range is one of the best indicators a day trader can use as it basically tells you how much the price of a market moves up and down.
+
+The ATR indicator is always moving. It goes up when price movements get bigger and down when they get smaller. Every time a new time candle forms, the ATR gets a new reading.
+
+On a 1-minute chart, the ATR is figured out every single minute. 在一天的日期,一天的ATR是每天的一天,所以一天的ATR differs 從時間到時間到時間,一天的讀法是連結的一天, 而這讓你看 how the price swings have changed over time.
+
+一天的ATR有一個重要的工作, 是告訴你多麼的價值是真的動作當它是大量的,它就是有很多的 volatility 當它是小量的,它指出價值是很高的The ATR is basically a special kind of moving average of the true range.
+
+Most of the time traders use the 14-period ATR, but you can use shorter or longer ATR values depending on the timeframe you're looking at.
+
+A longer ATR will be slower and give fewer trading signals. A shorter ATR will give more trading signals and make you trade more often.
+
+Here's how to read the average true range indicator. First, the ATR is a tool for filtering trades based on how much the price is moving.
+
+If you like markets with big swings, the ATR can help you avoid markets that are too calm. If you prefer quiet markets, the ATR can help you stay away from times that are too wild
+
+for you. But it's important to remember that the ATR doesn't tell you which way the price is going. 看一看,你不可以看到一種的標準, 一種的標準,一種分別的量, 一種不是最好的來做 trading的信息。 我有一些解釋,我會解釋一下這點。 現在,市場上的動作,
+
+市場上的動作, 市場上的動作, 市場上的動作, and the ATR is your key to understanding these cycles. When the ATR is low, when it's at its lowest values, it's a sign that the market is in
+
+a phase of consolidation. This is the market's rest phase. Volatility is low, and there's not a lot of action happening.
+
+This phase of consolidation is often seen in chart patterns like rectangles, triangles or flags. 所以,你看到ATR在最低的價值, 你開始準備, 你找出一些標準的方式, 你找出一些標準的方式, 你找出一些其他人的普通, 該市場和市場的方式,
+
+價格和額,或是風格的方式。 你用這些去得到的觀點, 如果是市場提升,和市場提升,是跌市场提升,你可能会 anticipate 高坏的跌测,是跌测. 如果市場提升,市場提升,是跌市场提升,我们可能会期待你也要遇到一個伏值的破壞。 這就是用了一段時間的ATR 要遇到增長的肌肉的肌肉它會提供你一提到大肌肉的肌肉會發出而且它會提供你要快要做的肌肉。 再多大肌肉的肌肉
+
+更多的肌肉的肌肉會發出所以如果你看到一段時間的肌肉低肌肉的肌肉a prolonged phase of consolidation,be ready for a potentially large move. This is where the phase of expansion comes in.
+
+Once the market breaks out of its consolidation phase,it enters a phase of expansion. This is when the ATR starts to rise,indicating increasing volatility and larger price moves.
+
+If you've anticipated the direction correctly,you can now look to enter trades in the direction 捉入改良因因素的硬幅只能以为这一步的优移提到自己的课题根本就不会指出的方法如果这条币的距離是买上升那么这种反应的原因所以就算其他人能用来的再多种各种反应的放入
+
+这张运动的投入첫 第一是看起来的在它的主要,它是一個一個標準的標準指標它會幫你解決定 where to place你的 Stop Loss orders 它會使用了一個ATR和一個 Multiplier 這是一個一個標準指標, 意思是它測試它的標準指標based on the recent price action and volatility
+
+它是一個標準指標的標準指標它會在它的標準指標上升一直在它的標準指標標準指標如果市场击开始击击击的账率,它是指定的股级伤的课程,
+
+但它将会出售一切的账率,区别的账率排出,即是在一个面前排出的价格,即是在一个级市场中的位置。 And it's time to exit the trade. The Chandelier Exit plots a single line on your chart, either above or below the price action,
+
+depending on whether you're looking at a long or short trade. When the price hits or crosses this line, it's a signal to exit your trade. The key is in the settings.
+
+You get to decide two inputs. the length of the ATR period , and the ATR multiplier . A higher multiplier will place your chandelier further away from the price, giving your trade
+
+more room to breathe, but also potentially leading to larger losses if the trade goes against you.
+
+A lower multiplier will keep your stop loss tighter, protecting your capital, but also
+
+potentially leading to more frequent stops. For day trading, you could start with an ATR period
+
+and a multiplier of 2. Then, you backtest. It's all about finding that sweet spot that aligns with
+
+your strategy and risk tolerance. The beauty of this indicator is its simplicity. It can be used
+
+with any trading strategy. Here's a basic setup for a long trade. You identify a market that's 在一种更新的股市场上,你会等于一个股息,然后看一种股息, 像一个股息,或者股息,股息,股息。
+
+Once you're in the trade, you place your stop loss at the current Chandelier Exit level. As the price moves up, the Chandelier Exit will move up with it,
+
+effectively trailing your stop loss to lock in profits. 如果它在一種企業的企業,你會出現的企業是一個簡單的,但實際的方式,讓你的贏輸出, 並且保護你的企業當然,像任何指標, 不太完美, 反正在調整的企業, 尤其是在調整或是否判斷的企業所以,它是重要的使用它在其他方式的調整像是指標的企業
+
+AtrBands Indicator is another volatility-based tool, which creates bands around the price action using the average true range.
+
+This indicator contains two bands that sit a certain distance away from the price action. This distance is determined by the ATR and a multiplier.
+
+Think of it like a river with two banks. The price action is the water, and the ATR bands are the riverbanks, containing and guiding the flow.
+
+The width of the ATR bands is dynamic, it changes based on the price volatility.When the price is more volatile, the ATR will be higher and the bands will be wider. When the price is less volatile, the ATR will be lower and the bands will be narrower.
+
+So based on how much the price has been moving, the indicator offers you a reasonable range for where the price might go next.
+
+It's all about watching the price action in relation to the bands. When the price is trading close to the upper band, it suggests that the market is in a strong uptrend.
+
+If it touches the upper band, this could be a signal to consider taking profits or to be cautious about new long positions.
+
+On the flip side, when the price is trading close to the lower band, it suggests that the market is in a strong downtrend.
+
+When price touches the lower band, this could be a signal to consider exiting short positions 或是在看待了一種猜測的當然,是有些限制的,是有些限制的他們是一個限制的指定是他們是在前期的指定所以,你會想想如何這個指定然後,你會想想和不同的設定像是一種測量的測量
+
+超Trend是另一種測量的指定讓你來看待的指定and potential buy or sell signals. When reading Supertrend Indicator, it's all about watching for changes in color and position relative to the price.
+
+When the Supertrend line is green and below the price, it's pointing north, signaling a buy or an uptrend.
+
+When it's red and above the price, it's pointing south, signaling a sell or a downtrend. 我喜歡它因為它會給你一個明顯,觀光的表現用一個分析的ATR和一個分析這分析是一個方法的調整的感應如果你的價值會保持在紅色或是紅色, 這個價值能保持在中間的中間
+
+這可以幫你保持持續舊的價值可能增加你的價值如果你有任何方法,你会有任何方法,你会有任何方法, 所以你会有任何方法,如何能够认识,如何能够认识, 然后再次进入你的投资方法, 如果你有任何方法,你必须要注意这些视频.
+
+优优独播剧场——YoYo Television Series Exclusive

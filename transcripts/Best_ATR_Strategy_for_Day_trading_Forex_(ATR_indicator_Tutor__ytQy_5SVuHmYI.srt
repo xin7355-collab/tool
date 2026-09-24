@@ -1,0 +1,619 @@
+1
+00:00:00,000 --> 00:00:06,220
+When trading, the large profits are made when the market is making large breakout moves.
+
+2
+00:00:06,920 --> 00:00:10,200
+It's hard to get large profits if the market is flat.
+
+3
+00:00:11,100 --> 00:00:18,560
+So, what if there's an indicator that can actually predict exactly when a price breakout is coming before it even occurs?
+
+4
+00:00:19,660 --> 00:00:22,060
+Well, that indicator is the ATR.
+
+5
+00:00:22,520 --> 00:00:28,800
+If you are not using the ATR indicator as part of your trading strategy, then you are missing a goldmine.
+
+6
+00:00:28,800 --> 00:00:32,000
+It's literally the best indicator. Why?
+
+7
+00:00:32,000 --> 00:00:37,300
+Because it can measure the most important metric on trading, which is volatility.
+
+8
+00:00:37,300 --> 00:00:42,800
+And in this video, I'm revealing the best way to use the ATR indicator.
+
+9
+00:00:42,800 --> 00:00:48,800
+And as a bonus, I'll also tell you how you can set your stop loss using the ATR indicator.
+
+10
+00:00:48,800 --> 00:00:53,300
+And also, a very important money management strategy.
+
+11
+00:00:53,300 --> 00:00:56,800
+So without further ado, let's get started.
+
+12
+00:00:56,800 --> 00:01:01,520
+The ATR indicator stands for Average True Range
+
+13
+00:01:01,520 --> 00:01:04,200
+and its only purpose is very simple
+
+14
+00:01:04,200 --> 00:01:07,120
+to identify the volatility on the market
+
+15
+00:01:07,120 --> 00:01:10,120
+So when you open the ATR indicator
+
+16
+00:01:10,120 --> 00:01:11,480
+you'll get a single line
+
+17
+00:01:11,480 --> 00:01:13,320
+but believe it or not
+
+18
+00:01:13,320 --> 00:01:15,120
+you don't really need this line
+
+19
+00:01:15,120 --> 00:01:17,760
+because the only important part of the indicator
+
+20
+00:01:17,760 --> 00:01:19,280
+is the ATR value
+
+21
+00:01:19,280 --> 00:01:20,800
+the number in the corner
+
+22
+00:01:20,800 --> 00:01:24,560
+So this number shows the average pips on the market
+
+23
+00:01:24,560 --> 00:01:26,520
+in the past 14 candles
+
+24
+00:01:26,520 --> 00:01:31,900
+You can switch this to whatever value you want in the settings, but I prefer the original.
+
+25
+00:01:32,900 --> 00:01:40,600
+So you can see here, this means that in the current market, the average pips of the last 14 candles is 53 pips.
+
+26
+00:01:41,160 --> 00:01:48,820
+So the higher the value, the more volatile the market is, and the lower the value, the less volatile the market is.
+
+27
+00:01:49,720 --> 00:01:50,540
+But disclaimer,
+
+28
+00:01:51,300 --> 00:01:54,220
+the ATR does not measure the direction of a trend,
+
+29
+00:01:54,580 --> 00:01:57,280
+just because the ATR is heading upwards,
+
+30
+00:01:57,540 --> 00:01:59,900
+does it mean that the price is up-trending.
+
+31
+00:02:01,100 --> 00:02:01,980
+So now,
+
+32
+00:02:02,080 --> 00:02:05,600
+I'm revealing the best way to use the ATR indicator.
+
+33
+00:02:06,980 --> 00:02:09,280
+like i said in the start of the video,
+
+34
+00:02:09,400 --> 00:02:12,980
+The big profits are made when the market has a high volatility.
+
+35
+00:02:13,420 --> 00:02:16,820
+So,it's important for us to know when a market is volatile.
+
+36
+00:02:16,820 --> 00:02:18,820
+你必须明白,是,
+
+37
+00:02:18,820 --> 00:02:20,820
+是,是,
+
+38
+00:02:20,820 --> 00:02:21,820
+是,是,
+
+39
+00:02:21,820 --> 00:02:22,820
+是,
+
+40
+00:02:22,820 --> 00:02:23,820
+是,
+
+41
+00:02:23,820 --> 00:02:24,820
+是,
+
+42
+00:02:24,820 --> 00:02:37,565
+所以,如果是,市场是在低波浏的期限它们将在未来我们会看到一个增加的期限在这些情况下,我们会看到了一个低波浏的期限
+
+43
+00:02:37,565 --> 00:02:41,405
+它们就会告诉你 exactly when the market is on a low volatility
+
+44
+00:02:41,405 --> 00:02:46,205
+所以,这些是你需要先做一个时间的时间
+
+45
+00:02:46,205 --> 00:02:49,245
+在这个情况下,我用了个30分钟的时间
+
+46
+00:02:49,245 --> 00:02:51,245
+然后,你需要先做一个时间的时间
+
+47
+00:02:51,245 --> 00:02:53,245
+就是要做一个时间的时间
+
+48
+00:02:53,245 --> 00:02:58,245
+You can see that the ATR is constantly switching from lows to highs
+
+49
+00:02:58,245 --> 00:03:03,245
+So now what you want to do is find the relatively lowest point
+
+50
+00:03:03,245 --> 00:03:07,245
+It doesn't have to be the exact low, just pick one that is low enough
+
+51
+00:03:07,245 --> 00:03:12,245
+So now you point at it using your mouse to reveal the ATR value
+
+52
+00:03:12,245 --> 00:03:19,245
+Now we know that in this timeframe, a relatively low ATR is considered at around 23 pips
+
+53
+00:03:19,245 --> 00:03:24,165
+obviously if you chose a higher timeframe the value would be much higher
+
+54
+00:03:24,165 --> 00:03:27,405
+but in this timeframe it's about 23 pips
+
+55
+00:03:27,405 --> 00:03:32,805
+so now we know that once the ATR drops down to somewhere around 23 pips
+
+56
+00:03:32,805 --> 00:03:35,445
+volatility will start to pick up soon
+
+57
+00:03:35,445 --> 00:03:39,245
+and high volatility means bigger price movements
+
+58
+00:03:39,245 --> 00:03:43,765
+it's now easier for us because we already know that somewhere in the future
+
+59
+00:03:43,765 --> 00:03:45,765
+the price is going to break out
+
+60
+00:03:45,765 --> 00:03:48,125
+but we just don't know the direction yet
+
+61
+00:03:48,125 --> 00:03:53,545
+Remember, a high ATR value means the price can either break out upwards or downwards.
+
+62
+00:03:54,365 --> 00:03:57,945
+So now, your only job is to predict the direction of the breakout.
+
+63
+00:03:58,725 --> 00:04:01,305
+There's actually a lot of ways you can do this,
+
+64
+00:04:01,625 --> 00:04:05,805
+but my favorite method is using a trend indicator such as the Heiken Ashi.
+
+65
+00:04:06,825 --> 00:04:11,365
+So you can see in this example, the ATR is on a relatively low value,
+
+66
+00:04:11,885 --> 00:04:14,905
+and the Heiken Ashi displays multiple green candles,
+
+67
+00:04:14,905 --> 00:04:19,785
+meaning that the breakout is most likely to happen in the upwards direction
+
+68
+00:04:19,785 --> 00:04:25,305
+and that's exactly what it did it went upwards and you would have secured some profits
+
+69
+00:04:25,305 --> 00:04:31,625
+here's another example you can see that the atr is at a relatively low value
+
+70
+00:04:31,625 --> 00:04:38,305
+which indicates that a breakout might happen now you can see that volatility is actually starting
+
+71
+00:04:38,305 --> 00:04:44,485
+to pick up and the heiken ashi is displaying huge red candles meaning that the breakout will likely
+
+72
+00:04:44,485 --> 00:04:46,485
+而是最好是
+
+73
+00:04:46,485 --> 00:04:47,585
+就是
+
+74
+00:04:47,585 --> 00:04:48,845
+那是
+
+75
+00:04:48,845 --> 00:04:49,825
+所以
+
+76
+00:04:49,825 --> 00:04:50,645
+那是
+
+77
+00:04:50,645 --> 00:04:51,645
+用的ATR
+
+78
+00:04:51,645 --> 00:04:52,685
+去測定
+
+79
+00:04:52,685 --> 00:04:53,325
+当
+
+80
+00:04:53,325 --> 00:04:54,325
+所以
+
+81
+00:04:54,325 --> 00:04:54,645
+我现在
+
+82
+00:04:54,645 --> 00:05:08,130
+是游戏准备准备准备用ATRso when trading have you ever encountered this kind of problem where for example let's say you
+
+83
+00:05:08,130 --> 00:05:14,930
+received a long signal here and let's say because you normally use a 13 pip stop loss you also
+
+84
+00:05:14,930 --> 00:05:21,811
+decided to use it here but the price instead drops downwards and hits your stop loss only for it to
+
+85
+00:05:21,811 --> 00:05:26,671
+去返回了,所以你停止了你的销售和失去 trend
+
+86
+00:05:26,671 --> 00:05:30,471
+如果你会把你的销售就在下来,
+
+87
+00:05:30,471 --> 00:05:34,251
+你会不会被返回了,你会不会被返回了
+
+88
+00:05:34,251 --> 00:05:37,950
+所以,我们怎么会避免这种情况?
+
+89
+00:05:37,950 --> 00:05:42,550
+所以,在认为不同的销售有不同的销售,
+
+90
+00:05:42,550 --> 00:05:46,911
+你认为我们的销售用这个销售?
+
+91
+00:05:46,911 --> 00:05:50,671
+当然,因为如果销售是更多销售,
+
+92
+00:05:50,671 --> 00:05:52,671
+and you put a small stop loss
+
+93
+00:05:52,671 --> 00:05:56,671
+9 times out of 10 it will most likely get hit
+
+94
+00:05:56,671 --> 00:06:00,171
+but if the market is calm and less volatile
+
+95
+00:06:00,171 --> 00:06:04,171
+a smaller stop loss would make much more sense
+
+96
+00:06:04,171 --> 00:06:08,171
+so what you need to do is use the multiples of the ATR
+
+97
+00:06:08,171 --> 00:06:12,171
+to determine your stop loss depending on your risk tolerance
+
+98
+00:06:12,171 --> 00:06:13,171
+for example
+
+99
+00:06:13,171 --> 00:06:17,171
+let's say your entry indicator displays a long signal here
+
+100
+00:06:17,171 --> 00:06:19,171
+and at this specific point
+
+101
+00:06:19,171 --> 00:06:22,890
+the average pips of the last 14 candles is 24
+
+102
+00:06:22,890 --> 00:06:27,291
+so you can actually put your stop loss based on that number
+
+103
+00:06:27,291 --> 00:06:29,811
+in this case 24 pips
+
+104
+00:06:29,811 --> 00:06:33,311
+but if you have a lower risk tolerance
+
+105
+00:06:33,311 --> 00:06:35,611
+and think that 24 pips is too much
+
+106
+00:06:35,611 --> 00:06:37,430
+and you want a tighter stop loss
+
+107
+00:06:37,430 --> 00:06:39,971
+you can divide that value by 2
+
+108
+00:06:39,971 --> 00:06:43,330
+so you can also put your stop loss at 12 pips
+
+109
+00:06:43,330 --> 00:06:46,190
+so it all depends on the risk tolerance
+
+110
+00:06:46,190 --> 00:06:50,190
+但它必須要是一種的ATR
+
+111
+00:06:50,190 --> 00:06:53,390
+例如,你接受了一種訊息
+
+112
+00:06:53,390 --> 00:06:55,390
+你接受了一種訊息
+
+113
+00:06:55,390 --> 00:06:56,990
+從你的訊息
+
+114
+00:06:56,990 --> 00:06:59,390
+而是14
+
+115
+00:06:59,390 --> 00:07:02,591
+所以你能夠放到14pips
+
+116
+00:07:02,591 --> 00:07:06,190
+但如果你覺得14pips是太小
+
+117
+00:07:06,190 --> 00:07:09,390
+讓你想要一個高的訊息
+
+118
+00:07:09,390 --> 00:07:11,390
+你能夠分析這數字
+
+119
+00:07:11,390 --> 00:07:13,390
+讓它28pips
+
+120
+00:07:13,390 --> 00:07:19,390
+It all depends on your risk reward ratio as long as it's still a multiple of the ATR.
+
+121
+00:07:19,390 --> 00:07:22,390
+So, back with our first example.
+
+122
+00:07:22,390 --> 00:07:38,676
+If you actually placed your stop loss based on the ATR, which is around here, instead of just making up a random number, it wouldn't have closed the trade too early and you will still participate on this rally. If you want to use the ATR as a trailing stop loss,
+
+123
+00:07:38,896 --> 00:07:41,396
+you can use an indicator called the Chandelier Stop.
+
+124
+00:07:41,836 --> 00:07:44,376
+This indicator is also based on the ATR.
+
+125
+00:07:45,096 --> 00:07:48,836
+It is designed to keep traders in trend until a reversal happens.
+
+126
+00:07:49,396 --> 00:07:53,656
+So, you can close your trade when a candle hits the Chandelier Stop.
+
+127
+00:07:53,656 --> 00:08:02,776
+and disclaimer this indicator is not designed for entry positions you don't want to take long or short positions based on this indicator
+
+128
+00:08:02,776 --> 00:08:09,936
+if you want a similar indicator that is actually designed to detect trends you can use the super trend indicator instead
+
+129
+00:08:09,936 --> 00:08:16,576
+so now i'm revealing an important money management strategy that you can use with the atr
+
+130
+00:08:16,576 --> 00:08:23,316
+so let me give you a scenario let's say you're trading and the current atr value is 20
+
+131
+00:08:23,316 --> 00:08:27,476
+你会在这一块钱的一块钱
+
+132
+00:08:27,476 --> 00:08:29,716
+所以我的问题是
+
+133
+00:08:29,716 --> 00:08:33,716
+你觉得它是一块钱的一块钱
+
+134
+00:08:33,716 --> 00:08:36,516
+但在一块钱的一块钱
+
+135
+00:08:36,516 --> 00:08:39,196
+因为它是更多的
+
+136
+00:08:39,196 --> 00:08:42,516
+那是说你会在这一块钱的钱
+
+137
+00:08:42,516 --> 00:08:45,596
+在这一块钱的钱
+
+138
+00:08:45,596 --> 00:08:47,916
+你当然要去增加你的钱
+
+139
+00:08:47,916 --> 00:08:49,716
+更多的钱
+
+140
+00:08:49,716 --> 00:08:52,716
+所以你需要把钱的钱
+
+141
+00:08:52,716 --> 00:08:54,716
+based on the volatility on the market.
+
+142
+00:08:54,716 --> 00:08:58,716
+So instead, what you actually want to do is this.
+
+143
+00:08:58,716 --> 00:09:04,716
+Let's say per trade you are risking $100 on a market with 20 ATR.
+
+144
+00:09:04,716 --> 00:09:11,716
+If next time you want to trade with a market that has a higher volatility of let's say 60 pips ATR,
+
+145
+00:09:11,716 --> 00:09:18,716
+since it's 3 times more volatile than the first one, that means you want to put your capital 3 times less.
+
+146
+00:09:18,716 --> 00:09:24,596
+所以在这个情况下,你会只能放$33,00,在60ATR上,
+
+147
+00:09:24,596 --> 00:09:27,956
+你不需要准备少的 profits,
+
+148
+00:09:27,956 --> 00:09:31,756
+因为记得,这些市场是三次更加高的,
+
+149
+00:09:31,756 --> 00:09:35,156
+所以它会有更多的变化,
+
+150
+00:09:35,156 --> 00:09:39,956
+所以,也许多的利益,你会有更多的利益。
+
+151
+00:09:41,236 --> 00:09:44,156
+所以,我只能提供了最好的方法,
+
+152
+00:09:44,156 --> 00:09:46,316
+你能用到ATR的指数,
+
+153
+00:09:46,316 --> 00:09:52,516
+and all i ask for in return is a very small favor of liking the video and subscribe to the channel
+
+154
+00:09:52,516 --> 00:09:56,356
+it literally takes only two clicks but it means a lot to me
+
+155
+00:09:56,356 --> 00:09:59,616
+so thank you guys for watching and i'll see you in the next video

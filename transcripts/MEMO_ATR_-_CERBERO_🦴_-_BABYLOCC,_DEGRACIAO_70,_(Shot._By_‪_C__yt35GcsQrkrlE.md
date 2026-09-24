@@ -1,0 +1,48 @@
+# MEMO_ATR_-_CERBERO_🦴_-_BABYLOCC,_DEGRACIAO_70,_(Shot._By_‪_C
+
+
+
+- 來源：[YouTube 影片](https://www.youtube.com/watch?v=35GcsQrkrlE)
+
+- 辨識：Groq:whisper-large-v3-turbo
+
+- 統計：863 字 / 9 段
+
+- 短標題：MEMO ATR - CERBERO 🦴 - BABYLOCC, DEGRACIAO 70, (Shot. By ‪ C
+
+
+
+## 摘要
+
+
+
+**一句話**：影片以重複自稱、隨意語句與少量關鍵詞為主，呈現混亂且缺乏明確主題。  
+
+- 影片中多次重複「我叫你」以及「Eon」等自稱，顯示說話者在自我呼喚。  
+- 片中提到「Sky」、「MING PAO」與「Memo」等詞彙，似乎是人物或代號。  
+- 有提及「carro sin placa」與「atentado」，暗示有車輛和攻擊情節。  
+- 內容中出現「tiro a la cabeza」與「Maluma」等詞，暗示暴力或流行文化參
+
+
+
+---
+
+
+
+**[00:00]** 我叫你我叫你我叫你
+
+**[00:06]** 你好我叫你我叫你我叫Eon 你的指导在这个世界但你可问你这是Sky 你你你你你你你你你你你你你你Hey, good man. 沒力的
+
+**[00:59]** 滴墟 地上都靠上了彼此回路那我和我亚得在家理我天啊我猜人一百期那些都哪不我看早别は 我看早就一屈因为我这不够那么专门才都把我吃甜了我看了然后都看不见我看什么
+
+**[01:24]** 那你说什么MING PAO我用了这些我的面子我抬着他 他在巴一舟我吹有用头子我再嘢戴好专门我也打了,我唐帅我我喜欢小君子说你猟子就在那里面让他搞了在这些里面让我知道我给你我们冻说看到他要不要我Degra Seu dale tu en la cabeza Vemóstate quieto que lo asegure
+
+**[02:01]** Samos tres diemos en un carro sin placa Miramos a uno y tiramos los que Vamos no tan loco porque hasta me vende Pero nunca prueba yo le dejaré Y a lo contrario no se dejan ver
+
+**[02:10]** Y yo con la toda nueva que compré Por los bloques en paz sola no pasa Porque tienen miedo de irse a pie Con Memo le hice un atentado Que ni siquiera nos pudieron ver
+
+**[02:18]** Pas que gata fuerte en pitola Si no tienen grano pa resolver Un tiro a la cabeza y como Maluma el morro que hace La fe es lo último que se pierde 如果不是在最訪的信心我們開始了被人造成了然後我們上了誰雛
+
+**[02:40]** 我們是刺生物的有很多人在一起
+
+**[02:48]** Cuchy no love, B Riva 拜拜

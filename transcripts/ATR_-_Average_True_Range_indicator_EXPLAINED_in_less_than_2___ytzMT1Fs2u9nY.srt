@@ -1,0 +1,123 @@
+1
+00:00:00,000 --> 00:00:05,000
+Average True Range, or the ATR, is a commonly used technical indicator,
+
+2
+00:00:05,000 --> 00:00:10,000
+and it's primarily used as a measure of volatility in terms of pips or movements in price.
+
+3
+00:00:10,000 --> 00:00:13,000
+Now the calculation is in fact quite simple.
+
+4
+00:00:13,000 --> 00:00:15,000
+Firstly, let's define range.
+
+5
+00:00:15,000 --> 00:00:18,000
+Now the range is the difference between the lowest traded price
+
+6
+00:00:18,000 --> 00:00:21,000
+from the highest traded price in any given time period,
+
+7
+00:00:21,000 --> 00:00:23,000
+and is measured in pips.
+
+8
+00:00:23,000 --> 00:00:28,000
+Now the ATR averages out these ranges over a preset number of preceding time periods.
+
+9
+00:00:28,000 --> 00:00:31,400
+中最多的是1-4 套試.
+
+10
+00:00:31,900 --> 00:00:34,660
+現在的ATR會是螢光型、
+
+11
+00:00:34,700 --> 00:00:36,720
+那麵打完整以後,
+
+12
+00:00:37,120 --> 00:00:40,660
+加分度到超量下距離的ATR,
+
+13
+00:00:40,660 --> 00:00:43,840
+並出了兩倍速的提格,
+
+14
+00:00:44,040 --> 00:00:47,740
+中升降陷入和至少增加打下距離。
+
+15
+00:00:48,160 --> 00:00:52,620
+現在,市主要的時計是現時問題低達或是低ATR。
+
+16
+00:00:52,880 --> 00:00:55,720
+一旦問題消低提,或是用調強了達而定的攻撞,
+
+17
+00:00:55,780 --> 00:00:57,800
+會有壞到達到突破的雙方。
+
+18
+00:00:58,000 --> 00:01:02,880
+现在,这个平台的几乎可以使用时,当你会选择的几乎。
+
+19
+00:01:02,880 --> 00:01:06,060
+基本上,一传书可以使用几乎的几乎,
+
+20
+00:01:06,060 --> 00:01:09,380
+当你最选择的几乎是最选择的几乎。
+
+21
+00:01:09,380 --> 00:01:12,340
+所以,如果说,如果你会用一个长买买的几乎,
+
+22
+00:01:12,340 --> 00:01:14,900
+在一张几乎的几乎,
+
+23
+00:01:14,900 --> 00:01:18,600
+然后,当你当时的几乎是10,
+
+24
+00:01:18,600 --> 00:01:23,340
+你会用几乎的几乎,在三乎的几乎。
+
+25
+00:01:23,340 --> 00:01:26,160
+所以,这会是30匹几乎的几乎。
+
+26
+00:01:26,160 --> 00:01:31,600
+1.2535 would take a profit target of 1.2565
+
+27
+00:01:31,600 --> 00:01:36,160
+Conversely, you may place a stop at say 1.5X the ATR
+
+28
+00:01:36,160 --> 00:01:38,760
+so that would be a 15 pip stop loss
+
+29
+00:01:38,760 --> 00:01:41,760
+that would take you out at 1.2520
+
+30
+00:01:41,760 --> 00:01:45,160
+now the ATR is available for most broker platforms
+
+31
+00:01:45,160 --> 00:01:48,200
+so it's well worthwhile checking it out

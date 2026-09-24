@@ -1,0 +1,155 @@
+1
+00:00:00,000 --> 00:00:05,000
+FTIR
+
+2
+00:00:05,000 --> 00:00:08,000
+FTIR has proven incredibly beneficial in the laboratory
+
+3
+00:00:08,000 --> 00:00:10,000
+and is a well established technique
+
+4
+00:00:10,000 --> 00:00:13,000
+However,SamplePrep can be arduous and time consuming
+
+5
+00:00:13,000 --> 00:00:16,000
+in order to obtain high quality spectra
+
+6
+00:00:16,000 --> 00:00:18,000
+that can answer the users questions
+
+7
+00:00:20,000 --> 00:00:23,000
+ATR,or attenuated total reflectance
+
+8
+00:00:23,000 --> 00:00:25,000
+is one such sampling technique
+
+9
+00:00:25,000 --> 00:00:28,000
+used to obtain high quality dataof both liquids and solids
+
+10
+00:00:28,000 --> 00:00:37,160
+After a sample comes in contact with a crystal, light is sent into the crystal below a certain angle, known as the critical angle.
+
+11
+00:00:37,760 --> 00:00:43,300
+When the light is kept at or below this angle, it bounces through the crystal and is collected on the other side.
+
+12
+00:00:44,260 --> 00:00:48,960
+Information about the sample is gathered through the interaction of an evanescent wave and the sample.
+
+13
+00:00:49,540 --> 00:00:54,960
+This evanescent wave is a standing wave that occurs at inflection points of the propagating light.
+
+14
+00:00:54,960 --> 00:01:00,360
+After interaction with the sample, it carries the chemical information along with it to the detector.
+
+15
+00:01:01,060 --> 00:01:08,520
+This evanescent wave is key to how ATR is able to provide the user vibrational or chemical information about the sample of interest.
+
+16
+00:01:09,040 --> 00:01:13,120
+This wave penetrates into the sample a given amount and is dictated by several things.
+
+17
+00:01:13,900 --> 00:01:18,080
+This depth of penetration is important because it is related to your path length.
+
+18
+00:01:19,020 --> 00:01:22,340
+There are two main variables that penetration depth are dependent on.
+
+19
+00:01:22,340 --> 00:01:24,340
+首先是用的温暖
+
+20
+00:01:24,340 --> 00:01:42,174
+因為温暖的温暖因為温暖的温暖它是不積極的温暖的温暖温暖的离比温暗的,它是非非在整个層的全体移植的。如果地距离在超越并级的距离,这将会有更多比较高级级的距离比温暗的级级,
+
+21
+00:01:42,174 --> 00:01:44,834
+比较高级级的距离比温暗的。
+
+22
+00:01:44,834 --> 00:01:46,594
+第二个是,
+
+23
+00:01:46,594 --> 00:01:50,334
+是这两个分次的距离的距离与激光颇的距离。
+
+24
+00:01:50,334 --> 00:01:51,154
+尤其是,
+
+25
+00:01:51,154 --> 00:01:54,194
+一种距离的距离与激光额的距离,
+
+26
+00:01:54,194 --> 00:01:58,034
+Alt有很多能力的封印象 但不容易被遗憾的封印象
+
+27
+00:01:58,034 --> 00:02:01,434
+有其他可能性的游盾是否有些游盾的封印象
+
+28
+00:02:01,434 --> 00:02:06,394
+但不常性的游盾不会提到封印象
+
+29
+00:02:06,394 --> 00:02:09,434
+以至于 敬意的游盾是重要的
+
+30
+00:02:09,434 --> 00:02:11,434
+因此它是努力的封印象
+
+31
+00:02:11,434 --> 00:02:16,374
+Bird的法 越是比书的通过,越是用游盾,越是越是通过
+
+32
+00:02:16,374 --> 00:02:17,994
+TLNATR的担心有多游盾是
+
+33
+00:02:17,994 --> 00:02:22,694
+在一次游盾中的游盾 上游盾是决定的游盾
+
+34
+00:02:22,694 --> 00:02:27,694
+在这些情况下,实际上,实际是一种的变化,或者是一种变化。
+
+35
+00:02:27,694 --> 00:02:34,694
+在这些变化,更多的变化,更多的变化,更多的变化。
+
+36
+00:02:34,694 --> 00:02:42,694
+在这种变化,ATR会有非常非常有益的变化,因为这些变化是一种变化。
+
+37
+00:02:42,694 --> 00:02:46,694
+这使ATR会有更多的变化,更多的变化,并且充满的变化,
+
+38
+00:02:46,694 --> 00:02:50,694
+并且充满的变化,并且充满的变化,并且充满的变化。
+
+39
+00:02:50,694 --> 00:02:54,954
+for more information head to mt.com slash ATR
