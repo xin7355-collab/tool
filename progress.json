@@ -1,42 +1,14 @@
 {
- "run": "35997254593",
- "state": "done",
- "updated": "2026-09-24T12:33:45Z",
+ "run": "36069084710",
+ "state": "running",
+ "updated": "2026-09-24T22:45:06Z",
  "files": [
   {
-   "name": "20260923-160959_Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad__ytLA-ppgrPdC8.webm",
-   "title": "Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad",
-   "state": "done",
-   "step": "完成（11086 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-161036_ATR_42_72_-_the_European_turboprop__ytRB_aXnhmVf0.webm",
-   "title": "ATR_42_72_-_the_European_turboprop",
-   "state": "done",
-   "step": "完成（8241 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-161057_ATR_Indicator_Trading_Strategy_(_Special_Settings)_TradingVi__yt7S-Bse4fwk8.webm",
-   "title": "ATR_Indicator_Trading_Strategy_(_Special_Settings)_TradingVi",
-   "state": "done",
-   "step": "完成（11575 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-163903_Learn_How_To_Trade_The_ATR_Strategy_In_Under_10_Minutes__yt2lvbxyOj_XI.m4a",
-   "title": "Learn_How_To_Trade_The_ATR_Strategy_In_Under_10_Minutes",
-   "state": "done",
-   "step": "完成（5638 字）",
-   "pct": 100
-  },
-  {
-   "name": "20260923-163918_ATR_electric_systems_-_an_introduction__ytdmFWFtgHDfo.m4a",
-   "title": "ATR_electric_systems_-_an_introduction",
-   "state": "done",
-   "step": "完成（3747 字）",
-   "pct": 100
+   "name": "20260925-064407_炒股十年_我浪费了七八年，一篇通告让我开悟_领悟股市的真谛__ytODzyaMRExpA.webm",
+   "title": "炒股十年_我浪费了七八年，一篇通告让我开悟_领悟股市的真谛",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
