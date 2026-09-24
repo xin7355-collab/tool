@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T05:20:18Z",
+ "updated": "2026-09-24T05:20:19Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -34,9 +34,9 @@
   {
    "name": "20260923-160542_The_World_s_First_All-Business_Class_ATR_Plane__yt4QBTSV9c9Tg.webm",
    "title": "The_World_s_First_All-Business_Class_ATR_Plane",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20260923-160603_Why_Pilots_HATE_The_ATR__yt94KrRdT3OqQ.webm",
