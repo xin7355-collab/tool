@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T07:31:55Z",
+ "updated": "2026-09-24T08:00:35Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -77,8 +77,8 @@
    "name": "20260923-160805_ATR_Final_Assembly_Line_-_Guided_Tour__ytzJSjx-yiNVs.webm",
    "title": "ATR_Final_Assembly_Line_-_Guided_Tour",
    "state": "running",
-   "step": "轉錄中…",
-   "pct": 90
+   "step": "分類中…",
+   "pct": 96
   },
   {
    "name": "20260923-160822_Introducing_ATR_EVO__ytVfpf5fHb7_o.webm",
