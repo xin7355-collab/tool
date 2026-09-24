@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T05:20:17Z",
+ "updated": "2026-09-24T05:20:18Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -27,9 +27,9 @@
   {
    "name": "20260923-160528_twinsmatic_-_A.T.R_(feat._Booba)__ytGQx3Mw6z5zg.webm",
    "title": "twinsmatic_-_A.T.R_(feat._Booba)",
-   "state": "running",
-   "step": "分類中…",
-   "pct": 96
+   "state": "done",
+   "step": "完成（1257 字）",
+   "pct": 100
   },
   {
    "name": "20260923-160542_The_World_s_First_All-Business_Class_ATR_Plane__yt4QBTSV9c9Tg.webm",
