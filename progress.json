@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T05:19:45Z",
+ "updated": "2026-09-24T05:19:46Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -20,9 +20,9 @@
   {
    "name": "20260923-160517_Why_ATR_is_the_ONLY_thing_I_put_on_my_charts__yt8KzwWYpZP3s.webm",
    "title": "Why_ATR_is_the_ONLY_thing_I_put_on_my_charts",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20260923-160528_twinsmatic_-_A.T.R_(feat._Booba)__ytGQx3Mw6z5zg.webm",
