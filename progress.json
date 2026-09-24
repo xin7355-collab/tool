@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T08:05:00Z",
+ "updated": "2026-09-24T08:08:31Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -84,8 +84,8 @@
    "name": "20260923-160822_Introducing_ATR_EVO__ytVfpf5fHb7_o.webm",
    "title": "Introducing_ATR_EVO",
    "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "step": "分類中…",
+   "pct": 96
   },
   {
    "name": "20260923-160831_Ultimate_ATR_Indicator_Strategy_For_Day_Trading_Scalping__ytHzkU6cbcI1o.m4a",
