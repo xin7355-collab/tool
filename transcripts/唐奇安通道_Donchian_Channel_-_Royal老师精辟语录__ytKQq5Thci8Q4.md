@@ -1,7 +1,6 @@
 # 唐奇安通道_Donchian_Channel_-_Royal老师精辟语录
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=KQq5Thci8Q4)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：唐奇安通道 Donchian Channel - Royal老师精辟语录
 
-
+- 日期：2021-01-27
 
 ---
 

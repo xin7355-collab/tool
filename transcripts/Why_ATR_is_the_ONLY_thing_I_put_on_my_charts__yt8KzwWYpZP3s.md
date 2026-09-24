@@ -1,7 +1,6 @@
 # Why_ATR_is_the_ONLY_thing_I_put_on_my_charts
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=8KzwWYpZP3s)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：Why ATR is the ONLY thing I put on my charts
 
+- 日期：2022-07-21
 
 
 ## 摘要
-
 
 
 **一句話**：交易者必須根據市場波動率動態調整停損與獲利，否則策略將失效。
@@ -28,8 +27,6 @@
 - 若停損與獲利未與市場波動同步，捕捉大幅波動的機會將大幅降低。  
 - 圖表自動拉伸或壓縮會隱藏價格的實際變動幅度，ATR 能彌補視覺誤差。  
 - 交易者若不隨波動調整策略，將難以在當前市場環境中獲利。
-
-
 
 ---
 

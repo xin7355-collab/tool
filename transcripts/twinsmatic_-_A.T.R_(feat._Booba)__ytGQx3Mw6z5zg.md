@@ -1,7 +1,6 @@
 # twinsmatic_-_A.T.R_(feat._Booba)
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=GQx3Mw6z5zg)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：twinsmatic - A.T.R ( Booba)
 
+- 日期：2015-06-23
 
 
 ## 摘要
-
 
 
 **一句話**：歌曲以自信的語氣，歌手在舞池中向對象提供飲料、讚美並展示自己的真實與豪華生活。
@@ -28,8 +27,6 @@
 - 其中包含法語片段，提到「love」與「hate」以及對粉絲的渴望。  
 - 歌手強調自己擁有多種姿勢，並願意為對方付出一切。  
 - 反覆提到「No lie」與「I say you're fine」，表現出自信與肯定。
-
-
 
 ---
 

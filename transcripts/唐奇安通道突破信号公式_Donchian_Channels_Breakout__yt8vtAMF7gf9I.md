@@ -1,7 +1,6 @@
 # 唐奇安通道突破信号公式_Donchian_Channels_Breakout
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=8vtAMF7gf9I)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：唐奇安通道突破信号公式 Donchian Channels Breakout
 
+- 日期：2024-11-29
 
 
 ## 摘要
-
 
 
 **一句話**：此公式結合唐奇安通道、RSI、MACD、布林帶與成交量強度，於日內交易中於上午9點35分前提供突破確認的買賣訊號。
@@ -28,8 +27,6 @@
 - 買入與賣出區域以綠色與紅色棒線漸變背景及圖表上的 BI 與 CELL 文本直觀區分。  
 - 趨勢、RSI、MACD 柱狀圖與成交量強度等關鍵指標顯示於圖表頂部，方便快速分析。  
 - 此公式專為日內交易設計，於上午 9:35 前評估條件，提供即時且可操作的信號。
-
-
 
 ---
 

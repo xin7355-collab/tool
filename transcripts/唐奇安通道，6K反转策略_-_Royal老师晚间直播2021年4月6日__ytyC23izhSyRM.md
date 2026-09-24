@@ -1,7 +1,6 @@
 # 唐奇安通道，6K反转策略_-_Royal老师晚间直播2021年4月6日
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=yC23izhSyRM)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：唐奇安通道，6K反转策略 - Royal老师晚间直播2021年4月6日
 
-
+- 日期：2021-04-07
 
 ---
 

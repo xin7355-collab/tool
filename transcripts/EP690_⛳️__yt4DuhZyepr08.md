@@ -1,7 +1,6 @@
 # EP690_⛳️
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=4DuhZyepr08)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：EP690｜⛳️
 
+- 日期：2026-08-22
 
 
 ## 摘要
-
 
 
 **一句話**：Google 正在擴大晶片需求與硬體租賃，透過 Frontier Model House 與 Flash 進一步擴大利潤，這將影響 Broadcom 需求並為其他 IC 合作夥伴帶來機會。
@@ -26,8 +25,6 @@
 - 目前 Google 共有 5 個案子，其中 2~3 個可能採用 COT（Chip on Tape）方案，這將使得 Broadcom 的訂單量下降，尤其是其 HBM 產品需降價以配合 Google 的需求。  
 - 雖然 Broadcom 可能面臨訂單減少，但其他 IC 合作夥伴因為 Google 的擴張可能獲得更多機會，整體 IC 設計市場仍有利多面向。  
 - Google 若掌握整個價值鏈，能夠直接告知客戶可賺取的利潤，雖然會對供應鏈壓力增加，但晶片製造需求仍強勁，設計廠商仍保有議價權。
-
-
 
 ---
 

@@ -1,7 +1,6 @@
 # MEMO_ATR_-_CERBERO_🦴_-_BABYLOCC,_DEGRACIAO_70,_(Shot._By_‪_C
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=35GcsQrkrlE)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：MEMO ATR - CERBERO 🦴 - BABYLOCC, DEGRACIAO 70, (Shot. By ‪ C
 
+- 日期：2025-05-14
 
 
 ## 摘要
-
 
 
 **一句話**：影片以重複自稱、隨意語句與少量關鍵詞為主，呈現混亂且缺乏明確主題。  
@@ -22,8 +21,6 @@
 - 片中提到「Sky」、「MING PAO」與「Memo」等詞彙，似乎是人物或代號。  
 - 有提及「carro sin placa」與「atentado」，暗示有車輛和攻擊情節。  
 - 內容中出現「tiro a la cabeza」與「Maluma」等詞，暗示暴力或流行文化參
-
-
 
 ---
 

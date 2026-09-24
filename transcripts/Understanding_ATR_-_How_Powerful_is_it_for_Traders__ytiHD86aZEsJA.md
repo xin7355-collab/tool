@@ -1,7 +1,6 @@
 # Understanding_ATR_-_How_Powerful_is_it_for_Traders
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=iHD86aZEsJA)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：Understanding ATR - How Powerful is it for Traders
 
+- 日期：2023-02-26
 
 
 ## 摘要
-
 
 
 **一句話**：影片主要討論ATR指標，但內容雜亂、重複，未提供具體分析或實務建議。  
@@ -23,8 +22,6 @@
 - 內容中出現數字「12.50-49」、「8222011」與「8022011」，但未說明其意義。  
 - 影片頻繁請求觀眾點贊、訂閱、打賞，並提及「明鏡與點點」頻道。  
 - 影片未提供ATR的實際應用方法、設定參數或交易策略。
-
-
 
 ---
 

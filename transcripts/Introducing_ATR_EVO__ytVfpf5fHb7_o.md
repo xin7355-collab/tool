@@ -1,7 +1,6 @@
 # Introducing_ATR_EVO
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=Vfpf5fHb7_o)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：Introducing ATR EVO
 
-
+- 日期：2022-10-11
 
 ---
 

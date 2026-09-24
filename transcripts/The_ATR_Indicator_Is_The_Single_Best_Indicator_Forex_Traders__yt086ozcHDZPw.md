@@ -1,7 +1,6 @@
 # The_ATR_Indicator_Is_The_Single_Best_Indicator_Forex_Traders
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=086ozcHDZPw)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,7 +9,7 @@
 
 - 短標題：The ATR Indicator Is The Single Best Indicator Forex Traders
 
-
+- 日期：2018-08-01
 
 ---
 

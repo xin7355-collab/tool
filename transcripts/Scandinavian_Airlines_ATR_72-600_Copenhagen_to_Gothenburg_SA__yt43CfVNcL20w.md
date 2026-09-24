@@ -1,7 +1,6 @@
 # Scandinavian_Airlines_ATR_72-600_Copenhagen_to_Gothenburg_SA
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=43CfVNcL20w)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：Scandinavian Airlines ATR 72-600 Copenhagen to Gothenburg SA
 
+- 日期：2024-10-04
 
 
 ## 摘要
-
 
 
 **一句話**：在哥本哈根機場轉機後，我搭乘SAS的ATR‑72‑600前往哥德堡，整體體驗簡潔舒適但服務有限。
@@ -29,8 +28,6 @@
 - 飛行時間約35分鐘，天氣多雲帶雨，但可見丹麥鄉村風景。  
 - 抵達哥德堡Landvetter機場後，可乘坐Fliggbussarna巴士至市中心，單程費用129克朗（約12美元）。  
 - 轉機流程順暢，儘管有延誤，整體旅程快速且方便。
-
-
 
 ---
 

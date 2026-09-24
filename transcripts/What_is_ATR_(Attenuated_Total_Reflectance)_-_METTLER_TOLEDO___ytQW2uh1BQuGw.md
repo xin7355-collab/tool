@@ -1,7 +1,6 @@
 # What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO_
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=QW2uh1BQuGw)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：What is ATR (Attenuated Total Reflectance) - METTLER TOLEDO
 
+- 日期：2020-01-24
 
 
 ## 摘要
-
 
 
 **一句話**：ATR（衰減全反射）是FTIR中一種利用晶體與樣品相互作用產生的表面波，能快速、有效地獲取液體與固體的化學資訊。
@@ -27,8 +26,6 @@
 - 表面波的穿透深度決定光程長度，主要受晶體折射率與光波長兩個變數影響。  
 - ATR適用於液體與固體樣品，且取樣過程簡單、耗時短，能快速產生高品質光譜。  
 - 若需進一步了解，可參考 mt.com/ATR。
-
-
 
 ---
 

@@ -1,7 +1,6 @@
 # Best_ATR_Strategy_for_Day_trading_Forex_(ATR_indicator_Tutor
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=Qy_5SVuHmYI)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：Best ATR Strategy for Day trading Forex (ATR indicator Tutor
 
+- 日期：2020-10-18
 
 
 ## 摘要
-
 
 
 **一句話**：ATR 指標可預測市場波動性突破，並以其數值設定止損與倉位，提升日內外匯交易的獲利機會。
@@ -24,8 +23,6 @@
 - 止損可按 ATR 倍數設定，例如 ATR 為 24 點時可設 24 點或 12 點止損，依風險容忍度調整。  
 - 追蹤止損可使用 Chandelier Stop（基於 ATR）或 Super Trend，避免趨勢反轉時過早平倉。  
 - 風險管理上，若 ATR 由 20 點升至 60 點，應將每筆交易資金減至原來的三分之一（如 $100 → $33），以匹配波動性變化。
-
-
 
 ---
 

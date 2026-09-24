@@ -1,7 +1,6 @@
 # EP668_🦞
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=xgOQsb-MIGY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：EP668｜🦞
 
+- 日期：2026-06-06
 
 
 ## 摘要
-
 
 
 **一句話**：影片介紹了 iOS 26 eSIM、Seddy App 優惠、以及 NVIDIA‑Adobe 合作筆電的功能與價格。
@@ -22,8 +21,6 @@
 - Seddy App 允許輸入優惠碼 GOOAYE 享 15% 折扣，建議在六月前下載並設定，以確保出國時網路即時可用。  
 - NVIDIA‑Adobe 合作推出 RTX Spark（N1X/N1）筆電，價格約 5‑10 萬台幣，採用 Unified Memory 可大幅提升 AI 影像渲染與影片剪輯速度。  
 - 展示時已證明 RTX Spark 能在短時間內完成高階圖形與 AI 工作流程。
-
-
 
 ---
 

@@ -1,7 +1,6 @@
 # Master_The_ATR_Indicator_(Most_Useful_Indicator_On_The_PLANE
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=FsrKOqRlXMo)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：Master The ATR Indicator (Most Useful Indicator On The PLANE
 
+- 日期：2020-04-08
 
 
 ## 摘要
-
 
 
 **一句話**：影片說明 ATR 指標如何用於設定止損、突破判斷與風險報酬比，並以 2018 年至今美元/加拿大策略為例，展示其 65% 勝率與 1:1 風險報酬目標。
@@ -24,8 +23,6 @@
 - 依 ATR 調整止損可降低波動市場追擊風險，並可在 2:1 風險報酬框架內交易。  
 - 2018 年至今美元/加拿大策略產生 31 次交易機會，20 次獲利、11 次虧損，勝率 65%。  
 - 在 USD/Canadian Dollar 回測中，ATR 斷點策略在假突破時能產生較高風險報酬比，目標為 1:1 風險報酬比。
-
-
 
 ---
 

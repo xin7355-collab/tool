@@ -1,7 +1,6 @@
 # The_World_s_First_All-Business_Class_ATR_Plane
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=4QBTSV9c9Tg)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：The World s First All-Business Class ATR Plane
 
+- 日期：2026-06-20
 
 
 ## 摘要
-
 
 
 **一句話**：影片介紹馬來西亞 Bad Jaya Air 的全商務艙 ATR‑72 航班體驗，並同時宣傳 Surfshark VPN 的使用。
@@ -28,8 +27,6 @@
 - 影片同時宣傳 Surfshark VPN，說明在公共 Wi‑Fi 下使用 VPN 可保護資料並透過改變 IP 取得更低價格的航班。  
 - 觀眾被鼓勵訂閱影片、使用 Surfshark VPN，並享受 30 天免費試用及優惠價格。  
 - 影片結尾呼籲觀眾訂閱、留言，並表示對 ATR‑72 航班的滿意與期待。
-
-
 
 ---
 

@@ -1,7 +1,6 @@
 # ATR_-_Average_True_Range_indicator_EXPLAINED_in_less_than_2_
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=zMT1Fs2u9nY)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,22 +13,21 @@
 
 - 短標題：ATR - Average True Range indicator EXPLAINED in less than 2
 
+- 計算方式簡單：先確定「範圍」＝最高價－最低價，再對預設的前幾個時間段進行平均。
+
+- 日期：2020-08-07
 
 
 ## 摘要
 
 
-
 **一句話**：ATR（Average True Range）是一種衡量波動性的技術指標，可用於設定止損與目標價位。
 
 - ATR 以每個時間段內最高價與最低價之差（以點計）為基礎，並將這些範圍平均化。
-- 計算方式簡單：先確定「範圍」＝最高價－最低價，再對預設的前幾個時間段進行平均。
 - ATR 主要用於衡量價格波動性，常以點數或價格變動量表示。
 - 交易者可根據 ATR 設定止損，例如以 1.5 倍 ATR 作為止損距離，對應 15 點止損。
 - 以 1.2565 為利潤目標、1.2520 為止損為例，止損距離即為 1.5 倍 ATR。
 - ATR 在大多數經紀商平台均可查詢，建議交易者先行確認其可用性。
-
-
 
 ---
 

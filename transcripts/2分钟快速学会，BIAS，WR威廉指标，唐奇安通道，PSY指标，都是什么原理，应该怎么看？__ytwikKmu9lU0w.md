@@ -1,7 +1,6 @@
 # 2分钟快速学会，BIAS，WR威廉指标，唐奇安通道，PSY指标，都是什么原理，应该怎么看？
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=wikKmu9lU0w)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：2分钟快速学会，BIAS，WR威廉指标，唐奇安通道，PSY指标，都是什么原理，应该怎么看
 
-
+- 日期：2024-07-03
 
 ---
 

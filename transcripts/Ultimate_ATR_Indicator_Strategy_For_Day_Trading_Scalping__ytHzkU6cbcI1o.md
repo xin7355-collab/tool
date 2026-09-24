@@ -1,7 +1,6 @@
 # Ultimate_ATR_Indicator_Strategy_For_Day_Trading_Scalping
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=HzkU6cbcI1o)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：Ultimate ATR Indicator Strategy For Day Trading Scalping
 
-
+- 日期：2024-05-19
 
 ---
 
