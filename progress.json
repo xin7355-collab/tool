@@ -1,14 +1,14 @@
 {
  "run": "36069084710",
  "state": "running",
- "updated": "2026-09-24T22:45:06Z",
+ "updated": "2026-09-24T22:45:07Z",
  "files": [
   {
    "name": "20260925-064407_炒股十年_我浪费了七八年，一篇通告让我开悟_领悟股市的真谛__ytODzyaMRExpA.webm",
    "title": "炒股十年_我浪费了七八年，一篇通告让我开悟_领悟股市的真谛",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   }
  ]
 }
