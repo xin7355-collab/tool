@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T05:58:20Z",
+ "updated": "2026-09-24T05:58:32Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -63,8 +63,8 @@
    "name": "20260923-160702_Master_The_ATR_Indicator_(Most_Useful_Indicator_On_The_PLANE__ytFsrKOqRlXMo.webm",
    "title": "Master_The_ATR_Indicator_(Most_Useful_Indicator_On_The_PLANE",
    "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "step": "轉錄中…",
+   "pct": 90
   },
   {
    "name": "20260923-160732_Scandinavian_Airlines_ATR_72-600_Copenhagen_to_Gothenburg_SA__yt43CfVNcL20w.webm",
