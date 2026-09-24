@@ -1,7 +1,7 @@
 {
  "run": "35997254593",
  "state": "running",
- "updated": "2026-09-24T12:33:43Z",
+ "updated": "2026-09-24T12:33:44Z",
  "files": [
   {
    "name": "20260923-160959_Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad__ytLA-ppgrPdC8.webm",
@@ -34,9 +34,9 @@
   {
    "name": "20260923-163918_ATR_electric_systems_-_an_introduction__ytdmFWFtgHDfo.m4a",
    "title": "ATR_electric_systems_-_an_introduction",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（3747 字）",
+   "pct": 100
   }
  ]
 }
