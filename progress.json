@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T09:21:13Z",
+ "updated": "2026-09-24T09:21:14Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -104,9 +104,9 @@
   {
    "name": "20260923-160932_The_ATR_Indicator_Is_The_Single_Best_Indicator_Forex_Traders__yt086ozcHDZPw.webm",
    "title": "The_ATR_Indicator_Is_The_Single_Best_Indicator_Forex_Traders",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（5599 字）",
+   "pct": 100
   },
   {
    "name": "20260923-160959_Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad__ytLA-ppgrPdC8.webm",
