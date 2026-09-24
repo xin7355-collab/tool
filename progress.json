@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T05:26:11Z",
+ "updated": "2026-09-24T05:26:12Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -41,9 +41,9 @@
   {
    "name": "20260923-160603_Why_Pilots_HATE_The_ATR__yt94KrRdT3OqQ.webm",
    "title": "Why_Pilots_HATE_The_ATR",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（4843 字）",
+   "pct": 100
   },
   {
    "name": "20260923-160616_Best_ATR_Strategy_for_Day_trading_Forex_(ATR_indicator_Tutor__ytQy_5SVuHmYI.webm",
