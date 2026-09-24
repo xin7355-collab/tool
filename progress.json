@@ -1,7 +1,7 @@
 {
  "run": "35959381470",
  "state": "running",
- "updated": "2026-09-24T07:08:58Z",
+ "updated": "2026-09-24T07:28:27Z",
  "files": [
   {
    "name": "20260923-160501_What_is_ATR_(Attenuated_Total_Reflectance)_-_METTLER_TOLEDO___ytQW2uh1BQuGw.m4a",
@@ -70,8 +70,8 @@
    "name": "20260923-160732_Scandinavian_Airlines_ATR_72-600_Copenhagen_to_Gothenburg_SA__yt43CfVNcL20w.webm",
    "title": "Scandinavian_Airlines_ATR_72-600_Copenhagen_to_Gothenburg_SA",
    "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "step": "分類中…",
+   "pct": 96
   },
   {
    "name": "20260923-160805_ATR_Final_Assembly_Line_-_Guided_Tour__ytzJSjx-yiNVs.webm",
