@@ -488,11 +488,54 @@
     "tw": false
   },
   {
+    "file": "transcripts/ATR_42_72_-_the_European_turboprop__ytRB_aXnhmVf0.md",
+    "title": "ATR_42_72_-_the_European_turboprop",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=RB_aXnhmVf0)",
+    "cat": "其他",
+    "tags": [
+      "ATR-42",
+      "涡輪螺旋桨",
+      "法意合資"
+    ],
+    "clean": "ATR 42 72 - the European turboprop",
+    "added": "2026-09-24",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
     "file": "transcripts/ATR_Final_Assembly_Line_-_Guided_Tour__ytzJSjx-yiNVs.md",
     "title": "ATR_Final_Assembly_Line_-_Guided_Tour",
     "src": "[YouTube 影片](https://www.youtube.com/watch?v=zJSjx-yiNVs)",
     "clean": "ATR Final Assembly Line - Guided Tour",
     "date": "2021-10-22",
+    "added": "2026-09-24",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/ATR_Indicator_Trading_Strategy_(_Special_Settings)_TradingVi__yt7S-Bse4fwk8.md",
+    "title": "ATR_Indicator_Trading_Strategy_(_Special_Settings)_TradingVi",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=7S-Bse4fwk8)",
+    "cat": "波段操作",
+    "tags": [
+      "ATR指標",
+      "突破交易",
+      "止盈止損",
+      "波動率"
+    ],
+    "clean": "ATR Indicator Trading Strategy ( Special Settings) TradingVi",
+    "added": "2026-09-24",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/ATR_electric_systems_-_an_introduction__ytdmFWFtgHDfo.md",
+    "title": "ATR_electric_systems_-_an_introduction",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=dmFWFtgHDfo)",
+    "clean": "ATR electric systems - an introduction",
     "added": "2026-09-24",
     "srt": true,
     "nan": false,
@@ -996,6 +1039,16 @@
     "tw": false
   },
   {
+    "file": "transcripts/Learn_How_To_Trade_The_ATR_Strategy_In_Under_10_Minutes__yt2lvbxyOj_XI.md",
+    "title": "Learn_How_To_Trade_The_ATR_Strategy_In_Under_10_Minutes",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=2lvbxyOj_XI)",
+    "clean": "Learn How To Trade The ATR Strategy In Under 10 Minutes",
+    "added": "2026-09-24",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
     "file": "transcripts/MEMO_ATR_-_CERBERO_🦴_-_BABYLOCC,_DEGRACIAO_70,_(Shot._By_‪_C__yt35GcsQrkrlE.md",
     "title": "MEMO_ATR_-_CERBERO_🦴_-_BABYLOCC,_DEGRACIAO_70,_(Shot._By_‪_C",
     "src": "[YouTube 影片](https://www.youtube.com/watch?v=35GcsQrkrlE)",
@@ -1073,6 +1126,22 @@
     ],
     "clean": "The World s First All-Business Class ATR Plane",
     "date": "2026-06-20",
+    "added": "2026-09-24",
+    "srt": true,
+    "nan": false,
+    "tw": false
+  },
+  {
+    "file": "transcripts/Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad__ytLA-ppgrPdC8.md",
+    "title": "Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad",
+    "src": "[YouTube 影片](https://www.youtube.com/watch?v=LA-ppgrPdC8)",
+    "cat": "新手教學",
+    "tags": [
+      "ATR指標",
+      "交易策略",
+      "波段操作"
+    ],
+    "clean": "Top 3 Strategies to Profit From the ATR Indicator (Prop Trad",
     "added": "2026-09-24",
     "srt": true,
     "nan": false,

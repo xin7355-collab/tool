@@ -1,0 +1,783 @@
+1
+00:00:00,000 --> 00:00:05,000
+The Average True Range, or ATR, is a powerful indicator for measuring price action momentum.
+
+2
+00:00:05,000 --> 00:00:12,000
+It is officially classified as an oscillator, meaning it is intended to quantify the degree of pricing volatility, not determine market direction.
+
+3
+00:00:12,000 --> 00:00:16,000
+Remember that, volatility, not direction.
+
+4
+00:00:16,000 --> 00:00:20,000
+Now the ATR is a creation of classic market technician, Wells Wilder Jr.
+
+5
+00:00:20,000 --> 00:00:23,000
+Originally, it was designed for the trade of commodities.
+
+6
+00:00:23,000 --> 00:00:29,000
+In this video, we'll show you how to apply the ATR to anything, Forex, futures, cryptocurrencies, you name it.
+
+7
+00:00:29,000 --> 00:00:31,000
+OK, reality check.
+
+8
+00:00:31,000 --> 00:00:35,000
+Calculating the ATR in real time is difficult, but there is no need to worry.
+
+9
+00:00:35,000 --> 00:00:37,000
+The functionality of the ATR is fully automated.
+
+10
+00:00:37,000 --> 00:00:40,000
+It is plotted in a separate window beneath price action.
+
+11
+00:00:40,000 --> 00:00:44,000
+Nunneless, to trade the ATR, it helps to be aware of its key components.
+
+12
+00:00:44,000 --> 00:00:47,000
+Alright, it's time for a crash course in ATR derivation.
+
+13
+00:00:47,000 --> 00:00:50,000
+The first key concept of ATR is true range.
+
+14
+00:00:50,000 --> 00:00:53,000
+The true range is the distance between a period's extremes.
+
+15
+00:00:53,000 --> 00:00:55,000
+It is the largest of these three values.
+
+16
+00:00:55,000 --> 00:00:58,000
+The current period's high minus the previous period's close.
+
+17
+00:00:58,000 --> 00:01:01,660
+Low minus previous periods close
+
+18
+00:01:01,660 --> 00:01:04,600
+Current periods high minus current periods low
+
+19
+00:01:04,600 --> 00:01:07,400
+Let's take a look at an example of Nike stock
+
+20
+00:01:07,400 --> 00:01:11,260
+What is the true range calculation for Nike given this scenario?
+
+21
+00:01:11,260 --> 00:01:14,860
+Yesterday Nike shares closed at $98.75
+
+22
+00:01:14,860 --> 00:01:17,680
+Today's Nike high is $104.75
+
+23
+00:01:17,680 --> 00:01:20,560
+Today's Nike low is $94.75
+
+24
+00:01:20,560 --> 00:01:22,560
+What is the true range?
+
+25
+00:01:22,560 --> 00:01:24,560
+The true range for Nike is $10
+
+26
+00:01:24,560 --> 00:01:27,840
+the distance between today's high and low
+
+27
+00:01:27,840 --> 00:01:31,020
+As in name, the ATR is an average of true ranges.
+
+28
+00:01:31,020 --> 00:01:35,420
+So to find the ATR, we take an average of previous ATR values.
+
+29
+00:01:35,420 --> 00:01:39,920
+Here is a look at 14 day sample average of Nike true ranges.
+
+30
+00:01:39,920 --> 00:01:44,720
+Now we make the average current by plugging it into the equation you see here.
+
+31
+00:01:44,720 --> 00:01:48,080
+This is our current ATR and what we see on our charts.
+
+32
+00:01:48,080 --> 00:01:52,160
+Obviously this equation is way too cumbersome to calculate in the live market.
+
+33
+00:01:52,160 --> 00:02:07,699
+That's why the ATR is automatically calculated and plotted on your pricing charts.有三个基本的ATR方rading strategiesRversal,Range, and Breakout第一,ReversalsA highATR value is viewed as being a signal for a change in market direction
+
+34
+00:02:07,699 --> 00:02:13,399
+So reversal traders look for highATRs and plan their entries against the trend
+
+35
+00:02:13,399 --> 00:02:15,199
+第二,Ranges
+
+36
+00:02:15,199 --> 00:02:19,899
+A lowATR value is viewed as being a signal of market consolidation
+
+37
+00:02:19,899 --> 00:02:24,259
+在这个情况下, 价格的乘客 乘客向下来的乘客
+
+38
+00:02:24,259 --> 00:02:26,299
+和乘客向下来的乘客
+
+39
+00:02:26,299 --> 00:02:27,579
+第三是 浪费
+
+40
+00:02:27,579 --> 00:02:32,139
+乘客人们在乘客向下来的低ATR 向下来的 导致
+
+41
+00:02:32,139 --> 00:02:34,859
+和前来的领导移动物依换下来的流客
+
+42
+00:02:34,859 --> 00:02:39,139
+好了 让我们看看一些例子的在这些例子
+
+43
+00:02:39,139 --> 00:02:43,059
+我们看看一些例子的例子 例子的例子
+
+44
+00:02:43,059 --> 00:02:44,539
+我们看了三个例子 例子的例子
+
+45
+00:02:44,539 --> 00:02:47,099
+在乘客,乘客,乘客,乘客,乘客
+
+46
+00:02:47,099 --> 00:02:48,539
+这就是 这些例子的例子
+
+47
+00:02:48,539 --> 00:02:50,539
+我們會有一個正確的指定
+
+48
+00:02:50,539 --> 00:02:52,939
+第一次你會想要去指定
+
+49
+00:02:52,939 --> 00:02:53,579
+就在指定上
+
+50
+00:02:53,579 --> 00:02:54,539
+就在標準上
+
+51
+00:02:54,539 --> 00:02:55,739
+就在標準上
+
+52
+00:02:55,739 --> 00:02:56,739
+就在標準上
+
+53
+00:02:56,739 --> 00:02:57,739
+就看到它
+
+54
+00:02:57,739 --> 00:02:58,779
+就看到它是在標準
+
+55
+00:02:58,779 --> 00:02:59,739
+在標準上
+
+56
+00:02:59,739 --> 00:03:00,899
+在這裏的一種不同的
+
+57
+00:03:00,899 --> 00:03:03,379
+這條線是我們的ATR
+
+58
+00:03:03,379 --> 00:03:05,379
+我們先過了一秒的
+
+59
+00:03:05,379 --> 00:03:06,379
+我們先來講
+
+60
+00:03:06,379 --> 00:03:07,979
+好,第一次是
+
+61
+00:03:07,979 --> 00:03:09,179
+是一種的
+
+62
+00:03:09,179 --> 00:03:10,179
+現在,一種的
+
+63
+00:03:10,179 --> 00:03:11,099
+現在,一種的
+
+64
+00:03:11,099 --> 00:03:12,339
+高ATR
+
+65
+00:03:12,339 --> 00:03:13,339
+這就是
+
+66
+00:03:13,339 --> 00:03:14,099
+他們要看到
+
+67
+00:03:14,099 --> 00:03:15,179
+高ATR
+
+68
+00:03:15,179 --> 00:03:15,739
+是一種
+
+69
+00:03:15,739 --> 00:03:16,939
+那一種
+
+70
+00:03:16,939 --> 00:03:17,979
+是一種
+
+71
+00:03:17,979 --> 00:03:22,579
+而是一段時間,我們有30分鐘的比特幣
+
+72
+00:03:22,579 --> 00:03:25,779
+我們有一個比較高的ATR
+
+73
+00:03:25,779 --> 00:03:29,479
+但你會看到這個大動作
+
+74
+00:03:29,479 --> 00:03:32,479
+這大動作帶我們有一個大動作
+
+75
+00:03:32,479 --> 00:03:35,479
+現在,我們看到了一個大動作
+
+76
+00:03:35,479 --> 00:03:37,979
+我們看到了一個大動作
+
+77
+00:03:37,979 --> 00:03:39,479
+我們看到了一個大動作
+
+78
+00:03:39,479 --> 00:03:42,479
+我們看到了一個大動作
+
+79
+00:03:42,479 --> 00:03:44,479
+我們看到了一個高度的高度
+
+80
+00:03:44,479 --> 00:03:46,479
+我們看到了一個高度的高度
+
+81
+00:03:46,479 --> 00:03:47,679
+那一刻在ATR
+
+82
+00:03:47,679 --> 00:03:49,199
+那會有信用來買的
+
+83
+00:03:49,199 --> 00:03:49,679
+買的價格
+
+84
+00:03:49,679 --> 00:03:50,559
+然後加上了
+
+85
+00:03:50,559 --> 00:03:51,599
+投資價值
+
+86
+00:03:51,599 --> 00:04:01,797
+所以那是第一那是怎麼是怎麼的第二是怎麼是怎麼這就是方法的一方法。第二,是方法的一方法。現在,這就是比較有一點的,因為你必須要在招待的位置。
+
+87
+00:04:01,797 --> 00:04:03,797
+還要是比較正式的。
+
+88
+00:04:03,797 --> 00:04:05,797
+所以,第一,我們要做的是,
+
+89
+00:04:05,797 --> 00:04:08,797
+我們要做一個低ATR或是低ATR。
+
+90
+00:04:08,797 --> 00:04:10,797
+現在,你能看到這裡,
+
+91
+00:04:10,797 --> 00:04:12,797
+30-minute US dollar Swiss franc chart,
+
+92
+00:04:12,797 --> 00:04:15,797
+你會看到,我們有些很好的 ranges,
+
+93
+00:04:15,797 --> 00:04:17,797
+然後我們看到了一個很高的動作,
+
+94
+00:04:17,797 --> 00:04:19,797
+然後我們看到了一個低ATR,
+
+95
+00:04:19,797 --> 00:04:21,797
+然後我們看到了一個低ATR,
+
+96
+00:04:21,797 --> 00:04:23,477
+大家會看到,我們的價值
+
+97
+00:04:23,477 --> 00:04:25,197
+我們的價值很高
+
+98
+00:04:25,197 --> 00:04:27,297
+我們要提到,我們要提到
+
+99
+00:04:27,297 --> 00:04:29,437
+現在,我們要提到
+
+100
+00:04:29,437 --> 00:04:31,697
+是大家說,有一個
+
+101
+00:04:31,697 --> 00:04:33,777
+而是一個提升,然後
+
+102
+00:04:33,777 --> 00:04:35,217
+但要看,要看
+
+103
+00:04:35,217 --> 00:04:36,337
+你的價值
+
+104
+00:04:36,337 --> 00:04:38,177
+8844-8830
+
+105
+00:04:38,177 --> 00:04:39,857
+那是非常暫時
+
+106
+00:04:39,857 --> 00:04:41,157
+那是14-瓶比
+
+107
+00:04:41,157 --> 00:04:42,177
+這30-瓶比
+
+108
+00:04:42,177 --> 00:04:43,617
+那是非常暫時
+
+109
+00:04:43,617 --> 00:04:44,817
+所以,我們要把
+
+110
+00:04:44,817 --> 00:04:47,897
+我們要在非常暫時
+
+111
+00:04:47,897 --> 00:04:49,317
+現在,我們會為
+
+112
+00:04:49,317 --> 00:04:50,217
+我們要投資
+
+113
+00:04:50,217 --> 00:04:53,017
+either to sell the top of the range or buy the bottom of the range.
+
+114
+00:04:53,337 --> 00:04:56,197
+In this situation, we'd be buying the bottom of the range,
+
+115
+00:04:56,397 --> 00:04:57,877
+and we would have bought it right here.
+
+116
+00:04:58,297 --> 00:04:59,557
+Now, essentially, you're saying,
+
+117
+00:04:59,637 --> 00:05:01,217
+oh, but look at that big directional move.
+
+118
+00:05:01,377 --> 00:05:02,277
+Well, look how far it went.
+
+119
+00:05:02,517 --> 00:05:05,957
+You're buying 88.30s, and your low right there is 88.25.
+
+120
+00:05:06,677 --> 00:05:07,617
+It's an 8-pip draw.
+
+121
+00:05:07,717 --> 00:05:11,557
+It's very small, and you'll notice price is rotated right back up into that range.
+
+122
+00:05:11,957 --> 00:05:13,177
+ATR is also descending.
+
+123
+00:05:13,357 --> 00:05:15,937
+So that would have been an opportunity to range trade this,
+
+124
+00:05:16,217 --> 00:05:17,877
+either sell the top or buy the bottom.
+
+125
+00:05:17,877 --> 00:05:19,917
+when you've got that descending ATR
+
+126
+00:05:19,917 --> 00:05:22,637
+and what that can do is get you into a decent trade
+
+127
+00:05:22,637 --> 00:05:24,337
+potentially as a scalp trade
+
+128
+00:05:24,337 --> 00:05:27,097
+or maybe even a position, riskier as a position
+
+129
+00:05:27,097 --> 00:05:29,137
+but definitely a reversion to the mean strategy
+
+130
+00:05:29,137 --> 00:05:30,337
+is appropriate there.
+
+131
+00:05:30,837 --> 00:05:33,197
+By the bottom, midpoint would be a profit target,
+
+132
+00:05:33,297 --> 00:05:34,897
+something like that, very tight,
+
+133
+00:05:35,557 --> 00:05:36,737
+interesting way to trade the market.
+
+134
+00:05:36,857 --> 00:05:39,437
+The last one is going to be using the ATR
+
+135
+00:05:39,437 --> 00:05:41,337
+for a breakout type of a mentality.
+
+136
+00:05:41,497 --> 00:05:43,437
+Now when we talk about trading breakouts,
+
+137
+00:05:43,877 --> 00:05:46,637
+basically we're talking about getting into a compressed market
+
+138
+00:05:46,637 --> 00:05:48,237
+在看起来,就会在看起来
+
+139
+00:05:48,237 --> 00:06:00,636
+然后再看起来,就会在看起来在看起来的动作我们有个人的做法我们在看起来,我们是在看起来我们有个低ATR我們要有高ATR的高ATR然後我們要有一個比較的標準
+
+140
+00:06:00,636 --> 00:06:02,636
+基本上去做出 participation
+
+141
+00:06:02,636 --> 00:06:04,236
+然後去做出的東西
+
+142
+00:06:04,236 --> 00:06:06,436
+然後來做出的價值
+
+143
+00:06:06,436 --> 00:06:08,356
+來看來這裡的美食
+
+144
+00:06:08,356 --> 00:06:10,156
+30-minute chart
+
+145
+00:06:10,156 --> 00:06:11,516
+然後在那些美食的
+
+146
+00:06:11,516 --> 00:06:13,856
+你會有很低ATR
+
+147
+00:06:13,856 --> 00:06:15,856
+你可以看到我們在這裡
+
+148
+00:06:15,856 --> 00:06:17,996
+在這裡的地方
+
+149
+00:06:17,996 --> 00:06:20,156
+然後我們進入那些美食
+
+150
+00:06:20,156 --> 00:06:23,456
+As we go into that 9am Eastern to 9.30am Eastern,
+
+151
+00:06:23,816 --> 00:06:26,516
+you have an opportunity for participation to enter the market
+
+152
+00:06:26,516 --> 00:06:30,056
+and potentially play a breakout above the top of our defined range.
+
+153
+00:06:30,316 --> 00:06:33,296
+So we have a low ATR, we have a defined trading range.
+
+154
+00:06:33,356 --> 00:06:37,116
+In this case, we're looking at about 80, 80-something pips, 80-plus pips.
+
+155
+00:06:37,256 --> 00:06:40,176
+You're looking to grab maybe the bid above the top of that range
+
+156
+00:06:40,176 --> 00:06:41,736
+and get in on a directional move.
+
+157
+00:06:41,856 --> 00:06:43,796
+Now, immediately on this U.S. Open,
+
+158
+00:06:43,796 --> 00:06:46,596
+this one paid you off about 50 pips on this break.
+
+159
+00:06:46,836 --> 00:06:48,236
+But if you wanted to take a position,
+
+160
+00:06:48,236 --> 00:06:50,456
+your stop loss would be beneath the range
+
+161
+00:06:50,456 --> 00:06:51,956
+and you're still looking maybe
+
+162
+00:06:51,956 --> 00:06:53,616
+to get in on that big move.
+
+163
+00:06:53,896 --> 00:06:55,296
+Personally, as a breakout,
+
+164
+00:06:55,516 --> 00:06:57,296
+I like immediate positive price action.
+
+165
+00:06:57,556 --> 00:06:58,596
+In this case, that would be
+
+166
+00:06:58,596 --> 00:07:01,036
+when your ATR picks up after a lull
+
+167
+00:07:01,036 --> 00:07:03,076
+and you've got a key market driver right there.
+
+168
+00:07:03,416 --> 00:07:04,636
+So those are three different ways
+
+169
+00:07:04,636 --> 00:07:05,816
+you can trade the ATR.
+
+170
+00:07:06,076 --> 00:07:07,056
+You could trade a reversal,
+
+171
+00:07:07,256 --> 00:07:08,296
+as we saw with Bitcoin.
+
+172
+00:07:08,556 --> 00:07:09,476
+You could trade rotation,
+
+173
+00:07:09,696 --> 00:07:11,456
+as we saw with the US dollar CHF
+
+174
+00:07:11,456 --> 00:07:14,196
+and also that US oil breakout type of a trade.
+
+175
+00:07:14,516 --> 00:07:16,176
+Really a versatile indicator
+
+176
+00:07:16,176 --> 00:07:17,336
+and one that can put you
+
+177
+00:07:17,336 --> 00:07:19,136
+很多多数优优机
+
+178
+00:07:19,136 --> 00:07:20,796
+跟着凭凭凭凭凭
+
+179
+00:07:20,796 --> 00:07:22,436
+它可以变成一个选择的方法
+
+180
+00:07:22,436 --> 00:07:25,256
+最重要的事情是这个
+
+181
+00:07:25,256 --> 00:07:27,136
+它们的课程是指定的
+
+182
+00:07:27,136 --> 00:07:28,336
+不是指定的
+
+183
+00:07:28,336 --> 00:07:29,876
+如果是高的
+
+184
+00:07:29,876 --> 00:07:32,176
+如果是高的
+
+185
+00:07:32,176 --> 00:07:32,296
+如果是高的
+
+186
+00:07:32,296 --> 00:07:33,736
+它是在货币的
+
+187
+00:07:33,736 --> 00:07:35,016
+它是简单的
+
+188
+00:07:35,016 --> 00:07:36,896
+威ler的几乎是个常覆的
+
+189
+00:07:36,896 --> 00:07:38,756
+是一个通知的通知
+
+190
+00:07:38,756 --> 00:07:40,376
+它可以用来课程中的
+
+191
+00:07:40,376 --> 00:07:41,696
+课程中的课程
+
+192
+00:07:41,696 --> 00:07:43,336
+我们也会用它
+
+193
+00:07:43,336 --> 00:07:44,716
+其他课程中的课程
+
+194
+00:07:44,716 --> 00:07:46,016
+如果是新的方式
+
+195
+00:07:46,016 --> 00:07:50,896
+the ATR is worth a look. Thanks for stopping by. Be sure to subscribe and follow us on the socials.
+
+196
+00:07:50,976 --> 00:07:53,256
+Until next time, trade well and we'll see you in the markets.
