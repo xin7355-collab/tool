@@ -1,7 +1,6 @@
 # ATR_electric_systems_-_an_introduction
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=dmFWFtgHDfo)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -10,10 +9,10 @@
 
 - 短標題：ATR electric systems - an introduction
 
+- 日期：2020-08-08
 
 
 ## 摘要
-
 
 
 **一句話**：ATR飛機的電力系統由主電池、DC發電機、逆變器、AC/DC總線與備用系統組成，確保飛行安全與冗餘。
@@ -24,8 +23,6 @@
 - 兩台逆變器將DC轉為AC，供應AC Bus 1、AC Bus 2，並提供備用AC總線以支援儀表進近與關鍵系統。  
 - AC Bus供應115 V或200 V電壓，頻率為400 Hz，並支援滑行燈、液壓泵、除冰等系統。  
 - ATR 500/600型號配備Transformer Rectifier Unit（TRU），可在失去兩個電源時提供DC Bus與備用總線，並符合120分鐘ETOPS要求。
-
-
 
 ---
 

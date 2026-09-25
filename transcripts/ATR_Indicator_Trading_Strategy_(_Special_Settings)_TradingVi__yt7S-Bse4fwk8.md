@@ -1,7 +1,6 @@
 # ATR_Indicator_Trading_Strategy_(_Special_Settings)_TradingVi
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=7S-Bse4fwk8)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：ATR Indicator Trading Strategy ( Special Settings) TradingVi
 
+- 日期：2025-05-28
 
 
 ## 摘要
-
 
 
 **一句話**：ATR 指標可透過調整長度與平滑方式，配合不同交易風格與市場結構，實現突破確認、止損設定與風險報酬比的有效交易策略。
@@ -30,8 +29,6 @@
 - 波段或長期投資者可將長度提升至 20 或 50，以得到更平滑、捕捉大趨勢的 ATR。  
 - 影片將在後續說明如何調整 ATR 的特殊設定以提升效能，並建議結合市場結構與價格行為進行交易。  
 - ATR 是一個強大指標，透過調整長度與平滑方式，可根據不同交易風格提升效果。
-
-
 
 ---
 

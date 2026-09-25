@@ -1,7 +1,6 @@
 # Top_3_Strategies_to_Profit_From_the_ATR_Indicator_(Prop_Trad
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=LA-ppgrPdC8)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：Top 3 Strategies to Profit From the ATR Indicator (Prop Trad
 
+- 日期：2023-09-06
 
 
 ## 摘要
-
 
 
 **一句話**：ATR指標可用於衡量波動性、設定停損、比較股票，並在不同市場條件下動態調整風險。
@@ -30,8 +29,6 @@
 - 在CMG高價位（約1000）時ATR可提供合適止損距離；對低價股票則可能僅提供幾分錢距離。  
 - VFS昨日出現五天連續成交量增加的超度擴張，ATR可用於測試此類情況。  
 - 參與者可免費報名一小時線上簡報，並有三項簡單標準可獲得面試機會。
-
-
 
 ---
 
