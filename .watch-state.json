@@ -468,8 +468,9 @@
    ]
   },
   "UC23rnlQU_qE3cec9x709peA": {
-   "checked": "2026-09-26T00:04:17+00:00",
+   "checked": "2026-09-26T09:12:44+00:00",
    "seen": [
+    "PzNKL7OTHqw",
     "bAT7nrf5yhk",
     "0bYgYas0lc4",
     "SbKGDWhpGhY",
@@ -484,7 +485,6 @@
     "PD_IMPvMBc0",
     "hasrdP2S7LA",
     "5huhKcB-63s",
-    "k4gv90xxRbE",
     "bAT7nrf5yhk",
     "0bYgYas0lc4",
     "SbKGDWhpGhY",
@@ -551,11 +551,23 @@
     "Z3zbWLhUS-w",
     "OcTI4yvvn2I"
    ],
-   "last": []
+   "last": [
+    {
+     "v": "PzNKL7OTHqw",
+     "t": "EP700 | 🪭"
+    }
+   ]
   }
  },
- "pending": [],
- "checked": "2026-09-26T00:04:17+00:00",
+ "pending": [
+  {
+   "v": "PzNKL7OTHqw",
+   "t": "EP700 | 🪭",
+   "c": "Gooaye 股癌",
+   "d": "2026-09-26"
+  }
+ ],
+ "checked": "2026-09-26T09:12:44+00:00",
  "digest": {
   "reported": [
    "(重新上架請先看置頂留言)1萬變91萬_海龜交易法做回調比做突破更厲害__ytvcC8JQDB0j4.md",
