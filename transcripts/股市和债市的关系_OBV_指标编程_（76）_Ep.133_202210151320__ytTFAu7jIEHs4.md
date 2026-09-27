@@ -1,7 +1,6 @@
 # 股市和债市的关系_OBV_指标编程_（76）_Ep.133_202210151320
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=TFAu7jIEHs4)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：和债市的关系 OBV 指标编程 （76） Ep.133 202210151320
 
-
+- 日期：2022-10-16
 
 ---
 
