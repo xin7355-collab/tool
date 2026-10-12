@@ -66,5 +66,8 @@ jobs:
           for k in 1 2 3; do
             git push origin HEAD:gh-pages && exit 0
             git fetch origin gh-pages && git merge -X ours origin/gh-pages -m merge || true
+            # -X ours 會把 index.json 留成「自己這份」，漏掉另一邊剛發佈的篇目。
+            # 合併後照實際檔案重建一次，兩邊的都在。
+            python ../scripts/build_index.py transcripts >/dev/null && git add -A && { git diff --cached --quiet || git commit -q -m "Rebuild index after merge"; } || true
           done
           exit 1

@@ -21,8 +21,9 @@ permissions:
   contents: write
   issues: write
 
+# 自己一個群組，理由見 audio.yml 的 concurrency 註解。
 concurrency:
-  group: pipeline
+  group: docs
   cancel-in-progress: false
 
 jobs:
@@ -96,6 +97,9 @@ jobs:
             git push origin HEAD:gh-pages && exit 0
             echo "push race, retry $k"; sleep 3
             git fetch origin gh-pages && git merge -X ours origin/gh-pages -m "merge gh-pages" || true
+            # -X ours 會把 index.json 留成「自己這份」，漏掉另一邊剛發佈的篇目。
+            # 合併後照實際檔案重建一次，兩邊的都在。
+            python ../scripts/build_index.py transcripts >/dev/null && git add -A && { git diff --cached --quiet || git commit -q -m "Rebuild index after merge"; } || true
           done
           exit 1
       - name: 完成通知（開 Issue → GitHub App 推播）

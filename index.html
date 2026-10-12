@@ -489,6 +489,7 @@
   <div class="card">
     <div class="step"><span>逐字稿</span></div>
     <div class="prog" id="prog" hidden></div>
+    <p class="hint" id="queueNote" hidden style="margin:8px 0 0"></p>
     <input class="in" id="q" placeholder="搜尋內容關鍵字…">
     <div class="row" style="margin-top:10px">
       <button class="btn btn--sm" id="qBtn" style="margin-top:0">搜尋</button>
@@ -601,7 +602,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.9.0';
+var APP_VER='1.9.1';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -2843,9 +2844,45 @@ function pollProg(){
     })
     .catch(function(){ pgHide(); return false; });
 }
+/* 還沒開始處理的檔案。進度面板要等工作流「開始跑」才有東西，在那之前上傳的檔案
+   在伺服器上排隊，畫面上卻什麼都沒有——實測一次傳了 9 支，排隊被別的工作流
+   取消掉，使用者只看到「上傳成功」然後就消失了，完全不知道卡在哪。
+   inbox/ 裡的標記就是「還沒處理完」的清單，直接數它。 */
+var qLast=0, qPrev=-1;
+function pollQueue(){
+  var tok=getTok(), el=$('#queueNote');
+  if(!tok||!el||Date.now()-qLast<25000) return;   // 進度每 5 秒輪一次，這個約 30 秒看一次就夠（門檻比 30 秒小一點，不然跟 30 秒的輪詢踩在同一條線上會被跳過）
+  qLast=Date.now();
+  fetch(API+'/contents/inbox?ref=main&_='+Date.now(),
+        {cache:'no-store',headers:{'Authorization':'Bearer '+tok,
+                                   'Accept':'application/vnd.github+json'}})
+    .then(function(r){ if(r.status===404) return []; if(!r.ok) throw 0; return r.json(); })
+    .then(function(a){
+      var m=(a||[]).filter(function(x){ return /\.json$/.test(x.name||''); });
+      // 數量變少＝有檔案處理完了，順手刷新清單，不用使用者自己按「重新整理」
+      if(qPrev>m.length) load(true);
+      qPrev=m.length;
+      if(!m.length){ el.hidden=true; return; }
+      // 標記檔名開頭是上傳當下的時間（20261012-080249），拿來算最早那個等多久了
+      var oldest=null;
+      m.forEach(function(x){
+        var t=/^(\d{4})(\d{2})(\d{2})-(\d{2})(\d{2})(\d{2})/.exec(x.name);
+        if(!t) return;
+        var d=new Date(+t[1],t[2]-1,+t[3],+t[4],+t[5],+t[6]).getTime();
+        if(oldest===null||d<oldest) oldest=d;
+      });
+      var mins=oldest===null?0:Math.round((Date.now()-oldest)/60000);
+      el.hidden=false;
+      el.textContent='⏳ 伺服器還有 '+m.length+' 個檔案在排隊'
+        +(mins>=2?('（最早的已經等了 '+(mins>=120?(Math.round(mins/6)/10+' 小時'):(mins+' 分鐘'))+'）'):'')
+        +'，處理完會自動出現在下面。';
+    })
+    .catch(function(){ el.hidden=true; });          // 讀不到就不顯示，不要嚇人
+}
 /* 有在跑就每 5 秒看一次，沒在跑就每 30 秒探一下（成本很低，一個小 JSON） */
 function pgLoop(){
   clearTimeout(pgTimer);
+  pollQueue();
   pollProg().then(function(active){
     pgTimer=setTimeout(pgLoop, active?5000:30000);
   });

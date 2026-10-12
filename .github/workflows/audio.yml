@@ -21,8 +21,14 @@ permissions:
   contents: write
   issues: write
 
+# 自己一個群組。以前 audio／docs／article／pipeline 全擠在 `pipeline`，
+# 而 GitHub 一個群組只容得下「1 個在跑＋1 個排隊」，新排進來的會把舊的排隊取消：
+# 每次上傳同時觸發 audio 與 docs（都監看 inbox/**），兩個互相取消，最後一個又被
+# YouTube 產線的排程取消——實測 9 次上傳 9 次全被取消，檔案一直在暫存區等。
+# 同群組內被取消沒關係：最新那一次的 inbox.py pull 會把所有標記一次撿起來。
+# 同時推 gh-pages 的衝突由發佈步驟的重試迴圈處理（merge 後重建 index.json）。
 concurrency:
-  group: pipeline
+  group: audio
   cancel-in-progress: false
 
 jobs:
@@ -152,6 +158,9 @@ jobs:
             git push origin HEAD:gh-pages && exit 0
             echo "push race, retry $k"; sleep 3
             git fetch origin gh-pages && git merge -X ours origin/gh-pages -m "merge gh-pages" || true
+            # -X ours 會把 index.json 留成「自己這份」，漏掉另一邊剛發佈的篇目。
+            # 合併後照實際檔案重建一次，兩邊的都在。
+            python ../scripts/build_index.py transcripts >/dev/null && git add -A && { git diff --cached --quiet || git commit -q -m "Rebuild index after merge"; } || true
           done
           exit 1
       - name: 完成通知（開 Issue → GitHub App 推播）
