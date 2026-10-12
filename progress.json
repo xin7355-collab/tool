@@ -1,7 +1,7 @@
 {
  "run": "38188757915",
  "state": "running",
- "updated": "2026-10-12T00:39:08Z",
+ "updated": "2026-10-12T00:39:09Z",
  "files": [
   {
    "name": "20261012-080249_〖咖啡沖煮攻略〗你沖咖啡喜歡繞圈圈嗎？一個給新手的簡單繞圈圈沖煮法__ytgUVOiuI-UEY.webm",
@@ -13,9 +13,9 @@
   {
    "name": "20261012-080333_手沖咖啡-繞內圈繞外圈風味差異-元食咖啡-_the_impact_-_coffee_circle_direction-c__ytf0FZazuZK9g.m4a",
    "title": "手沖咖啡-繞內圈繞外圈風味差異-元食咖啡-_the_impact_-_coffee_circle_direction-c",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20261012-080412_往內往外不一樣_手沖咖啡挖洞小技巧_由外往內繞吧__ytoOInL_NLTTw.m4a",
