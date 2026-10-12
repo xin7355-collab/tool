@@ -1,7 +1,6 @@
 # 手沖咖啡-繞內圈繞外圈風味差異-元食咖啡-_the_impact_-_coffee_circle_direction-c
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=f0FZazuZK9g)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：手沖咖啡-繞內圈繞外圈風味差異-元食咖啡- the impact - coffee circle direction-c
 
-
+- 日期：2020-08-13
 
 ---
 
