@@ -1,4 +1,3 @@
 # 訂閱頻道的新片，由 watch_channels.py 自動維護，轉好會自動移除
-eMRkc_sEKA8  # Gooaye 股癌｜EP703 | 🏈
 ZCiJlJ7n_E4  # Gooaye 股癌｜EP704 | 🐘
 qlKNIwKglEg  # Gooaye 股癌｜EP705 | 🎀
