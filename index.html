@@ -602,7 +602,7 @@ var OWNER='xin7355-collab', REPO='tool';
 var API='https://api.github.com/repos/'+OWNER+'/'+REPO;
 /* 版號：每次改版 +1，逢 9 進位（1.0.9 → 1.1.0 → … → 1.9.9 → 2.0.0）。
    舊頁面會拿這個字串比對，發現不一樣就自己重載。 */
-var APP_VER='1.9.1';
+var APP_VER='1.9.2';
 var RAW='https://raw.githubusercontent.com/'+OWNER+'/'+REPO+'/main/scripts/yt2deck.py';
 /* 一定要是「單一指令」：a-Shell 不支援 ; 和 &&，整串會被當成第一個指令的參數
    （畫面上會看到 cd: .../Documents;: no such file or directory）。
@@ -1251,7 +1251,7 @@ function saveSubs(note){
 /* 跟追蹤頻道同一套：瀏覽器只負責「你想抓什麼」，真正去讀 RSS、下載 mp3
    都在 GitHub 那邊做。不在手機上讀 RSS 是因為大部分 Podcast 主機不給跨網域，
    在瀏覽器裡抓十次有八次被擋——而且被擋的錯誤訊息長得像網路不通，很難解釋。 */
-var pod={shows:[],once:[]}, podSha='', podLoaded=false;
+var pod={shows:[],once:[]}, podSha='', podLoaded=false, podSt={};
 function loadPod(){
   var tok=getTok();
   if(!tok) return Promise.resolve();
@@ -1269,7 +1269,29 @@ function loadPod(){
       if(!pod.shows) pod.shows=[];
       if(!pod.once) pod.once=[];
       podLoaded=true; renderPod();
+      return loadPodState();
     }).catch(function(){});
+}
+/* 伺服器那邊每個節目上次抓得怎樣（.podcast-state.json 的 shows）。
+   以前錯誤只印在 Actions 記錄裡，這裡照樣顯示「追蹤中」——一個 SoundOn 節目
+   每一輪都失敗、一集都沒抓到，畫面上看起來卻一切正常。
+   讀不到就當沒有，清單照常顯示。 */
+function loadPodState(){
+  var tok=getTok(); if(!tok) return Promise.resolve();
+  return fetch(API+'/contents/.podcast-state.json?ref=main&_='+Date.now(),
+               {headers:subsH(tok),cache:'no-store'})
+    .then(function(r){ return r.ok?r.json():null; })
+    .then(function(j){
+      try{ podSt=(j&&JSON.parse(unb64utf8(j.content)).shows)||{}; }catch(e){ podSt={}; }
+      renderPod();
+    }).catch(function(){});
+}
+function podStatus(key){
+  var st=podSt[key];
+  if(!st) return '（⏳ 還沒跑過，每 2 小時檢查一次）';
+  if(st.err) return '\n⚠️ 抓不到：'+st.err;
+  var d=(st.ok||'').slice(5,10).replace('-','/');
+  return '（✅ 已轉好 '+(st.got||0)+' 集'+(d?(' · 最近檢查 '+d):'')+'）';
 }
 function savePod(note){
   return putRepoJson('podcast.json', pod, podSha, note||'Update podcasts')
@@ -1281,20 +1303,21 @@ function renderPod(){
   var line=function(txt,onDel){
     var d=document.createElement('div');
     d.style.cssText='display:flex;gap:8px;align-items:center;margin-top:8px;font-size:14px';
-    var t=document.createElement('span'); t.style.cssText='flex:1;color:var(--ink)';
+    var t=document.createElement('span'); t.style.cssText='flex:1;color:var(--ink);white-space:pre-line;word-break:break-all';
     t.textContent=txt; d.appendChild(t);
     var b=document.createElement('button'); b.className='btn btn--sm';
     b.style.cssText='margin:0;flex:0 0 auto;padding:6px 12px'; b.textContent='移除';
     b.onclick=onDel; d.appendChild(b); box.appendChild(d);
   };
   (pod.once||[]).forEach(function(j,i){
-    line('⏳ 排隊中：'+((j&&(j.title||j.url))||j), function(){
+    var u=(j&&j.url)||j;
+    line('⏳ 排隊中：'+((j&&(j.title||j.url))||j)+(podSt[u]&&podSt[u].err?('\n⚠️ 抓不到：'+podSt[u].err):''), function(){
       pod.once.splice(i,1); savePod('Remove podcast job')
         .then(renderPod, function(e){ msg('#podMsg','❌ '+(e.message||e),1); });
     });
   });
   (pod.shows||[]).forEach(function(sh,i){
-    line('📌 追蹤中：'+(sh.name||sh.feed), function(){
+    line('📌 追蹤中：'+(sh.name||sh.feed)+podStatus(sh.feed), function(){
       pod.shows.splice(i,1); savePod('Unsubscribe podcast')
         .then(renderPod, function(e){ msg('#podMsg','❌ '+(e.message||e),1); });
     });
