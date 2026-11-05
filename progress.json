@@ -1,49 +1,35 @@
 {
- "run": "42100744099",
- "state": "done",
- "updated": "2026-11-05T20:43:35Z",
+ "run": "42132293751",
+ "state": "running",
+ "updated": "2026-11-05T23:49:58Z",
  "files": [
   {
-   "name": "20261105-203741_2026-11-04_Gooaye 股癌_EP711 _ 🕊️🐦🦚🦜🦉🦅🐦🐧.mp3",
-   "title": "2026-11-04_Gooaye 股癌_EP711 _ 🕊️🐦🦚🦜🦉🦅🐦🐧",
-   "state": "done",
-   "step": "完成（19673 字）",
-   "pct": 100
+   "name": "20261105-234953_2026-10-14_Gooaye 股癌_EP705 _ 🎀.mp3",
+   "title": "2026-10-14_Gooaye 股癌_EP705 _ 🎀",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20261105-203742_2026-10-31_Gooaye 股癌_EP710 _ 🍒.mp3",
-   "title": "2026-10-31_Gooaye 股癌_EP710 _ 🍒",
-   "state": "done",
-   "step": "完成（19590 字）",
-   "pct": 100
+   "name": "20261105-234954_2026-10-10_Gooaye 股癌_EP704 _ 🐘.mp3",
+   "title": "2026-10-10_Gooaye 股癌_EP704 _ 🐘",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20261105-203743_2026-10-28_Gooaye 股癌_EP709 _ ⭐.mp3",
-   "title": "2026-10-28_Gooaye 股癌_EP709 _ ⭐",
-   "state": "done",
-   "step": "完成（20201 字）",
-   "pct": 100
+   "name": "20261105-234956_2026-10-03_Gooaye 股癌_EP702 _ 🐉.mp3",
+   "title": "2026-10-03_Gooaye 股癌_EP702 _ 🐉",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   },
   {
-   "name": "20261105-203744_2026-10-24_Gooaye 股癌_EP708 _ 🦷.mp3",
-   "title": "2026-10-24_Gooaye 股癌_EP708 _ 🦷",
-   "state": "done",
-   "step": "完成（20614 字）",
-   "pct": 100
-  },
-  {
-   "name": "20261105-203745_2026-10-21_Gooaye 股癌_EP707 _ 🦋.mp3",
-   "title": "2026-10-21_Gooaye 股癌_EP707 _ 🦋",
-   "state": "done",
-   "step": "完成（19766 字）",
-   "pct": 100
-  },
-  {
-   "name": "20261105-203746_2026-10-17_Gooaye 股癌_EP706 _ 👑.mp3",
-   "title": "2026-10-17_Gooaye 股癌_EP706 _ 👑",
-   "state": "done",
-   "step": "完成（20237 字）",
-   "pct": 100
+   "name": "20261105-234956_2026-10-07_Gooaye 股癌_EP703 _ 🏈.mp3",
+   "title": "2026-10-07_Gooaye 股癌_EP703 _ 🏈",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
