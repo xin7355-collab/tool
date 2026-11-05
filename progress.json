@@ -1,14 +1,14 @@
 {
  "run": "42096205335",
  "state": "running",
- "updated": "2026-11-05T19:42:09Z",
+ "updated": "2026-11-05T19:42:12Z",
  "files": [
   {
    "name": "20261106-033949_EP709_⭐️__ytrOxoB0xqfiw.webm",
    "title": "EP709_⭐️",
-   "state": "running",
-   "step": "分類中…",
-   "pct": 96
+   "state": "done",
+   "step": "完成（20054 字）",
+   "pct": 100
   },
   {
    "name": "20261106-034009_EP711_🕊🐦🦚🦜🦉🦅🐦🐧__ytD6bBOFrKf9U.webm",
