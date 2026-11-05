@@ -1,14 +1,14 @@
 {
  "run": "42100744099",
  "state": "running",
- "updated": "2026-11-05T20:37:48Z",
+ "updated": "2026-11-05T20:37:49Z",
  "files": [
   {
    "name": "20261105-203741_2026-11-04_Gooaye 股癌_EP711 _ 🕊️🐦🦚🦜🦉🦅🐦🐧.mp3",
    "title": "2026-11-04_Gooaye 股癌_EP711 _ 🕊️🐦🦚🦜🦉🦅🐦🐧",
-   "state": "waiting",
-   "step": "排隊中",
-   "pct": 0
+   "state": "running",
+   "step": "準備音訊…",
+   "pct": 1
   },
   {
    "name": "20261105-203742_2026-10-31_Gooaye 股癌_EP710 _ 🍒.mp3",
