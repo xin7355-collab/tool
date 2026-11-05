@@ -1,14 +1,49 @@
 {
- "run": "42099638958",
- "state": "done",
- "updated": "2026-11-05T20:37:01Z",
+ "run": "42100744099",
+ "state": "running",
+ "updated": "2026-11-05T20:37:48Z",
  "files": [
   {
-   "name": "20261106-040219_【台股三萬二_國安基金才進場_】2026_11_5(字幕版)__ytpKK56HaMfm0.webm",
-   "title": "【台股三萬二_國安基金才進場_】2026_11_5(字幕版)",
-   "state": "done",
-   "step": "完成（13949 字）",
-   "pct": 100
+   "name": "20261105-203741_2026-11-04_Gooaye 股癌_EP711 _ 🕊️🐦🦚🦜🦉🦅🐦🐧.mp3",
+   "title": "2026-11-04_Gooaye 股癌_EP711 _ 🕊️🐦🦚🦜🦉🦅🐦🐧",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20261105-203742_2026-10-31_Gooaye 股癌_EP710 _ 🍒.mp3",
+   "title": "2026-10-31_Gooaye 股癌_EP710 _ 🍒",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20261105-203743_2026-10-28_Gooaye 股癌_EP709 _ ⭐.mp3",
+   "title": "2026-10-28_Gooaye 股癌_EP709 _ ⭐",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20261105-203744_2026-10-24_Gooaye 股癌_EP708 _ 🦷.mp3",
+   "title": "2026-10-24_Gooaye 股癌_EP708 _ 🦷",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20261105-203745_2026-10-21_Gooaye 股癌_EP707 _ 🦋.mp3",
+   "title": "2026-10-21_Gooaye 股癌_EP707 _ 🦋",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20261105-203746_2026-10-17_Gooaye 股癌_EP706 _ 👑.mp3",
+   "title": "2026-10-17_Gooaye 股癌_EP706 _ 👑",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
