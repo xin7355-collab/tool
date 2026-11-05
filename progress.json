@@ -1,7 +1,7 @@
 {
  "run": "42132293751",
- "state": "running",
- "updated": "2026-11-05T23:54:30Z",
+ "state": "done",
+ "updated": "2026-11-05T23:54:45Z",
  "files": [
   {
    "name": "20261105-234953_2026-10-14_Gooaye 股癌_EP705 _ 🎀.mp3",
@@ -27,9 +27,9 @@
   {
    "name": "20261105-234956_2026-10-07_Gooaye 股癌_EP703 _ 🏈.mp3",
    "title": "2026-10-07_Gooaye 股癌_EP703 _ 🏈",
-   "state": "running",
-   "step": "AI 校對錯字…",
-   "pct": 97
+   "state": "done",
+   "step": "完成（18575 字）",
+   "pct": 100
   }
  ]
 }
