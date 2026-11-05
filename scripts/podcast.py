@@ -55,6 +55,13 @@ def http(url, timeout=60, binary=False):
 # ---------- 認網址 ----------
 
 APPLE = re.compile(r"podcasts?\.apple\.com/.*?/id(\d+)", re.I)
+# SoundOn 的播放頁是 JavaScript 動態畫出來的，伺服器抓到的 HTML 裡沒有 RSS 連結，
+# 下面的 discover() 對它無效——實測一個 SoundOn 節目每一輪都失敗、一集都沒抓到。
+# 但它的 RSS 位址是固定規則：feeds.soundon.fm/podcasts/<節目ID>.xml，
+# 節目 ID 就是播放頁網址裡那串 UUID，直接換就好，不用抓網頁。
+SOUNDON = re.compile(
+    r"(?:player\.)?soundon\.fm/(?:p|podcasts?)/([0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12})",
+    re.I)
 SPOTIFY = re.compile(r"open\.spotify\.com/(show|episode)/", re.I)
 AUDIO_URL = re.compile(r"\.(mp3|m4a|aac|ogg|opus|wav|flac)(\?|#|$)", re.I)
 
@@ -74,6 +81,9 @@ def resolve(url):
     m = APPLE.search(u)
     if m:
         return "feed", apple_feed(m.group(1))
+    m = SOUNDON.search(u)
+    if m and "feeds.soundon.fm" not in u.lower():
+        return "feed", "https://feeds.soundon.fm/podcasts/%s.xml" % m.group(1).lower()
     if AUDIO_URL.search(u):
         return "audio", u
     if not u.lower().startswith(("http://", "https://")):
@@ -313,6 +323,18 @@ def fetch():
     state = load(STATE_FILE, {})
     done = set(state.get("done") or [])
     pending = {}
+    # 每個節目／連結上次抓得怎樣。錯誤以前只印在 Actions 的記錄裡，App 上照樣
+    # 顯示「追蹤中」，看起來一切正常——實際上那個節目從來沒成功過一次。
+    status = state.get("shows") or {}
+
+    def mark(key, err=""):
+        st = status.setdefault(key, {})
+        st["at"] = time.strftime("%Y-%m-%d %H:%M")
+        if err:
+            st["err"] = str(err)[:160]
+        else:
+            st.pop("err", None)
+            st["ok"] = st["at"]
     shows = want.get("shows") or []
     once = want.get("once") or []
     if not shows and not once:
@@ -338,7 +360,7 @@ def fetch():
                     print("  已經抓過：%s" % ep["title"][:40]); once.remove(job); continue
                 dest, n = download(ep, "", lang)
                 print("  ⬇ %s（%.1fMB）" % (os.path.basename(dest), n / 1048576.0), flush=True)
-                pending[ep["guid"]] = {"path": dest, "once": job}; got += 1
+                pending[ep["guid"]] = {"path": dest, "once": job, "show": u}; got += 1
             else:
                 show, eps = feed_episodes(target)
                 fresh = [e for e in eps if e["guid"] not in done and e["guid"] not in pending][:n_want]
@@ -349,12 +371,13 @@ def fetch():
                         break
                     dest, n = download(e, show, lang)
                     print("  ⬇ %s（%.1fMB）" % (os.path.basename(dest), n / 1048576.0), flush=True)
-                    pending[e["guid"]] = {"path": dest, "once": job}; got += 1
+                    pending[e["guid"]] = {"path": dest, "once": job, "show": u}; got += 1
             once.remove(job)
+            mark(u)
         except PodcastError as e:
-            fails.append("%s：%s" % (str(u)[:50], e))
+            fails.append("%s：%s" % (str(u)[:50], e)); mark(u, e)
         except Exception as e:
-            fails.append("%s：%s" % (str(u)[:50], str(e)[:80]))
+            fails.append("%s：%s" % (str(u)[:50], str(e)[:80])); mark(u, str(e)[:80])
 
     # 2. 訂閱的節目：每次只抓「上次之後新出的」
     for sh in shows:
@@ -367,10 +390,12 @@ def fetch():
             kind, target = resolve(url)
             show, eps = feed_episodes(target)
         except PodcastError as e:
-            fails.append("%s：%s" % ((sh.get("name") or url)[:40], e)); continue
+            fails.append("%s：%s" % ((sh.get("name") or url)[:40], e)); mark(url, e); continue
         except Exception as e:
-            fails.append("%s：%s" % ((sh.get("name") or url)[:40], str(e)[:80])); continue
+            fails.append("%s：%s" % ((sh.get("name") or url)[:40], str(e)[:80]))
+            mark(url, str(e)[:80]); continue
         sh["name"] = sh.get("name") or show
+        mark(url)
         first = not sh.get("seen")
         fresh = [e for e in eps if e["guid"] not in done]
         if first:
@@ -391,12 +416,14 @@ def fetch():
             try:
                 dest, n = download(e, show, lang)
                 print("  ⬇ %s（%.1fMB）" % (os.path.basename(dest), n / 1048576.0), flush=True)
-                pending[e["guid"]] = {"path": dest}; got += 1
+                pending[e["guid"]] = {"path": dest, "show": url}; got += 1
             except Exception as e2:
                 fails.append("%s：%s" % (e["title"][:40], str(e2)[:80]))
+                mark(url, "《%s》下載失敗：%s" % (e["title"][:30], str(e2)[:80]))
 
     state["done"] = sorted(done)
     state["pending"] = pending
+    state["shows"] = status
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, ensure_ascii=False, indent=1)
     want["once"] = once
@@ -433,6 +460,10 @@ def commit(processed_file="out/_processed.txt"):
         path = info.get("path") if isinstance(info, dict) else info
         if path in ok_paths:
             done.add(gid); good += 1
+            key = info.get("show") if isinstance(info, dict) else None
+            if key:
+                st = (state.setdefault("shows", {})).setdefault(key, {})
+                st["got"] = int(st.get("got") or 0) + 1
         else:
             job = info.get("once") if isinstance(info, dict) else None
             if job and job not in once:
@@ -534,6 +565,13 @@ def selftest():
         ck("Spotify" in str(e), "Spotify 要明確拒絕並說明原因", e)
 
     ck(resolve("https://cdn.x.test/ep.mp3")[0] == "audio", "單集 mp3 網址")
+    sd = "https://feeds.soundon.fm/podcasts/954689a5-3096-43a4-a80b-7810b219cef3.xml"
+    for u in ("https://player.soundon.fm/p/954689a5-3096-43a4-a80b-7810b219cef3",
+              "https://player.soundon.fm/p/954689A5-3096-43A4-A80B-7810B219CEF3/episodes/"
+              "11111111-2222-3333-4444-555555555555",
+              "https://www.soundon.fm/podcasts/954689a5-3096-43a4-a80b-7810b219cef3"):
+        ck(resolve(u) == ("feed", sd), "SoundOn 播放頁直接換成 RSS：" + u[8:40], resolve(u))
+    ck(resolve(sd) == ("feed", sd), "已經是 SoundOn RSS 就原樣用", resolve(sd))
     ck(resolve("https://feeds.x.test/rss")[0] == "feed", "一般 RSS 網址")
     try:
         resolve("這不是網址")
