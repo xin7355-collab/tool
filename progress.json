@@ -1,14 +1,14 @@
 {
- "run": "42358655844",
- "state": "done",
- "updated": "2026-11-07T09:12:11Z",
+ "run": "42998218789",
+ "state": "running",
+ "updated": "2026-11-11T09:48:43Z",
  "files": [
   {
-   "name": "20261107-091150_2026-11-07_Gooaye 股癌_EP712 _ 🦌.mp3",
-   "title": "2026-11-07_Gooaye 股癌_EP712 _ 🦌",
-   "state": "done",
-   "step": "完成（21251 字）",
-   "pct": 100
+   "name": "20261111-094841_2026-11-11_Gooaye 股癌_EP713 _ 🌲.mp3",
+   "title": "2026-11-11_Gooaye 股癌_EP713 _ 🌲",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
