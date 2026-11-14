@@ -1,7 +1,6 @@
 # 咖啡養豆，養什麼_-元食咖啡-raising_beans-exhaust_air_to_raise_beans-What
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=XczGuyrXlmg)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,10 +13,10 @@
 
 - 短標題：咖啡養豆，養什麼 -元食咖啡-raising beans-exhaust air to raise beans-What
 
+- 日期：2020-07-09
 
 
 ## 摘要
-
 
 
 **一句話**：咖啡豆烘焙後需氧化，才能釋放氣體與雜味，提升風味。  
@@ -29,8 +28,6 @@
 - 二氧化碳排放與風味峰值大致相近，但因烘焙手法與豆子特性不同，兩者不一定同步。  
 - 不要在店內擠壓咖啡豆袋，會破壞豆子、改變內部壓力，影響品質與店家信用。  
 - 購買新鮮烘焙豆時，請向烘豆師或店家詢問最佳開封時間，讓豆子有足夠養豆期以達到最佳風味。
-
-
 
 ---
 

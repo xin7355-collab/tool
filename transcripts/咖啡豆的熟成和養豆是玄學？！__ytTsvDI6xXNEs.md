@@ -1,7 +1,6 @@
 # 咖啡豆的熟成和養豆是玄學？！
 
 
-
 - 來源：[YouTube 影片](https://www.youtube.com/watch?v=TsvDI6xXNEs)
 
 - 辨識：Groq:whisper-large-v3-turbo
@@ -14,7 +13,7 @@
 
 - 短標題：咖啡豆的熟成和養豆是玄學
 
-
+- 日期：2024-02-20
 
 ---
 
