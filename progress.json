@@ -1,7 +1,7 @@
 {
  "run": "43548074445",
  "state": "running",
- "updated": "2026-11-14T02:47:35Z",
+ "updated": "2026-11-14T02:48:03Z",
  "files": [
   {
    "name": "20261114-104545_咖啡養豆，養什麼_-元食咖啡-raising_beans-exhaust_air_to_raise_beans-What__ytXczGuyrXlmg.m4a",
@@ -21,8 +21,8 @@
    "name": "20261114-104558_哈囉老闆_養豆是要養多久？_字幕要開！補充在裡面__yt3ynoxgAPPnE.m4a",
    "title": "哈囉老闆_養豆是要養多久？_字幕要開！補充在裡面",
    "state": "running",
-   "step": "準備音訊…",
-   "pct": 1
+   "step": "AI 校對錯字…",
+   "pct": 97
   }
  ]
 }
