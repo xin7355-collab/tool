@@ -1,14 +1,28 @@
 {
- "run": "42998218789",
- "state": "done",
- "updated": "2026-11-11T09:50:33Z",
+ "run": "43548074445",
+ "state": "running",
+ "updated": "2026-11-14T02:46:46Z",
  "files": [
   {
-   "name": "20261111-094841_2026-11-11_Gooaye 股癌_EP713 _ 🌲.mp3",
-   "title": "2026-11-11_Gooaye 股癌_EP713 _ 🌲",
-   "state": "done",
-   "step": "完成（20809 字）",
-   "pct": 100
+   "name": "20261114-104545_咖啡養豆，養什麼_-元食咖啡-raising_beans-exhaust_air_to_raise_beans-What__ytXczGuyrXlmg.m4a",
+   "title": "咖啡養豆，養什麼_-元食咖啡-raising_beans-exhaust_air_to_raise_beans-What",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20261114-104552_什么是咖啡养豆？新买的咖啡豆需要养豆吗？养豆会更好喝吗？_牛小咖MumaMoo__ytR2vbRH69p8w.m4a",
+   "title": "什么是咖啡养豆？新买的咖啡豆需要养豆吗？养豆会更好喝吗？_牛小咖MumaMoo",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
+  },
+  {
+   "name": "20261114-104558_哈囉老闆_養豆是要養多久？_字幕要開！補充在裡面__yt3ynoxgAPPnE.m4a",
+   "title": "哈囉老闆_養豆是要養多久？_字幕要開！補充在裡面",
+   "state": "waiting",
+   "step": "排隊中",
+   "pct": 0
   }
  ]
 }
