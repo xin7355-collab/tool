@@ -1,14 +1,14 @@
 {
  "run": "45606551673",
  "state": "running",
- "updated": "2026-11-25T11:40:51Z",
+ "updated": "2026-11-25T11:42:07Z",
  "files": [
   {
    "name": "20261125-114037_2026-11-25_Gooaye 股癌_EP717 _ 🦪.mp3",
    "title": "2026-11-25_Gooaye 股癌_EP717 _ 🦪",
    "state": "running",
-   "step": "轉錄中 6/6 段完成",
-   "pct": 90
+   "step": "分類中…",
+   "pct": 96
   }
  ]
 }
