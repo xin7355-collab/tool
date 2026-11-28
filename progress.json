@@ -1,14 +1,14 @@
 {
  "run": "46150024967",
  "state": "running",
- "updated": "2026-11-28T13:33:18Z",
+ "updated": "2026-11-28T13:33:46Z",
  "files": [
   {
    "name": "20261128-133144_2026-11-28_Gooaye 股癌_EP718 _ 🦝.mp3",
    "title": "2026-11-28_Gooaye 股癌_EP718 _ 🦝",
    "state": "running",
-   "step": "分類中…",
-   "pct": 96
+   "step": "AI 校對錯字…",
+   "pct": 97
   }
  ]
 }
